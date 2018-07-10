@@ -1,0 +1,969 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WelcomeCategories should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <WelcomeCategories />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <div
+          className="welcome-categories-header"
+>
+          Browse our catalog of tools ready to deploy to ChRIS
+</div>,
+        <div
+          className="welcome-categories-container"
+>
+          <WelcomeCategory
+                    category={
+                              Object {
+                                        "items": Array [
+                                          Object {
+                                            "desc": "Lorem ipsum dolor",
+                                            "img": "amilab_90.png",
+                                            "name": "AMILab",
+                                            "tags": Array [
+                                              "TAG1",
+                                              "TAG2",
+                                            ],
+                                          },
+                                          Object {
+                                            "desc": "Lorem ipsum dolor",
+                                            "img": "brainbrowser_90.png",
+                                            "name": "BrainBrowser",
+                                            "tags": Array [
+                                              "TAG1",
+                                              "TAG2",
+                                            ],
+                                          },
+                                          Object {
+                                            "desc": "Lorem ipsum dolor",
+                                            "img": "connectomeviewer_90.png",
+                                            "name": "Connectome Viewer",
+                                            "tags": Array [
+                                              "TAG1",
+                                              "TAG2",
+                                            ],
+                                          },
+                                          Object {
+                                            "desc": "Lorem ipsum dolor",
+                                            "img": "mricros_90.png",
+                                            "name": "MRIcroS",
+                                            "tags": Array [
+                                              "TAG1",
+                                              "TAG2",
+                                            ],
+                                          },
+                                        ],
+                                        "name": "Visualization",
+                                      }
+                    }
+          />
+          <WelcomeCategory
+                    category={
+                              Object {
+                                        "items": Array [
+                                          Object {
+                                            "desc": "Lorem ipsum dolor",
+                                            "img": "brainsuite_90.png",
+                                            "name": "BrainSuite",
+                                            "tags": Array [
+                                              "TAG1",
+                                              "TAG2",
+                                            ],
+                                          },
+                                          Object {
+                                            "desc": "Lorem ipsum dolor",
+                                            "img": "fsl_90.png",
+                                            "name": "FMRIB Software Library",
+                                            "tags": Array [
+                                              "TAG1",
+                                              "TAG2",
+                                            ],
+                                          },
+                                          Object {
+                                            "desc": "Lorem ipsum dolor",
+                                            "img": "ielectrodes_90.png",
+                                            "name": "iElectrodes",
+                                            "tags": Array [
+                                              "TAG1",
+                                              "TAG2",
+                                            ],
+                                          },
+                                          Object {
+                                            "desc": "Lorem ipsum dolor",
+                                            "img": "leaddbs_90.png",
+                                            "name": "LEAD-DBS",
+                                            "tags": Array [
+                                              "TAG1",
+                                              "TAG2",
+                                            ],
+                                          },
+                                        ],
+                                        "name": "Modeling",
+                                      }
+                    }
+          />
+          <WelcomeCategory
+                    category={
+                              Object {
+                                        "items": Array [
+                                          Object {
+                                            "desc": "Lorem ipsum dolor",
+                                            "img": "besa_90.png",
+                                            "name": "BESA",
+                                            "tags": Array [
+                                              "TAG1",
+                                              "TAG2",
+                                            ],
+                                          },
+                                          Object {
+                                            "desc": "Lorem ipsum dolor",
+                                            "img": "biosig_90.png",
+                                            "name": "BioSig",
+                                            "tags": Array [
+                                              "TAG1",
+                                              "TAG2",
+                                            ],
+                                          },
+                                          Object {
+                                            "desc": "Lorem ipsum dolor",
+                                            "img": "cleave_90.png",
+                                            "name": "Cleave",
+                                            "tags": Array [
+                                              "TAG1",
+                                              "TAG2",
+                                            ],
+                                          },
+                                          Object {
+                                            "desc": "Lorem ipsum dolor",
+                                            "img": "mango_90.png",
+                                            "name": "Mango",
+                                            "tags": Array [
+                                              "TAG1",
+                                              "TAG2",
+                                            ],
+                                          },
+                                        ],
+                                        "name": "Statistical Operation",
+                                      }
+                    }
+          />
+</div>,
+      ],
+      "className": "welcome-categories",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "Browse our catalog of tools ready to deploy to ChRIS",
+          "className": "welcome-categories-header",
+        },
+        "ref": null,
+        "rendered": "Browse our catalog of tools ready to deploy to ChRIS",
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <WelcomeCategory
+              category={
+                            Object {
+                                          "items": Array [
+                                            Object {
+                                              "desc": "Lorem ipsum dolor",
+                                              "img": "amilab_90.png",
+                                              "name": "AMILab",
+                                              "tags": Array [
+                                                "TAG1",
+                                                "TAG2",
+                                              ],
+                                            },
+                                            Object {
+                                              "desc": "Lorem ipsum dolor",
+                                              "img": "brainbrowser_90.png",
+                                              "name": "BrainBrowser",
+                                              "tags": Array [
+                                                "TAG1",
+                                                "TAG2",
+                                              ],
+                                            },
+                                            Object {
+                                              "desc": "Lorem ipsum dolor",
+                                              "img": "connectomeviewer_90.png",
+                                              "name": "Connectome Viewer",
+                                              "tags": Array [
+                                                "TAG1",
+                                                "TAG2",
+                                              ],
+                                            },
+                                            Object {
+                                              "desc": "Lorem ipsum dolor",
+                                              "img": "mricros_90.png",
+                                              "name": "MRIcroS",
+                                              "tags": Array [
+                                                "TAG1",
+                                                "TAG2",
+                                              ],
+                                            },
+                                          ],
+                                          "name": "Visualization",
+                                        }
+              }
+/>,
+            <WelcomeCategory
+              category={
+                            Object {
+                                          "items": Array [
+                                            Object {
+                                              "desc": "Lorem ipsum dolor",
+                                              "img": "brainsuite_90.png",
+                                              "name": "BrainSuite",
+                                              "tags": Array [
+                                                "TAG1",
+                                                "TAG2",
+                                              ],
+                                            },
+                                            Object {
+                                              "desc": "Lorem ipsum dolor",
+                                              "img": "fsl_90.png",
+                                              "name": "FMRIB Software Library",
+                                              "tags": Array [
+                                                "TAG1",
+                                                "TAG2",
+                                              ],
+                                            },
+                                            Object {
+                                              "desc": "Lorem ipsum dolor",
+                                              "img": "ielectrodes_90.png",
+                                              "name": "iElectrodes",
+                                              "tags": Array [
+                                                "TAG1",
+                                                "TAG2",
+                                              ],
+                                            },
+                                            Object {
+                                              "desc": "Lorem ipsum dolor",
+                                              "img": "leaddbs_90.png",
+                                              "name": "LEAD-DBS",
+                                              "tags": Array [
+                                                "TAG1",
+                                                "TAG2",
+                                              ],
+                                            },
+                                          ],
+                                          "name": "Modeling",
+                                        }
+              }
+/>,
+            <WelcomeCategory
+              category={
+                            Object {
+                                          "items": Array [
+                                            Object {
+                                              "desc": "Lorem ipsum dolor",
+                                              "img": "besa_90.png",
+                                              "name": "BESA",
+                                              "tags": Array [
+                                                "TAG1",
+                                                "TAG2",
+                                              ],
+                                            },
+                                            Object {
+                                              "desc": "Lorem ipsum dolor",
+                                              "img": "biosig_90.png",
+                                              "name": "BioSig",
+                                              "tags": Array [
+                                                "TAG1",
+                                                "TAG2",
+                                              ],
+                                            },
+                                            Object {
+                                              "desc": "Lorem ipsum dolor",
+                                              "img": "cleave_90.png",
+                                              "name": "Cleave",
+                                              "tags": Array [
+                                                "TAG1",
+                                                "TAG2",
+                                              ],
+                                            },
+                                            Object {
+                                              "desc": "Lorem ipsum dolor",
+                                              "img": "mango_90.png",
+                                              "name": "Mango",
+                                              "tags": Array [
+                                                "TAG1",
+                                                "TAG2",
+                                              ],
+                                            },
+                                          ],
+                                          "name": "Statistical Operation",
+                                        }
+              }
+/>,
+          ],
+          "className": "welcome-categories-container",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": "Visualization",
+            "nodeType": "function",
+            "props": Object {
+              "category": Object {
+                "items": Array [
+                  Object {
+                    "desc": "Lorem ipsum dolor",
+                    "img": "amilab_90.png",
+                    "name": "AMILab",
+                    "tags": Array [
+                      "TAG1",
+                      "TAG2",
+                    ],
+                  },
+                  Object {
+                    "desc": "Lorem ipsum dolor",
+                    "img": "brainbrowser_90.png",
+                    "name": "BrainBrowser",
+                    "tags": Array [
+                      "TAG1",
+                      "TAG2",
+                    ],
+                  },
+                  Object {
+                    "desc": "Lorem ipsum dolor",
+                    "img": "connectomeviewer_90.png",
+                    "name": "Connectome Viewer",
+                    "tags": Array [
+                      "TAG1",
+                      "TAG2",
+                    ],
+                  },
+                  Object {
+                    "desc": "Lorem ipsum dolor",
+                    "img": "mricros_90.png",
+                    "name": "MRIcroS",
+                    "tags": Array [
+                      "TAG1",
+                      "TAG2",
+                    ],
+                  },
+                ],
+                "name": "Visualization",
+              },
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": "Modeling",
+            "nodeType": "function",
+            "props": Object {
+              "category": Object {
+                "items": Array [
+                  Object {
+                    "desc": "Lorem ipsum dolor",
+                    "img": "brainsuite_90.png",
+                    "name": "BrainSuite",
+                    "tags": Array [
+                      "TAG1",
+                      "TAG2",
+                    ],
+                  },
+                  Object {
+                    "desc": "Lorem ipsum dolor",
+                    "img": "fsl_90.png",
+                    "name": "FMRIB Software Library",
+                    "tags": Array [
+                      "TAG1",
+                      "TAG2",
+                    ],
+                  },
+                  Object {
+                    "desc": "Lorem ipsum dolor",
+                    "img": "ielectrodes_90.png",
+                    "name": "iElectrodes",
+                    "tags": Array [
+                      "TAG1",
+                      "TAG2",
+                    ],
+                  },
+                  Object {
+                    "desc": "Lorem ipsum dolor",
+                    "img": "leaddbs_90.png",
+                    "name": "LEAD-DBS",
+                    "tags": Array [
+                      "TAG1",
+                      "TAG2",
+                    ],
+                  },
+                ],
+                "name": "Modeling",
+              },
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": "Statistical Operation",
+            "nodeType": "function",
+            "props": Object {
+              "category": Object {
+                "items": Array [
+                  Object {
+                    "desc": "Lorem ipsum dolor",
+                    "img": "besa_90.png",
+                    "name": "BESA",
+                    "tags": Array [
+                      "TAG1",
+                      "TAG2",
+                    ],
+                  },
+                  Object {
+                    "desc": "Lorem ipsum dolor",
+                    "img": "biosig_90.png",
+                    "name": "BioSig",
+                    "tags": Array [
+                      "TAG1",
+                      "TAG2",
+                    ],
+                  },
+                  Object {
+                    "desc": "Lorem ipsum dolor",
+                    "img": "cleave_90.png",
+                    "name": "Cleave",
+                    "tags": Array [
+                      "TAG1",
+                      "TAG2",
+                    ],
+                  },
+                  Object {
+                    "desc": "Lorem ipsum dolor",
+                    "img": "mango_90.png",
+                    "name": "Mango",
+                    "tags": Array [
+                      "TAG1",
+                      "TAG2",
+                    ],
+                  },
+                ],
+                "name": "Statistical Operation",
+              },
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+        ],
+        "type": "div",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="welcome-categories-header"
+>
+            Browse our catalog of tools ready to deploy to ChRIS
+</div>,
+          <div
+            className="welcome-categories-container"
+>
+            <WelcomeCategory
+                        category={
+                                    Object {
+                                                "items": Array [
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "amilab_90.png",
+                                                    "name": "AMILab",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "brainbrowser_90.png",
+                                                    "name": "BrainBrowser",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "connectomeviewer_90.png",
+                                                    "name": "Connectome Viewer",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "mricros_90.png",
+                                                    "name": "MRIcroS",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                ],
+                                                "name": "Visualization",
+                                              }
+                        }
+            />
+            <WelcomeCategory
+                        category={
+                                    Object {
+                                                "items": Array [
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "brainsuite_90.png",
+                                                    "name": "BrainSuite",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "fsl_90.png",
+                                                    "name": "FMRIB Software Library",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "ielectrodes_90.png",
+                                                    "name": "iElectrodes",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "leaddbs_90.png",
+                                                    "name": "LEAD-DBS",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                ],
+                                                "name": "Modeling",
+                                              }
+                        }
+            />
+            <WelcomeCategory
+                        category={
+                                    Object {
+                                                "items": Array [
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "besa_90.png",
+                                                    "name": "BESA",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "biosig_90.png",
+                                                    "name": "BioSig",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "cleave_90.png",
+                                                    "name": "Cleave",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "mango_90.png",
+                                                    "name": "Mango",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                ],
+                                                "name": "Statistical Operation",
+                                              }
+                        }
+            />
+</div>,
+        ],
+        "className": "welcome-categories",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Browse our catalog of tools ready to deploy to ChRIS",
+            "className": "welcome-categories-header",
+          },
+          "ref": null,
+          "rendered": "Browse our catalog of tools ready to deploy to ChRIS",
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <WelcomeCategory
+                category={
+                                Object {
+                                                "items": Array [
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "amilab_90.png",
+                                                    "name": "AMILab",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "brainbrowser_90.png",
+                                                    "name": "BrainBrowser",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "connectomeviewer_90.png",
+                                                    "name": "Connectome Viewer",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "mricros_90.png",
+                                                    "name": "MRIcroS",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                ],
+                                                "name": "Visualization",
+                                              }
+                }
+/>,
+              <WelcomeCategory
+                category={
+                                Object {
+                                                "items": Array [
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "brainsuite_90.png",
+                                                    "name": "BrainSuite",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "fsl_90.png",
+                                                    "name": "FMRIB Software Library",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "ielectrodes_90.png",
+                                                    "name": "iElectrodes",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "leaddbs_90.png",
+                                                    "name": "LEAD-DBS",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                ],
+                                                "name": "Modeling",
+                                              }
+                }
+/>,
+              <WelcomeCategory
+                category={
+                                Object {
+                                                "items": Array [
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "besa_90.png",
+                                                    "name": "BESA",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "biosig_90.png",
+                                                    "name": "BioSig",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "cleave_90.png",
+                                                    "name": "Cleave",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                  Object {
+                                                    "desc": "Lorem ipsum dolor",
+                                                    "img": "mango_90.png",
+                                                    "name": "Mango",
+                                                    "tags": Array [
+                                                      "TAG1",
+                                                      "TAG2",
+                                                    ],
+                                                  },
+                                                ],
+                                                "name": "Statistical Operation",
+                                              }
+                }
+/>,
+            ],
+            "className": "welcome-categories-container",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": "Visualization",
+              "nodeType": "function",
+              "props": Object {
+                "category": Object {
+                  "items": Array [
+                    Object {
+                      "desc": "Lorem ipsum dolor",
+                      "img": "amilab_90.png",
+                      "name": "AMILab",
+                      "tags": Array [
+                        "TAG1",
+                        "TAG2",
+                      ],
+                    },
+                    Object {
+                      "desc": "Lorem ipsum dolor",
+                      "img": "brainbrowser_90.png",
+                      "name": "BrainBrowser",
+                      "tags": Array [
+                        "TAG1",
+                        "TAG2",
+                      ],
+                    },
+                    Object {
+                      "desc": "Lorem ipsum dolor",
+                      "img": "connectomeviewer_90.png",
+                      "name": "Connectome Viewer",
+                      "tags": Array [
+                        "TAG1",
+                        "TAG2",
+                      ],
+                    },
+                    Object {
+                      "desc": "Lorem ipsum dolor",
+                      "img": "mricros_90.png",
+                      "name": "MRIcroS",
+                      "tags": Array [
+                        "TAG1",
+                        "TAG2",
+                      ],
+                    },
+                  ],
+                  "name": "Visualization",
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": "Modeling",
+              "nodeType": "function",
+              "props": Object {
+                "category": Object {
+                  "items": Array [
+                    Object {
+                      "desc": "Lorem ipsum dolor",
+                      "img": "brainsuite_90.png",
+                      "name": "BrainSuite",
+                      "tags": Array [
+                        "TAG1",
+                        "TAG2",
+                      ],
+                    },
+                    Object {
+                      "desc": "Lorem ipsum dolor",
+                      "img": "fsl_90.png",
+                      "name": "FMRIB Software Library",
+                      "tags": Array [
+                        "TAG1",
+                        "TAG2",
+                      ],
+                    },
+                    Object {
+                      "desc": "Lorem ipsum dolor",
+                      "img": "ielectrodes_90.png",
+                      "name": "iElectrodes",
+                      "tags": Array [
+                        "TAG1",
+                        "TAG2",
+                      ],
+                    },
+                    Object {
+                      "desc": "Lorem ipsum dolor",
+                      "img": "leaddbs_90.png",
+                      "name": "LEAD-DBS",
+                      "tags": Array [
+                        "TAG1",
+                        "TAG2",
+                      ],
+                    },
+                  ],
+                  "name": "Modeling",
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": "Statistical Operation",
+              "nodeType": "function",
+              "props": Object {
+                "category": Object {
+                  "items": Array [
+                    Object {
+                      "desc": "Lorem ipsum dolor",
+                      "img": "besa_90.png",
+                      "name": "BESA",
+                      "tags": Array [
+                        "TAG1",
+                        "TAG2",
+                      ],
+                    },
+                    Object {
+                      "desc": "Lorem ipsum dolor",
+                      "img": "biosig_90.png",
+                      "name": "BioSig",
+                      "tags": Array [
+                        "TAG1",
+                        "TAG2",
+                      ],
+                    },
+                    Object {
+                      "desc": "Lorem ipsum dolor",
+                      "img": "cleave_90.png",
+                      "name": "Cleave",
+                      "tags": Array [
+                        "TAG1",
+                        "TAG2",
+                      ],
+                    },
+                    Object {
+                      "desc": "Lorem ipsum dolor",
+                      "img": "mango_90.png",
+                      "name": "Mango",
+                      "tags": Array [
+                        "TAG1",
+                        "TAG2",
+                      ],
+                    },
+                  ],
+                  "name": "Statistical Operation",
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+          ],
+          "type": "div",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

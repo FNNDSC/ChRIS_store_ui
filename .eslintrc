@@ -1,0 +1,13 @@
+{
+  "extends": "airbnb",
+  "env": {
+    "node": true,
+    "jest": true,
+    "browser": true,
+    "es6": true
+  },
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.js", "**/*.spec.js", "./src/setupTests.js"]}]
+  }
+}

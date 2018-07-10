@@ -1,0 +1,45 @@
+.plugins-categories {
+  /* display */
+  padding: 0 1em 0;
+  
+  /* flex */
+  flex: 1;
+}
+
+.plugins-categories-header {
+  /* color */
+  color: var(--pf-black-700);
+
+  /* display */
+  margin-top: 22px;
+  padding-bottom: 0.25em;
+  margin-bottom: 0.5em;
+
+  /* font */
+  font-size: 2em;
+  font-weight: 600;
+  
+  /* border */
+  border-bottom: 3px solid var(--pf-black-700);
+}
+
+.plugins-category {
+  /* color */
+  color: var(--pf-blue-400);
+
+  /* display */
+  display: flex;
+  padding-bottom: 0.5em;
+  
+  /* font */
+  font-size: 1.4em;
+  font-weight: 600;
+  line-height: 1.2;
+
+  /* other */
+  cursor: pointer;
+}
+
+.plugins-category-name { flex: 1; }
+
+.plugins-category-length { padding-left: 1em; }

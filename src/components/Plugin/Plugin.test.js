@@ -1,0 +1,236 @@
+import React from 'react';
+import { shallow } from 'enzyme';
+import Plugin from './Plugin';
+
+describe('Plugin', () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallow(<Plugin />);
+  });
+
+  it('should render correctly', () => {
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should render a plugin div', () => {
+    expect(wrapper.find('div.plugin')).toHaveLength(1);
+  });
+
+  /* ============================== */
+  /* ==== FETCH PLUGIN DATA FN ==== */
+  /* ============================== */
+
+  it('should have fn fetchPluginData', () => {
+    const { fetchPluginData } = wrapper.instance();
+    expect(fetchPluginData).toBeDefined();
+  });
+
+  it('should be able to fetch plugin data', () => {
+    const { fetchPluginData } = wrapper.instance();
+
+    wrapper.setProps({
+      match: {
+        params: {
+          plugin: 'dircopy',
+        },
+      },
+    });
+
+    return fetchPluginData().then((pluginData) => {
+      expect(pluginData).toBeDefined();
+      expect(pluginData.data.name).toEqual('dircopy');
+    });
+  });
+});
+
+/* ============================== */
+/* ===== WITHOUT PLUGIN DATA ==== */
+/* ============================== */
+
+describe('Plugin without data', () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallow(<Plugin />);
+  });
+
+  it('should render drawer-pf-loading div', () => {
+    expect(wrapper.find('div.drawer-pf-loading')).toHaveLength(1);
+  });
+
+  it('should render spinner span inside of loading div', () => {
+    expect(wrapper
+      .find('div.drawer-pf-loading')
+      .find('span.spinner'))
+      .toHaveLength(1);
+  });
+});
+
+/* ============================== */
+/* ====== WITH PLUGIN DATA ====== */
+/* ============================== */
+
+const sampleData = {
+  pluginData: {
+    data: {
+      modification_date: '3/14/15',
+      version: '0.1',
+      authors: 'testAuthor (user@domain.com)',
+    },
+  },
+};
+
+describe('Plugin with data', () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallow(<Plugin />);
+    wrapper.setState(sampleData);
+  });
+
+  it('should render a plugin-name Link', () => {
+    expect(wrapper.find('Link.plugin-name')).toHaveLength(1);
+  });
+
+  it('should render plugin name', () => {
+    wrapper.setProps({
+      match: {
+        params: {
+          plugin: 'testName',
+        },
+      },
+    });
+
+    expect(wrapper
+      .find('.plugin-name')
+      .childAt(0)
+      .text())
+      .toEqual('testName');
+  });
+
+  it('plugin-name Link should render correct "to" and "href" props', () => {
+    wrapper.setProps({
+      match: {
+        params: {
+          plugin: 'testName',
+        },
+      },
+    });
+
+    const link = wrapper.find('Link.plugin-name');
+    const whatItShould = '/plugin/testName';
+    expect(link.prop('to')).toEqual(whatItShould);
+    expect(link.prop('href')).toEqual(whatItShould);
+  });
+
+  it('should render plugin-modified div', () => {
+    expect(wrapper.find('div.plugin-modified')).toHaveLength(1);
+  });
+
+  it('should render plugin-modified div if valid date is provided', () => {
+    Date.now = jest.fn(() => 1530814238992);
+    const changedData = Object.assign({}, sampleData);
+    changedData.pluginData.data.modification_date = '2018-06-19T15:29:11.349272Z';
+    wrapper.setState(changedData);
+
+    expect(wrapper
+      .find('div.plugin-modified')
+      .text())
+      .toEqual('Last modified 16 days ago');
+  });
+
+  it('should not render plugin-modified if invalid date is provided', () => {
+    const changedData = Object.assign({}, sampleData);
+    changedData.pluginData.data.modification_date = 'invalid date';
+
+    wrapper.setState(changedData);
+
+    expect(wrapper.find('div.plugin-modified')).toHaveLength(0);
+  });
+
+  it('should render plugin-stats div', () => {
+    expect(wrapper.find('div.plugin-stats')).toHaveLength(1);
+  });
+
+  it('should render plugin-version div inside plugin-stats', () => {
+    expect(wrapper
+      .find('div.plugin-stats')
+      .find('div.plugin-version'))
+      .toHaveLength(1);
+  });
+
+  it('should render correct plugin version inside plugin-version div', () => {
+    const changedData = Object.assign({}, sampleData);
+    changedData.pluginData.data.version = 'testVersion';
+    wrapper.setState(changedData);
+
+    expect(wrapper
+      .find('div.plugin-version')
+      .text())
+      .toEqual('vtestVersion');
+  });
+
+  it('should render plugin-created div inside plugin-stats', () => {
+    expect(wrapper
+      .find('div.plugin-stats')
+      .find('div.plugin-created'))
+      .toHaveLength(1);
+  });
+
+  it('should render Link inside plugin-created', () => {
+    expect(wrapper
+      .find('div.plugin-created')
+      .find('Link.plugin-author'))
+      .toHaveLength(1);
+  });
+
+  it('plugin-author Link should render correct "to" and "href" props', () => {
+    const changedData = Object.assign({}, sampleData);
+    changedData.pluginData.data.authors = 'testAuthor (user@domain.com)';
+    wrapper.setState(changedData);
+
+    const link = wrapper.find('Link.plugin-author');
+    const whatItShould = '/author/testAuthor';
+    expect(link.prop('to')).toEqual(whatItShould);
+    expect(link.prop('href')).toEqual(whatItShould);
+  });
+
+  it('plugin-autor Link should render correct text', () => {
+    const changedData = Object.assign({}, sampleData);
+    changedData.pluginData.data.authors = 'testAuthor (user@domain.com)';
+    wrapper.setState(changedData);
+
+    expect(wrapper
+      .find('Link.plugin-author')
+      .childAt(0)
+      .text())
+      .toEqual('testAuthor');
+  });
+
+  const getPluginCreatedText = () => {
+    const pluginCreationDiv = wrapper.find('div.plugin-created');
+    const receivedText = pluginCreationDiv.text();
+    // remove html elements
+    return receivedText.replace(/(<.*>)/g, '');
+  };
+
+  it('should render the value of creationDate if it is a valid date', () => {
+    Date.now = jest.fn(() => 1530814238992);
+    const changedData = Object.assign({}, sampleData);
+    changedData.pluginData.data.creation_date = '2018-06-19T15:29:11.349272Z';
+    wrapper.setState(changedData);
+    expect(getPluginCreatedText()).toEqual(' created 16 days ago');
+  });
+
+  it('should not render the value of creationDate if it is not a valid date', () => {
+    const changedData = Object.assign({}, sampleData);
+    changedData.pluginData.data.creation_date = 'invalid date';
+    wrapper.setState(changedData);
+    expect(getPluginCreatedText()).toEqual('');
+  });
+
+  it('should render PluginBody component inside plugin-container', () => {
+    expect(wrapper
+      .find('div.plugin-container')
+      .find('PluginBody'))
+      .toHaveLength(1);
+  });
+});

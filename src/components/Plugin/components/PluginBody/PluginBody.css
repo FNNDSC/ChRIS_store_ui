@@ -1,0 +1,24 @@
+.plugin-body {
+  /* color */
+  background: var(--pf-black-200);
+  
+  /* display */
+  min-height: calc(100vh - 229px);
+  padding: 1em;
+}
+
+.plugin-body .card-pf {
+  /* display */
+  margin: 0 0 20px;
+}
+
+.plugin-body-main-col { flex: 5; }
+
+.plugin-body-side-col { flex: 2; }
+
+@media (min-width: 768px) {
+  .plugin-body-main-col {
+    /* display */
+    padding-right: 1.2em;
+  }
+}

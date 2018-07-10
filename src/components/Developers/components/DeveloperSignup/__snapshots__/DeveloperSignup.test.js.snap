@@ -1,0 +1,519 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeveloperSignup should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <DeveloperSignup />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "bsClass": "form",
+      "children": Array [
+        <p>
+          Create a ChRIS Developer account:
+</p>,
+        <FormGroup
+          bsClass="form-group"
+          controlId="username"
+>
+          <ControlLabel
+                    bsClass="control-label"
+                    srOnly={false}
+          >
+                    Username
+          </ControlLabel>
+          <FormControl
+                    autoComplete="off"
+                    autoFocus={true}
+                    bsClass="form-control"
+                    componentClass="input"
+                    type="text"
+          />
+          <HelpBlock
+                    bsClass="help-block"
+          >
+                    Enter your username
+          </HelpBlock>
+</FormGroup>,
+        <FormGroup
+          bsClass="form-group"
+          controlId="password"
+>
+          <ControlLabel
+                    bsClass="control-label"
+                    srOnly={false}
+          >
+                    Password
+          </ControlLabel>
+          <FormControl
+                    autoComplete="new-password"
+                    bsClass="form-control"
+                    componentClass="input"
+                    type="password"
+          />
+          <HelpBlock
+                    bsClass="help-block"
+          >
+                    Enter your password
+          </HelpBlock>
+</FormGroup>,
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsSize="large"
+          bsStyle="primary"
+          disabled={false}
+>
+          Create Account
+</Button>,
+      ],
+      "componentClass": "form",
+      "horizontal": false,
+      "inline": false,
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "Create a ChRIS Developer account:",
+        },
+        "ref": null,
+        "rendered": "Create a ChRIS Developer account:",
+        "type": "p",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "bsClass": "form-group",
+          "children": Array [
+            <ControlLabel
+              bsClass="control-label"
+              srOnly={false}
+>
+              Username
+</ControlLabel>,
+            <FormControl
+              autoComplete="off"
+              autoFocus={true}
+              bsClass="form-control"
+              componentClass="input"
+              type="text"
+/>,
+            <HelpBlock
+              bsClass="help-block"
+>
+              Enter your username
+</HelpBlock>,
+          ],
+          "controlId": "username",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "bsClass": "control-label",
+              "children": "Username",
+              "srOnly": false,
+            },
+            "ref": null,
+            "rendered": "Username",
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "autoComplete": "off",
+              "autoFocus": true,
+              "bsClass": "form-control",
+              "componentClass": "input",
+              "type": "text",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "bsClass": "help-block",
+              "children": "Enter your username",
+            },
+            "ref": null,
+            "rendered": "Enter your username",
+            "type": [Function],
+          },
+        ],
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "bsClass": "form-group",
+          "children": Array [
+            <ControlLabel
+              bsClass="control-label"
+              srOnly={false}
+>
+              Password
+</ControlLabel>,
+            <FormControl
+              autoComplete="new-password"
+              bsClass="form-control"
+              componentClass="input"
+              type="password"
+/>,
+            <HelpBlock
+              bsClass="help-block"
+>
+              Enter your password
+</HelpBlock>,
+          ],
+          "controlId": "password",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "bsClass": "control-label",
+              "children": "Password",
+              "srOnly": false,
+            },
+            "ref": null,
+            "rendered": "Password",
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "autoComplete": "new-password",
+              "bsClass": "form-control",
+              "componentClass": "input",
+              "type": "password",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "bsClass": "help-block",
+              "children": "Enter your password",
+            },
+            "ref": null,
+            "rendered": "Enter your password",
+            "type": [Function],
+          },
+        ],
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "active": false,
+          "block": false,
+          "bsClass": "btn",
+          "bsSize": "large",
+          "bsStyle": "primary",
+          "children": "Create Account",
+          "disabled": false,
+        },
+        "ref": null,
+        "rendered": "Create Account",
+        "type": [Function],
+      },
+    ],
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "bsClass": "form",
+        "children": Array [
+          <p>
+            Create a ChRIS Developer account:
+</p>,
+          <FormGroup
+            bsClass="form-group"
+            controlId="username"
+>
+            <ControlLabel
+                        bsClass="control-label"
+                        srOnly={false}
+            >
+                        Username
+            </ControlLabel>
+            <FormControl
+                        autoComplete="off"
+                        autoFocus={true}
+                        bsClass="form-control"
+                        componentClass="input"
+                        type="text"
+            />
+            <HelpBlock
+                        bsClass="help-block"
+            >
+                        Enter your username
+            </HelpBlock>
+</FormGroup>,
+          <FormGroup
+            bsClass="form-group"
+            controlId="password"
+>
+            <ControlLabel
+                        bsClass="control-label"
+                        srOnly={false}
+            >
+                        Password
+            </ControlLabel>
+            <FormControl
+                        autoComplete="new-password"
+                        bsClass="form-control"
+                        componentClass="input"
+                        type="password"
+            />
+            <HelpBlock
+                        bsClass="help-block"
+            >
+                        Enter your password
+            </HelpBlock>
+</FormGroup>,
+          <Button
+            active={false}
+            block={false}
+            bsClass="btn"
+            bsSize="large"
+            bsStyle="primary"
+            disabled={false}
+>
+            Create Account
+</Button>,
+        ],
+        "componentClass": "form",
+        "horizontal": false,
+        "inline": false,
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Create a ChRIS Developer account:",
+          },
+          "ref": null,
+          "rendered": "Create a ChRIS Developer account:",
+          "type": "p",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "bsClass": "form-group",
+            "children": Array [
+              <ControlLabel
+                bsClass="control-label"
+                srOnly={false}
+>
+                Username
+</ControlLabel>,
+              <FormControl
+                autoComplete="off"
+                autoFocus={true}
+                bsClass="form-control"
+                componentClass="input"
+                type="text"
+/>,
+              <HelpBlock
+                bsClass="help-block"
+>
+                Enter your username
+</HelpBlock>,
+            ],
+            "controlId": "username",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "bsClass": "control-label",
+                "children": "Username",
+                "srOnly": false,
+              },
+              "ref": null,
+              "rendered": "Username",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "autoComplete": "off",
+                "autoFocus": true,
+                "bsClass": "form-control",
+                "componentClass": "input",
+                "type": "text",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "bsClass": "help-block",
+                "children": "Enter your username",
+              },
+              "ref": null,
+              "rendered": "Enter your username",
+              "type": [Function],
+            },
+          ],
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "bsClass": "form-group",
+            "children": Array [
+              <ControlLabel
+                bsClass="control-label"
+                srOnly={false}
+>
+                Password
+</ControlLabel>,
+              <FormControl
+                autoComplete="new-password"
+                bsClass="form-control"
+                componentClass="input"
+                type="password"
+/>,
+              <HelpBlock
+                bsClass="help-block"
+>
+                Enter your password
+</HelpBlock>,
+            ],
+            "controlId": "password",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "bsClass": "control-label",
+                "children": "Password",
+                "srOnly": false,
+              },
+              "ref": null,
+              "rendered": "Password",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "autoComplete": "new-password",
+                "bsClass": "form-control",
+                "componentClass": "input",
+                "type": "password",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "bsClass": "help-block",
+                "children": "Enter your password",
+              },
+              "ref": null,
+              "rendered": "Enter your password",
+              "type": [Function],
+            },
+          ],
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "active": false,
+            "block": false,
+            "bsClass": "btn",
+            "bsSize": "large",
+            "bsStyle": "primary",
+            "children": "Create Account",
+            "disabled": false,
+          },
+          "ref": null,
+          "rendered": "Create Account",
+          "type": [Function],
+        },
+      ],
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

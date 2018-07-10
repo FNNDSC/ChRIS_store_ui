@@ -1,0 +1,66 @@
+.plugins-list > .plugin-item-card {
+  /* display */
+  margin-bottom: 0;
+  padding: 0;
+  
+  /* border */
+  border-bottom: 4px solid var(--pf-black-200);
+  box-shadow: none;
+}
+
+.plugin-item-card-body {
+  /* color */
+  color: var(--pf-black-700);
+
+  /* font */
+  font-size: 1.4em;
+}
+
+.plugin-item-name {
+  /* color */
+  color: var(--pf-blue-400);
+  
+  /* font */
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.plugin-item-name:hover, .plugin-item-name:focus { text-decoration: none; }
+
+.plugin-item-title {
+  /* font */
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.plugin-item-creation {
+  /* color */
+  color: var(--pf-black-600);
+
+  /* font */
+  font-weight: 300;
+}
+
+.plugin-item-author {
+  /* color */
+  color: var(--pf-black-700);
+
+  /* border */
+  border-bottom: 1px solid var(--pf-black-300);
+
+  /* font */
+  font-weight: 300;
+}
+
+.plugin-item-author:hover,
+.plugin-item-author:focus {
+  color: var(--pf-black-700);
+  text-decoration: none;
+}
+
+@media (min-width: 768px)  {
+  .plugins-list > .plugin-item-card {
+    /* display */
+    padding: 0 20px;
+  }
+}
