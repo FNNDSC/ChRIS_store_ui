@@ -1,0 +1,12 @@
+.copy-to-clipboard-btn {
+  /* color */
+  background: var(--pf-black-100);
+
+  /* display */
+  padding: 5px 9px !important;
+
+  /* position */
+  position: absolute;
+  top: 7px;
+  right: 7px;
+}

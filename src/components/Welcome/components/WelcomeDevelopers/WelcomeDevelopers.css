@@ -1,0 +1,14 @@
+.welcome-developers {
+  /* display */
+  padding: 6em 2em;
+  padding-bottom: 8em;
+
+  /* font */
+  font-size: 1.4em;
+}
+
+.welcome-developers-header {
+  /* font */
+  font-size: 2em;
+  line-height: 1.3;
+}

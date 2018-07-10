@@ -1,0 +1,44 @@
+.developer-cta {
+  /* color */
+  background: var(--pf-black-800);
+  background: linear-gradient(135deg, var(--pf-black-700), var(--pf-black-800));
+  background-image: url('../../../../assets/img/banner_chris.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  /* display */
+  padding: 20px;
+}
+
+.developer-cta-overview, .developer-cta-form { margin: 15px; }
+
+.developer-cta-overview { flex: 3; }
+
+.developer-cta-form { flex: 2; }
+
+.developer-cta-header, .developer-cta-desc {
+  /* color */
+  color: var(--pf-black-100);
+}
+
+.developer-cta-header {
+  font-weight: 200;
+  font-size: 3.4em;
+  line-height: 1.3;
+}
+
+.developer-cta-desc {
+  /* display */
+  margin-top: 20px;
+
+  /* font */
+  font-weight: 600;
+  font-size: medium;
+  text-shadow: 3px 3px 6px var(--pf-black);
+}
+
+/* responsive breakpoints */
+@media (min-width: 480px)  {
+  .developer-cta { padding: 4em; }
+}

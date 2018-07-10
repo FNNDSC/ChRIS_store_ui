@@ -1,0 +1,64 @@
+.welcome-categories-container > .welcome-category {
+  /* border */
+  border-top: 4px solid var(--pf-blue-300);
+}
+
+.welcome-category > .welcome-category-header {
+  /* font */
+  font-weight: 500;
+  font-size: 2em;
+  text-align: center;
+}
+
+.welcome-category-item {
+  /* display */
+  display: flex;
+
+  /* padding */
+  padding: 0.5em 0;
+}
+
+.welcome-category-item-img {
+  width: 5em;
+  height: 5em;
+}
+
+.welcome-category-item-body { padding-left: 2em; }
+
+.welcome-category-item-name {
+  /* color */
+  color: var(--pf-blue-300);
+
+  /* font */
+  font-size: 1.5em;
+  white-space: pre-wrap;
+}
+
+.welcome-category-item-desc {
+  /* color */
+  color: var(--pf-black-500);
+
+  /* font */
+  font-size: 1.1em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.welcome-category-item-tags { color: var(--pf-black-300); }
+
+/* ============================== */
+/* ---------- RESPONSIVE -------- */
+/* ============================== */
+
+@media (min-width: 768px)  {
+  .welcome-categories-container > .welcome-category {
+    /* display */
+    margin: 0 10px 20px;
+    min-width: 320.08px;
+
+    /* flex */
+    flex: 1;
+    flex-grow: 1;
+  }
+}
