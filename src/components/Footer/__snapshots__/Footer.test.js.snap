@@ -1,0 +1,1033 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Footer />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <div
+          className="footer-row"
+>
+          <div
+                    className="footer-logo"
+          >
+                    <img
+                              alt=""
+                              src="chris_logomark-white.png"
+                    />
+                    <div
+                              className="footer-header"
+                    >
+                              <strong>
+                                        ChRIS 
+                              </strong>
+                              Plugin Store
+                    </div>
+          </div>
+          <div
+                    className="footer-body"
+          >
+                    <div
+                              className="footer-desc"
+                    >
+                              ChRIS is developed by Boston Children
+                              '
+                              s Hospital in partnership with Red Hat, the Massachusetts Open Cloud (MOC), and Boston University.
+                    </div>
+                    <div
+                              className="footer-links"
+                    >
+                              <div
+                                        className="footer-link"
+                              >
+                                        About ChRIS
+                              </div>
+                              <div
+                                        className="footer-link"
+                              >
+                                        Submit your plugin
+                              </div>
+                              <div
+                                        className="footer-link"
+                              >
+                                        Contact Us
+                              </div>
+                              <div
+                                        className="footer-link"
+                              >
+                                        Report an Issue
+                              </div>
+                              <div
+                                        className="footer-link"
+                              >
+                                        Request a plugin
+                              </div>
+                              <div
+                                        className="footer-link"
+                              >
+                                        Help
+                              </div>
+                              <div
+                                        className="footer-link"
+                              >
+                                        Privacy Policy
+                              </div>
+                              <div
+                                        className="footer-link"
+                              >
+                                        Terms & Conditions
+                              </div>
+                    </div>
+          </div>
+</div>,
+        <div
+          className="footer-copyright"
+>
+          © 2018 Boston Children
+          '
+          s Hospital, Red Hat, Massachusetts Open Cloud, Boston University. All rights reserved.
+</div>,
+      ],
+      "className": "footer",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <div
+              className="footer-logo"
+>
+              <img
+                            alt=""
+                            src="chris_logomark-white.png"
+              />
+              <div
+                            className="footer-header"
+              >
+                            <strong>
+                                          ChRIS 
+                            </strong>
+                            Plugin Store
+              </div>
+</div>,
+            <div
+              className="footer-body"
+>
+              <div
+                            className="footer-desc"
+              >
+                            ChRIS is developed by Boston Children
+                            '
+                            s Hospital in partnership with Red Hat, the Massachusetts Open Cloud (MOC), and Boston University.
+              </div>
+              <div
+                            className="footer-links"
+              >
+                            <div
+                                          className="footer-link"
+                            >
+                                          About ChRIS
+                            </div>
+                            <div
+                                          className="footer-link"
+                            >
+                                          Submit your plugin
+                            </div>
+                            <div
+                                          className="footer-link"
+                            >
+                                          Contact Us
+                            </div>
+                            <div
+                                          className="footer-link"
+                            >
+                                          Report an Issue
+                            </div>
+                            <div
+                                          className="footer-link"
+                            >
+                                          Request a plugin
+                            </div>
+                            <div
+                                          className="footer-link"
+                            >
+                                          Help
+                            </div>
+                            <div
+                                          className="footer-link"
+                            >
+                                          Privacy Policy
+                            </div>
+                            <div
+                                          className="footer-link"
+                            >
+                                          Terms & Conditions
+                            </div>
+              </div>
+</div>,
+          ],
+          "className": "footer-row",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <img
+                  alt=""
+                  src="chris_logomark-white.png"
+/>,
+                <div
+                  className="footer-header"
+>
+                  <strong>
+                                    ChRIS 
+                  </strong>
+                  Plugin Store
+</div>,
+              ],
+              "className": "footer-logo",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "alt": "",
+                  "src": "chris_logomark-white.png",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "img",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <strong>
+                      ChRIS 
+</strong>,
+                    "Plugin Store",
+                  ],
+                  "className": "footer-header",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "ChRIS ",
+                    },
+                    "ref": null,
+                    "rendered": "ChRIS ",
+                    "type": "strong",
+                  },
+                  "Plugin Store",
+                ],
+                "type": "div",
+              },
+            ],
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <div
+                  className="footer-desc"
+>
+                  ChRIS is developed by Boston Children
+                  '
+                  s Hospital in partnership with Red Hat, the Massachusetts Open Cloud (MOC), and Boston University.
+</div>,
+                <div
+                  className="footer-links"
+>
+                  <div
+                                    className="footer-link"
+                  >
+                                    About ChRIS
+                  </div>
+                  <div
+                                    className="footer-link"
+                  >
+                                    Submit your plugin
+                  </div>
+                  <div
+                                    className="footer-link"
+                  >
+                                    Contact Us
+                  </div>
+                  <div
+                                    className="footer-link"
+                  >
+                                    Report an Issue
+                  </div>
+                  <div
+                                    className="footer-link"
+                  >
+                                    Request a plugin
+                  </div>
+                  <div
+                                    className="footer-link"
+                  >
+                                    Help
+                  </div>
+                  <div
+                                    className="footer-link"
+                  >
+                                    Privacy Policy
+                  </div>
+                  <div
+                                    className="footer-link"
+                  >
+                                    Terms & Conditions
+                  </div>
+</div>,
+              ],
+              "className": "footer-body",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    "ChRIS is developed by Boston Children",
+                    "'",
+                    "s Hospital in partnership with Red Hat, the Massachusetts Open Cloud (MOC), and Boston University.",
+                  ],
+                  "className": "footer-desc",
+                },
+                "ref": null,
+                "rendered": Array [
+                  "ChRIS is developed by Boston Children",
+                  "'",
+                  "s Hospital in partnership with Red Hat, the Massachusetts Open Cloud (MOC), and Boston University.",
+                ],
+                "type": "div",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <div
+                      className="footer-link"
+>
+                      About ChRIS
+</div>,
+                    <div
+                      className="footer-link"
+>
+                      Submit your plugin
+</div>,
+                    <div
+                      className="footer-link"
+>
+                      Contact Us
+</div>,
+                    <div
+                      className="footer-link"
+>
+                      Report an Issue
+</div>,
+                    <div
+                      className="footer-link"
+>
+                      Request a plugin
+</div>,
+                    <div
+                      className="footer-link"
+>
+                      Help
+</div>,
+                    <div
+                      className="footer-link"
+>
+                      Privacy Policy
+</div>,
+                    <div
+                      className="footer-link"
+>
+                      Terms & Conditions
+</div>,
+                  ],
+                  "className": "footer-links",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "About ChRIS",
+                      "className": "footer-link",
+                    },
+                    "ref": null,
+                    "rendered": "About ChRIS",
+                    "type": "div",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Submit your plugin",
+                      "className": "footer-link",
+                    },
+                    "ref": null,
+                    "rendered": "Submit your plugin",
+                    "type": "div",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Contact Us",
+                      "className": "footer-link",
+                    },
+                    "ref": null,
+                    "rendered": "Contact Us",
+                    "type": "div",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Report an Issue",
+                      "className": "footer-link",
+                    },
+                    "ref": null,
+                    "rendered": "Report an Issue",
+                    "type": "div",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Request a plugin",
+                      "className": "footer-link",
+                    },
+                    "ref": null,
+                    "rendered": "Request a plugin",
+                    "type": "div",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Help",
+                      "className": "footer-link",
+                    },
+                    "ref": null,
+                    "rendered": "Help",
+                    "type": "div",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Privacy Policy",
+                      "className": "footer-link",
+                    },
+                    "ref": null,
+                    "rendered": "Privacy Policy",
+                    "type": "div",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Terms & Conditions",
+                      "className": "footer-link",
+                    },
+                    "ref": null,
+                    "rendered": "Terms & Conditions",
+                    "type": "div",
+                  },
+                ],
+                "type": "div",
+              },
+            ],
+            "type": "div",
+          },
+        ],
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            "© 2018 Boston Children",
+            "'",
+            "s Hospital, Red Hat, Massachusetts Open Cloud, Boston University. All rights reserved.",
+          ],
+          "className": "footer-copyright",
+        },
+        "ref": null,
+        "rendered": Array [
+          "© 2018 Boston Children",
+          "'",
+          "s Hospital, Red Hat, Massachusetts Open Cloud, Boston University. All rights reserved.",
+        ],
+        "type": "div",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="footer-row"
+>
+            <div
+                        className="footer-logo"
+            >
+                        <img
+                                    alt=""
+                                    src="chris_logomark-white.png"
+                        />
+                        <div
+                                    className="footer-header"
+                        >
+                                    <strong>
+                                                ChRIS 
+                                    </strong>
+                                    Plugin Store
+                        </div>
+            </div>
+            <div
+                        className="footer-body"
+            >
+                        <div
+                                    className="footer-desc"
+                        >
+                                    ChRIS is developed by Boston Children
+                                    '
+                                    s Hospital in partnership with Red Hat, the Massachusetts Open Cloud (MOC), and Boston University.
+                        </div>
+                        <div
+                                    className="footer-links"
+                        >
+                                    <div
+                                                className="footer-link"
+                                    >
+                                                About ChRIS
+                                    </div>
+                                    <div
+                                                className="footer-link"
+                                    >
+                                                Submit your plugin
+                                    </div>
+                                    <div
+                                                className="footer-link"
+                                    >
+                                                Contact Us
+                                    </div>
+                                    <div
+                                                className="footer-link"
+                                    >
+                                                Report an Issue
+                                    </div>
+                                    <div
+                                                className="footer-link"
+                                    >
+                                                Request a plugin
+                                    </div>
+                                    <div
+                                                className="footer-link"
+                                    >
+                                                Help
+                                    </div>
+                                    <div
+                                                className="footer-link"
+                                    >
+                                                Privacy Policy
+                                    </div>
+                                    <div
+                                                className="footer-link"
+                                    >
+                                                Terms & Conditions
+                                    </div>
+                        </div>
+            </div>
+</div>,
+          <div
+            className="footer-copyright"
+>
+            © 2018 Boston Children
+            '
+            s Hospital, Red Hat, Massachusetts Open Cloud, Boston University. All rights reserved.
+</div>,
+        ],
+        "className": "footer",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <div
+                className="footer-logo"
+>
+                <img
+                                alt=""
+                                src="chris_logomark-white.png"
+                />
+                <div
+                                className="footer-header"
+                >
+                                <strong>
+                                                ChRIS 
+                                </strong>
+                                Plugin Store
+                </div>
+</div>,
+              <div
+                className="footer-body"
+>
+                <div
+                                className="footer-desc"
+                >
+                                ChRIS is developed by Boston Children
+                                '
+                                s Hospital in partnership with Red Hat, the Massachusetts Open Cloud (MOC), and Boston University.
+                </div>
+                <div
+                                className="footer-links"
+                >
+                                <div
+                                                className="footer-link"
+                                >
+                                                About ChRIS
+                                </div>
+                                <div
+                                                className="footer-link"
+                                >
+                                                Submit your plugin
+                                </div>
+                                <div
+                                                className="footer-link"
+                                >
+                                                Contact Us
+                                </div>
+                                <div
+                                                className="footer-link"
+                                >
+                                                Report an Issue
+                                </div>
+                                <div
+                                                className="footer-link"
+                                >
+                                                Request a plugin
+                                </div>
+                                <div
+                                                className="footer-link"
+                                >
+                                                Help
+                                </div>
+                                <div
+                                                className="footer-link"
+                                >
+                                                Privacy Policy
+                                </div>
+                                <div
+                                                className="footer-link"
+                                >
+                                                Terms & Conditions
+                                </div>
+                </div>
+</div>,
+            ],
+            "className": "footer-row",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <img
+                    alt=""
+                    src="chris_logomark-white.png"
+/>,
+                  <div
+                    className="footer-header"
+>
+                    <strong>
+                                        ChRIS 
+                    </strong>
+                    Plugin Store
+</div>,
+                ],
+                "className": "footer-logo",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "alt": "",
+                    "src": "chris_logomark-white.png",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": "img",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <strong>
+                        ChRIS 
+</strong>,
+                      "Plugin Store",
+                    ],
+                    "className": "footer-header",
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "ChRIS ",
+                      },
+                      "ref": null,
+                      "rendered": "ChRIS ",
+                      "type": "strong",
+                    },
+                    "Plugin Store",
+                  ],
+                  "type": "div",
+                },
+              ],
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <div
+                    className="footer-desc"
+>
+                    ChRIS is developed by Boston Children
+                    '
+                    s Hospital in partnership with Red Hat, the Massachusetts Open Cloud (MOC), and Boston University.
+</div>,
+                  <div
+                    className="footer-links"
+>
+                    <div
+                                        className="footer-link"
+                    >
+                                        About ChRIS
+                    </div>
+                    <div
+                                        className="footer-link"
+                    >
+                                        Submit your plugin
+                    </div>
+                    <div
+                                        className="footer-link"
+                    >
+                                        Contact Us
+                    </div>
+                    <div
+                                        className="footer-link"
+                    >
+                                        Report an Issue
+                    </div>
+                    <div
+                                        className="footer-link"
+                    >
+                                        Request a plugin
+                    </div>
+                    <div
+                                        className="footer-link"
+                    >
+                                        Help
+                    </div>
+                    <div
+                                        className="footer-link"
+                    >
+                                        Privacy Policy
+                    </div>
+                    <div
+                                        className="footer-link"
+                    >
+                                        Terms & Conditions
+                    </div>
+</div>,
+                ],
+                "className": "footer-body",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      "ChRIS is developed by Boston Children",
+                      "'",
+                      "s Hospital in partnership with Red Hat, the Massachusetts Open Cloud (MOC), and Boston University.",
+                    ],
+                    "className": "footer-desc",
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    "ChRIS is developed by Boston Children",
+                    "'",
+                    "s Hospital in partnership with Red Hat, the Massachusetts Open Cloud (MOC), and Boston University.",
+                  ],
+                  "type": "div",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <div
+                        className="footer-link"
+>
+                        About ChRIS
+</div>,
+                      <div
+                        className="footer-link"
+>
+                        Submit your plugin
+</div>,
+                      <div
+                        className="footer-link"
+>
+                        Contact Us
+</div>,
+                      <div
+                        className="footer-link"
+>
+                        Report an Issue
+</div>,
+                      <div
+                        className="footer-link"
+>
+                        Request a plugin
+</div>,
+                      <div
+                        className="footer-link"
+>
+                        Help
+</div>,
+                      <div
+                        className="footer-link"
+>
+                        Privacy Policy
+</div>,
+                      <div
+                        className="footer-link"
+>
+                        Terms & Conditions
+</div>,
+                    ],
+                    "className": "footer-links",
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "About ChRIS",
+                        "className": "footer-link",
+                      },
+                      "ref": null,
+                      "rendered": "About ChRIS",
+                      "type": "div",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Submit your plugin",
+                        "className": "footer-link",
+                      },
+                      "ref": null,
+                      "rendered": "Submit your plugin",
+                      "type": "div",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Contact Us",
+                        "className": "footer-link",
+                      },
+                      "ref": null,
+                      "rendered": "Contact Us",
+                      "type": "div",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Report an Issue",
+                        "className": "footer-link",
+                      },
+                      "ref": null,
+                      "rendered": "Report an Issue",
+                      "type": "div",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Request a plugin",
+                        "className": "footer-link",
+                      },
+                      "ref": null,
+                      "rendered": "Request a plugin",
+                      "type": "div",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Help",
+                        "className": "footer-link",
+                      },
+                      "ref": null,
+                      "rendered": "Help",
+                      "type": "div",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Privacy Policy",
+                        "className": "footer-link",
+                      },
+                      "ref": null,
+                      "rendered": "Privacy Policy",
+                      "type": "div",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Terms & Conditions",
+                        "className": "footer-link",
+                      },
+                      "ref": null,
+                      "rendered": "Terms & Conditions",
+                      "type": "div",
+                    },
+                  ],
+                  "type": "div",
+                },
+              ],
+              "type": "div",
+            },
+          ],
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              "© 2018 Boston Children",
+              "'",
+              "s Hospital, Red Hat, Massachusetts Open Cloud, Boston University. All rights reserved.",
+            ],
+            "className": "footer-copyright",
+          },
+          "ref": null,
+          "rendered": Array [
+            "© 2018 Boston Children",
+            "'",
+            "s Hospital, Red Hat, Massachusetts Open Cloud, Boston University. All rights reserved.",
+          ],
+          "type": "div",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

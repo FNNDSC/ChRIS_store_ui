@@ -1,0 +1,134 @@
+nav.navbar-default {
+  /* display */
+  height: 66px;
+
+  /* position */
+  position: relative;
+}
+
+header .row > .navbar-header > .navbar-logo {
+  /* display */
+  padding: 0 !important;
+  margin-left: 0;
+}
+
+.brand-name {
+  /* display */
+  margin-top: 0.2em;
+  margin-bottom: 0.1em;
+}
+
+.navbar-trigger {
+  /* color */
+  color: var(--pf-black-200);
+
+  /* display */
+  margin: 12px 15px;
+  padding: 0 10px;
+
+  /* font */
+  font-size: 2em;
+  
+  /* other */
+  float: right;
+  cursor: pointer;
+}
+
+header .navbar.navbar-default .navbar-right > li > a:hover {
+  /* color */
+  background: var(--pf-black-900);
+}
+
+header .navbar.navbar-default .navbar-right > li > a {
+  /* color */
+  color: var(--pf-black-200);
+
+  /* display */
+  padding: 22px 15px;
+
+  /* font */
+  font-size: 1.2em;
+}
+
+header .navbar.navbar-default .navbar-right > li > button {
+  /* display */
+  margin: 16px 13px;
+}
+
+header > .navbar-dropdown {
+  /* color */
+  background: #1d1d1d;
+
+  /* position */
+  position: absolute;
+  top: 66px;
+  right: 0;
+  left: 0;
+
+  /* border */
+  border-bottom: 1px solid var(--pf-black-800);
+
+  /* other */
+  z-index: 1;
+}
+
+.navbar-dropdown-btn {
+  /* display */
+  display: block;
+  
+  /* color */
+  color: var(--pf-black-200);
+
+  /* font */
+  font-size: 2em;
+  font-weight: 600;
+}
+
+.navbar-btn-container {
+  line-height: 1;
+  padding: 1em;
+}
+
+.navbar-btn-container:hover {
+  /* color */
+  background: var(--pf-black-900);
+}
+
+.navbar-btn-container .navbar-dropdown-btn:hover,
+.navbar-btn-container .navbar-dropdown-btn:focus {
+  color: var(--pf-black-100);
+  text-decoration: none;
+}
+
+
+/* ---------- RESPONSIVE -------- */
+
+@media (min-width: 480px) {
+  header .navbar-header > .navbar-logo {
+    /* display */
+    margin: 0 0 0 25px;
+    
+    /* position */
+    position: absolute;
+    left: calc(4em - 33px);
+  }
+
+  .navbar-btn-container {
+    padding-left: 2.7em;
+  }
+}
+
+@media (min-width: 768px) {
+  .navbar-trigger, .navbar-dropdown { display: none; }
+  .collapse.in { display: none !important; }
+}
+
+@media (min-width: 1110px) {
+  header .row > .navbar-header > .navbar-logo {
+    /* display */
+    margin-left: 0;
+
+    /* position */
+    position: static;
+  }
+}

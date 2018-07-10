@@ -1,0 +1,133 @@
+.footer {
+  /* color */
+  background: var(--pf-black-900);
+  background: linear-gradient(var(--pf-black-900), var(--pf-black));
+  color: var(--pf-black-100);
+
+  /* display */
+  padding: 4em 1em;
+  padding-bottom: 8em;
+
+  /* position */
+  position: relative;
+
+  /* font */
+  font-size: 1.4em;
+}
+
+.footer-row {
+  /* display */
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto !important;
+}
+
+.footer-header {
+  /* display */
+  padding: 0.4em 1em;
+
+  /* font */
+  font-size: 1.3em;
+  line-height: 1.3;
+  white-space: pre-line;
+}
+
+.footer-header > strong { font-size: 1.2em; }
+
+.footer-logo {
+  /* display */
+  display: flex;
+  padding-bottom: 2em;
+
+  /* flex */
+  flex: 1;
+  flex-shrink: 0;
+}
+
+.footer-logo > img {
+  /* display */
+  width: 71px;
+  height: 59px;
+}
+
+.footer-body {
+  /* flex */
+  flex: 2;
+}
+
+.footer-desc { font-weight: 300; }
+
+.footer-links {
+  /* display */
+  margin-top: 2em;
+
+  /* font */
+  text-align: center;
+}
+
+.footer-link {
+  /* display */
+  padding-top: 0.3em;
+
+  /* font */
+  font-weight: 600;
+}
+
+.footer-copyright {
+  /* position */
+  position: absolute;
+  bottom: 1em;
+  left: 0;
+  right: 0;
+
+  /* font */
+  text-align: center;
+}
+
+/* ============================== */
+/* ---------- RESPONSIVE -------- */
+/* ============================== */
+
+@media (min-width: 480px) {
+  .footer-header {
+    /* display */
+    padding: 0.35em 0.8em;
+
+    /* font */
+    font-size: 1.4em;
+    line-height: 1.3;
+  }
+
+  .footer-body {
+    /* display */
+    padding-right: 3em;
+  }
+
+  .footer-links {
+    /* display */
+    display: flex;
+    height: 8em;
+
+    /* font */
+    text-align: left;
+
+    /* flex */
+    flex-flow: column wrap
+  }
+}
+
+@media (min-width: 590px) {
+  .footer-links { height: 7em; }
+}
+
+@media (min-width: 768px)  {
+  .footer-row { display: flex; }
+
+  .footer-logo { min-width: 330px; }
+
+  .footer-links { height: 8em; }
+}
+
+@media (min-width: 935px) {
+  .footer-links { height: 7em; }
+}
