@@ -1,0 +1,20 @@
+.form-group.has-icon .form-control {
+  /* display */
+  padding-left: 24px;
+}
+
+.search-pf .has-icon .search-icon {
+  /* display */
+  height: 25px;
+  width: 20px;
+
+  /* font */
+  line-height: 1.6em;
+  text-align: center;
+  font-size: 1.2em;
+  
+  /* position */
+  position: absolute;
+  left: 1px;
+  top: 1px;
+}

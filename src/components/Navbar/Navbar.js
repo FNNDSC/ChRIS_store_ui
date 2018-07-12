@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Button, Icon } from 'patternfly-react';
 import { Collapse } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import Search from './components/Search/Search';
 import './Navbar.css';
 import LogoImg from '../../assets/img/chris-plugin-store_logo.png';
 
@@ -15,10 +17,14 @@ class Navbar extends Component {
     this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
-  toggleDropdown() {
-    this.setState(prevState => ({
-      open: !prevState.open,
-    }));
+  toggleDropdown(e) {
+    // only toggle the dropdown if the button is not active
+    const isActive = e && e.target.className.indexOf('active') !== -1;
+    if (!isActive) {
+      this.setState(prevState => ({
+        open: !prevState.open,
+      }));
+    }
   }
 
   handleKeyPress(e) {
@@ -29,13 +35,14 @@ class Navbar extends Component {
     return (
       <header>
         <nav className="navbar navbar-pf-vertical navbar-default">
-          <div className="row no-flex">
+          <div className="navbar-row row">
             <div className="navbar-header">
-              <Link to="/" href="/" className="navbar-brand navbar-logo" tabIndex="0">
+              <NavLink to="/" href="/" className="navbar-brand navbar-logo" tabIndex="0">
                 <h1 className="brand-name">
                   <img src={LogoImg} alt="ChRIS Plugin Store" />
                 </h1>
-              </Link>
+              </NavLink>
+              <Search className="navbar-search" location={this.props.location} />
               <div
                 className="navbar-trigger"
                 role="menuitem"
@@ -56,14 +63,14 @@ class Navbar extends Component {
               </ul>
               <ul className="nav navbar-nav navbar-right">
                 <li>
-                  <Link to="/plugins" href="/plugins" className="navbar-plugins-btn">
+                  <NavLink to="/plugins" href="/plugins" className="navbar-plugins-btn">
                     Plugins
-                  </Link>
+                  </NavLink>
                 </li>
                 <li>
-                  <Link to="/developers" href="/developers" className="navbar-developers-btn">
+                  <NavLink to="/developers" href="/developers" className="navbar-developers-btn">
                     Developers
-                  </Link>
+                  </NavLink>
                 </li>
               </ul>
             </div>
@@ -73,24 +80,24 @@ class Navbar extends Component {
           <div>
             <div className="navbar-dropdown-container">
               <div className="navbar-btn-container">
-                <Link
+                <NavLink
                   to="/plugins"
                   href="/plugins"
                   className="navbar-dropdown-btn"
                   onClick={this.toggleDropdown}
                 >
                   Plugins
-                </Link>
+                </NavLink>
               </div>
               <div className="navbar-btn-container">
-                <Link
+                <NavLink
                   to="/developers"
                   href="/developers"
                   className="navbar-dropdown-btn"
                   onClick={this.toggleDropdown}
                 >
                   Developers
-                </Link>
+                </NavLink>
               </div>
             </div>
           </div>
@@ -99,5 +106,17 @@ class Navbar extends Component {
     );
   }
 }
+
+Navbar.propTypes = {
+  location: PropTypes.shape({
+    search: PropTypes.string,
+  }),
+};
+
+Navbar.defaultProps = {
+  location: {
+    search: '',
+  },
+};
 
 export default Navbar;
