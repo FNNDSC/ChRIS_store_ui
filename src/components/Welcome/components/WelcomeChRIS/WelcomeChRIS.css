@@ -1,5 +1,6 @@
 .welcome-chris {
   /* color */
+  background: #39a5dc;
   background: var(--pf-blue-300);
 
   /* display */
@@ -18,7 +19,11 @@
   flex: 1;
 }
 
-.welcome-chris-text { color: var(--pf-black-100); }
+.welcome-chris-text {
+  /* color */
+  color: #fafafa;
+  color: var(--pf-black-100);
+}
 
 .welcome-chris-text-container > div {
   font-weight: 400;
@@ -43,7 +48,11 @@
 }
 
 .welcome-chris-video-desc {
+  /* color */
+  color: #fafafa;
   color: var(--pf-black-100);
+
+  /* display */
   padding: 1em 1em 0 0;
 }
 

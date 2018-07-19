@@ -8,6 +8,7 @@
 
 .bash-line-command {
   /* color */
+  background: #ededed;
   background: var(--pf-black-200);
 
   /* display */
@@ -21,6 +22,7 @@
   font-size: medium;
 
   /* border */
+  border-left-color: #00659c;
   border-left: 0.5em solid var(--pf-blue-500);
 
   /* other */

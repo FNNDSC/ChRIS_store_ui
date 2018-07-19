@@ -1,5 +1,6 @@
 .plugin-body {
   /* color */
+  background: #ededed;
   background: var(--pf-black-200);
   
   /* display */
