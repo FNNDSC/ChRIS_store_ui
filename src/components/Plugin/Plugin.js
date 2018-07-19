@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { StoreClient } from '@fnndsc/chrisstoreapi';
 import PluginBody from './components/PluginBody/PluginBody';
 import RelativeDate from '../RelativeDate/RelativeDate';
-import sampleData from '../Plugins/samplePluginsData';
-import formatPluginList from '../Plugins/formatPluginList';
 import './Plugin.css';
 
 class Plugin extends Component {
@@ -19,22 +18,30 @@ class Plugin extends Component {
   }
 
   componentDidMount() {
-    this.fetchPluginData();
+    this.fetchPluginData()
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   fetchPluginData() {
+    const storeURL = process.env.REACT_APP_STORE_URL;
+    const authURL = process.env.REACT_APP_STORE_AUTH_URL;
     const { plugin: pluginName } = this.props.match.params;
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const pluginList = sampleData.collection.items;
-        const formattedPluginList = formatPluginList(pluginList);
 
-        const pluginData = formattedPluginList.find(plugin => plugin.data.name === pluginName);
+    return new Promise(async (resolve, reject) => {
+      let pluginData;
 
-        resolve(pluginData);
+      try {
+        const token = await StoreClient.getAuthToken(authURL, 'cube', 'cube1234');
+        const client = new StoreClient(storeURL, { token });
+        pluginData = await client.getPlugin(pluginName);
+      } catch (e) {
+        return reject(e);
+      }
 
-        this.setState({ pluginData });
-      }, 81); // 81 is the "average" request duration
+      this.setState({ pluginData });
+      return resolve(pluginData);
     });
   }
 
@@ -45,11 +52,11 @@ class Plugin extends Component {
 
     // define plugin data
     const { pluginData } = this.state;
-    const { data } = pluginData || {};
+    const data = pluginData || {};
 
     // conditional rendering
     let container;
-    if (data) {
+    if (Object.keys(data).length > 0) {
       const modificationDate = new RelativeDate(data.modification_date);
       const creationDate = new RelativeDate(data.creation_date);
       const author = data.authors.replace(/( ?\(.*\))/g, '');

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
+import { StoreClient } from '@fnndsc/chrisstoreapi';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 import PluginItem from './components/PluginItem/PluginItem';
 import PluginsCategories from './components/PluginsCategories/PluginsCategories';
-import formatPluginList from './formatPluginList';
-import sampleData from './samplePluginsData';
 import './Plugins.css';
 
 // ==============================
@@ -11,8 +10,8 @@ import './Plugins.css';
 // ==============================
 
 class Plugins extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       pluginList: null,
       categories: [
@@ -35,41 +34,59 @@ class Plugins extends Component {
   }
 
   componentDidMount() {
-    this.fetchPlugins().then((plugins) => {
-      console.log(plugins);
+    this.fetchPlugins().catch((err) => {
+      console.error(err);
     });
   }
 
   fetchPlugins() {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const pluginList = sampleData.collection.items;
-        const formattedPluginList = formatPluginList(pluginList);
-        resolve(formattedPluginList);
-        this.setState({
-          pluginList: formattedPluginList,
+    const storeURL = process.env.REACT_APP_STORE_URL;
+    const authURL = process.env.REACT_APP_STORE_AUTH_URL;
+
+    return new Promise(async (resolve, reject) => {
+      let plugins;
+      const searchParams = {
+        limit: 20,
+        offset: 0,
+      };
+
+      try {
+        const token = await StoreClient.getAuthToken(authURL, 'cube', 'cube1234');
+        const client = new StoreClient(storeURL, { token });
+
+        // add plugins to pluginList as they are received
+        plugins = await client.getPlugins(searchParams, (onePageResponse) => {
+          const onePagePlugins = onePageResponse.plugins;
+
+          this.setState((prevState) => {
+            const prevPluginList = prevState.pluginList ? prevState.pluginList : [];
+            const nextPluginList = prevPluginList.concat(onePagePlugins);
+            return { pluginList: nextPluginList };
+          });
         });
-      }, 81); // 81 is the "average" request duration
+      } catch (e) {
+        return reject(e);
+      }
+      return resolve(plugins);
     });
   }
 
   render() {
-    const pluginListExists = this.state.pluginList;
-    const pluginListLength = pluginListExists ? this.state.pluginList.length : 0;
+    const { pluginList, categories } = this.state;
     let pluginListBody;
 
     // Remove email from author
     const removeEmail = author => author.replace(/( ?\(.*\))/g, '');
 
     // Render the pluginList if the plugins have been fetched
-    if (pluginListExists) {
-      pluginListBody = this.state.pluginList.map(plugin => (
+    if (pluginList) {
+      pluginListBody = pluginList.map(plugin => (
         <PluginItem
-          title={plugin.data.title}
-          name={plugin.data.name}
-          author={removeEmail(plugin.data.authors)}
-          creationDate={plugin.data.creation_date}
-          key={plugin.data.dock_image}
+          title={plugin.title}
+          name={plugin.name}
+          author={removeEmail(plugin.authors)}
+          creationDate={plugin.creation_date}
+          key={plugin.dock_image}
         />
       ));
     // Or else show the loading text
@@ -80,6 +97,8 @@ class Plugins extends Component {
         </div>
       );
     }
+
+    const pluginListLength = pluginList ? pluginList.length : 0;
 
     return (
       <div className="plugins-container">
@@ -96,7 +115,7 @@ class Plugins extends Component {
           </div>
         </div>
         <div className="row plugins-row">
-          <PluginsCategories categories={this.state.categories} />
+          <PluginsCategories categories={categories} />
           <div className="plugins-list">
             {pluginListBody}
           </div>

@@ -1,0 +1,310 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Search
+    className=""
+    location={
+        Object {
+            "search": "",
+          }
+    }
+/>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "action": "/plugins",
+      "autoComplete": "off",
+      "children": <div
+        className="form-group has-icon"
+>
+        <div
+                className="search-pf-input-group"
+        >
+                <div
+                        className="search-icon"
+                >
+                        <Icon
+                                name="search"
+                                type="fa"
+                        />
+                </div>
+                <input
+                        className="form-control"
+                        defaultValue={undefined}
+                        id="search"
+                        name="q"
+                        placeholder="Search plugins"
+                        type="search"
+                />
+        </div>
+</div>,
+      "className": "search-pf ",
+      "method": "get",
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <div
+          className="search-pf-input-group"
+>
+          <div
+                    className="search-icon"
+          >
+                    <Icon
+                              name="search"
+                              type="fa"
+                    />
+          </div>
+          <input
+                    className="form-control"
+                    defaultValue={undefined}
+                    id="search"
+                    name="q"
+                    placeholder="Search plugins"
+                    type="search"
+          />
+</div>,
+        "className": "form-group has-icon",
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <div
+              className="search-icon"
+>
+              <Icon
+                            name="search"
+                            type="fa"
+              />
+</div>,
+            <input
+              className="form-control"
+              defaultValue={undefined}
+              id="search"
+              name="q"
+              placeholder="Search plugins"
+              type="search"
+/>,
+          ],
+          "className": "search-pf-input-group",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <Icon
+                name="search"
+                type="fa"
+/>,
+              "className": "search-icon",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "name": "search",
+                "type": "fa",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "className": "form-control",
+              "defaultValue": undefined,
+              "id": "search",
+              "name": "q",
+              "placeholder": "Search plugins",
+              "type": "search",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "input",
+          },
+        ],
+        "type": "div",
+      },
+      "type": "div",
+    },
+    "type": "form",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "action": "/plugins",
+        "autoComplete": "off",
+        "children": <div
+          className="form-group has-icon"
+>
+          <div
+                    className="search-pf-input-group"
+          >
+                    <div
+                              className="search-icon"
+                    >
+                              <Icon
+                                        name="search"
+                                        type="fa"
+                              />
+                    </div>
+                    <input
+                              className="form-control"
+                              defaultValue={undefined}
+                              id="search"
+                              name="q"
+                              placeholder="Search plugins"
+                              type="search"
+                    />
+          </div>
+</div>,
+        "className": "search-pf ",
+        "method": "get",
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <div
+            className="search-pf-input-group"
+>
+            <div
+                        className="search-icon"
+            >
+                        <Icon
+                                    name="search"
+                                    type="fa"
+                        />
+            </div>
+            <input
+                        className="form-control"
+                        defaultValue={undefined}
+                        id="search"
+                        name="q"
+                        placeholder="Search plugins"
+                        type="search"
+            />
+</div>,
+          "className": "form-group has-icon",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <div
+                className="search-icon"
+>
+                <Icon
+                                name="search"
+                                type="fa"
+                />
+</div>,
+              <input
+                className="form-control"
+                defaultValue={undefined}
+                id="search"
+                name="q"
+                placeholder="Search plugins"
+                type="search"
+/>,
+            ],
+            "className": "search-pf-input-group",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <Icon
+                  name="search"
+                  type="fa"
+/>,
+                "className": "search-icon",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "name": "search",
+                  "type": "fa",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "form-control",
+                "defaultValue": undefined,
+                "id": "search",
+                "name": "q",
+                "placeholder": "Search plugins",
+                "type": "search",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "input",
+            },
+          ],
+          "type": "div",
+        },
+        "type": "div",
+      },
+      "type": "form",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

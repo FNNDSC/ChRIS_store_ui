@@ -25,6 +25,10 @@ $> yarn serve
 
 Open a terminal in the directory of this README file
 
+### ChRIS Store server prerequisite
+
+[Click here](http://bit.ly/2Jhegip) for instructions on how to setup the ChRIS Store
+
 ### Commands
 
 Install dependencies
