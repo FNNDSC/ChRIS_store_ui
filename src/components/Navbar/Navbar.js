@@ -32,9 +32,11 @@ class Navbar extends Component {
           <div className="row no-flex">
             <div className="navbar-header">
               <Link to="/" href="/" className="navbar-brand navbar-logo" tabIndex="0">
-                <h1 className="brand-name">
-                  <img src={LogoImg} alt="ChRIS Plugin Store" />
-                </h1>
+                <img
+                  className="navbar-logo-img"
+                  src={LogoImg}
+                  alt="ChRIS Plugin Store"
+                />
               </Link>
               <div
                 className="navbar-trigger"

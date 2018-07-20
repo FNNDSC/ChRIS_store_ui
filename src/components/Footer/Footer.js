@@ -1,16 +1,12 @@
 import React from 'react';
 import './Footer.css';
-import chrisLogo from '../../assets/img/chris_logomark-white.png';
+import chrisLogo from '../../assets/img/chris_logo-white.png';
 
 const Footer = () => (
   <div className="footer">
     <div className="footer-row">
       <div className="footer-logo">
-        <img src={chrisLogo} alt="" />
-        <div className="footer-header">
-          <strong>ChRIS </strong>
-          Plugin Store
-        </div>
+        <img src={chrisLogo} alt="ChRIS Plugin Store" />
       </div>
       <div className="footer-body">
         <div className="footer-desc">

@@ -37,6 +37,14 @@ describe('Footer', () => {
       .toHaveLength(1);
   });
 
+  it('should render img logo with alt text "ChRIS Plugin Store"', () => {
+    expect(wrapper
+      .find('div.footer-logo')
+      .find('img')
+      .prop('alt'))
+      .toEqual('ChRIS Plugin Store');
+  });
+
   it('should render a footer-body div inside row div', () => {
     expect(wrapper
       .find('div.footer')
