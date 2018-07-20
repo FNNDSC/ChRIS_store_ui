@@ -41,7 +41,7 @@ ShallowWrapper {
                                         tabIndex="0"
                                         to="/"
                               >
-                                         <img
+                                        <img
                                                   alt="ChRIS Plugin Store"
                                                   className="navbar-logo-img"
                                                   src="chris-plugin-store_logo.png"

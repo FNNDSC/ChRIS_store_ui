@@ -54,7 +54,7 @@ describe('Navbar', () => {
 
   it('should render navbar-logo-img img inside navbar-brand Link', () => {
     expect(wrapper
-      .find('Link.navbar-brand')
+      .find('NavLink.navbar-brand')
       .find('img.navbar-logo-img'))
       .toHaveLength(1);
   });
