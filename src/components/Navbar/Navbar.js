@@ -38,9 +38,11 @@ class Navbar extends Component {
           <div className="navbar-row row">
             <div className="navbar-header">
               <NavLink to="/" href="/" className="navbar-brand navbar-logo" tabIndex="0">
-                <h1 className="brand-name">
-                  <img src={LogoImg} alt="ChRIS Plugin Store" />
-                </h1>
+                <img
+                  className="navbar-logo-img"
+                  src={LogoImg}
+                  alt="ChRIS Plugin Store"
+                />
               </NavLink>
               <Search className="navbar-search" location={this.props.location} />
               <div

@@ -24,16 +24,16 @@ div.navbar-row > .navbar-header {
 header .row > .navbar-header > .navbar-logo {
   /* display */
   padding: 0 !important;
-  margin-left: 0;
+  margin: 8px 0;
 
   /* other */
   outline: 0;
 }
 
-.brand-name {
+.navbar-logo-img {
   /* display */
-  margin-top: 0.2em;
-  margin-bottom: 0.1em;
+  width: 243px;
+  height: 48px;
 }
 
 .navbar-header > .navbar-search.search-pf {

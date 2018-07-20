@@ -41,14 +41,11 @@ ShallowWrapper {
                                         tabIndex="0"
                                         to="/"
                               >
-                                        <h1
-                                                  className="brand-name"
-                                        >
-                                                  <img
-                                                            alt="ChRIS Plugin Store"
-                                                            src="chris-plugin-store_logo.png"
-                                                  />
-                                        </h1>
+                                        <img
+                                                  alt="ChRIS Plugin Store"
+                                                  className="navbar-logo-img"
+                                                  src="chris-plugin-store_logo.png"
+                                        />
                               </NavLink>
                               <Search
                                         className="navbar-search"
@@ -188,14 +185,11 @@ ShallowWrapper {
                                     tabIndex="0"
                                     to="/"
                         >
-                                    <h1
-                                                className="brand-name"
-                                    >
-                                                <img
-                                                            alt="ChRIS Plugin Store"
-                                                            src="chris-plugin-store_logo.png"
-                                                />
-                                    </h1>
+                                    <img
+                                                alt="ChRIS Plugin Store"
+                                                className="navbar-logo-img"
+                                                src="chris-plugin-store_logo.png"
+                                    />
                         </NavLink>
                         <Search
                                     className="navbar-search"
@@ -286,14 +280,11 @@ ShallowWrapper {
                                 tabIndex="0"
                                 to="/"
                 >
-                                <h1
-                                                className="brand-name"
-                                >
-                                                <img
-                                                                alt="ChRIS Plugin Store"
-                                                                src="chris-plugin-store_logo.png"
-                                                />
-                                </h1>
+                                <img
+                                                alt="ChRIS Plugin Store"
+                                                className="navbar-logo-img"
+                                                src="chris-plugin-store_logo.png"
+                                />
                 </NavLink>
                 <Search
                                 className="navbar-search"
@@ -382,14 +373,11 @@ ShallowWrapper {
                     tabIndex="0"
                     to="/"
 >
-                    <h1
-                                        className="brand-name"
-                    >
-                                        <img
-                                                            alt="ChRIS Plugin Store"
-                                                            src="chris-plugin-store_logo.png"
-                                        />
-                    </h1>
+                    <img
+                                        alt="ChRIS Plugin Store"
+                                        className="navbar-logo-img"
+                                        src="chris-plugin-store_logo.png"
+                    />
 </NavLink>,
                   <Search
                     className="navbar-search"
@@ -423,14 +411,11 @@ ShallowWrapper {
                   "props": Object {
                     "activeClassName": "active",
                     "aria-current": "page",
-                    "children": <h1
-                      className="brand-name"
->
-                      <img
-                                            alt="ChRIS Plugin Store"
-                                            src="chris-plugin-store_logo.png"
-                      />
-</h1>,
+                    "children": <img
+                      alt="ChRIS Plugin Store"
+                      className="navbar-logo-img"
+                      src="chris-plugin-store_logo.png"
+/>,
                     "className": "navbar-brand navbar-logo",
                     "href": "/",
                     "tabIndex": "0",
@@ -442,26 +427,13 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "children": <img
-                        alt="ChRIS Plugin Store"
-                        src="chris-plugin-store_logo.png"
-/>,
-                      "className": "brand-name",
+                      "alt": "ChRIS Plugin Store",
+                      "className": "navbar-logo-img",
+                      "src": "chris-plugin-store_logo.png",
                     },
                     "ref": null,
-                    "rendered": Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "alt": "ChRIS Plugin Store",
-                        "src": "chris-plugin-store_logo.png",
-                      },
-                      "ref": null,
-                      "rendered": null,
-                      "type": "img",
-                    },
-                    "type": "h1",
+                    "rendered": null,
+                    "type": "img",
                   },
                   "type": [Function],
                 },
@@ -974,14 +946,11 @@ ShallowWrapper {
                                                 tabIndex="0"
                                                 to="/"
                                     >
-                                                <h1
-                                                            className="brand-name"
-                                                >
-                                                            <img
-                                                                        alt="ChRIS Plugin Store"
-                                                                        src="chris-plugin-store_logo.png"
-                                                            />
-                                                </h1>
+                                                <img
+                                                            alt="ChRIS Plugin Store"
+                                                            className="navbar-logo-img"
+                                                            src="chris-plugin-store_logo.png"
+                                                />
                                     </NavLink>
                                     <Search
                                                 className="navbar-search"
@@ -1121,14 +1090,11 @@ ShallowWrapper {
                                           tabIndex="0"
                                           to="/"
                             >
-                                          <h1
-                                                        className="brand-name"
-                                          >
-                                                        <img
-                                                                      alt="ChRIS Plugin Store"
-                                                                      src="chris-plugin-store_logo.png"
-                                                        />
-                                          </h1>
+                                          <img
+                                                        alt="ChRIS Plugin Store"
+                                                        className="navbar-logo-img"
+                                                        src="chris-plugin-store_logo.png"
+                                          />
                             </NavLink>
                             <Search
                                           className="navbar-search"
@@ -1219,14 +1185,11 @@ ShallowWrapper {
                                     tabIndex="0"
                                     to="/"
                   >
-                                    <h1
-                                                      className="brand-name"
-                                    >
-                                                      <img
-                                                                        alt="ChRIS Plugin Store"
-                                                                        src="chris-plugin-store_logo.png"
-                                                      />
-                                    </h1>
+                                    <img
+                                                      alt="ChRIS Plugin Store"
+                                                      className="navbar-logo-img"
+                                                      src="chris-plugin-store_logo.png"
+                                    />
                   </NavLink>
                   <Search
                                     className="navbar-search"
@@ -1315,14 +1278,11 @@ ShallowWrapper {
                       tabIndex="0"
                       to="/"
 >
-                      <h1
-                                            className="brand-name"
-                      >
-                                            <img
-                                                                  alt="ChRIS Plugin Store"
-                                                                  src="chris-plugin-store_logo.png"
-                                            />
-                      </h1>
+                      <img
+                                            alt="ChRIS Plugin Store"
+                                            className="navbar-logo-img"
+                                            src="chris-plugin-store_logo.png"
+                      />
 </NavLink>,
                     <Search
                       className="navbar-search"
@@ -1356,14 +1316,11 @@ ShallowWrapper {
                     "props": Object {
                       "activeClassName": "active",
                       "aria-current": "page",
-                      "children": <h1
-                        className="brand-name"
->
-                        <img
-                                                alt="ChRIS Plugin Store"
-                                                src="chris-plugin-store_logo.png"
-                        />
-</h1>,
+                      "children": <img
+                        alt="ChRIS Plugin Store"
+                        className="navbar-logo-img"
+                        src="chris-plugin-store_logo.png"
+/>,
                       "className": "navbar-brand navbar-logo",
                       "href": "/",
                       "tabIndex": "0",
@@ -1375,26 +1332,13 @@ ShallowWrapper {
                       "key": undefined,
                       "nodeType": "host",
                       "props": Object {
-                        "children": <img
-                          alt="ChRIS Plugin Store"
-                          src="chris-plugin-store_logo.png"
-/>,
-                        "className": "brand-name",
+                        "alt": "ChRIS Plugin Store",
+                        "className": "navbar-logo-img",
+                        "src": "chris-plugin-store_logo.png",
                       },
                       "ref": null,
-                      "rendered": Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "host",
-                        "props": Object {
-                          "alt": "ChRIS Plugin Store",
-                          "src": "chris-plugin-store_logo.png",
-                        },
-                        "ref": null,
-                        "rendered": null,
-                        "type": "img",
-                      },
-                      "type": "h1",
+                      "rendered": null,
+                      "type": "img",
                     },
                     "type": [Function],
                   },

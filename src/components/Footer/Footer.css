@@ -36,7 +36,6 @@
 
 .footer-logo {
   /* display */
-  display: flex;
   padding-bottom: 2em;
 
   /* flex */
@@ -46,8 +45,9 @@
 
 .footer-logo > img {
   /* display */
-  width: 71px;
-  height: 59px;
+  width: 95%;
+  max-width: 358.8px; /* img initial width (598px) * (3/5) */
+  height: auto;
 }
 
 .footer-body {

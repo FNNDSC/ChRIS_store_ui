@@ -24,10 +24,6 @@ describe('Navbar', () => {
     expect(wrapper.find('NavLink')).toHaveLength(5);
   });
 
-  it('should render h1 element with class brand-name', () => {
-    expect(wrapper.find('h1.brand-name')).toHaveLength(1);
-  });
-
   it('navbar brand should have href="/" attribute', () => {
     expect(wrapper.find('NavLink.navbar-brand').prop('href')).toEqual('/');
   });
@@ -53,6 +49,13 @@ describe('Navbar', () => {
     expect(wrapper
       .find('div.navbar-header')
       .find('Search'))
+      .toHaveLength(1);
+  });
+
+  it('should render navbar-logo-img img inside navbar-brand Link', () => {
+    expect(wrapper
+      .find('NavLink.navbar-brand')
+      .find('img.navbar-logo-img'))
       .toHaveLength(1);
   });
 

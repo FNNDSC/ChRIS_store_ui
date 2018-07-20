@@ -25,17 +25,9 @@ ShallowWrapper {
                     className="footer-logo"
           >
                     <img
-                              alt=""
-                              src="chris_logomark-white.png"
+                              alt="ChRIS Plugin Store"
+                              src="chris_logo-white.png"
                     />
-                    <div
-                              className="footer-header"
-                    >
-                              <strong>
-                                        ChRIS 
-                              </strong>
-                              Plugin Store
-                    </div>
           </div>
           <div
                     className="footer-body"
@@ -115,17 +107,9 @@ ShallowWrapper {
               className="footer-logo"
 >
               <img
-                            alt=""
-                            src="chris_logomark-white.png"
+                            alt="ChRIS Plugin Store"
+                            src="chris_logo-white.png"
               />
-              <div
-                            className="footer-header"
-              >
-                            <strong>
-                                          ChRIS 
-                            </strong>
-                            Plugin Store
-              </div>
 </div>,
             <div
               className="footer-body"
@@ -192,67 +176,25 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "host",
             "props": Object {
-              "children": Array [
-                <img
-                  alt=""
-                  src="chris_logomark-white.png"
+              "children": <img
+                alt="ChRIS Plugin Store"
+                src="chris_logo-white.png"
 />,
-                <div
-                  className="footer-header"
->
-                  <strong>
-                                    ChRIS 
-                  </strong>
-                  Plugin Store
-</div>,
-              ],
               "className": "footer-logo",
             },
             "ref": null,
-            "rendered": Array [
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "alt": "",
-                  "src": "chris_logomark-white.png",
-                },
-                "ref": null,
-                "rendered": null,
-                "type": "img",
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "alt": "ChRIS Plugin Store",
+                "src": "chris_logo-white.png",
               },
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "children": Array [
-                    <strong>
-                      ChRIS 
-</strong>,
-                    "Plugin Store",
-                  ],
-                  "className": "footer-header",
-                },
-                "ref": null,
-                "rendered": Array [
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "host",
-                    "props": Object {
-                      "children": "ChRIS ",
-                    },
-                    "ref": null,
-                    "rendered": "ChRIS ",
-                    "type": "strong",
-                  },
-                  "Plugin Store",
-                ],
-                "type": "div",
-              },
-            ],
+              "ref": null,
+              "rendered": null,
+              "type": "img",
+            },
             "type": "div",
           },
           Object {
@@ -530,17 +472,9 @@ ShallowWrapper {
                         className="footer-logo"
             >
                         <img
-                                    alt=""
-                                    src="chris_logomark-white.png"
+                                    alt="ChRIS Plugin Store"
+                                    src="chris_logo-white.png"
                         />
-                        <div
-                                    className="footer-header"
-                        >
-                                    <strong>
-                                                ChRIS 
-                                    </strong>
-                                    Plugin Store
-                        </div>
             </div>
             <div
                         className="footer-body"
@@ -620,17 +554,9 @@ ShallowWrapper {
                 className="footer-logo"
 >
                 <img
-                                alt=""
-                                src="chris_logomark-white.png"
+                                alt="ChRIS Plugin Store"
+                                src="chris_logo-white.png"
                 />
-                <div
-                                className="footer-header"
-                >
-                                <strong>
-                                                ChRIS 
-                                </strong>
-                                Plugin Store
-                </div>
 </div>,
               <div
                 className="footer-body"
@@ -697,67 +623,25 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "host",
               "props": Object {
-                "children": Array [
-                  <img
-                    alt=""
-                    src="chris_logomark-white.png"
+                "children": <img
+                  alt="ChRIS Plugin Store"
+                  src="chris_logo-white.png"
 />,
-                  <div
-                    className="footer-header"
->
-                    <strong>
-                                        ChRIS 
-                    </strong>
-                    Plugin Store
-</div>,
-                ],
                 "className": "footer-logo",
               },
               "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "host",
-                  "props": Object {
-                    "alt": "",
-                    "src": "chris_logomark-white.png",
-                  },
-                  "ref": null,
-                  "rendered": null,
-                  "type": "img",
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "alt": "ChRIS Plugin Store",
+                  "src": "chris_logo-white.png",
                 },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "host",
-                  "props": Object {
-                    "children": Array [
-                      <strong>
-                        ChRIS 
-</strong>,
-                      "Plugin Store",
-                    ],
-                    "className": "footer-header",
-                  },
-                  "ref": null,
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": "ChRIS ",
-                      },
-                      "ref": null,
-                      "rendered": "ChRIS ",
-                      "type": "strong",
-                    },
-                    "Plugin Store",
-                  ],
-                  "type": "div",
-                },
-              ],
+                "ref": null,
+                "rendered": null,
+                "type": "img",
+              },
               "type": "div",
             },
             Object {
