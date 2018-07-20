@@ -4,12 +4,14 @@
   padding: 0;
   
   /* border */
+  border-bottom-color: #ededed;
   border-bottom: 4px solid var(--pf-black-200);
   box-shadow: none;
 }
 
 .plugin-item-card-body {
   /* color */
+  color: #4d5258;
   color: var(--pf-black-700);
 
   /* font */
@@ -18,6 +20,7 @@
 
 .plugin-item-name {
   /* color */
+  color: #0088ce;
   color: var(--pf-blue-400);
   
   /* font */
@@ -35,6 +38,7 @@
 
 .plugin-item-creation {
   /* color */
+  color: #72767b;
   color: var(--pf-black-600);
 
   /* font */
@@ -43,9 +47,11 @@
 
 .plugin-item-author {
   /* color */
+  color: #4d5258;
   color: var(--pf-black-700);
 
   /* border */
+  border-bottom-color: #d1d1d1;
   border-bottom: 1px solid var(--pf-black-300);
 
   /* font */
@@ -54,6 +60,7 @@
 
 .plugin-item-author:hover,
 .plugin-item-author:focus {
+  color: #4d5258;
   color: var(--pf-black-700);
   text-decoration: none;
 }

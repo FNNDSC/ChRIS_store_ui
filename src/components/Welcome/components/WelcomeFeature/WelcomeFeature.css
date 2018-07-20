@@ -15,6 +15,7 @@
 
 .welcome-feature-text {
   /* color */
+  color: #fafafa;
   color: var(--pf-black-100);
 
   /* font */

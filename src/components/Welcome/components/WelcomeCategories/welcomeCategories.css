@@ -1,6 +1,8 @@
 .welcome-categories {
   /* color */
+  background: #393f44;
   background: var(--pf-black-800);
+  background: linear-gradient(135deg, #4d5258, #393f44);
   background: linear-gradient(135deg, var(--pf-black-700), var(--pf-black-800));
   background-image: url('../../../../assets/img/banner_background-categories.png');
   background-repeat: repeat;
@@ -13,6 +15,7 @@
 
 .welcome-categories-header {
   /* color */
+  color: #fafafa;
   color: var(--pf-black-100);
 
   /* display */
@@ -21,6 +24,7 @@
   /* font */
   text-align: left;
   font-size: 2em;
+  text-shadow: 0 0 1em #030303;;
   text-shadow: 0 0 1em var(--pf-black);
 }
 

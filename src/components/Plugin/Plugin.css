@@ -9,6 +9,7 @@
   padding: 1em;
 
   /* border */
+  border-bottom-color: #bbbbbb;
   border-bottom: 1px solid var(--pf-black-400);
 }
 
@@ -20,6 +21,7 @@
 
 .plugin-name {
   /* color */
+  color: #39a5dc;
   color: var(--pf-blue-300);
   
   /* font */
@@ -29,6 +31,7 @@
 
 .plugin-name:focus, .plugin-name:hover {
   /* color */
+  color: #0088ce;
   color: var(--pf-blue-400);
 
   /* font */
@@ -37,6 +40,7 @@
 
 .plugin-modified {
   /* color */
+  color: #bbbbbb;
   color: var(--pf-black-400);
 }
 
@@ -48,6 +52,7 @@
 
 .plugin-stats > .plugin-tag {
   /* color */
+  color: #8b8d8f;
   color: var(--pf-black-500);
   
   /* display */
@@ -56,6 +61,7 @@
   padding: 0 0.25em;
 
   /* border */
+  border-color: #8b8d8f;
   border: 1px solid var(--pf-black-500);
   border-radius: 4px;
 
@@ -68,10 +74,12 @@
 
 .plugin-author {
   /* color */
+  color: #8b8d8f;
   color: var(--pf-black-500);
 }
 
 .plugin-author:hover, .plugin-author:focus {
   /* color */
+  color: #72767b;
   color: var(--pf-black-600);
 }

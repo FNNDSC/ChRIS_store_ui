@@ -8,6 +8,7 @@
 
 .plugins-categories-header {
   /* color */
+  color: #4d5258;
   color: var(--pf-black-700);
 
   /* display */
@@ -20,11 +21,13 @@
   font-weight: 600;
   
   /* border */
+  border-bottom-color: #4d5258;
   border-bottom: 3px solid var(--pf-black-700);
 }
 
 .plugins-category {
   /* color */
+  color: #0088ce;
   color: var(--pf-blue-400);
 
   /* display */

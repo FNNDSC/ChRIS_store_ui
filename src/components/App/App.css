@@ -59,9 +59,17 @@
   margin: 0 auto !important;
 }
 
-.text-light { color: var(--pf-black-500); }
+.text-light {
+  /* color */
+  color: #8b8d8f;
+  color: var(--pf-black-500);
+}
 
-.text-white { color: var(--pf-black-100); }
+.text-white {
+  /* color */
+  color: #fafafa;
+  color: var(--pf-black-100);
+}
 
 /* ============================== */
 /* ---------- RESPONSIVE -------- */

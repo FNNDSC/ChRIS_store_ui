@@ -1,5 +1,6 @@
 .welcome-categories-container > .welcome-category {
   /* border */
+  border-top-color: #39a5dc;
   border-top: 4px solid var(--pf-blue-300);
 }
 
@@ -27,6 +28,7 @@
 
 .welcome-category-item-name {
   /* color */
+  color: #39a5dc;
   color: var(--pf-blue-300);
 
   /* font */
@@ -36,6 +38,7 @@
 
 .welcome-category-item-desc {
   /* color */
+  color: #8b8d8f;
   color: var(--pf-black-500);
 
   /* font */
@@ -45,7 +48,11 @@
   text-overflow: ellipsis;
 }
 
-.welcome-category-item-tags { color: var(--pf-black-300); }
+.welcome-category-item-tags {
+  /* color */
+  color: #d1d1d1;
+  color: var(--pf-black-300);
+}
 
 /* ============================== */
 /* ---------- RESPONSIVE -------- */

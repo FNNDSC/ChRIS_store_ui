@@ -1,6 +1,8 @@
 .developer-cta {
   /* color */
+  background: #393f44;
   background: var(--pf-black-800);
+  background: linear-gradient(135deg, #4d5258, #393f44);
   background: linear-gradient(135deg, var(--pf-black-700), var(--pf-black-800));
   background-image: url('../../../../assets/img/banner_chris.png');
   background-repeat: no-repeat;
@@ -19,6 +21,7 @@
 
 .developer-cta-header, .developer-cta-desc {
   /* color */
+  color: #fafafa;
   color: var(--pf-black-100);
 }
 
@@ -35,6 +38,7 @@
   /* font */
   font-weight: 600;
   font-size: medium;
+  text-shadow: 3px 3px 6px #030303;
   text-shadow: 3px 3px 6px var(--pf-black);
 }
 

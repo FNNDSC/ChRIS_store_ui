@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@fnndsc/chrisstoreapi": "^1.0.3",
+    "core-js": "^2.5.7",
     "express": "^4.16.3",
     "moment": "^2.22.2",
     "patternfly": "^3.51.0",

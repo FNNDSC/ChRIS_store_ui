@@ -1,7 +1,10 @@
 .footer {
   /* color */
+  background: #292e34;
   background: var(--pf-black-900);
+  background: linear-gradient(#292e34, #030303);
   background: linear-gradient(var(--pf-black-900), var(--pf-black));
+  color: #fafafa;
   color: var(--pf-black-100);
 
   /* display */

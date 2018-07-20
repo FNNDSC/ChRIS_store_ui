@@ -1,8 +1,10 @@
 .plugins-stats {
   /* color */
+  background: #f5f5f5;
   background: var(--pf-black-150);
   
   /* border */
+  border-bottom-color: #bbbbbb;
   border-bottom: 1px solid var(--pf-black-400);
 }
 
@@ -16,6 +18,7 @@
  
 .plugins-found {
   /* color */
+  color: #393f44;
   color: var(--pf-black-800);
   
   /* display */

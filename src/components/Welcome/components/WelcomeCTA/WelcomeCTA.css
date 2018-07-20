@@ -4,18 +4,22 @@
 
 .welcome-cta-img {
   /* color */
+  background: #393f44;
   background: var(--pf-black-800);
+  background: linear-gradient(135deg #4d5258, #393f44);
   background: linear-gradient(135deg, var(--pf-black-700), var(--pf-black-800));
   background-image: url('../../../../assets/img/banner_chris-users.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  color: #fafafa;
   color: var(--pf-black-100);
 
   /* display */
   padding: 3em 30px;
 
   /* font */
+  text-shadow: 3px 3px 6px #030303;
   text-shadow: 3px 3px 6px var(--pf-black);
 
   /* vertically align text in div */
@@ -32,7 +36,9 @@
 
 .welcome-cta-featured {
   /* color */
+  background: #0088ce;
   background: var(--pf-blue-400);
+  background: linear-gradient(#39a5dc, #0088ce);
   background: linear-gradient(var(--pf-blue-300), var(--pf-blue-400));
 
   /* display */
@@ -42,6 +48,7 @@
 
 .welcome-cta-featured-desc {
   /* color */
+  color: #fafafa;
   color: var(--pf-black-100);
 
   /* display */
@@ -68,6 +75,7 @@
 
 .welcome-scroll-caret {
   /* color */
+  color: #fafafa;
   color: var(--pf-black-100);
 
   /* display */
