@@ -2,6 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Plugins from './Plugins';
 
+// define mock for @fnndsc/chrisstoreapi module
+jest.mock('@fnndsc/chrisstoreapi', () => require.requireActual('../__mocks__/chrisstoreapi').default);
+
 describe('Plugins', () => {
   let wrapper;
   beforeEach(() => {
@@ -85,28 +88,38 @@ describe('Plugins', () => {
       .find('span.spinner').length)
       .toEqual(1);
   });
+
+  /* ============================== */
+  /* ====== FETCH PLUGINS FN ====== */
+  /* ============================== */
+
+  it('should have fetchPlugins function', () => {
+    const { fetchPlugins } = wrapper.instance();
+    expect(fetchPlugins).toBeDefined();
+  });
+
+  it('should be able to fetch plugins', () => {
+    const { fetchPlugins } = wrapper.instance();
+    return fetchPlugins().then((plugins) => {
+      expect(plugins).toBeDefined();
+    });
+  });
 });
 
 const samplePluginList = [
   {
-    href: 'someurl1',
-    data: {
-      title: 'testTitle1',
-      name: 'testName1',
-      authors: 'testAuthor1',
-      dock_image: 'dock/image1',
-      creation_date: '2018-06-19T15:29:11.349272Z',
-    },
+    title: 'testTitle1',
+    name: 'testName1',
+    authors: 'testAuthor1',
+    dock_image: 'dock/image1',
+    creation_date: '2018-06-19T15:29:11.349272Z',
   },
   {
-    href: 'someurl2',
-    data: {
-      title: 'testTitle2',
-      name: 'testName2',
-      authors: 'testAuthor2',
-      dock_image: 'dock/image2',
-      creation_date: '2018-06-19T15:29:11.349272Z',
-    },
+    title: 'testTitle2',
+    name: 'testName2',
+    authors: 'testAuthor2',
+    dock_image: 'dock/image2',
+    creation_date: '2018-06-19T15:29:11.349272Z',
   },
 ];
 
@@ -145,7 +158,7 @@ describe('rendered Plugins', () => {
     });
   });
 
-  it('should render the creation_date prop for each Pllugin', () => {
+  it('should render the creation_date prop for each Plugin', () => {
     plugins.forEach((plugin) => {
       expect(plugin.props.creationDate).toEqual('2018-06-19T15:29:11.349272Z');
     });

@@ -21,16 +21,21 @@ describe('Router', () => {
     expect(wrapper.find('div')).toHaveLength(1);
   });
 
-  it('should render Navbar component', () => {
-    expect(wrapper.containsMatchingElement(<Navbar />)).toEqual(true);
+  it('should render Navbar component inside Route', () => {
+    const routes = Array.from(wrapper.find('Route'));
+    const componentExists = routes.find(route => (
+      route.props.component === Navbar
+    ));
+
+    expect(componentExists).toBeTruthy();
   });
 
   it('should render a Switch coponent', () => {
     expect(wrapper.find('Switch')).toHaveLength(1);
   });
 
-  it('should render 4 Routes', () => {
-    expect(wrapper.find('Route')).toHaveLength(4);
+  it('should render 5 Routes', () => {
+    expect(wrapper.find('Route')).toHaveLength(5);
   });
 
   it('every route should have a path prop and component prop', () => {

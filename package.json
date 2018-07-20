@@ -6,6 +6,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom --notify true",
+    "lint": "eslint --fix ./src/components",
     "serve": "node serve.js",
     "precommit": "lint-staged",
     "test:staged": "cross-env CI=true react-scripts test --env=jsdom --findRelatedTests"
@@ -18,10 +19,11 @@
     ]
   },
   "dependencies": {
+    "@fnndsc/chrisstoreapi": "^1.0.3",
     "express": "^4.16.3",
     "moment": "^2.22.2",
     "patternfly": "^3.51.0",
-    "patternfly-react": "^2.8.0",
+    "patternfly-react": "^2.11.1",
     "prop-types": "^15.6.2",
     "react": "16.4.1",
     "react-bootstrap": "^0.32.1",

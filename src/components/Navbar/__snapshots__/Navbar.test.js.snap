@@ -4,7 +4,13 @@ exports[`Navbar should render correctly 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Navbar />,
+  Symbol(enzyme.__unrendered__): <Navbar
+    location={
+        Object {
+            "search": "",
+          }
+    }
+/>,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -22,24 +28,33 @@ ShallowWrapper {
           className="navbar navbar-pf-vertical navbar-default"
 >
           <div
-                    className="row no-flex"
+                    className="navbar-row row"
           >
                     <div
                               className="navbar-header"
                     >
-                              <Link
+                              <NavLink
+                                        activeClassName="active"
+                                        aria-current="page"
                                         className="navbar-brand navbar-logo"
                                         href="/"
-                                        replace={false}
                                         tabIndex="0"
                                         to="/"
                               >
-                                        <img
+                                         <img
                                                   alt="ChRIS Plugin Store"
                                                   className="navbar-logo-img"
                                                   src="chris-plugin-store_logo.png"
                                         />
-                              </Link>
+                              </NavLink>
+                              <Search
+                                        className="navbar-search"
+                                        location={
+                                                  Object {
+                                                            "search": "",
+                                                          }
+                                        }
+                              />
                               <div
                                         className="navbar-trigger"
                                         onClick={[Function]}
@@ -77,24 +92,26 @@ ShallowWrapper {
                                         className="nav navbar-nav navbar-right"
                               >
                                         <li>
-                                                  <Link
+                                                  <NavLink
+                                                            activeClassName="active"
+                                                            aria-current="page"
                                                             className="navbar-plugins-btn"
                                                             href="/plugins"
-                                                            replace={false}
                                                             to="/plugins"
                                                   >
                                                             Plugins
-                                                  </Link>
+                                                  </NavLink>
                                         </li>
                                         <li>
-                                                  <Link
+                                                  <NavLink
+                                                            activeClassName="active"
+                                                            aria-current="page"
                                                             className="navbar-developers-btn"
                                                             href="/developers"
-                                                            replace={false}
                                                             to="/developers"
                                                   >
                                                             Developers
-                                                  </Link>
+                                                  </NavLink>
                                         </li>
                               </ul>
                     </div>
@@ -117,28 +134,30 @@ ShallowWrapper {
                               <div
                                         className="navbar-btn-container"
                               >
-                                        <Link
+                                        <NavLink
+                                                  activeClassName="active"
+                                                  aria-current="page"
                                                   className="navbar-dropdown-btn"
                                                   href="/plugins"
                                                   onClick={[Function]}
-                                                  replace={false}
                                                   to="/plugins"
                                         >
                                                   Plugins
-                                        </Link>
+                                        </NavLink>
                               </div>
                               <div
                                         className="navbar-btn-container"
                               >
-                                        <Link
+                                        <NavLink
+                                                  activeClassName="active"
+                                                  aria-current="page"
                                                   className="navbar-dropdown-btn"
                                                   href="/developers"
                                                   onClick={[Function]}
-                                                  replace={false}
                                                   to="/developers"
                                         >
                                                   Developers
-                                        </Link>
+                                        </NavLink>
                               </div>
                     </div>
           </div>
@@ -153,15 +172,16 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": <div
-            className="row no-flex"
+            className="navbar-row row"
 >
             <div
                         className="navbar-header"
             >
-                        <Link
+                        <NavLink
+                                    activeClassName="active"
+                                    aria-current="page"
                                     className="navbar-brand navbar-logo"
                                     href="/"
-                                    replace={false}
                                     tabIndex="0"
                                     to="/"
                         >
@@ -170,7 +190,15 @@ ShallowWrapper {
                                                 className="navbar-logo-img"
                                                 src="chris-plugin-store_logo.png"
                                     />
-                        </Link>
+                        </NavLink>
+                        <Search
+                                    className="navbar-search"
+                                    location={
+                                                Object {
+                                                            "search": "",
+                                                          }
+                                    }
+                        />
                         <div
                                     className="navbar-trigger"
                                     onClick={[Function]}
@@ -208,24 +236,26 @@ ShallowWrapper {
                                     className="nav navbar-nav navbar-right"
                         >
                                     <li>
-                                                <Link
+                                                <NavLink
+                                                            activeClassName="active"
+                                                            aria-current="page"
                                                             className="navbar-plugins-btn"
                                                             href="/plugins"
-                                                            replace={false}
                                                             to="/plugins"
                                                 >
                                                             Plugins
-                                                </Link>
+                                                </NavLink>
                                     </li>
                                     <li>
-                                                <Link
+                                                <NavLink
+                                                            activeClassName="active"
+                                                            aria-current="page"
                                                             className="navbar-developers-btn"
                                                             href="/developers"
-                                                            replace={false}
                                                             to="/developers"
                                                 >
                                                             Developers
-                                                </Link>
+                                                </NavLink>
                                     </li>
                         </ul>
             </div>
@@ -242,10 +272,11 @@ ShallowWrapper {
               <div
                 className="navbar-header"
 >
-                <Link
+                <NavLink
+                                activeClassName="active"
+                                aria-current="page"
                                 className="navbar-brand navbar-logo"
                                 href="/"
-                                replace={false}
                                 tabIndex="0"
                                 to="/"
                 >
@@ -254,7 +285,15 @@ ShallowWrapper {
                                                 className="navbar-logo-img"
                                                 src="chris-plugin-store_logo.png"
                                 />
-                </Link>
+                </NavLink>
+                <Search
+                                className="navbar-search"
+                                location={
+                                                Object {
+                                                                "search": "",
+                                                              }
+                                }
+                />
                 <div
                                 className="navbar-trigger"
                                 onClick={[Function]}
@@ -292,29 +331,31 @@ ShallowWrapper {
                                 className="nav navbar-nav navbar-right"
                 >
                                 <li>
-                                                <Link
+                                                <NavLink
+                                                                activeClassName="active"
+                                                                aria-current="page"
                                                                 className="navbar-plugins-btn"
                                                                 href="/plugins"
-                                                                replace={false}
                                                                 to="/plugins"
                                                 >
                                                                 Plugins
-                                                </Link>
+                                                </NavLink>
                                 </li>
                                 <li>
-                                                <Link
+                                                <NavLink
+                                                                activeClassName="active"
+                                                                aria-current="page"
                                                                 className="navbar-developers-btn"
                                                                 href="/developers"
-                                                                replace={false}
                                                                 to="/developers"
                                                 >
                                                                 Developers
-                                                </Link>
+                                                </NavLink>
                                 </li>
                 </ul>
 </div>,
             ],
-            "className": "row no-flex",
+            "className": "navbar-row row",
           },
           "ref": null,
           "rendered": Array [
@@ -324,10 +365,11 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": Array [
-                  <Link
+                  <NavLink
+                    activeClassName="active"
+                    aria-current="page"
                     className="navbar-brand navbar-logo"
                     href="/"
-                    replace={false}
                     tabIndex="0"
                     to="/"
 >
@@ -336,7 +378,15 @@ ShallowWrapper {
                                         className="navbar-logo-img"
                                         src="chris-plugin-store_logo.png"
                     />
-</Link>,
+</NavLink>,
+                  <Search
+                    className="navbar-search"
+                    location={
+                                        Object {
+                                                            "search": "",
+                                                          }
+                    }
+/>,
                   <div
                     className="navbar-trigger"
                     onClick={[Function]}
@@ -357,8 +407,10 @@ ShallowWrapper {
                 Object {
                   "instance": null,
                   "key": undefined,
-                  "nodeType": "class",
+                  "nodeType": "function",
                   "props": Object {
+                    "activeClassName": "active",
+                    "aria-current": "page",
                     "children": <img
                       alt="ChRIS Plugin Store"
                       className="navbar-logo-img"
@@ -366,7 +418,6 @@ ShallowWrapper {
 />,
                     "className": "navbar-brand navbar-logo",
                     "href": "/",
-                    "replace": false,
                     "tabIndex": "0",
                     "to": "/",
                   },
@@ -384,6 +435,20 @@ ShallowWrapper {
                     "rendered": null,
                     "type": "img",
                   },
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "className": "navbar-search",
+                    "location": Object {
+                      "search": "",
+                    },
+                  },
+                  "ref": null,
+                  "rendered": null,
                   "type": [Function],
                 },
                 Object {
@@ -446,24 +511,26 @@ ShallowWrapper {
                     className="nav navbar-nav navbar-right"
 >
                     <li>
-                                        <Link
+                                        <NavLink
+                                                            activeClassName="active"
+                                                            aria-current="page"
                                                             className="navbar-plugins-btn"
                                                             href="/plugins"
-                                                            replace={false}
                                                             to="/plugins"
                                         >
                                                             Plugins
-                                        </Link>
+                                        </NavLink>
                     </li>
                     <li>
-                                        <Link
+                                        <NavLink
+                                                            activeClassName="active"
+                                                            aria-current="page"
                                                             className="navbar-developers-btn"
                                                             href="/developers"
-                                                            replace={false}
                                                             to="/developers"
                                         >
                                                             Developers
-                                        </Link>
+                                        </NavLink>
                     </li>
 </ul>,
                 ],
@@ -539,24 +606,26 @@ ShallowWrapper {
                   "props": Object {
                     "children": Array [
                       <li>
-                        <Link
+                        <NavLink
+                                                activeClassName="active"
+                                                aria-current="page"
                                                 className="navbar-plugins-btn"
                                                 href="/plugins"
-                                                replace={false}
                                                 to="/plugins"
                         >
                                                 Plugins
-                        </Link>
+                        </NavLink>
 </li>,
                       <li>
-                        <Link
+                        <NavLink
+                                                activeClassName="active"
+                                                aria-current="page"
                                                 className="navbar-developers-btn"
                                                 href="/developers"
-                                                replace={false}
                                                 to="/developers"
                         >
                                                 Developers
-                        </Link>
+                        </NavLink>
 </li>,
                     ],
                     "className": "nav navbar-nav navbar-right",
@@ -568,25 +637,27 @@ ShallowWrapper {
                       "key": undefined,
                       "nodeType": "host",
                       "props": Object {
-                        "children": <Link
+                        "children": <NavLink
+                          activeClassName="active"
+                          aria-current="page"
                           className="navbar-plugins-btn"
                           href="/plugins"
-                          replace={false}
                           to="/plugins"
 >
                           Plugins
-</Link>,
+</NavLink>,
                       },
                       "ref": null,
                       "rendered": Object {
                         "instance": null,
                         "key": undefined,
-                        "nodeType": "class",
+                        "nodeType": "function",
                         "props": Object {
+                          "activeClassName": "active",
+                          "aria-current": "page",
                           "children": "Plugins",
                           "className": "navbar-plugins-btn",
                           "href": "/plugins",
-                          "replace": false,
                           "to": "/plugins",
                         },
                         "ref": null,
@@ -600,25 +671,27 @@ ShallowWrapper {
                       "key": undefined,
                       "nodeType": "host",
                       "props": Object {
-                        "children": <Link
+                        "children": <NavLink
+                          activeClassName="active"
+                          aria-current="page"
                           className="navbar-developers-btn"
                           href="/developers"
-                          replace={false}
                           to="/developers"
 >
                           Developers
-</Link>,
+</NavLink>,
                       },
                       "ref": null,
                       "rendered": Object {
                         "instance": null,
                         "key": undefined,
-                        "nodeType": "class",
+                        "nodeType": "function",
                         "props": Object {
+                          "activeClassName": "active",
+                          "aria-current": "page",
                           "children": "Developers",
                           "className": "navbar-developers-btn",
                           "href": "/developers",
-                          "replace": false,
                           "to": "/developers",
                         },
                         "ref": null,
@@ -651,28 +724,30 @@ ShallowWrapper {
                         <div
                                     className="navbar-btn-container"
                         >
-                                    <Link
+                                    <NavLink
+                                                activeClassName="active"
+                                                aria-current="page"
                                                 className="navbar-dropdown-btn"
                                                 href="/plugins"
                                                 onClick={[Function]}
-                                                replace={false}
                                                 to="/plugins"
                                     >
                                                 Plugins
-                                    </Link>
+                                    </NavLink>
                         </div>
                         <div
                                     className="navbar-btn-container"
                         >
-                                    <Link
+                                    <NavLink
+                                                activeClassName="active"
+                                                aria-current="page"
                                                 className="navbar-dropdown-btn"
                                                 href="/developers"
                                                 onClick={[Function]}
-                                                replace={false}
                                                 to="/developers"
                                     >
                                                 Developers
-                                    </Link>
+                                    </NavLink>
                         </div>
             </div>
 </div>,
@@ -696,28 +771,30 @@ ShallowWrapper {
               <div
                             className="navbar-btn-container"
               >
-                            <Link
+                            <NavLink
+                                          activeClassName="active"
+                                          aria-current="page"
                                           className="navbar-dropdown-btn"
                                           href="/plugins"
                                           onClick={[Function]}
-                                          replace={false}
                                           to="/plugins"
                             >
                                           Plugins
-                            </Link>
+                            </NavLink>
               </div>
               <div
                             className="navbar-btn-container"
               >
-                            <Link
+                            <NavLink
+                                          activeClassName="active"
+                                          aria-current="page"
                                           className="navbar-dropdown-btn"
                                           href="/developers"
                                           onClick={[Function]}
-                                          replace={false}
                                           to="/developers"
                             >
                                           Developers
-                            </Link>
+                            </NavLink>
               </div>
 </div>,
           },
@@ -731,28 +808,30 @@ ShallowWrapper {
                 <div
                   className="navbar-btn-container"
 >
-                  <Link
+                  <NavLink
+                                    activeClassName="active"
+                                    aria-current="page"
                                     className="navbar-dropdown-btn"
                                     href="/plugins"
                                     onClick={[Function]}
-                                    replace={false}
                                     to="/plugins"
                   >
                                     Plugins
-                  </Link>
+                  </NavLink>
 </div>,
                 <div
                   className="navbar-btn-container"
 >
-                  <Link
+                  <NavLink
+                                    activeClassName="active"
+                                    aria-current="page"
                                     className="navbar-dropdown-btn"
                                     href="/developers"
                                     onClick={[Function]}
-                                    replace={false}
                                     to="/developers"
                   >
                                     Developers
-                  </Link>
+                  </NavLink>
 </div>,
               ],
               "className": "navbar-dropdown-container",
@@ -764,28 +843,30 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "host",
                 "props": Object {
-                  "children": <Link
+                  "children": <NavLink
+                    activeClassName="active"
+                    aria-current="page"
                     className="navbar-dropdown-btn"
                     href="/plugins"
                     onClick={[Function]}
-                    replace={false}
                     to="/plugins"
 >
                     Plugins
-</Link>,
+</NavLink>,
                   "className": "navbar-btn-container",
                 },
                 "ref": null,
                 "rendered": Object {
                   "instance": null,
                   "key": undefined,
-                  "nodeType": "class",
+                  "nodeType": "function",
                   "props": Object {
+                    "activeClassName": "active",
+                    "aria-current": "page",
                     "children": "Plugins",
                     "className": "navbar-dropdown-btn",
                     "href": "/plugins",
                     "onClick": [Function],
-                    "replace": false,
                     "to": "/plugins",
                   },
                   "ref": null,
@@ -799,28 +880,30 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "host",
                 "props": Object {
-                  "children": <Link
+                  "children": <NavLink
+                    activeClassName="active"
+                    aria-current="page"
                     className="navbar-dropdown-btn"
                     href="/developers"
                     onClick={[Function]}
-                    replace={false}
                     to="/developers"
 >
                     Developers
-</Link>,
+</NavLink>,
                   "className": "navbar-btn-container",
                 },
                 "ref": null,
                 "rendered": Object {
                   "instance": null,
                   "key": undefined,
-                  "nodeType": "class",
+                  "nodeType": "function",
                   "props": Object {
+                    "activeClassName": "active",
+                    "aria-current": "page",
                     "children": "Developers",
                     "className": "navbar-dropdown-btn",
                     "href": "/developers",
                     "onClick": [Function],
-                    "replace": false,
                     "to": "/developers",
                   },
                   "ref": null,
@@ -850,15 +933,16 @@ ShallowWrapper {
             className="navbar navbar-pf-vertical navbar-default"
 >
             <div
-                        className="row no-flex"
+                        className="navbar-row row"
             >
                         <div
                                     className="navbar-header"
                         >
-                                    <Link
+                                    <NavLink
+                                                activeClassName="active"
+                                                aria-current="page"
                                                 className="navbar-brand navbar-logo"
                                                 href="/"
-                                                replace={false}
                                                 tabIndex="0"
                                                 to="/"
                                     >
@@ -867,7 +951,15 @@ ShallowWrapper {
                                                             className="navbar-logo-img"
                                                             src="chris-plugin-store_logo.png"
                                                 />
-                                    </Link>
+                                    </NavLink>
+                                    <Search
+                                                className="navbar-search"
+                                                location={
+                                                            Object {
+                                                                        "search": "",
+                                                                      }
+                                                }
+                                    />
                                     <div
                                                 className="navbar-trigger"
                                                 onClick={[Function]}
@@ -905,24 +997,26 @@ ShallowWrapper {
                                                 className="nav navbar-nav navbar-right"
                                     >
                                                 <li>
-                                                            <Link
+                                                            <NavLink
+                                                                        activeClassName="active"
+                                                                        aria-current="page"
                                                                         className="navbar-plugins-btn"
                                                                         href="/plugins"
-                                                                        replace={false}
                                                                         to="/plugins"
                                                             >
                                                                         Plugins
-                                                            </Link>
+                                                            </NavLink>
                                                 </li>
                                                 <li>
-                                                            <Link
+                                                            <NavLink
+                                                                        activeClassName="active"
+                                                                        aria-current="page"
                                                                         className="navbar-developers-btn"
                                                                         href="/developers"
-                                                                        replace={false}
                                                                         to="/developers"
                                                             >
                                                                         Developers
-                                                            </Link>
+                                                            </NavLink>
                                                 </li>
                                     </ul>
                         </div>
@@ -945,28 +1039,30 @@ ShallowWrapper {
                                     <div
                                                 className="navbar-btn-container"
                                     >
-                                                <Link
+                                                <NavLink
+                                                            activeClassName="active"
+                                                            aria-current="page"
                                                             className="navbar-dropdown-btn"
                                                             href="/plugins"
                                                             onClick={[Function]}
-                                                            replace={false}
                                                             to="/plugins"
                                                 >
                                                             Plugins
-                                                </Link>
+                                                </NavLink>
                                     </div>
                                     <div
                                                 className="navbar-btn-container"
                                     >
-                                                <Link
+                                                <NavLink
+                                                            activeClassName="active"
+                                                            aria-current="page"
                                                             className="navbar-dropdown-btn"
                                                             href="/developers"
                                                             onClick={[Function]}
-                                                            replace={false}
                                                             to="/developers"
                                                 >
                                                             Developers
-                                                </Link>
+                                                </NavLink>
                                     </div>
                         </div>
             </div>
@@ -981,15 +1077,16 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": <div
-              className="row no-flex"
+              className="navbar-row row"
 >
               <div
                             className="navbar-header"
               >
-                            <Link
+                            <NavLink
+                                          activeClassName="active"
+                                          aria-current="page"
                                           className="navbar-brand navbar-logo"
                                           href="/"
-                                          replace={false}
                                           tabIndex="0"
                                           to="/"
                             >
@@ -998,7 +1095,15 @@ ShallowWrapper {
                                                         className="navbar-logo-img"
                                                         src="chris-plugin-store_logo.png"
                                           />
-                            </Link>
+                            </NavLink>
+                            <Search
+                                          className="navbar-search"
+                                          location={
+                                                        Object {
+                                                                      "search": "",
+                                                                    }
+                                          }
+                            />
                             <div
                                           className="navbar-trigger"
                                           onClick={[Function]}
@@ -1036,24 +1141,26 @@ ShallowWrapper {
                                           className="nav navbar-nav navbar-right"
                             >
                                           <li>
-                                                        <Link
+                                                        <NavLink
+                                                                      activeClassName="active"
+                                                                      aria-current="page"
                                                                       className="navbar-plugins-btn"
                                                                       href="/plugins"
-                                                                      replace={false}
                                                                       to="/plugins"
                                                         >
                                                                       Plugins
-                                                        </Link>
+                                                        </NavLink>
                                           </li>
                                           <li>
-                                                        <Link
+                                                        <NavLink
+                                                                      activeClassName="active"
+                                                                      aria-current="page"
                                                                       className="navbar-developers-btn"
                                                                       href="/developers"
-                                                                      replace={false}
                                                                       to="/developers"
                                                         >
                                                                       Developers
-                                                        </Link>
+                                                        </NavLink>
                                           </li>
                             </ul>
               </div>
@@ -1070,10 +1177,11 @@ ShallowWrapper {
                 <div
                   className="navbar-header"
 >
-                  <Link
+                  <NavLink
+                                    activeClassName="active"
+                                    aria-current="page"
                                     className="navbar-brand navbar-logo"
                                     href="/"
-                                    replace={false}
                                     tabIndex="0"
                                     to="/"
                   >
@@ -1082,7 +1190,15 @@ ShallowWrapper {
                                                       className="navbar-logo-img"
                                                       src="chris-plugin-store_logo.png"
                                     />
-                  </Link>
+                  </NavLink>
+                  <Search
+                                    className="navbar-search"
+                                    location={
+                                                      Object {
+                                                                        "search": "",
+                                                                      }
+                                    }
+                  />
                   <div
                                     className="navbar-trigger"
                                     onClick={[Function]}
@@ -1120,29 +1236,31 @@ ShallowWrapper {
                                     className="nav navbar-nav navbar-right"
                   >
                                     <li>
-                                                      <Link
+                                                      <NavLink
+                                                                        activeClassName="active"
+                                                                        aria-current="page"
                                                                         className="navbar-plugins-btn"
                                                                         href="/plugins"
-                                                                        replace={false}
                                                                         to="/plugins"
                                                       >
                                                                         Plugins
-                                                      </Link>
+                                                      </NavLink>
                                     </li>
                                     <li>
-                                                      <Link
+                                                      <NavLink
+                                                                        activeClassName="active"
+                                                                        aria-current="page"
                                                                         className="navbar-developers-btn"
                                                                         href="/developers"
-                                                                        replace={false}
                                                                         to="/developers"
                                                       >
                                                                         Developers
-                                                      </Link>
+                                                      </NavLink>
                                     </li>
                   </ul>
 </div>,
               ],
-              "className": "row no-flex",
+              "className": "navbar-row row",
             },
             "ref": null,
             "rendered": Array [
@@ -1152,10 +1270,11 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": Array [
-                    <Link
+                    <NavLink
+                      activeClassName="active"
+                      aria-current="page"
                       className="navbar-brand navbar-logo"
                       href="/"
-                      replace={false}
                       tabIndex="0"
                       to="/"
 >
@@ -1164,7 +1283,15 @@ ShallowWrapper {
                                             className="navbar-logo-img"
                                             src="chris-plugin-store_logo.png"
                       />
-</Link>,
+</NavLink>,
+                    <Search
+                      className="navbar-search"
+                      location={
+                                            Object {
+                                                                  "search": "",
+                                                                }
+                      }
+/>,
                     <div
                       className="navbar-trigger"
                       onClick={[Function]}
@@ -1185,8 +1312,10 @@ ShallowWrapper {
                   Object {
                     "instance": null,
                     "key": undefined,
-                    "nodeType": "class",
+                    "nodeType": "function",
                     "props": Object {
+                      "activeClassName": "active",
+                      "aria-current": "page",
                       "children": <img
                         alt="ChRIS Plugin Store"
                         className="navbar-logo-img"
@@ -1194,7 +1323,6 @@ ShallowWrapper {
 />,
                       "className": "navbar-brand navbar-logo",
                       "href": "/",
-                      "replace": false,
                       "tabIndex": "0",
                       "to": "/",
                     },
@@ -1212,6 +1340,20 @@ ShallowWrapper {
                       "rendered": null,
                       "type": "img",
                     },
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "function",
+                    "props": Object {
+                      "className": "navbar-search",
+                      "location": Object {
+                        "search": "",
+                      },
+                    },
+                    "ref": null,
+                    "rendered": null,
                     "type": [Function],
                   },
                   Object {
@@ -1274,24 +1416,26 @@ ShallowWrapper {
                       className="nav navbar-nav navbar-right"
 >
                       <li>
-                                            <Link
+                                            <NavLink
+                                                                  activeClassName="active"
+                                                                  aria-current="page"
                                                                   className="navbar-plugins-btn"
                                                                   href="/plugins"
-                                                                  replace={false}
                                                                   to="/plugins"
                                             >
                                                                   Plugins
-                                            </Link>
+                                            </NavLink>
                       </li>
                       <li>
-                                            <Link
+                                            <NavLink
+                                                                  activeClassName="active"
+                                                                  aria-current="page"
                                                                   className="navbar-developers-btn"
                                                                   href="/developers"
-                                                                  replace={false}
                                                                   to="/developers"
                                             >
                                                                   Developers
-                                            </Link>
+                                            </NavLink>
                       </li>
 </ul>,
                   ],
@@ -1367,24 +1511,26 @@ ShallowWrapper {
                     "props": Object {
                       "children": Array [
                         <li>
-                          <Link
+                          <NavLink
+                                                    activeClassName="active"
+                                                    aria-current="page"
                                                     className="navbar-plugins-btn"
                                                     href="/plugins"
-                                                    replace={false}
                                                     to="/plugins"
                           >
                                                     Plugins
-                          </Link>
+                          </NavLink>
 </li>,
                         <li>
-                          <Link
+                          <NavLink
+                                                    activeClassName="active"
+                                                    aria-current="page"
                                                     className="navbar-developers-btn"
                                                     href="/developers"
-                                                    replace={false}
                                                     to="/developers"
                           >
                                                     Developers
-                          </Link>
+                          </NavLink>
 </li>,
                       ],
                       "className": "nav navbar-nav navbar-right",
@@ -1396,25 +1542,27 @@ ShallowWrapper {
                         "key": undefined,
                         "nodeType": "host",
                         "props": Object {
-                          "children": <Link
+                          "children": <NavLink
+                            activeClassName="active"
+                            aria-current="page"
                             className="navbar-plugins-btn"
                             href="/plugins"
-                            replace={false}
                             to="/plugins"
 >
                             Plugins
-</Link>,
+</NavLink>,
                         },
                         "ref": null,
                         "rendered": Object {
                           "instance": null,
                           "key": undefined,
-                          "nodeType": "class",
+                          "nodeType": "function",
                           "props": Object {
+                            "activeClassName": "active",
+                            "aria-current": "page",
                             "children": "Plugins",
                             "className": "navbar-plugins-btn",
                             "href": "/plugins",
-                            "replace": false,
                             "to": "/plugins",
                           },
                           "ref": null,
@@ -1428,25 +1576,27 @@ ShallowWrapper {
                         "key": undefined,
                         "nodeType": "host",
                         "props": Object {
-                          "children": <Link
+                          "children": <NavLink
+                            activeClassName="active"
+                            aria-current="page"
                             className="navbar-developers-btn"
                             href="/developers"
-                            replace={false}
                             to="/developers"
 >
                             Developers
-</Link>,
+</NavLink>,
                         },
                         "ref": null,
                         "rendered": Object {
                           "instance": null,
                           "key": undefined,
-                          "nodeType": "class",
+                          "nodeType": "function",
                           "props": Object {
+                            "activeClassName": "active",
+                            "aria-current": "page",
                             "children": "Developers",
                             "className": "navbar-developers-btn",
                             "href": "/developers",
-                            "replace": false,
                             "to": "/developers",
                           },
                           "ref": null,
@@ -1479,28 +1629,30 @@ ShallowWrapper {
                             <div
                                           className="navbar-btn-container"
                             >
-                                          <Link
+                                          <NavLink
+                                                        activeClassName="active"
+                                                        aria-current="page"
                                                         className="navbar-dropdown-btn"
                                                         href="/plugins"
                                                         onClick={[Function]}
-                                                        replace={false}
                                                         to="/plugins"
                                           >
                                                         Plugins
-                                          </Link>
+                                          </NavLink>
                             </div>
                             <div
                                           className="navbar-btn-container"
                             >
-                                          <Link
+                                          <NavLink
+                                                        activeClassName="active"
+                                                        aria-current="page"
                                                         className="navbar-dropdown-btn"
                                                         href="/developers"
                                                         onClick={[Function]}
-                                                        replace={false}
                                                         to="/developers"
                                           >
                                                         Developers
-                                          </Link>
+                                          </NavLink>
                             </div>
               </div>
 </div>,
@@ -1524,28 +1676,30 @@ ShallowWrapper {
                 <div
                                 className="navbar-btn-container"
                 >
-                                <Link
+                                <NavLink
+                                                activeClassName="active"
+                                                aria-current="page"
                                                 className="navbar-dropdown-btn"
                                                 href="/plugins"
                                                 onClick={[Function]}
-                                                replace={false}
                                                 to="/plugins"
                                 >
                                                 Plugins
-                                </Link>
+                                </NavLink>
                 </div>
                 <div
                                 className="navbar-btn-container"
                 >
-                                <Link
+                                <NavLink
+                                                activeClassName="active"
+                                                aria-current="page"
                                                 className="navbar-dropdown-btn"
                                                 href="/developers"
                                                 onClick={[Function]}
-                                                replace={false}
                                                 to="/developers"
                                 >
                                                 Developers
-                                </Link>
+                                </NavLink>
                 </div>
 </div>,
             },
@@ -1559,28 +1713,30 @@ ShallowWrapper {
                   <div
                     className="navbar-btn-container"
 >
-                    <Link
+                    <NavLink
+                                        activeClassName="active"
+                                        aria-current="page"
                                         className="navbar-dropdown-btn"
                                         href="/plugins"
                                         onClick={[Function]}
-                                        replace={false}
                                         to="/plugins"
                     >
                                         Plugins
-                    </Link>
+                    </NavLink>
 </div>,
                   <div
                     className="navbar-btn-container"
 >
-                    <Link
+                    <NavLink
+                                        activeClassName="active"
+                                        aria-current="page"
                                         className="navbar-dropdown-btn"
                                         href="/developers"
                                         onClick={[Function]}
-                                        replace={false}
                                         to="/developers"
                     >
                                         Developers
-                    </Link>
+                    </NavLink>
 </div>,
                 ],
                 "className": "navbar-dropdown-container",
@@ -1592,28 +1748,30 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "children": <Link
+                    "children": <NavLink
+                      activeClassName="active"
+                      aria-current="page"
                       className="navbar-dropdown-btn"
                       href="/plugins"
                       onClick={[Function]}
-                      replace={false}
                       to="/plugins"
 >
                       Plugins
-</Link>,
+</NavLink>,
                     "className": "navbar-btn-container",
                   },
                   "ref": null,
                   "rendered": Object {
                     "instance": null,
                     "key": undefined,
-                    "nodeType": "class",
+                    "nodeType": "function",
                     "props": Object {
+                      "activeClassName": "active",
+                      "aria-current": "page",
                       "children": "Plugins",
                       "className": "navbar-dropdown-btn",
                       "href": "/plugins",
                       "onClick": [Function],
-                      "replace": false,
                       "to": "/plugins",
                     },
                     "ref": null,
@@ -1627,28 +1785,30 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "children": <Link
+                    "children": <NavLink
+                      activeClassName="active"
+                      aria-current="page"
                       className="navbar-dropdown-btn"
                       href="/developers"
                       onClick={[Function]}
-                      replace={false}
                       to="/developers"
 >
                       Developers
-</Link>,
+</NavLink>,
                     "className": "navbar-btn-container",
                   },
                   "ref": null,
                   "rendered": Object {
                     "instance": null,
                     "key": undefined,
-                    "nodeType": "class",
+                    "nodeType": "function",
                     "props": Object {
+                      "activeClassName": "active",
+                      "aria-current": "page",
                       "children": "Developers",
                       "className": "navbar-dropdown-btn",
                       "href": "/developers",
                       "onClick": [Function],
-                      "replace": false,
                       "to": "/developers",
                     },
                     "ref": null,

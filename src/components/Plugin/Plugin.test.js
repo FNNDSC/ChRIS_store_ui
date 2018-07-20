@@ -2,6 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Plugin from './Plugin';
 
+// define mock for @fnndsc/chrisstoreapi module
+jest.mock('@fnndsc/chrisstoreapi', () => require.requireActual('../__mocks__/chrisstoreapi').default);
+
 describe('Plugin', () => {
   let wrapper;
   beforeEach(() => {
@@ -20,7 +23,7 @@ describe('Plugin', () => {
   /* ==== FETCH PLUGIN DATA FN ==== */
   /* ============================== */
 
-  it('should have fn fetchPluginData', () => {
+  it('should have fetchPluginData function', () => {
     const { fetchPluginData } = wrapper.instance();
     expect(fetchPluginData).toBeDefined();
   });
@@ -38,7 +41,7 @@ describe('Plugin', () => {
 
     return fetchPluginData().then((pluginData) => {
       expect(pluginData).toBeDefined();
-      expect(pluginData.data.name).toEqual('dircopy');
+      expect(pluginData.name).toEqual('testName1');
     });
   });
 });
@@ -71,11 +74,9 @@ describe('Plugin without data', () => {
 
 const sampleData = {
   pluginData: {
-    data: {
-      modification_date: '3/14/15',
-      version: '0.1',
-      authors: 'testAuthor (user@domain.com)',
-    },
+    modification_date: '3/14/15',
+    version: '0.1',
+    authors: 'testAuthor (user@domain.com)',
   },
 };
 
@@ -128,7 +129,7 @@ describe('Plugin with data', () => {
   it('should render plugin-modified div if valid date is provided', () => {
     Date.now = jest.fn(() => 1530814238992);
     const changedData = Object.assign({}, sampleData);
-    changedData.pluginData.data.modification_date = '2018-06-19T15:29:11.349272Z';
+    changedData.pluginData.modification_date = '2018-06-19T15:29:11.349272Z';
     wrapper.setState(changedData);
 
     expect(wrapper
@@ -139,7 +140,7 @@ describe('Plugin with data', () => {
 
   it('should not render plugin-modified if invalid date is provided', () => {
     const changedData = Object.assign({}, sampleData);
-    changedData.pluginData.data.modification_date = 'invalid date';
+    changedData.pluginData.modification_date = 'invalid date';
 
     wrapper.setState(changedData);
 
@@ -159,7 +160,7 @@ describe('Plugin with data', () => {
 
   it('should render correct plugin version inside plugin-version div', () => {
     const changedData = Object.assign({}, sampleData);
-    changedData.pluginData.data.version = 'testVersion';
+    changedData.pluginData.version = 'testVersion';
     wrapper.setState(changedData);
 
     expect(wrapper
@@ -184,7 +185,7 @@ describe('Plugin with data', () => {
 
   it('plugin-author Link should render correct "to" and "href" props', () => {
     const changedData = Object.assign({}, sampleData);
-    changedData.pluginData.data.authors = 'testAuthor (user@domain.com)';
+    changedData.pluginData.authors = 'testAuthor (user@domain.com)';
     wrapper.setState(changedData);
 
     const link = wrapper.find('Link.plugin-author');
@@ -195,7 +196,7 @@ describe('Plugin with data', () => {
 
   it('plugin-autor Link should render correct text', () => {
     const changedData = Object.assign({}, sampleData);
-    changedData.pluginData.data.authors = 'testAuthor (user@domain.com)';
+    changedData.pluginData.authors = 'testAuthor (user@domain.com)';
     wrapper.setState(changedData);
 
     expect(wrapper
@@ -215,14 +216,14 @@ describe('Plugin with data', () => {
   it('should render the value of creationDate if it is a valid date', () => {
     Date.now = jest.fn(() => 1530814238992);
     const changedData = Object.assign({}, sampleData);
-    changedData.pluginData.data.creation_date = '2018-06-19T15:29:11.349272Z';
+    changedData.pluginData.creation_date = '2018-06-19T15:29:11.349272Z';
     wrapper.setState(changedData);
     expect(getPluginCreatedText()).toEqual(' created 16 days ago');
   });
 
   it('should not render the value of creationDate if it is not a valid date', () => {
     const changedData = Object.assign({}, sampleData);
-    changedData.pluginData.data.creation_date = 'invalid date';
+    changedData.pluginData.creation_date = 'invalid date';
     wrapper.setState(changedData);
     expect(getPluginCreatedText()).toEqual('');
   });

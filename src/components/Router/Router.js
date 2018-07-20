@@ -12,7 +12,7 @@ import Developers from '../Developers/Developers';
 const Router = () => (
   <BrowserRouter>
     <div>
-      <Navbar />
+      <Route path="/" component={Navbar} />
       <Switch>
         <Route exact path="/" component={Welcome} />
         <Route path="/plugins" component={Plugins} />

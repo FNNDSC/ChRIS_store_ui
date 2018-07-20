@@ -16,16 +16,40 @@ describe('Navbar', () => {
     expect(wrapper.find('nav')).toHaveLength(1);
   });
 
-  it('should render 5 Link components', () => {
-    expect(wrapper.find('Link')).toHaveLength(5);
+  it('should render navbar-row div inside nav', () => {
+    expect(wrapper.find('div.navbar-row')).toHaveLength(1);
+  });
+
+  it('should render 5 NavLink components', () => {
+    expect(wrapper.find('NavLink')).toHaveLength(5);
   });
 
   it('navbar brand should have href="/" attribute', () => {
-    expect(wrapper.find('Link.navbar-brand').prop('href')).toEqual('/');
+    expect(wrapper.find('NavLink.navbar-brand').prop('href')).toEqual('/');
   });
 
   it('navbar brand should have to="/" attribute', () => {
-    expect(wrapper.find('Link.navbar-brand').prop('to')).toEqual('/');
+    expect(wrapper.find('NavLink.navbar-brand').prop('to')).toEqual('/');
+  });
+
+  it('should render navbar-trigger inside navbar-header', () => {
+    expect(wrapper
+      .find('div.navbar-header')
+      .find('div.navbar-trigger'))
+      .toHaveLength(1);
+  });
+
+  it('should change state when the navbar-trigger div is clicked', () => {
+    expect(wrapper.state('open')).toEqual(false);
+    wrapper.find('div.navbar-trigger').simulate('click');
+    expect(wrapper.state('open')).toEqual(true);
+  });
+
+  it('should render Search component inside navbar-header', () => {
+    expect(wrapper
+      .find('div.navbar-header')
+      .find('Search'))
+      .toHaveLength(1);
   });
 
   it('should render navbar-logo-img img inside navbar-brand Link', () => {
@@ -43,31 +67,31 @@ describe('Navbar', () => {
     expect(wrapper.find('ul.navbar-nav')).toHaveLength(2);
   });
 
-  it('should render plugins link', () => {
-    expect(wrapper.find('Link.navbar-plugins-btn')).toHaveLength(1);
+  it('should render plugins NavLink', () => {
+    expect(wrapper.find('NavLink.navbar-plugins-btn')).toHaveLength(1);
   });
 
   it('plugins button should have href="/plugins" attribute', () => {
-    expect(wrapper.find('Link.navbar-plugins-btn').prop('href'))
+    expect(wrapper.find('NavLink.navbar-plugins-btn').prop('href'))
       .toEqual('/plugins');
   });
 
   it('plugins button should have to="/plugins" attribute', () => {
-    expect(wrapper.find('Link.navbar-plugins-btn').prop('to'))
+    expect(wrapper.find('NavLink.navbar-plugins-btn').prop('to'))
       .toEqual('/plugins');
   });
 
-  it('should render developers link', () => {
-    expect(wrapper.find('Link.navbar-developers-btn')).toHaveLength(1);
+  it('should render developers NavLink', () => {
+    expect(wrapper.find('NavLink.navbar-developers-btn')).toHaveLength(1);
   });
 
   it('developers button should have href="/developers" attribute', () => {
-    expect(wrapper.find('Link.navbar-developers-btn').prop('href'))
+    expect(wrapper.find('NavLink.navbar-developers-btn').prop('href'))
       .toEqual('/developers');
   });
 
   it('developers button should have to="/developers" attribute', () => {
-    expect(wrapper.find('Link.navbar-developers-btn').prop('to'))
+    expect(wrapper.find('NavLink.navbar-developers-btn').prop('to'))
       .toEqual('/developers');
   });
 
@@ -75,23 +99,10 @@ describe('Navbar', () => {
     expect(wrapper.find('Button.navbar-signin-btn')).toHaveLength(1);
   });
 
-  it('should render navbar-trigger inside navbar-header', () => {
-    expect(wrapper
-      .find('div.navbar-header')
-      .find('div.navbar-trigger'))
-      .toHaveLength(1);
-  });
-
-  it('should change state when the navbar-trigger div is clicked', () => {
-    expect(wrapper.state('open')).toEqual(false);
-    wrapper.find('div.navbar-trigger').simulate('click');
-    expect(wrapper.state('open')).toEqual(true);
-  });
-
   it("should change state when navbar-dropdown-btn's are clicked", () => {
-    wrapper.find('Link.navbar-dropdowns-btn').forEach((link) => {
+    wrapper.find('NavLink.navbar-dropdowns-btn').forEach((NavLink) => {
       expect(wrapper.state('open')).toEqual(false);
-      link.simulate('click');
+      NavLink.simulate('click');
       expect(wrapper.state('open')).toEqual(true);
       wrapper.setState({ open: false });
     });
