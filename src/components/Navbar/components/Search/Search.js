@@ -36,7 +36,7 @@ const Search = ({ className, location }) => {
             className="form-control"
             name="q"
             placeholder="Search plugins"
-            defaultValue={query}
+            defaultValue={''}
           />
         </div>
       </div>
