@@ -33,10 +33,18 @@ describe('Plugins', () => {
       .toHaveLength(1);
   });
 
-  it('should render plugins-found span inside plugins-stats row', () => {
+  it('should render LoadingContainer component inside plugins-stats row', () => {
     expect(wrapper
-      .find('div.plugins-stats')
-      .find('span.plugins-found'))
+      .find('div.plugins-stats-row')
+      .find('LoadingContainer'))
+      .toHaveLength(1);
+  });
+
+  it('should render LoadingContent component inside LoadingContainer', () => {
+    expect(wrapper
+      .find('div.plugins-stats-row')
+      .find('LoadingContainer')
+      .find('LoadingContent'))
       .toHaveLength(1);
   });
 
@@ -81,12 +89,11 @@ describe('Plugins', () => {
       .toEqual(1);
   });
 
-  it('should render "Loading Plugins" spinner if pluginList is null', () => {
+  it('should render 6 LoadingPluginItem components if pluginList is null', () => {
     expect(wrapper
       .find('div.plugins-list')
-      .find('div.drawer-pf-loading')
-      .find('span.spinner').length)
-      .toEqual(1);
+      .find('LoadingPluginItem'))
+      .toHaveLength(6);
   });
 
   /* ============================== */
