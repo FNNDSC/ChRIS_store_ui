@@ -76,10 +76,12 @@ class Plugins extends Component {
 
   render() {
     const { pluginList, categories } = this.state;
-    let pluginListBody;
 
     // Remove email from author
     const removeEmail = author => author.replace(/( ?\(.*\))/g, '');
+
+    let pluginsFound;
+    let pluginListBody;
 
     // Render the pluginList if the plugins have been fetched
     if (pluginList) {
@@ -92,20 +94,12 @@ class Plugins extends Component {
           key={plugin.dock_image}
         />
       ));
-    // Or else show the loading text
-    } else {
-      pluginListBody = new Array(6).fill().map((e, i) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <LoadingPluginItem key={i} />
-      ));
-    }
 
-    let pluginsFound;
-    if (pluginList) {
       pluginsFound = (
         <span className="plugins-found">{pluginList.length} plugins found</span>
       );
     } else {
+      // Or else show the loading placeholders
       pluginsFound = (
         <LoadingContainer>
           <LoadingContent
@@ -117,6 +111,11 @@ class Plugins extends Component {
           />
         </LoadingContainer>
       );
+
+      pluginListBody = new Array(6).fill().map((e, i) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <LoadingPluginItem key={i} />
+      ));
     }
 
     return (
