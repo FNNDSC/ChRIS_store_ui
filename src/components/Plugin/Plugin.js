@@ -27,15 +27,13 @@ class Plugin extends Component {
 
   fetchPluginData() {
     const storeURL = process.env.REACT_APP_STORE_URL;
-    const authURL = process.env.REACT_APP_STORE_AUTH_URL;
     const { plugin: pluginName } = this.props.match.params;
+    const client = new StoreClient(storeURL);
 
     return new Promise(async (resolve, reject) => {
       let pluginData;
 
       try {
-        const token = await StoreClient.getAuthToken(authURL, 'cube', 'cube1234');
-        const client = new StoreClient(storeURL, { token });
         pluginData = await client.getPlugin(pluginName);
       } catch (e) {
         return reject(e);

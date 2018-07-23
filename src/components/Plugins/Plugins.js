@@ -44,19 +44,15 @@ class Plugins extends Component {
 
   fetchPlugins() {
     const storeURL = process.env.REACT_APP_STORE_URL;
-    const authURL = process.env.REACT_APP_STORE_AUTH_URL;
+    const client = new StoreClient(storeURL);
+    const searchParams = {
+      limit: 20,
+      offset: 0,
+    };
 
     return new Promise(async (resolve, reject) => {
       let plugins;
-      const searchParams = {
-        limit: 20,
-        offset: 0,
-      };
-
       try {
-        const token = await StoreClient.getAuthToken(authURL, 'cube', 'cube1234');
-        const client = new StoreClient(storeURL, { token });
-
         // add plugins to pluginList as they are received
         plugins = await client.getPlugins(searchParams, (onePageResponse) => {
           const onePagePlugins = onePageResponse.plugins;
@@ -70,6 +66,7 @@ class Plugins extends Component {
       } catch (e) {
         return reject(e);
       }
+
       return resolve(plugins);
     });
   }

@@ -3,8 +3,8 @@
 
 
 "@fnndsc/chrisstoreapi@^1.0.3":
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/@fnndsc/chrisstoreapi/-/chrisstoreapi-1.0.8.tgz#70e8f2e7650efc4212bc041ff52f1da182511917"
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/@fnndsc/chrisstoreapi/-/chrisstoreapi-1.0.9.tgz#7bd9bdc45142dc0e8689e85f25bf7c1db742d3cd"
   dependencies:
     axios "^0.18.0"
 
