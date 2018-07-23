@@ -24,12 +24,20 @@ ShallowWrapper {
           <div
                     className="row plugins-stats-row"
           >
-                    <span
-                              className="plugins-found"
+                    <LoadingContainer
+                              className=""
                     >
-                              0
-                               plugins found
-                    </span>
+                              <LoadingContent
+                                        bottom="1.5em"
+                                        className=""
+                                        height="30px"
+                                        left="1em"
+                                        right="0"
+                                        top="1.5em"
+                                        type=""
+                                        width="135px"
+                              />
+                    </LoadingContainer>
                     <DropdownButton
                               id="sort-by-dropdown"
                               pullRight={true}
@@ -71,14 +79,12 @@ ShallowWrapper {
           <div
                     className="plugins-list"
           >
-                    <div
-                              className="drawer-pf-loading text-center"
-                    >
-                              <span
-                                        className="spinner spinner-xs spinner-inline"
-                              />
-                               Loading Plugins
-                    </div>
+                    <LoadingPluginItem />
+                    <LoadingPluginItem />
+                    <LoadingPluginItem />
+                    <LoadingPluginItem />
+                    <LoadingPluginItem />
+                    <LoadingPluginItem />
           </div>
 </div>,
       ],
@@ -94,12 +100,20 @@ ShallowWrapper {
           "children": <div
             className="row plugins-stats-row"
 >
-            <span
-                        className="plugins-found"
+            <LoadingContainer
+                        className=""
             >
-                        0
-                         plugins found
-            </span>
+                        <LoadingContent
+                                    bottom="1.5em"
+                                    className=""
+                                    height="30px"
+                                    left="1em"
+                                    right="0"
+                                    top="1.5em"
+                                    type=""
+                                    width="135px"
+                        />
+            </LoadingContainer>
             <DropdownButton
                         id="sort-by-dropdown"
                         pullRight={true}
@@ -125,12 +139,20 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": Array [
-              <span
-                className="plugins-found"
+              <LoadingContainer
+                className=""
 >
-                0
-                 plugins found
-</span>,
+                <LoadingContent
+                                bottom="1.5em"
+                                className=""
+                                height="30px"
+                                left="1em"
+                                right="0"
+                                top="1.5em"
+                                type=""
+                                width="135px"
+                />
+</LoadingContainer>,
               <DropdownButton
                 id="sort-by-dropdown"
                 pullRight={true}
@@ -154,20 +176,40 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "host",
+              "nodeType": "function",
               "props": Object {
-                "children": Array [
-                  0,
-                  " plugins found",
-                ],
-                "className": "plugins-found",
+                "children": <LoadingContent
+                  bottom="1.5em"
+                  className=""
+                  height="30px"
+                  left="1em"
+                  right="0"
+                  top="1.5em"
+                  type=""
+                  width="135px"
+/>,
+                "className": "",
               },
               "ref": null,
-              "rendered": Array [
-                0,
-                " plugins found",
-              ],
-              "type": "span",
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "bottom": "1.5em",
+                  "className": "",
+                  "height": "30px",
+                  "left": "1em",
+                  "right": "0",
+                  "top": "1.5em",
+                  "type": "",
+                  "width": "135px",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
             },
             Object {
               "instance": null,
@@ -238,14 +280,12 @@ ShallowWrapper {
             <div
               className="plugins-list"
 >
-              <div
-                            className="drawer-pf-loading text-center"
-              >
-                            <span
-                                          className="spinner spinner-xs spinner-inline"
-                            />
-                             Loading Plugins
-              </div>
+              <LoadingPluginItem />
+              <LoadingPluginItem />
+              <LoadingPluginItem />
+              <LoadingPluginItem />
+              <LoadingPluginItem />
+              <LoadingPluginItem />
 </div>,
           ],
           "className": "row plugins-row",
@@ -281,47 +321,73 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "host",
             "props": Object {
-              "children": <div
-                className="drawer-pf-loading text-center"
->
-                <span
-                                className="spinner spinner-xs spinner-inline"
-                />
-                 Loading Plugins
-</div>,
+              "children": Array [
+                <LoadingPluginItem />,
+                <LoadingPluginItem />,
+                <LoadingPluginItem />,
+                <LoadingPluginItem />,
+                <LoadingPluginItem />,
+                <LoadingPluginItem />,
+              ],
               "className": "plugins-list",
             },
             "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": Array [
-                  <span
-                    className="spinner spinner-xs spinner-inline"
-/>,
-                  " Loading Plugins",
-                ],
-                "className": "drawer-pf-loading text-center",
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": "0",
+                "nodeType": "function",
+                "props": Object {},
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
               },
-              "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "host",
-                  "props": Object {
-                    "className": "spinner spinner-xs spinner-inline",
-                  },
-                  "ref": null,
-                  "rendered": null,
-                  "type": "span",
-                },
-                " Loading Plugins",
-              ],
-              "type": "div",
-            },
+              Object {
+                "instance": null,
+                "key": "1",
+                "nodeType": "function",
+                "props": Object {},
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": "2",
+                "nodeType": "function",
+                "props": Object {},
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": "3",
+                "nodeType": "function",
+                "props": Object {},
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": "4",
+                "nodeType": "function",
+                "props": Object {},
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": "5",
+                "nodeType": "function",
+                "props": Object {},
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+            ],
             "type": "div",
           },
         ],
@@ -343,12 +409,20 @@ ShallowWrapper {
             <div
                         className="row plugins-stats-row"
             >
-                        <span
-                                    className="plugins-found"
+                        <LoadingContainer
+                                    className=""
                         >
-                                    0
-                                     plugins found
-                        </span>
+                                    <LoadingContent
+                                                bottom="1.5em"
+                                                className=""
+                                                height="30px"
+                                                left="1em"
+                                                right="0"
+                                                top="1.5em"
+                                                type=""
+                                                width="135px"
+                                    />
+                        </LoadingContainer>
                         <DropdownButton
                                     id="sort-by-dropdown"
                                     pullRight={true}
@@ -390,14 +464,12 @@ ShallowWrapper {
             <div
                         className="plugins-list"
             >
-                        <div
-                                    className="drawer-pf-loading text-center"
-                        >
-                                    <span
-                                                className="spinner spinner-xs spinner-inline"
-                                    />
-                                     Loading Plugins
-                        </div>
+                        <LoadingPluginItem />
+                        <LoadingPluginItem />
+                        <LoadingPluginItem />
+                        <LoadingPluginItem />
+                        <LoadingPluginItem />
+                        <LoadingPluginItem />
             </div>
 </div>,
         ],
@@ -413,12 +485,20 @@ ShallowWrapper {
             "children": <div
               className="row plugins-stats-row"
 >
-              <span
-                            className="plugins-found"
+              <LoadingContainer
+                            className=""
               >
-                            0
-                             plugins found
-              </span>
+                            <LoadingContent
+                                          bottom="1.5em"
+                                          className=""
+                                          height="30px"
+                                          left="1em"
+                                          right="0"
+                                          top="1.5em"
+                                          type=""
+                                          width="135px"
+                            />
+              </LoadingContainer>
               <DropdownButton
                             id="sort-by-dropdown"
                             pullRight={true}
@@ -444,12 +524,20 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": Array [
-                <span
-                  className="plugins-found"
+                <LoadingContainer
+                  className=""
 >
-                  0
-                   plugins found
-</span>,
+                  <LoadingContent
+                                    bottom="1.5em"
+                                    className=""
+                                    height="30px"
+                                    left="1em"
+                                    right="0"
+                                    top="1.5em"
+                                    type=""
+                                    width="135px"
+                  />
+</LoadingContainer>,
                 <DropdownButton
                   id="sort-by-dropdown"
                   pullRight={true}
@@ -473,20 +561,40 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "host",
+                "nodeType": "function",
                 "props": Object {
-                  "children": Array [
-                    0,
-                    " plugins found",
-                  ],
-                  "className": "plugins-found",
+                  "children": <LoadingContent
+                    bottom="1.5em"
+                    className=""
+                    height="30px"
+                    left="1em"
+                    right="0"
+                    top="1.5em"
+                    type=""
+                    width="135px"
+/>,
+                  "className": "",
                 },
                 "ref": null,
-                "rendered": Array [
-                  0,
-                  " plugins found",
-                ],
-                "type": "span",
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "bottom": "1.5em",
+                    "className": "",
+                    "height": "30px",
+                    "left": "1em",
+                    "right": "0",
+                    "top": "1.5em",
+                    "type": "",
+                    "width": "135px",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                "type": [Function],
               },
               Object {
                 "instance": null,
@@ -557,14 +665,12 @@ ShallowWrapper {
               <div
                 className="plugins-list"
 >
-                <div
-                                className="drawer-pf-loading text-center"
-                >
-                                <span
-                                                className="spinner spinner-xs spinner-inline"
-                                />
-                                 Loading Plugins
-                </div>
+                <LoadingPluginItem />
+                <LoadingPluginItem />
+                <LoadingPluginItem />
+                <LoadingPluginItem />
+                <LoadingPluginItem />
+                <LoadingPluginItem />
 </div>,
             ],
             "className": "row plugins-row",
@@ -600,47 +706,73 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "host",
               "props": Object {
-                "children": <div
-                  className="drawer-pf-loading text-center"
->
-                  <span
-                                    className="spinner spinner-xs spinner-inline"
-                  />
-                   Loading Plugins
-</div>,
+                "children": Array [
+                  <LoadingPluginItem />,
+                  <LoadingPluginItem />,
+                  <LoadingPluginItem />,
+                  <LoadingPluginItem />,
+                  <LoadingPluginItem />,
+                  <LoadingPluginItem />,
+                ],
                 "className": "plugins-list",
               },
               "ref": null,
-              "rendered": Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "children": Array [
-                    <span
-                      className="spinner spinner-xs spinner-inline"
-/>,
-                    " Loading Plugins",
-                  ],
-                  "className": "drawer-pf-loading text-center",
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": "0",
+                  "nodeType": "function",
+                  "props": Object {},
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
                 },
-                "ref": null,
-                "rendered": Array [
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "host",
-                    "props": Object {
-                      "className": "spinner spinner-xs spinner-inline",
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": "span",
-                  },
-                  " Loading Plugins",
-                ],
-                "type": "div",
-              },
+                Object {
+                  "instance": null,
+                  "key": "1",
+                  "nodeType": "function",
+                  "props": Object {},
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": "2",
+                  "nodeType": "function",
+                  "props": Object {},
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": "3",
+                  "nodeType": "function",
+                  "props": Object {},
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": "4",
+                  "nodeType": "function",
+                  "props": Object {},
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": "5",
+                  "nodeType": "function",
+                  "props": Object {},
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+              ],
               "type": "div",
             },
           ],

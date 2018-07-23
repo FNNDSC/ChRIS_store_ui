@@ -1,0 +1,76 @@
+/* loading class if non-white, used for loading content */
+.loading-container.loading, .loading-container .loading {
+  /* color */
+  background: #f5f5f5;
+  background: var(--pf-black-150);
+  
+  /* position */
+  position: relative;
+  
+  /* other */
+  box-shadow: 1px 0 2px #ededed;
+  box-shadow: 1px 0 2px var(--pf-black-200);
+  overflow: hidden;
+}
+
+.loading-container.loading:before,
+.loading-container .loading:before {
+  /* color */
+  background-image: linear-gradient(45deg, #f5f5f5, #ededed, #f5f5f5);
+  background-image: linear-gradient(45deg, var(--pf-black-150), var(--pf-black-200), var(--pf-black-150));
+
+  /* display */
+  display: block;
+  height: 100%;
+  width: 100%;
+
+  /* position */
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  /* other */
+  content: '';   
+  animation: 1.6s ease-in-out loading infinite;
+}
+
+/* loading class if white, used for loading content */
+.loading-container.loading, .loading-container .loading.white {
+  /* color */
+  background: #fafafa;
+  background: var(--pf-black-100);
+  
+  /* other */
+  box-shadow: 1px 0 2px #f5f5f5;
+  box-shadow: 1px 0 2px var(--pf-black-150);
+  overflow: hidden;
+}
+
+.loading-container.loading.white:before,
+.loading-container .loading.white:before {
+  /* color */
+  background-image: linear-gradient(45deg, #fafafa, #f0f0f0, #fafafa);
+  background-image: linear-gradient(45deg, var(--pf-black-100), #f0f0f0, var(--pf-black-100));
+
+  /* display */
+  display: block;
+  height: 100%;
+  width: 100%;
+
+  /* position */
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  /* other */
+  content: '';   
+  animation: 1.6s ease-in-out loading infinite;
+}
+
+/* loading keyframe */
+@keyframes loading {
+  0% { left: -100%; }
+  10% { left: -100%; }
+  90% { left: 100%; }
+  100% { left: 100%; }
+}

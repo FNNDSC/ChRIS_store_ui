@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { StoreClient } from '@fnndsc/chrisstoreapi';
+import LoadingPlugin from './components/LoadingPlugin/LoadingPlugin';
 import PluginBody from './components/PluginBody/PluginBody';
 import RelativeDate from '../RelativeDate/RelativeDate';
 import './Plugin.css';
@@ -104,9 +105,7 @@ class Plugin extends Component {
       );
     } else {
       container = (
-        <div className="drawer-pf-loading text-center">
-          <span className="spinner spinner-xs spinner-inline" /> Loading Plugin
-        </div>
+        <LoadingPlugin />
       );
     }
 

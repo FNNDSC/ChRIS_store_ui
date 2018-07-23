@@ -1,0 +1,8 @@
+.loading-plugin-item {
+  /* display */
+  padding-bottom: 20px;
+
+  /* border */
+  border-bottom-color: #ededed;
+  border-bottom: 4px solid var(--pf-black-200);
+}

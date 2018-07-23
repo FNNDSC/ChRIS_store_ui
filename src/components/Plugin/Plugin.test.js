@@ -56,15 +56,8 @@ describe('Plugin without data', () => {
     wrapper = shallow(<Plugin />);
   });
 
-  it('should render drawer-pf-loading div', () => {
-    expect(wrapper.find('div.drawer-pf-loading')).toHaveLength(1);
-  });
-
-  it('should render spinner span inside of loading div', () => {
-    expect(wrapper
-      .find('div.drawer-pf-loading')
-      .find('span.spinner'))
-      .toHaveLength(1);
+  it('should render LoadingPlugin component', () => {
+    expect(wrapper.find('LoadingPlugin')).toHaveLength(1);
   });
 });
 

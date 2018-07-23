@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { StoreClient } from '@fnndsc/chrisstoreapi';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 import PluginItem from './components/PluginItem/PluginItem';
+import LoadingPluginItem from './components/LoadingPluginItem/LoadingPluginItem';
 import PluginsCategories from './components/PluginsCategories/PluginsCategories';
 import './Plugins.css';
+import LoadingContainer from '../LoadingContainer/LoadingContainer';
+import LoadingContent from '../LoadingContainer/components/LoadingContent/LoadingContent';
 
 // ==============================
 // ------ PLUGINS COMPONENT -----
@@ -73,10 +76,12 @@ class Plugins extends Component {
 
   render() {
     const { pluginList, categories } = this.state;
-    let pluginListBody;
 
     // Remove email from author
     const removeEmail = author => author.replace(/( ?\(.*\))/g, '');
+
+    let pluginsFound;
+    let pluginListBody;
 
     // Render the pluginList if the plugins have been fetched
     if (pluginList) {
@@ -89,22 +94,35 @@ class Plugins extends Component {
           key={plugin.dock_image}
         />
       ));
-    // Or else show the loading text
-    } else {
-      pluginListBody = (
-        <div className="drawer-pf-loading text-center">
-          <span className="spinner spinner-xs spinner-inline" /> Loading Plugins
-        </div>
-      );
-    }
 
-    const pluginListLength = pluginList ? pluginList.length : 0;
+      pluginsFound = (
+        <span className="plugins-found">{pluginList.length} plugins found</span>
+      );
+    } else {
+      // Or else show the loading placeholders
+      pluginsFound = (
+        <LoadingContainer>
+          <LoadingContent
+            width="135px"
+            height="30px"
+            left="1em"
+            top="1.5em"
+            bottom="1.5em"
+          />
+        </LoadingContainer>
+      );
+
+      pluginListBody = new Array(6).fill().map((e, i) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <LoadingPluginItem key={i} />
+      ));
+    }
 
     return (
       <div className="plugins-container">
         <div className="plugins-stats">
           <div className="row plugins-stats-row">
-            <span className="plugins-found">{pluginListLength} plugins found</span>
+            { pluginsFound }
             <DropdownButton
               id="sort-by-dropdown"
               title="Sort By"
