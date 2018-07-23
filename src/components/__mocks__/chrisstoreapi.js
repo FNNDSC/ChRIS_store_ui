@@ -22,8 +22,10 @@ const samplePluginList = [
 ];
 
 class StoreClient {
-  constructor(url, { token }) {
-    if (url && token === 'testToken') {
+  constructor(url, options) {
+    this.url = url;
+
+    if (url && options && options.token === 'testToken') {
       this.validToken = true;
     }
   }
@@ -34,19 +36,19 @@ class StoreClient {
 
   getPlugins() {
     return new Promise((resolve, reject) => {
-      if (this.validToken) {
+      if (this.url) {
         return resolve(samplePluginList);
       }
-      return reject(new Error('invalid token'));
+      return reject(new Error('invalid URL'));
     });
   }
 
   getPlugin() {
     return new Promise((resolve, reject) => {
-      if (this.validToken) {
+      if (this.url) {
         return resolve(samplePluginList[0]);
       }
-      return reject(new Error('invalid token'));
+      return reject(new Error('invalid URL'));
     });
   }
 }
