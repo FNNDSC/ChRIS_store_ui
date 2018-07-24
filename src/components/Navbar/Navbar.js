@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Icon } from 'patternfly-react';
 import { Collapse } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import Search from './components/Search/Search';
 import './Navbar.css';
 import LogoImg from '../../assets/img/chris-plugin-store_logo.png';
@@ -14,6 +14,7 @@ class Navbar extends Component {
     this.state = { open: false };
 
     this.toggleDropdown = this.toggleDropdown.bind(this);
+    this.closeDropdown = this.closeDropdown.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
@@ -27,6 +28,10 @@ class Navbar extends Component {
     }
   }
 
+  closeDropdown() {
+    this.setState(() => ({ open: false }));
+  }
+
   handleKeyPress(e) {
     if (e.key === 'Enter') this.toggleDropdown();
   }
@@ -37,7 +42,13 @@ class Navbar extends Component {
         <nav className="navbar navbar-pf-vertical navbar-default">
           <div className="navbar-row row">
             <div className="navbar-header">
-              <NavLink to="/" href="/" className="navbar-brand navbar-logo" tabIndex="0">
+              <NavLink
+                to="/"
+                href="/"
+                className="navbar-brand navbar-logo"
+                onClick={this.closeDropdown}
+                tabIndex="0"
+              >
                 <img
                   className="navbar-logo-img"
                   src={LogoImg}
@@ -58,9 +69,11 @@ class Navbar extends Component {
             <div className="navbar-collapse collapse">
               <ul className="nav navbar-nav navbar-right">
                 <li>
-                  <Button className="navbar-signin-btn" bsStyle="info" bsSize="large">
-                    Sign in
-                  </Button>
+                  <Link to="/signin" href="/signin" className="navbar-signin-btn-link">
+                    <Button className="navbar-signin-btn" bsStyle="info" bsSize="large">
+                      Sign in
+                    </Button>
+                  </Link>
                 </li>
               </ul>
               <ul className="nav navbar-nav navbar-right">
@@ -79,28 +92,33 @@ class Navbar extends Component {
           </div>
         </nav>
         <Collapse in={this.state.open} className="navbar-dropdown">
-          <div>
-            <div className="navbar-dropdown-container">
-              <div className="navbar-btn-container">
-                <NavLink
-                  to="/plugins"
-                  href="/plugins"
-                  className="navbar-dropdown-btn"
-                  onClick={this.toggleDropdown}
-                >
-                  Plugins
-                </NavLink>
-              </div>
-              <div className="navbar-btn-container">
-                <NavLink
-                  to="/developers"
-                  href="/developers"
-                  className="navbar-dropdown-btn"
-                  onClick={this.toggleDropdown}
-                >
-                  Developers
-                </NavLink>
-              </div>
+          <div className="navbar-dropdown-container">
+            <div className="navbar-btn-container">
+              <NavLink
+                to="/plugins"
+                href="/plugins"
+                className="navbar-dropdown-btn"
+                onClick={this.toggleDropdown}
+              >
+                Plugins
+              </NavLink>
+            </div>
+            <div className="navbar-btn-container">
+              <NavLink
+                to="/developers"
+                href="/developers"
+                className="navbar-dropdown-btn"
+                onClick={this.toggleDropdown}
+              >
+                Developers
+              </NavLink>
+            </div>
+            <div className="navbar-btn-container">
+              <Link to="/signin" href="/signin" className="navbar-signin-dropdown-btn-link">
+                <Button className="navbar-signin-dropdown-btn" bsStyle="info" bsSize="large">
+                  Sign in
+                </Button>
+              </Link>
             </div>
           </div>
         </Collapse>

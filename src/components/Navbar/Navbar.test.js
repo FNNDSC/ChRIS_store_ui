@@ -59,12 +59,33 @@ describe('Navbar', () => {
       .toHaveLength(1);
   });
 
+  /* ============================== */
+  /* ======= NAVBAR COLLAPSE ====== */
+  /* ============================== */
+
   it('should render navbar-collapse div', () => {
     expect(wrapper.find('div.navbar-collapse')).toHaveLength(1);
   });
 
   it("should render 2 navbar-nav ul's", () => {
     expect(wrapper.find('ul.navbar-nav')).toHaveLength(2);
+  });
+
+  it('should render Sign in button inside Link', () => {
+    expect(wrapper
+      .find('Link.navbar-signin-btn-link')
+      .find('Button.navbar-signin-btn'))
+      .toHaveLength(1);
+  });
+
+  it('signin button should have href="/signin" attribute', () => {
+    expect(wrapper.find('Link.navbar-signin-btn-link').prop('href'))
+      .toEqual('/signin');
+  });
+
+  it('signin button should have to="/signin" attribute', () => {
+    expect(wrapper.find('Link.navbar-signin-btn-link').prop('to'))
+      .toEqual('/signin');
   });
 
   it('should render plugins NavLink', () => {
@@ -95,8 +116,49 @@ describe('Navbar', () => {
       .toEqual('/developers');
   });
 
-  it('should render Sign in button', () => {
-    expect(wrapper.find('Button.navbar-signin-btn')).toHaveLength(1);
+  /* ============================== */
+  /* ======= NAVBAR DROPDOWN ====== */
+  /* ============================== */
+
+  it('should render navbar-dropdown Collapse', () => {
+    expect(wrapper.find('Collapse.navbar-dropdown')).toHaveLength(1);
+  });
+
+  it('should render navbar-dropdown-container div inside Collapse', () => {
+    expect(wrapper
+      .find('Collapse.navbar-dropdown')
+      .find('div.navbar-dropdown-container'))
+      .toHaveLength(1);
+  });
+
+  it('should render 3 navbar-btn-container divs inside navbar-dropdown-container', () => {
+    expect(wrapper
+      .find('div.navbar-dropdown-container')
+      .find('div.navbar-btn-container'))
+      .toHaveLength(3);
+  });
+
+  it("should render a NavLink or Link component in each navbar-btn-container's", () => {
+    const containers = wrapper.find('div.navbar-btn-container');
+    containers.forEach((container) => {
+      const hasNavLink = container
+        .find('NavLink.navbar-dropdown-btn').length === 1;
+      const hasLink = container
+        .find('Link.navbar-signin-dropdown-btn-link').length === 1;
+      const hasOne = hasNavLink || hasLink;
+      expect(hasOne).toBeTruthy();
+    });
+  });
+
+  it('should render navbar-signin-dropdown-btn-link Link', () => {
+    expect(wrapper.find('Link.navbar-signin-dropdown-btn-link')).toHaveLength(1);
+  });
+
+  it('should render Button inside navbar-signin-dropdown-btn', () => {
+    expect(wrapper
+      .find('Link.navbar-signin-dropdown-btn-link')
+      .find('Button.navbar-signin-dropdown-btn'))
+      .toHaveLength(1);
   });
 
   it("should change state when navbar-dropdown-btn's are clicked", () => {
@@ -112,6 +174,13 @@ describe('Navbar', () => {
     expect(wrapper.state('open')).toEqual(false);
     wrapper.find('div.navbar-trigger').simulate('keypress', { key: 'Enter' });
     expect(wrapper.state('open')).toEqual(true);
+  });
+
+  it('should change state when navbar-brand is clicked', () => {
+    wrapper.setState({ open: true });
+    expect(wrapper.state('open')).toEqual(true);
+    wrapper.find('NavLink.navbar-brand').simulate('click');
+    expect(wrapper.state('open')).toEqual(false);
   });
 
   it('should change Collapse in attribute according to open state', () => {
