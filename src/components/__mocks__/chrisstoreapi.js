@@ -30,8 +30,14 @@ class StoreClient {
     }
   }
 
-  static getAuthToken() {
-    return new Promise(resolve => resolve('testToken'));
+  static getAuthToken(_authURL, username, password) {
+    return new Promise((resolve, reject) => {
+      if (username === 'cube' && password === 'cube1234') {
+        resolve('testToken');
+      } else {
+        reject(new Error('incorrect login'));
+      }
+    });
   }
 
   getPlugins() {

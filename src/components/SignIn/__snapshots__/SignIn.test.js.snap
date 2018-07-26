@@ -1,0 +1,1453 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignIn should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <SignIn />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": <div
+        className="signin-container"
+>
+        <div
+                className="signin-logo-container"
+        >
+                <Link
+                        className="signin-logo-link"
+                        href="/"
+                        replace={false}
+                        to="/"
+                >
+                        <img
+                                alt=""
+                                className="signin-logo"
+                                src="chris_logo-white.png"
+                        />
+                </Link>
+        </div>
+        <Card
+                accented={false}
+                aggregated={false}
+                aggregatedMini={false}
+                cardRef={null}
+                className="signin-card"
+                matchHeight={false}
+        >
+                <CardTitle
+                        className="signin-card-title"
+                >
+                        Sign In
+                </CardTitle>
+                <CardBody
+                        className=""
+                >
+                        <Form
+                                bsClass="form"
+                                className="signin-form"
+                                componentClass="form"
+                                horizontal={false}
+                                inline={false}
+                                onSubmit={[Function]}
+                        >
+                                <FormGroup
+                                        bsClass="form-group"
+                                        className="signin-username-form-group"
+                                >
+                                        <ControlLabel
+                                                bsClass="control-label"
+                                                srOnly={false}
+                                        >
+                                                Username
+                                        </ControlLabel>
+                                        <FormControl
+                                                autoComplete="username"
+                                                bsClass="form-control"
+                                                componentClass="input"
+                                                onChange={[Function]}
+                                                type="text"
+                                                value=""
+                                        />
+                                </FormGroup>
+                                <FormGroup
+                                        bsClass="form-group"
+                                        className="signin-password-form-group"
+                                >
+                                        <ControlLabel
+                                                bsClass="control-label"
+                                                srOnly={false}
+                                        >
+                                                Password
+                                        </ControlLabel>
+                                        <FormControl
+                                                autoComplete="current-password"
+                                                bsClass="form-control"
+                                                componentClass="input"
+                                                onChange={[Function]}
+                                                type="password"
+                                                value=""
+                                        />
+                                </FormGroup>
+                                <Button
+                                        active={false}
+                                        block={false}
+                                        bsClass="btn"
+                                        bsSize="large"
+                                        bsStyle="primary"
+                                        className="signin-login-btn"
+                                        disabled={false}
+                                        type="submit"
+                                >
+                                        Login
+                                </Button>
+                                <Button
+                                        active={false}
+                                        block={false}
+                                        bsClass="btn"
+                                        bsSize="large"
+                                        bsStyle="link"
+                                        className="signin-signup-btn"
+                                        disabled={false}
+                                >
+                                        Create account
+                                </Button>
+                        </Form>
+                </CardBody>
+        </Card>
+</div>,
+      "className": "signin",
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          null,
+          <div
+            className="signin-logo-container"
+>
+            <Link
+                        className="signin-logo-link"
+                        href="/"
+                        replace={false}
+                        to="/"
+            >
+                        <img
+                                    alt=""
+                                    className="signin-logo"
+                                    src="chris_logo-white.png"
+                        />
+            </Link>
+</div>,
+          <Card
+            accented={false}
+            aggregated={false}
+            aggregatedMini={false}
+            cardRef={null}
+            className="signin-card"
+            matchHeight={false}
+>
+            <CardTitle
+                        className="signin-card-title"
+            >
+                        Sign In
+            </CardTitle>
+            <CardBody
+                        className=""
+            >
+                        <Form
+                                    bsClass="form"
+                                    className="signin-form"
+                                    componentClass="form"
+                                    horizontal={false}
+                                    inline={false}
+                                    onSubmit={[Function]}
+                        >
+                                    <FormGroup
+                                                bsClass="form-group"
+                                                className="signin-username-form-group"
+                                    >
+                                                <ControlLabel
+                                                            bsClass="control-label"
+                                                            srOnly={false}
+                                                >
+                                                            Username
+                                                </ControlLabel>
+                                                <FormControl
+                                                            autoComplete="username"
+                                                            bsClass="form-control"
+                                                            componentClass="input"
+                                                            onChange={[Function]}
+                                                            type="text"
+                                                            value=""
+                                                />
+                                    </FormGroup>
+                                    <FormGroup
+                                                bsClass="form-group"
+                                                className="signin-password-form-group"
+                                    >
+                                                <ControlLabel
+                                                            bsClass="control-label"
+                                                            srOnly={false}
+                                                >
+                                                            Password
+                                                </ControlLabel>
+                                                <FormControl
+                                                            autoComplete="current-password"
+                                                            bsClass="form-control"
+                                                            componentClass="input"
+                                                            onChange={[Function]}
+                                                            type="password"
+                                                            value=""
+                                                />
+                                    </FormGroup>
+                                    <Button
+                                                active={false}
+                                                block={false}
+                                                bsClass="btn"
+                                                bsSize="large"
+                                                bsStyle="primary"
+                                                className="signin-login-btn"
+                                                disabled={false}
+                                                type="submit"
+                                    >
+                                                Login
+                                    </Button>
+                                    <Button
+                                                active={false}
+                                                block={false}
+                                                bsClass="btn"
+                                                bsSize="large"
+                                                bsStyle="link"
+                                                className="signin-signup-btn"
+                                                disabled={false}
+                                    >
+                                                Create account
+                                    </Button>
+                        </Form>
+            </CardBody>
+</Card>,
+        ],
+        "className": "signin-container",
+      },
+      "ref": null,
+      "rendered": Array [
+        null,
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <Link
+              className="signin-logo-link"
+              href="/"
+              replace={false}
+              to="/"
+>
+              <img
+                            alt=""
+                            className="signin-logo"
+                            src="chris_logo-white.png"
+              />
+</Link>,
+            "className": "signin-logo-container",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": <img
+                alt=""
+                className="signin-logo"
+                src="chris_logo-white.png"
+/>,
+              "className": "signin-logo-link",
+              "href": "/",
+              "replace": false,
+              "to": "/",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "alt": "",
+                "className": "signin-logo",
+                "src": "chris_logo-white.png",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "img",
+            },
+            "type": [Function],
+          },
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "accented": false,
+            "aggregated": false,
+            "aggregatedMini": false,
+            "cardRef": null,
+            "children": Array [
+              <CardTitle
+                className="signin-card-title"
+>
+                Sign In
+</CardTitle>,
+              <CardBody
+                className=""
+>
+                <Form
+                                bsClass="form"
+                                className="signin-form"
+                                componentClass="form"
+                                horizontal={false}
+                                inline={false}
+                                onSubmit={[Function]}
+                >
+                                <FormGroup
+                                                bsClass="form-group"
+                                                className="signin-username-form-group"
+                                >
+                                                <ControlLabel
+                                                                bsClass="control-label"
+                                                                srOnly={false}
+                                                >
+                                                                Username
+                                                </ControlLabel>
+                                                <FormControl
+                                                                autoComplete="username"
+                                                                bsClass="form-control"
+                                                                componentClass="input"
+                                                                onChange={[Function]}
+                                                                type="text"
+                                                                value=""
+                                                />
+                                </FormGroup>
+                                <FormGroup
+                                                bsClass="form-group"
+                                                className="signin-password-form-group"
+                                >
+                                                <ControlLabel
+                                                                bsClass="control-label"
+                                                                srOnly={false}
+                                                >
+                                                                Password
+                                                </ControlLabel>
+                                                <FormControl
+                                                                autoComplete="current-password"
+                                                                bsClass="form-control"
+                                                                componentClass="input"
+                                                                onChange={[Function]}
+                                                                type="password"
+                                                                value=""
+                                                />
+                                </FormGroup>
+                                <Button
+                                                active={false}
+                                                block={false}
+                                                bsClass="btn"
+                                                bsSize="large"
+                                                bsStyle="primary"
+                                                className="signin-login-btn"
+                                                disabled={false}
+                                                type="submit"
+                                >
+                                                Login
+                                </Button>
+                                <Button
+                                                active={false}
+                                                block={false}
+                                                bsClass="btn"
+                                                bsSize="large"
+                                                bsStyle="link"
+                                                className="signin-signup-btn"
+                                                disabled={false}
+                                >
+                                                Create account
+                                </Button>
+                </Form>
+</CardBody>,
+            ],
+            "className": "signin-card",
+            "matchHeight": false,
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "children": "Sign In",
+                "className": "signin-card-title",
+              },
+              "ref": null,
+              "rendered": "Sign In",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "children": <Form
+                  bsClass="form"
+                  className="signin-form"
+                  componentClass="form"
+                  horizontal={false}
+                  inline={false}
+                  onSubmit={[Function]}
+>
+                  <FormGroup
+                                    bsClass="form-group"
+                                    className="signin-username-form-group"
+                  >
+                                    <ControlLabel
+                                                      bsClass="control-label"
+                                                      srOnly={false}
+                                    >
+                                                      Username
+                                    </ControlLabel>
+                                    <FormControl
+                                                      autoComplete="username"
+                                                      bsClass="form-control"
+                                                      componentClass="input"
+                                                      onChange={[Function]}
+                                                      type="text"
+                                                      value=""
+                                    />
+                  </FormGroup>
+                  <FormGroup
+                                    bsClass="form-group"
+                                    className="signin-password-form-group"
+                  >
+                                    <ControlLabel
+                                                      bsClass="control-label"
+                                                      srOnly={false}
+                                    >
+                                                      Password
+                                    </ControlLabel>
+                                    <FormControl
+                                                      autoComplete="current-password"
+                                                      bsClass="form-control"
+                                                      componentClass="input"
+                                                      onChange={[Function]}
+                                                      type="password"
+                                                      value=""
+                                    />
+                  </FormGroup>
+                  <Button
+                                    active={false}
+                                    block={false}
+                                    bsClass="btn"
+                                    bsSize="large"
+                                    bsStyle="primary"
+                                    className="signin-login-btn"
+                                    disabled={false}
+                                    type="submit"
+                  >
+                                    Login
+                  </Button>
+                  <Button
+                                    active={false}
+                                    block={false}
+                                    bsClass="btn"
+                                    bsSize="large"
+                                    bsStyle="link"
+                                    className="signin-signup-btn"
+                                    disabled={false}
+                  >
+                                    Create account
+                  </Button>
+</Form>,
+                "className": "",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "bsClass": "form",
+                  "children": Array [
+                    <FormGroup
+                      bsClass="form-group"
+                      className="signin-username-form-group"
+>
+                      <ControlLabel
+                                            bsClass="control-label"
+                                            srOnly={false}
+                      >
+                                            Username
+                      </ControlLabel>
+                      <FormControl
+                                            autoComplete="username"
+                                            bsClass="form-control"
+                                            componentClass="input"
+                                            onChange={[Function]}
+                                            type="text"
+                                            value=""
+                      />
+</FormGroup>,
+                    <FormGroup
+                      bsClass="form-group"
+                      className="signin-password-form-group"
+>
+                      <ControlLabel
+                                            bsClass="control-label"
+                                            srOnly={false}
+                      >
+                                            Password
+                      </ControlLabel>
+                      <FormControl
+                                            autoComplete="current-password"
+                                            bsClass="form-control"
+                                            componentClass="input"
+                                            onChange={[Function]}
+                                            type="password"
+                                            value=""
+                      />
+</FormGroup>,
+                    <Button
+                      active={false}
+                      block={false}
+                      bsClass="btn"
+                      bsSize="large"
+                      bsStyle="primary"
+                      className="signin-login-btn"
+                      disabled={false}
+                      type="submit"
+>
+                      Login
+</Button>,
+                    <Button
+                      active={false}
+                      block={false}
+                      bsClass="btn"
+                      bsSize="large"
+                      bsStyle="link"
+                      className="signin-signup-btn"
+                      disabled={false}
+>
+                      Create account
+</Button>,
+                  ],
+                  "className": "signin-form",
+                  "componentClass": "form",
+                  "horizontal": false,
+                  "inline": false,
+                  "onSubmit": [Function],
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "bsClass": "form-group",
+                      "children": Array [
+                        <ControlLabel
+                          bsClass="control-label"
+                          srOnly={false}
+>
+                          Username
+</ControlLabel>,
+                        <FormControl
+                          autoComplete="username"
+                          bsClass="form-control"
+                          componentClass="input"
+                          onChange={[Function]}
+                          type="text"
+                          value=""
+/>,
+                      ],
+                      "className": "signin-username-form-group",
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "bsClass": "control-label",
+                          "children": "Username",
+                          "srOnly": false,
+                        },
+                        "ref": null,
+                        "rendered": "Username",
+                        "type": [Function],
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "autoComplete": "username",
+                          "bsClass": "form-control",
+                          "componentClass": "input",
+                          "onChange": [Function],
+                          "type": "text",
+                          "value": "",
+                        },
+                        "ref": null,
+                        "rendered": null,
+                        "type": [Function],
+                      },
+                    ],
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "bsClass": "form-group",
+                      "children": Array [
+                        <ControlLabel
+                          bsClass="control-label"
+                          srOnly={false}
+>
+                          Password
+</ControlLabel>,
+                        <FormControl
+                          autoComplete="current-password"
+                          bsClass="form-control"
+                          componentClass="input"
+                          onChange={[Function]}
+                          type="password"
+                          value=""
+/>,
+                      ],
+                      "className": "signin-password-form-group",
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "bsClass": "control-label",
+                          "children": "Password",
+                          "srOnly": false,
+                        },
+                        "ref": null,
+                        "rendered": "Password",
+                        "type": [Function],
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "autoComplete": "current-password",
+                          "bsClass": "form-control",
+                          "componentClass": "input",
+                          "onChange": [Function],
+                          "type": "password",
+                          "value": "",
+                        },
+                        "ref": null,
+                        "rendered": null,
+                        "type": [Function],
+                      },
+                    ],
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "active": false,
+                      "block": false,
+                      "bsClass": "btn",
+                      "bsSize": "large",
+                      "bsStyle": "primary",
+                      "children": "Login",
+                      "className": "signin-login-btn",
+                      "disabled": false,
+                      "type": "submit",
+                    },
+                    "ref": null,
+                    "rendered": "Login",
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "active": false,
+                      "block": false,
+                      "bsClass": "btn",
+                      "bsSize": "large",
+                      "bsStyle": "link",
+                      "children": "Create account",
+                      "className": "signin-signup-btn",
+                      "disabled": false,
+                    },
+                    "ref": null,
+                    "rendered": "Create account",
+                    "type": [Function],
+                  },
+                ],
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+          ],
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <div
+          className="signin-container"
+>
+          <div
+                    className="signin-logo-container"
+          >
+                    <Link
+                              className="signin-logo-link"
+                              href="/"
+                              replace={false}
+                              to="/"
+                    >
+                              <img
+                                        alt=""
+                                        className="signin-logo"
+                                        src="chris_logo-white.png"
+                              />
+                    </Link>
+          </div>
+          <Card
+                    accented={false}
+                    aggregated={false}
+                    aggregatedMini={false}
+                    cardRef={null}
+                    className="signin-card"
+                    matchHeight={false}
+          >
+                    <CardTitle
+                              className="signin-card-title"
+                    >
+                              Sign In
+                    </CardTitle>
+                    <CardBody
+                              className=""
+                    >
+                              <Form
+                                        bsClass="form"
+                                        className="signin-form"
+                                        componentClass="form"
+                                        horizontal={false}
+                                        inline={false}
+                                        onSubmit={[Function]}
+                              >
+                                        <FormGroup
+                                                  bsClass="form-group"
+                                                  className="signin-username-form-group"
+                                        >
+                                                  <ControlLabel
+                                                            bsClass="control-label"
+                                                            srOnly={false}
+                                                  >
+                                                            Username
+                                                  </ControlLabel>
+                                                  <FormControl
+                                                            autoComplete="username"
+                                                            bsClass="form-control"
+                                                            componentClass="input"
+                                                            onChange={[Function]}
+                                                            type="text"
+                                                            value=""
+                                                  />
+                                        </FormGroup>
+                                        <FormGroup
+                                                  bsClass="form-group"
+                                                  className="signin-password-form-group"
+                                        >
+                                                  <ControlLabel
+                                                            bsClass="control-label"
+                                                            srOnly={false}
+                                                  >
+                                                            Password
+                                                  </ControlLabel>
+                                                  <FormControl
+                                                            autoComplete="current-password"
+                                                            bsClass="form-control"
+                                                            componentClass="input"
+                                                            onChange={[Function]}
+                                                            type="password"
+                                                            value=""
+                                                  />
+                                        </FormGroup>
+                                        <Button
+                                                  active={false}
+                                                  block={false}
+                                                  bsClass="btn"
+                                                  bsSize="large"
+                                                  bsStyle="primary"
+                                                  className="signin-login-btn"
+                                                  disabled={false}
+                                                  type="submit"
+                                        >
+                                                  Login
+                                        </Button>
+                                        <Button
+                                                  active={false}
+                                                  block={false}
+                                                  bsClass="btn"
+                                                  bsSize="large"
+                                                  bsStyle="link"
+                                                  className="signin-signup-btn"
+                                                  disabled={false}
+                                        >
+                                                  Create account
+                                        </Button>
+                              </Form>
+                    </CardBody>
+          </Card>
+</div>,
+        "className": "signin",
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            null,
+            <div
+              className="signin-logo-container"
+>
+              <Link
+                            className="signin-logo-link"
+                            href="/"
+                            replace={false}
+                            to="/"
+              >
+                            <img
+                                          alt=""
+                                          className="signin-logo"
+                                          src="chris_logo-white.png"
+                            />
+              </Link>
+</div>,
+            <Card
+              accented={false}
+              aggregated={false}
+              aggregatedMini={false}
+              cardRef={null}
+              className="signin-card"
+              matchHeight={false}
+>
+              <CardTitle
+                            className="signin-card-title"
+              >
+                            Sign In
+              </CardTitle>
+              <CardBody
+                            className=""
+              >
+                            <Form
+                                          bsClass="form"
+                                          className="signin-form"
+                                          componentClass="form"
+                                          horizontal={false}
+                                          inline={false}
+                                          onSubmit={[Function]}
+                            >
+                                          <FormGroup
+                                                        bsClass="form-group"
+                                                        className="signin-username-form-group"
+                                          >
+                                                        <ControlLabel
+                                                                      bsClass="control-label"
+                                                                      srOnly={false}
+                                                        >
+                                                                      Username
+                                                        </ControlLabel>
+                                                        <FormControl
+                                                                      autoComplete="username"
+                                                                      bsClass="form-control"
+                                                                      componentClass="input"
+                                                                      onChange={[Function]}
+                                                                      type="text"
+                                                                      value=""
+                                                        />
+                                          </FormGroup>
+                                          <FormGroup
+                                                        bsClass="form-group"
+                                                        className="signin-password-form-group"
+                                          >
+                                                        <ControlLabel
+                                                                      bsClass="control-label"
+                                                                      srOnly={false}
+                                                        >
+                                                                      Password
+                                                        </ControlLabel>
+                                                        <FormControl
+                                                                      autoComplete="current-password"
+                                                                      bsClass="form-control"
+                                                                      componentClass="input"
+                                                                      onChange={[Function]}
+                                                                      type="password"
+                                                                      value=""
+                                                        />
+                                          </FormGroup>
+                                          <Button
+                                                        active={false}
+                                                        block={false}
+                                                        bsClass="btn"
+                                                        bsSize="large"
+                                                        bsStyle="primary"
+                                                        className="signin-login-btn"
+                                                        disabled={false}
+                                                        type="submit"
+                                          >
+                                                        Login
+                                          </Button>
+                                          <Button
+                                                        active={false}
+                                                        block={false}
+                                                        bsClass="btn"
+                                                        bsSize="large"
+                                                        bsStyle="link"
+                                                        className="signin-signup-btn"
+                                                        disabled={false}
+                                          >
+                                                        Create account
+                                          </Button>
+                            </Form>
+              </CardBody>
+</Card>,
+          ],
+          "className": "signin-container",
+        },
+        "ref": null,
+        "rendered": Array [
+          null,
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <Link
+                className="signin-logo-link"
+                href="/"
+                replace={false}
+                to="/"
+>
+                <img
+                                alt=""
+                                className="signin-logo"
+                                src="chris_logo-white.png"
+                />
+</Link>,
+              "className": "signin-logo-container",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <img
+                  alt=""
+                  className="signin-logo"
+                  src="chris_logo-white.png"
+/>,
+                "className": "signin-logo-link",
+                "href": "/",
+                "replace": false,
+                "to": "/",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "alt": "",
+                  "className": "signin-logo",
+                  "src": "chris_logo-white.png",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "img",
+              },
+              "type": [Function],
+            },
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "accented": false,
+              "aggregated": false,
+              "aggregatedMini": false,
+              "cardRef": null,
+              "children": Array [
+                <CardTitle
+                  className="signin-card-title"
+>
+                  Sign In
+</CardTitle>,
+                <CardBody
+                  className=""
+>
+                  <Form
+                                    bsClass="form"
+                                    className="signin-form"
+                                    componentClass="form"
+                                    horizontal={false}
+                                    inline={false}
+                                    onSubmit={[Function]}
+                  >
+                                    <FormGroup
+                                                      bsClass="form-group"
+                                                      className="signin-username-form-group"
+                                    >
+                                                      <ControlLabel
+                                                                        bsClass="control-label"
+                                                                        srOnly={false}
+                                                      >
+                                                                        Username
+                                                      </ControlLabel>
+                                                      <FormControl
+                                                                        autoComplete="username"
+                                                                        bsClass="form-control"
+                                                                        componentClass="input"
+                                                                        onChange={[Function]}
+                                                                        type="text"
+                                                                        value=""
+                                                      />
+                                    </FormGroup>
+                                    <FormGroup
+                                                      bsClass="form-group"
+                                                      className="signin-password-form-group"
+                                    >
+                                                      <ControlLabel
+                                                                        bsClass="control-label"
+                                                                        srOnly={false}
+                                                      >
+                                                                        Password
+                                                      </ControlLabel>
+                                                      <FormControl
+                                                                        autoComplete="current-password"
+                                                                        bsClass="form-control"
+                                                                        componentClass="input"
+                                                                        onChange={[Function]}
+                                                                        type="password"
+                                                                        value=""
+                                                      />
+                                    </FormGroup>
+                                    <Button
+                                                      active={false}
+                                                      block={false}
+                                                      bsClass="btn"
+                                                      bsSize="large"
+                                                      bsStyle="primary"
+                                                      className="signin-login-btn"
+                                                      disabled={false}
+                                                      type="submit"
+                                    >
+                                                      Login
+                                    </Button>
+                                    <Button
+                                                      active={false}
+                                                      block={false}
+                                                      bsClass="btn"
+                                                      bsSize="large"
+                                                      bsStyle="link"
+                                                      className="signin-signup-btn"
+                                                      disabled={false}
+                                    >
+                                                      Create account
+                                    </Button>
+                  </Form>
+</CardBody>,
+              ],
+              "className": "signin-card",
+              "matchHeight": false,
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "children": "Sign In",
+                  "className": "signin-card-title",
+                },
+                "ref": null,
+                "rendered": "Sign In",
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "children": <Form
+                    bsClass="form"
+                    className="signin-form"
+                    componentClass="form"
+                    horizontal={false}
+                    inline={false}
+                    onSubmit={[Function]}
+>
+                    <FormGroup
+                                        bsClass="form-group"
+                                        className="signin-username-form-group"
+                    >
+                                        <ControlLabel
+                                                            bsClass="control-label"
+                                                            srOnly={false}
+                                        >
+                                                            Username
+                                        </ControlLabel>
+                                        <FormControl
+                                                            autoComplete="username"
+                                                            bsClass="form-control"
+                                                            componentClass="input"
+                                                            onChange={[Function]}
+                                                            type="text"
+                                                            value=""
+                                        />
+                    </FormGroup>
+                    <FormGroup
+                                        bsClass="form-group"
+                                        className="signin-password-form-group"
+                    >
+                                        <ControlLabel
+                                                            bsClass="control-label"
+                                                            srOnly={false}
+                                        >
+                                                            Password
+                                        </ControlLabel>
+                                        <FormControl
+                                                            autoComplete="current-password"
+                                                            bsClass="form-control"
+                                                            componentClass="input"
+                                                            onChange={[Function]}
+                                                            type="password"
+                                                            value=""
+                                        />
+                    </FormGroup>
+                    <Button
+                                        active={false}
+                                        block={false}
+                                        bsClass="btn"
+                                        bsSize="large"
+                                        bsStyle="primary"
+                                        className="signin-login-btn"
+                                        disabled={false}
+                                        type="submit"
+                    >
+                                        Login
+                    </Button>
+                    <Button
+                                        active={false}
+                                        block={false}
+                                        bsClass="btn"
+                                        bsSize="large"
+                                        bsStyle="link"
+                                        className="signin-signup-btn"
+                                        disabled={false}
+                    >
+                                        Create account
+                    </Button>
+</Form>,
+                  "className": "",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "bsClass": "form",
+                    "children": Array [
+                      <FormGroup
+                        bsClass="form-group"
+                        className="signin-username-form-group"
+>
+                        <ControlLabel
+                                                bsClass="control-label"
+                                                srOnly={false}
+                        >
+                                                Username
+                        </ControlLabel>
+                        <FormControl
+                                                autoComplete="username"
+                                                bsClass="form-control"
+                                                componentClass="input"
+                                                onChange={[Function]}
+                                                type="text"
+                                                value=""
+                        />
+</FormGroup>,
+                      <FormGroup
+                        bsClass="form-group"
+                        className="signin-password-form-group"
+>
+                        <ControlLabel
+                                                bsClass="control-label"
+                                                srOnly={false}
+                        >
+                                                Password
+                        </ControlLabel>
+                        <FormControl
+                                                autoComplete="current-password"
+                                                bsClass="form-control"
+                                                componentClass="input"
+                                                onChange={[Function]}
+                                                type="password"
+                                                value=""
+                        />
+</FormGroup>,
+                      <Button
+                        active={false}
+                        block={false}
+                        bsClass="btn"
+                        bsSize="large"
+                        bsStyle="primary"
+                        className="signin-login-btn"
+                        disabled={false}
+                        type="submit"
+>
+                        Login
+</Button>,
+                      <Button
+                        active={false}
+                        block={false}
+                        bsClass="btn"
+                        bsSize="large"
+                        bsStyle="link"
+                        className="signin-signup-btn"
+                        disabled={false}
+>
+                        Create account
+</Button>,
+                    ],
+                    "className": "signin-form",
+                    "componentClass": "form",
+                    "horizontal": false,
+                    "inline": false,
+                    "onSubmit": [Function],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "bsClass": "form-group",
+                        "children": Array [
+                          <ControlLabel
+                            bsClass="control-label"
+                            srOnly={false}
+>
+                            Username
+</ControlLabel>,
+                          <FormControl
+                            autoComplete="username"
+                            bsClass="form-control"
+                            componentClass="input"
+                            onChange={[Function]}
+                            type="text"
+                            value=""
+/>,
+                        ],
+                        "className": "signin-username-form-group",
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "class",
+                          "props": Object {
+                            "bsClass": "control-label",
+                            "children": "Username",
+                            "srOnly": false,
+                          },
+                          "ref": null,
+                          "rendered": "Username",
+                          "type": [Function],
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "class",
+                          "props": Object {
+                            "autoComplete": "username",
+                            "bsClass": "form-control",
+                            "componentClass": "input",
+                            "onChange": [Function],
+                            "type": "text",
+                            "value": "",
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": [Function],
+                        },
+                      ],
+                      "type": [Function],
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "bsClass": "form-group",
+                        "children": Array [
+                          <ControlLabel
+                            bsClass="control-label"
+                            srOnly={false}
+>
+                            Password
+</ControlLabel>,
+                          <FormControl
+                            autoComplete="current-password"
+                            bsClass="form-control"
+                            componentClass="input"
+                            onChange={[Function]}
+                            type="password"
+                            value=""
+/>,
+                        ],
+                        "className": "signin-password-form-group",
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "class",
+                          "props": Object {
+                            "bsClass": "control-label",
+                            "children": "Password",
+                            "srOnly": false,
+                          },
+                          "ref": null,
+                          "rendered": "Password",
+                          "type": [Function],
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "class",
+                          "props": Object {
+                            "autoComplete": "current-password",
+                            "bsClass": "form-control",
+                            "componentClass": "input",
+                            "onChange": [Function],
+                            "type": "password",
+                            "value": "",
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": [Function],
+                        },
+                      ],
+                      "type": [Function],
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "active": false,
+                        "block": false,
+                        "bsClass": "btn",
+                        "bsSize": "large",
+                        "bsStyle": "primary",
+                        "children": "Login",
+                        "className": "signin-login-btn",
+                        "disabled": false,
+                        "type": "submit",
+                      },
+                      "ref": null,
+                      "rendered": "Login",
+                      "type": [Function],
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "active": false,
+                        "block": false,
+                        "bsClass": "btn",
+                        "bsSize": "large",
+                        "bsStyle": "link",
+                        "children": "Create account",
+                        "className": "signin-signup-btn",
+                        "disabled": false,
+                      },
+                      "ref": null,
+                      "rendered": "Create account",
+                      "type": [Function],
+                    },
+                  ],
+                  "type": [Function],
+                },
+                "type": [Function],
+              },
+            ],
+            "type": [Function],
+          },
+        ],
+        "type": "div",
+      },
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
