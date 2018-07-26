@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import {
-  Card, CardTitle, CardBody, Button, Icon,
+  Card, CardTitle, CardBody, Button, Alert,
   Form, FormGroup, FormControl, ControlLabel,
 } from 'patternfly-react';
 import { StoreClient } from '@fnndsc/chrisstoreapi';
@@ -68,10 +68,8 @@ class SignIn extends Component {
     this.setState({ error: message });
   }
 
-  hideError(e) {
-    if (!e.key || e.key === 'Enter') {
-      this.setState({ error: null });
-    }
+  hideError() {
+    this.setState({ error: null });
   }
 
   render() {
@@ -89,16 +87,13 @@ class SignIn extends Component {
           {
             error && (
               <div className="signin-error-container">
-                <div
+                <Alert
                   className="signin-error"
-                  role="button"
-                  tabIndex={0}
-                  onClick={this.hideError}
-                  onKeyUp={this.hideError}
+                  type="error"
+                  onDismiss={this.hideError}
                 >
-                  <Icon name="times-circle-o" />
-                  {` ${error}`}
-                </div>
+                  {error}
+                </Alert>
               </div>
             )
           }

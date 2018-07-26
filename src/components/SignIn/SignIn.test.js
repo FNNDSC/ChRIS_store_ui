@@ -216,15 +216,19 @@ describe('SignIn', () => {
       });
   });
 
-  it('should render signin-error-container if credentials were not correct', () => {
+  it('should render error Alert if credentials were not correct', () => {
     // setup localStorage mock
     window.localStorage = localStorage;
 
-    expect(wrapper.find('div.signin-error-container')).toHaveLength(0);
+    const containerSelector = 'div.signin-error-container';
+    const alertSelector = 'Alert[type="error"]';
+    expect(wrapper.find(containerSelector)).toHaveLength(0);
+    expect(wrapper.find(alertSelector)).toHaveLength(0);
     return wrapper.instance().handleSubmit(event)
       .then(() => {
         wrapper.update();
-        expect(wrapper.find('div.signin-error-container')).toHaveLength(1);
+        expect(wrapper.find(containerSelector)).toHaveLength(1);
+        expect(wrapper.find(alertSelector)).toHaveLength(1);
       });
   });
 
@@ -290,21 +294,13 @@ describe('SignIn', () => {
     expect(wrapper.state('error')).toEqual(message);
   });
 
-  it('sets error state to null if e.key is undefined or if e.key is "Enter"', () => {
+  it('sets error state to null if dismissed', () => {
     const instance = wrapper.instance();
     const msg = 'message';
 
     instance.showError(msg);
     expect(wrapper.state('error')).toEqual(msg);
-    instance.hideError({});
-    expect(wrapper.state('error')).toBeNull();
-
-    instance.showError(msg);
-    expect(wrapper.state('error')).toEqual(msg);
-    instance.hideError({ key: 'not Enter' });
-    expect(wrapper.state('error')).toEqual(msg);
-
-    instance.hideError({ key: 'Enter' });
+    instance.hideError();
     expect(wrapper.state('error')).toBeNull();
   });
 });
