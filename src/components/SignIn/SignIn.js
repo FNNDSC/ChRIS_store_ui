@@ -21,8 +21,7 @@ class SignIn extends Component {
       error: null,
     };
 
-    this.handleUsername = this.handleUsername.bind(this);
-    this.handlePassword = this.handlePassword.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.showError = this.showError.bind(this);
     this.hideError = this.hideError.bind(this);
@@ -36,12 +35,8 @@ class SignIn extends Component {
     this.mounted = false;
   }
 
-  handleUsername(event) {
-    this.setState({ username: event.target.value });
-  }
-
-  handlePassword(event) {
-    this.setState({ password: event.target.value });
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   handleSubmit(event) {
@@ -80,7 +75,11 @@ class SignIn extends Component {
   }
 
   render() {
-    if (this.state.toDashboard) {
+    const {
+      toDashboard, error, username, password, loading,
+    } = this.state;
+
+    if (toDashboard) {
       return <Redirect to="/developers" />;
     }
 
@@ -88,7 +87,7 @@ class SignIn extends Component {
       <div className="signin">
         <div className="signin-container">
           {
-            this.state.error && (
+            error && (
               <div className="signin-error-container">
                 <div
                   className="signin-error"
@@ -98,7 +97,7 @@ class SignIn extends Component {
                   onKeyUp={this.hideError}
                 >
                   <Icon name="times-circle-o" />
-                  {` ${this.state.error}`}
+                  {` ${error}`}
                 </div>
               </div>
             )
@@ -126,8 +125,9 @@ class SignIn extends Component {
                   </ControlLabel>
                   <FormControl
                     type="text"
-                    value={this.state.username}
-                    onChange={this.handleUsername}
+                    name="username"
+                    value={username}
+                    onChange={this.handleChange}
                     autoComplete="username"
                   />
                 </FormGroup>
@@ -137,8 +137,9 @@ class SignIn extends Component {
                   </ControlLabel>
                   <FormControl
                     type="password"
-                    value={this.state.password}
-                    onChange={this.handlePassword}
+                    name="password"
+                    value={password}
+                    onChange={this.handleChange}
                     autoComplete="current-password"
                   />
                 </FormGroup>
@@ -147,7 +148,7 @@ class SignIn extends Component {
                   bsStyle="primary"
                   bsSize="large"
                   type="submit"
-                  disabled={this.state.loading}
+                  disabled={loading}
                 >
                   Login
                 </Button>

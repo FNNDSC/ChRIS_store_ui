@@ -120,10 +120,13 @@ describe('SignIn', () => {
     .find(`FormGroup.signin-${control}-form-group`)
     .find('FormControl');
 
+  // helper functino to generate mock change event
+  const generateMockEvent = (name, value) => ({ target: { name, value } });
+
   it('should update the username state based on change', () => {
     expect(getControl('username').prop('value')).toEqual('');
 
-    getControl('username').simulate('change', { target: { value: 'testUsername' } });
+    getControl('username').simulate('change', generateMockEvent('username', 'testUsername'));
 
     expect(getControl('username').prop('value')).toEqual('testUsername');
   });
@@ -131,9 +134,9 @@ describe('SignIn', () => {
   it('should update the password state based on change', () => {
     expect(getControl('password').prop('value')).toEqual('');
 
-    getControl('password').simulate('change', { target: { value: 'testUsername' } });
+    getControl('password').simulate('change', generateMockEvent('password', 'testPassword'));
 
-    expect(getControl('password').prop('value')).toEqual('testUsername');
+    expect(getControl('password').prop('value')).toEqual('testPassword');
   });
 
   /* ============================== */
@@ -272,18 +275,12 @@ describe('SignIn', () => {
     expect(instance.mounted).toBeFalsy();
   });
 
-  const generateMockEvent = value => ({ target: { value } });
-
-  it('sets username state when handleUsername is called', () => {
+  it('sets correct state when handleChange is called', () => {
     const instance = wrapper.instance();
-    instance.handleUsername(generateMockEvent('testUsername'));
+    instance.handleChange(generateMockEvent('username', 'testUsername'));
+    instance.handleChange(generateMockEvent('password', 'testPassword'));
     expect(wrapper.state('username')).toEqual('testUsername');
-  });
-
-  it('sets password state when handlePassword is called', () => {
-    const instance = wrapper.instance();
-    instance.handleUsername(generateMockEvent('testPassword'));
-    expect(wrapper.state('username')).toEqual('testPassword');
+    expect(wrapper.state('password')).toEqual('testPassword');
   });
 
   it('sets error state to message when showError is called', () => {

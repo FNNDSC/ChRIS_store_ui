@@ -74,6 +74,7 @@ ShallowWrapper {
                                                 autoComplete="username"
                                                 bsClass="form-control"
                                                 componentClass="input"
+                                                name="username"
                                                 onChange={[Function]}
                                                 type="text"
                                                 value=""
@@ -93,6 +94,7 @@ ShallowWrapper {
                                                 autoComplete="current-password"
                                                 bsClass="form-control"
                                                 componentClass="input"
+                                                name="password"
                                                 onChange={[Function]}
                                                 type="password"
                                                 value=""
@@ -189,6 +191,7 @@ ShallowWrapper {
                                                             autoComplete="username"
                                                             bsClass="form-control"
                                                             componentClass="input"
+                                                            name="username"
                                                             onChange={[Function]}
                                                             type="text"
                                                             value=""
@@ -208,6 +211,7 @@ ShallowWrapper {
                                                             autoComplete="current-password"
                                                             bsClass="form-control"
                                                             componentClass="input"
+                                                            name="password"
                                                             onChange={[Function]}
                                                             type="password"
                                                             value=""
@@ -338,6 +342,7 @@ ShallowWrapper {
                                                                 autoComplete="username"
                                                                 bsClass="form-control"
                                                                 componentClass="input"
+                                                                name="username"
                                                                 onChange={[Function]}
                                                                 type="text"
                                                                 value=""
@@ -357,6 +362,7 @@ ShallowWrapper {
                                                                 autoComplete="current-password"
                                                                 bsClass="form-control"
                                                                 componentClass="input"
+                                                                name="password"
                                                                 onChange={[Function]}
                                                                 type="password"
                                                                 value=""
@@ -432,6 +438,7 @@ ShallowWrapper {
                                                       autoComplete="username"
                                                       bsClass="form-control"
                                                       componentClass="input"
+                                                      name="username"
                                                       onChange={[Function]}
                                                       type="text"
                                                       value=""
@@ -451,6 +458,7 @@ ShallowWrapper {
                                                       autoComplete="current-password"
                                                       bsClass="form-control"
                                                       componentClass="input"
+                                                      name="password"
                                                       onChange={[Function]}
                                                       type="password"
                                                       value=""
@@ -504,6 +512,7 @@ ShallowWrapper {
                                             autoComplete="username"
                                             bsClass="form-control"
                                             componentClass="input"
+                                            name="username"
                                             onChange={[Function]}
                                             type="text"
                                             value=""
@@ -523,6 +532,7 @@ ShallowWrapper {
                                             autoComplete="current-password"
                                             bsClass="form-control"
                                             componentClass="input"
+                                            name="password"
                                             onChange={[Function]}
                                             type="password"
                                             value=""
@@ -577,6 +587,7 @@ ShallowWrapper {
                           autoComplete="username"
                           bsClass="form-control"
                           componentClass="input"
+                          name="username"
                           onChange={[Function]}
                           type="text"
                           value=""
@@ -607,6 +618,7 @@ ShallowWrapper {
                           "autoComplete": "username",
                           "bsClass": "form-control",
                           "componentClass": "input",
+                          "name": "username",
                           "onChange": [Function],
                           "type": "text",
                           "value": "",
@@ -635,6 +647,7 @@ ShallowWrapper {
                           autoComplete="current-password"
                           bsClass="form-control"
                           componentClass="input"
+                          name="password"
                           onChange={[Function]}
                           type="password"
                           value=""
@@ -665,6 +678,7 @@ ShallowWrapper {
                           "autoComplete": "current-password",
                           "bsClass": "form-control",
                           "componentClass": "input",
+                          "name": "password",
                           "onChange": [Function],
                           "type": "password",
                           "value": "",
@@ -789,6 +803,7 @@ ShallowWrapper {
                                                             autoComplete="username"
                                                             bsClass="form-control"
                                                             componentClass="input"
+                                                            name="username"
                                                             onChange={[Function]}
                                                             type="text"
                                                             value=""
@@ -808,6 +823,7 @@ ShallowWrapper {
                                                             autoComplete="current-password"
                                                             bsClass="form-control"
                                                             componentClass="input"
+                                                            name="password"
                                                             onChange={[Function]}
                                                             type="password"
                                                             value=""
@@ -904,6 +920,7 @@ ShallowWrapper {
                                                                       autoComplete="username"
                                                                       bsClass="form-control"
                                                                       componentClass="input"
+                                                                      name="username"
                                                                       onChange={[Function]}
                                                                       type="text"
                                                                       value=""
@@ -923,6 +940,7 @@ ShallowWrapper {
                                                                       autoComplete="current-password"
                                                                       bsClass="form-control"
                                                                       componentClass="input"
+                                                                      name="password"
                                                                       onChange={[Function]}
                                                                       type="password"
                                                                       value=""
@@ -1053,6 +1071,7 @@ ShallowWrapper {
                                                                         autoComplete="username"
                                                                         bsClass="form-control"
                                                                         componentClass="input"
+                                                                        name="username"
                                                                         onChange={[Function]}
                                                                         type="text"
                                                                         value=""
@@ -1072,6 +1091,7 @@ ShallowWrapper {
                                                                         autoComplete="current-password"
                                                                         bsClass="form-control"
                                                                         componentClass="input"
+                                                                        name="password"
                                                                         onChange={[Function]}
                                                                         type="password"
                                                                         value=""
@@ -1147,6 +1167,7 @@ ShallowWrapper {
                                                             autoComplete="username"
                                                             bsClass="form-control"
                                                             componentClass="input"
+                                                            name="username"
                                                             onChange={[Function]}
                                                             type="text"
                                                             value=""
@@ -1166,6 +1187,7 @@ ShallowWrapper {
                                                             autoComplete="current-password"
                                                             bsClass="form-control"
                                                             componentClass="input"
+                                                            name="password"
                                                             onChange={[Function]}
                                                             type="password"
                                                             value=""
@@ -1219,6 +1241,7 @@ ShallowWrapper {
                                                 autoComplete="username"
                                                 bsClass="form-control"
                                                 componentClass="input"
+                                                name="username"
                                                 onChange={[Function]}
                                                 type="text"
                                                 value=""
@@ -1238,6 +1261,7 @@ ShallowWrapper {
                                                 autoComplete="current-password"
                                                 bsClass="form-control"
                                                 componentClass="input"
+                                                name="password"
                                                 onChange={[Function]}
                                                 type="password"
                                                 value=""
@@ -1292,6 +1316,7 @@ ShallowWrapper {
                             autoComplete="username"
                             bsClass="form-control"
                             componentClass="input"
+                            name="username"
                             onChange={[Function]}
                             type="text"
                             value=""
@@ -1322,6 +1347,7 @@ ShallowWrapper {
                             "autoComplete": "username",
                             "bsClass": "form-control",
                             "componentClass": "input",
+                            "name": "username",
                             "onChange": [Function],
                             "type": "text",
                             "value": "",
@@ -1350,6 +1376,7 @@ ShallowWrapper {
                             autoComplete="current-password"
                             bsClass="form-control"
                             componentClass="input"
+                            name="password"
                             onChange={[Function]}
                             type="password"
                             value=""
@@ -1380,6 +1407,7 @@ ShallowWrapper {
                             "autoComplete": "current-password",
                             "bsClass": "form-control",
                             "componentClass": "input",
+                            "name": "password",
                             "onChange": [Function],
                             "type": "password",
                             "value": "",
