@@ -4,7 +4,6 @@
   background: var(--pf-black-200);
   
   /* display */
-  min-height: calc(100vh - 229px);
   padding: 1em;
 }
 

@@ -157,18 +157,6 @@ describe('SignIn', () => {
 
   const event = { preventDefault: jest.fn() };
 
-  it('should call handleSubmit method on signin-form submit', () => {
-    // spy for handleSubmit method
-    const spy = jest.spyOn(SignIn.prototype, 'handleSubmit');
-    // a new shallow is needed so that the onClick refers to the mocked fn
-    const mockedWrapper = shallow(<SignIn />);
-    spy.mockRestore();
-
-    mockedWrapper.find('Form.signin-form').simulate('submit', event);
-
-    expect(spy).toHaveBeenCalled();
-  });
-
   it('should call showError method on incorrect credentials', () => {
     // spy for showError method
     const spy = jest.spyOn(SignIn.prototype, 'showError');

@@ -88,7 +88,7 @@ class Plugins extends Component {
           name={plugin.name}
           author={removeEmail(plugin.authors)}
           creationDate={plugin.creation_date}
-          key={plugin.dock_image}
+          key={plugin.name}
         />
       ));
 

@@ -5,6 +5,7 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <Plugin
+    className=""
     match={
         Object {
             "params": Object {
@@ -12,6 +13,7 @@ ShallowWrapper {
             },
           }
     }
+    pluginData={null}
 />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -26,7 +28,7 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": <LoadingPlugin />,
-      "className": "plugin",
+      "className": "plugin ",
     },
     "ref": null,
     "rendered": Object {
@@ -47,7 +49,7 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "children": <LoadingPlugin />,
-        "className": "plugin",
+        "className": "plugin ",
       },
       "ref": null,
       "rendered": Object {

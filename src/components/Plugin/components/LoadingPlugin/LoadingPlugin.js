@@ -4,7 +4,7 @@ import LoadingContent from '../../../LoadingContainer/components/LoadingContent/
 import './LoadingPlugin.css';
 
 const LoadingPlugin = () => (
-  <LoadingContainer>
+  <LoadingContainer className="loading-plugin-container">
     <div className="plugin-header">
       <div className="row no-flex">
         <LoadingContent
