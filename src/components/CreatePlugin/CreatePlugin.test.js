@@ -292,9 +292,40 @@ describe('CreatePlugin', () => {
   });
 
   it('should render createplugin-upload-label with className "dragover" when dragover is true', () => {
-    expect(wrapper.find('ControlLabel.createplugin-upload-label.dragover')).toHaveLength(0);
+    const getLabel = () => wrapper.find('ControlLabel.createplugin-upload-label.dragover');
+    expect(getLabel()).toHaveLength(0);
     wrapper.setState({ dragOver: true });
-    expect(wrapper.find('ControlLabel.createplugin-upload-label.dragover')).toHaveLength(1);
+    expect(getLabel()).toHaveLength(1);
+  });
+
+  it('should set fileError state to true when handleFileError is called with state', () => {
+    const { setFileError } = wrapper.instance();
+    expect(wrapper.state('fileError')).toBeFalsy();
+    setFileError(true);
+    expect(wrapper.state('fileError')).toBeTruthy();
+    setFileError(false);
+    expect(wrapper.state('fileError')).toBeFalsy();
+  });
+
+  it('should toggle fileError state when setFileError is called without a state', () => {
+    const { setFileError } = wrapper.instance();
+    expect(wrapper.state('fileError')).toBeFalsy();
+    setFileError();
+    expect(wrapper.state('fileError')).toBeTruthy();
+  });
+
+  it('should render createplugin-upload-label with className "haserror" after setFileError is called', () => {
+    const getLabel = () => wrapper.find('ControlLabel.createplugin-upload-label.haserror');
+    expect(getLabel()).toHaveLength(0);
+    wrapper.setState({ fileError: true });
+    expect(getLabel()).toHaveLength(1);
+  });
+
+  it('should render createplugin-upload-icon with name "exclamation-triangle" prop if fileError state is true', () => {
+    const getIcon = () => wrapper.find('Icon.createplugin-upload-icon[name="exclamation-triangle"]');
+    expect(getIcon()).toHaveLength(0);
+    wrapper.setState({ fileError: true });
+    expect(getIcon()).toHaveLength(1);
   });
 
   /* ============================== */

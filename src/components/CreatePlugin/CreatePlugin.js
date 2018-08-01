@@ -52,13 +52,27 @@ class CreatePlugin extends Component {
       image: '',
       repo: '',
       pluginRepresentation: {},
+      fileError: false,
     };
 
+    this.setFileError = this.setFileError.bind(this);
     this.handleError = this.handleError.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleFile = this.handleFile.bind(this);
     this.readFile = this.readFile.bind(this);
     this.handleDrag = this.handleDrag.bind(this);
+  }
+
+  setFileError(state) {
+    this.setState((prevState) => {
+      const nextState = {};
+      if (typeof state !== 'undefined') {
+        nextState.fileError = state;
+      } else {
+        nextState.fileError = !prevState.fileError;
+      }
+      return nextState;
+    });
   }
 
   handleError(message) {
@@ -75,7 +89,7 @@ class CreatePlugin extends Component {
     if (file && file.type === 'application/json') {
       this.setState({ fileName: file.name });
       this.readFile(file)
-        .catch(err => this.handleError(err.message));
+        .catch(() => this.setFileError(true));
     } else if (!file) {
       this.setState({
         fileName: undefined,
@@ -99,7 +113,7 @@ class CreatePlugin extends Component {
             reject(invalidRepresentation);
           }
 
-          this.setState({ pluginRepresentation }, resolve);
+          this.setState({ pluginRepresentation, fileError: false }, resolve);
         };
 
         reader.onerror = () => reject(invalidRepresentation);
@@ -151,7 +165,7 @@ class CreatePlugin extends Component {
   render() {
     const { state } = this;
     const {
-      dragOver, fileName, name, image, repo, pluginRepresentation,
+      dragOver, fileName, name, image, repo, pluginRepresentation, fileError,
     } = state;
 
     // generate formGroups based on data
@@ -172,6 +186,22 @@ class CreatePlugin extends Component {
       description: '[DESCRIPTION]',
       ...pluginRepresentation,
     };
+
+    // change file icon based on state
+    let iconName;
+    let fileText;
+    if (fileError === true) {
+      iconName = 'exclamation-triangle';
+      fileText = 'Invalid JSON';
+    } else if (typeof fileName !== 'undefined') {
+      iconName = 'file';
+      fileText = fileName;
+    } else {
+      iconName = 'upload';
+      fileText = 'Upload Plugin Representation';
+    }
+
+    const labelClassNames = `${dragOver ? ' dragover' : ''}${fileName ? ' hasfile' : ''}${fileError ? ' haserror' : ''}`;
 
     return (
       <div className="createplugin">
@@ -199,7 +229,7 @@ class CreatePlugin extends Component {
                     onChange={this.handleFile}
                   />
                   <ControlLabel
-                    className={`createplugin-upload-label ${dragOver ? 'dragover' : ''} ${fileName ? 'hasfile' : ''}`}
+                    className={`createplugin-upload-label${labelClassNames}`}
                     onDragOver={this.handleDrag}
                     onDragEnter={this.handleDrag}
                     onDragLeave={this.handleDrag}
@@ -210,9 +240,9 @@ class CreatePlugin extends Component {
                       <Icon
                         className="createplugin-upload-icon"
                         type="fa"
-                        name={fileName ? 'file' : 'upload'}
+                        name={iconName}
                       />
-                      {fileName || 'Upload Plugin Representation'}
+                      {fileText}
                     </div>
                   </ControlLabel>
                 </FormGroup>

@@ -121,6 +121,11 @@
   outline-color: var(--pf-black-400);
 }
 
+.createplugin-form-upload > label.createplugin-upload-label.haserror {
+  /* outline */
+  outline-color: #a30000;
+}
+
 /* ============ BODY ============ */
 
 .createplugin-upload-body {
@@ -157,6 +162,11 @@ label.createplugin-upload-label.hasfile > .createplugin-upload-body {
   /* color */
   color: #8b8d8f;
   color: var(--pf-black-500);
+}
+
+label.createplugin-upload-label.haserror > .createplugin-upload-body {
+  /* color */
+  color: #a30000;
 }
 
 .createplugin-upload-body .createplugin-upload-icon {
