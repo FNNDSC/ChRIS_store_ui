@@ -87,25 +87,54 @@ describe('CreatePlugin', () => {
   });
 
   /* ============================== */
-  /* ====== ERROR MESSAGES ======== */
+  /* ======== ERROR MESSAGES ====== */
   /* ============================== */
 
-  it('should not render createplugin-message-container div if formError is null', () => {
-    expect(wrapper.find('div.createplugin-message-container')).toHaveLength(0);
+  it('should not render createplugin-message-container.error div if formError is null', () => {
+    expect(wrapper
+      .find('div.createplugin-message-container.error'))
+      .toHaveLength(0);
   });
 
-  it('should render createplugin-message-container div if formError is defined', () => {
+  it('should render createplugin-message-container.error div if formError is defined', () => {
     wrapper.setState({ formError: 'test Error' });
-    expect(wrapper.find('div.createplugin-message-container')).toHaveLength(1);
+    expect(wrapper
+      .find('div.createplugin-message-container.error'))
+      .toHaveLength(1);
   });
 
-  it('should render createplugin-message-container correctly', () => {
+  it('should render createplugin-message-container.error correctly', () => {
     wrapper.setState({ formError: 'test Error' });
-    const container = wrapper.find('div.createplugin-message-container');
+    const container = wrapper.find('div.createplugin-message-container.error');
     expect(container.find('div.row')).toHaveLength(1);
     const alert = container.find('Alert.createplugin-message');
     expect(alert).toHaveLength(1);
     expect(alert.childAt(0).text()).toBe('test Error');
+  });
+
+  /* ============================== */
+  /* ====== SUCCESS MESSAGES ====== */
+  /* ============================== */
+
+  it('should not render createplugin-message-container.success if success is false', () => {
+    expect(wrapper
+      .find('div.createplugin-message-container.success'))
+      .toHaveLength(0);
+  });
+
+  it('should render createplugin-message-container.success div if success is true', () => {
+    wrapper.setState({ success: true });
+    expect(wrapper
+      .find('div.createplugin-message-container.success'))
+      .toHaveLength(1);
+  });
+
+  it('should render createplugin-message-container.success correctly', () => {
+    wrapper.setState({ success: true });
+    const container = wrapper.find('div.createplugin-message-container.success');
+    expect(container.find('div.row')).toHaveLength(1);
+    const alert = container.find('Alert.createplugin-message');
+    expect(alert).toHaveLength(1);
   });
 
   /* ============================== */
@@ -498,7 +527,7 @@ describe('CreatePlugin', () => {
     expect(spy).toHaveBeenCalledWith('Missing JSON');
   });
 
-  it('should return newPlugin if all fields are filled and valid JSON is received', async () => {
+  it('should return newPlugin and set state if all fields are filled and valid JSON is received', async () => {
     // a spy for the handleError method
     const { spy, mockedWrapper } = createMockedWrapper('handleError');
     mockedWrapper.setState({
@@ -512,5 +541,7 @@ describe('CreatePlugin', () => {
       ...defaultFormState,
       ...validPluginRepresentation,
     });
+    expect(mockedWrapper.state('formError')).toBeFalsy();
+    expect(mockedWrapper.state('success')).toBeTruthy();
   });
 });

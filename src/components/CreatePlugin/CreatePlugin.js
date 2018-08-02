@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StoreClient } from '@fnndsc/chrisstoreapi';
+import { Link } from 'react-router-dom';
 import {
   Form, FormGroup, ControlLabel, FormControl, HelpBlock,
   Col, Icon, Card, Button, Alert,
@@ -58,6 +59,7 @@ class CreatePlugin extends Component {
       pluginRepresentation: {},
       fileError: false,
       formError: null,
+      success: false,
     };
 
     const methods = [
@@ -200,13 +202,16 @@ class CreatePlugin extends Component {
       return this.handleError(message);
     }
 
+    this.hideError();
+    this.setState({ success: true });
     return newPlugin;
   }
 
   render() {
     const { state } = this;
     const {
-      dragOver, fileName, name, image, repo, pluginRepresentation, fileError, formError,
+      dragOver, fileName, name, image, repo,
+      pluginRepresentation, fileError, formError, success,
     } = state;
 
     // generate formGroups based on data
@@ -268,14 +273,36 @@ class CreatePlugin extends Component {
           </div>
           {
             formError && (
-              <div className="createplugin-message-container">
+              <div className="createplugin-message-container error">
                 <div className="row">
                   <Alert
                     className="createplugin-message"
                     type="error"
-                    onDismiss={this.hideError}
+                    onDismiss={this.hideMessage}
                   >
                     {formError}
+                  </Alert>
+                </div>
+              </div>
+            )
+          }
+          {
+            success && (
+              <div className="createplugin-message-container success">
+                <div className="row">
+                  <Alert
+                    className="createplugin-message"
+                    type="success"
+                  >
+                    {'Plugin was successfully created! '}
+                    <Link
+                      className="createplugin-success-message-link"
+                      to={`/plugin/${name}`}
+                      href={`/plugin/${name}`}
+                    >
+                      Click Here
+                    </Link>
+                    {' to view it.'}
                   </Alert>
                 </div>
               </div>
