@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, ControlLabel, FormControl, HelpBlock, Col, Icon, Card } from 'patternfly-react';
+import { StoreClient } from '@fnndsc/chrisstoreapi';
+import {
+  Form, FormGroup, ControlLabel, FormControl, HelpBlock,
+  Col, Icon, Card, Button, Alert,
+} from 'patternfly-react';
 import './CreatePlugin.css';
 
 import Plugin from '../Plugin/Plugin';
@@ -53,14 +57,14 @@ class CreatePlugin extends Component {
       repo: '',
       pluginRepresentation: {},
       fileError: false,
+      formError: null,
     };
 
-    this.setFileError = this.setFileError.bind(this);
-    this.handleError = this.handleError.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleFile = this.handleFile.bind(this);
-    this.readFile = this.readFile.bind(this);
-    this.handleDrag = this.handleDrag.bind(this);
+    const methods = [
+      'setFileError', 'handleError', 'hideError', 'handleChange',
+      'handleFile', 'readFile', 'handleDrag', 'handleSubmit',
+    ];
+    methods.forEach((method) => { this[method] = this[method].bind(this); });
   }
 
   setFileError(state) {
@@ -76,8 +80,11 @@ class CreatePlugin extends Component {
   }
 
   handleError(message) {
-    /* TODO */
-    if (this) console.error(message);
+    this.setState({ formError: message });
+  }
+
+  hideError() {
+    this.setState({ formError: null });
   }
 
   handleChange(event) {
@@ -89,6 +96,7 @@ class CreatePlugin extends Component {
     if (file && file.type === 'application/json') {
       this.setState({ fileName: file.name });
       this.readFile(file)
+        .then(() => this.setFileError(false))
         .catch(() => this.setFileError(true));
     } else if (!file) {
       this.setState({
@@ -162,10 +170,43 @@ class CreatePlugin extends Component {
     return true;
   }
 
+  async handleSubmit() {
+    const {
+      name: pluginName,
+      image: pluginImage,
+      repo: pluginRepo,
+      pluginRepresentation,
+    } = this.state;
+
+    if (!(
+      pluginName.trim() && pluginImage.trim() &&
+      pluginRepo.trim() && pluginRepresentation &&
+      Object.keys(pluginRepresentation).length > 0
+    )) {
+      return this.handleError('All fields are required.');
+    }
+
+    const fileData = JSON.stringify(pluginRepresentation);
+    const file = new Blob([fileData], { type: 'application/json' });
+
+    const storeURL = process.env.REACT_APP_STORE_URL;
+    const token = window.localStorage.getItem('AUTH_TOKEN');
+    const client = new StoreClient(storeURL, { token });
+
+    let newPlugin;
+    try {
+      newPlugin = await client.addPlugin(pluginName, pluginImage, file, pluginRepo);
+    } catch ({ message }) {
+      return this.handleError(message);
+    }
+
+    return newPlugin;
+  }
+
   render() {
     const { state } = this;
     const {
-      dragOver, fileName, name, image, repo, pluginRepresentation, fileError,
+      dragOver, fileName, name, image, repo, pluginRepresentation, fileError, formError,
     } = state;
 
     // generate formGroups based on data
@@ -208,11 +249,38 @@ class CreatePlugin extends Component {
         <section className="createplugin-form-section">
           <div className="createplugin-header">
             <div className="row">
-              <div className="createplugin-display-1">
-                Create Plugin
+              <div className="createplugin-header-container">
+                <div className="createplugin-display-1">
+                  Create Plugin
+                </div>
+                <div className="createplugin-create-btn-container">
+                  <Button
+                    className="createplugin-create-btn"
+                    bsStyle="primary"
+                    bsSize="large"
+                    onClick={this.handleSubmit}
+                  >
+                    Create
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
+          {
+            formError && (
+              <div className="createplugin-message-container">
+                <div className="row">
+                  <Alert
+                    className="createplugin-message"
+                    type="error"
+                    onDismiss={this.hideError}
+                  >
+                    {formError}
+                  </Alert>
+                </div>
+              </div>
+            )
+          }
           <Form className="createplugin-form" horizontal>
             <div className="row">
               <div className="createplugin-col">

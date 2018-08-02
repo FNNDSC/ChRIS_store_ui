@@ -23,6 +23,12 @@
   border-bottom: 1px solid var(--pf-black-400);
 }
 
+.createplugin-header-container {
+  /* display */
+  display: flex;
+  width: 100%;
+}
+
 .createplugin-display-1 {
   /* display */
   padding: 0.3em;
@@ -30,6 +36,29 @@
   /* font */
   font-size: 2.5em;
   font-weight: 200;
+
+  /* flex */
+  flex: 1;
+}
+
+.createplugin-create-btn-container {
+  /* display */
+  padding: 1.5em 0.75em;
+}
+
+/* ============================== */
+/* ======= ERROR MESSAGES ======= */
+/* ============================== */
+
+.createplugin-message-container {
+  /* display */
+  padding: 1em;
+}
+
+.createplugin-message-container .createplugin-message {
+  /* display */
+  width: 100%;
+  margin-bottom: 0;
 }
 
 /* ============================== */
@@ -188,6 +217,9 @@ label.createplugin-upload-label.haserror > .createplugin-upload-body {
 
   /* display */
   padding: 4em 0;
+
+  /* flex */
+  flex-grow: 1;
 
   /* other */
   box-shadow: inset 0 2em 2em -2em var(--pf-black-400);

@@ -3,6 +3,15 @@ import { shallow } from 'enzyme';
 import { ControlLabel } from 'patternfly-react';
 import CreatePlugin from './CreatePlugin';
 
+// import localStorage mock
+import localStorage from '../__mocks__/localStorage';
+import validPluginRepresentation from './samplePluginRepresentation';
+
+const invalidPluginRepresentation = { ...validPluginRepresentation, title: undefined };
+
+// define mock for @fnndsc/chrisstoreapi module
+jest.mock('@fnndsc/chrisstoreapi', () => require.requireActual('../__mocks__/chrisstoreapi').default);
+
 describe('CreatePlugin', () => {
   let wrapper;
   beforeEach(() => {
@@ -19,9 +28,9 @@ describe('CreatePlugin', () => {
     expect(container.find('section.createplugin-preview-section')).toHaveLength(1);
   });
 
-  it('should render createplugin-header inside createplugin div', () => {
+  it('should render createplugin-header inside createplugin-form-section section', () => {
     expect(wrapper
-      .find('div.createplugin')
+      .find('section.createplugin-form-section')
       .find('div.createplugin-header'))
       .toHaveLength(1);
   });
@@ -33,11 +42,32 @@ describe('CreatePlugin', () => {
       .toHaveLength(1);
   });
 
-  it('should render createplugin-display-1 div inside row div', () => {
+  it('should render createplugin-header-container div inside row div', () => {
     expect(wrapper
       .find('div.createplugin-header')
       .find('div.row')
+      .find('div.createplugin-header-container'))
+      .toHaveLength(1);
+  });
+
+  it('should render createplugin-display-1 div inside createplugin-header-container div', () => {
+    expect(wrapper
+      .find('div.createplugin-header-container')
       .find('div.createplugin-display-1'))
+      .toHaveLength(1);
+  });
+
+  it('should render createlugin-create-btn-container div inside createplugin-header-container div', () => {
+    expect(wrapper
+      .find('div.createplugin-header-container')
+      .find('div.createplugin-create-btn-container'))
+      .toHaveLength(1);
+  });
+
+  it('should render createplugin-create-btn Button inside createplugin-create-btn-container div', () => {
+    expect(wrapper
+      .find('div.createplugin-create-btn-container')
+      .find('Button.createplugin-create-btn'))
       .toHaveLength(1);
   });
 
@@ -54,6 +84,28 @@ describe('CreatePlugin', () => {
       .find('Form.createplugin-form')
       .find('div.createplugin-col'))
       .toHaveLength(2);
+  });
+
+  /* ============================== */
+  /* ====== ERROR MESSAGES ======== */
+  /* ============================== */
+
+  it('should not render createplugin-message-container div if formError is null', () => {
+    expect(wrapper.find('div.createplugin-message-container')).toHaveLength(0);
+  });
+
+  it('should render createplugin-message-container div if formError is defined', () => {
+    wrapper.setState({ formError: 'test Error' });
+    expect(wrapper.find('div.createplugin-message-container')).toHaveLength(1);
+  });
+
+  it('should render createplugin-message-container correctly', () => {
+    wrapper.setState({ formError: 'test Error' });
+    const container = wrapper.find('div.createplugin-message-container');
+    expect(container.find('div.row')).toHaveLength(1);
+    const alert = container.find('Alert.createplugin-message');
+    expect(alert).toHaveLength(1);
+    expect(alert.childAt(0).text()).toBe('test Error');
   });
 
   /* ============================== */
@@ -136,6 +188,20 @@ describe('CreatePlugin', () => {
     });
   });
 
+  it('should set formError state to message when handleError is called', () => {
+    expect(wrapper.state('formError')).toBe(null);
+    wrapper.instance().handleError('test Error');
+    expect(wrapper.state('formError')).toBe('test Error');
+  });
+
+  it('should set formError state to null when hideError is called', () => {
+    const { handleError, hideError } = wrapper.instance();
+    handleError('test Error');
+    expect(wrapper.state('formError')).toBe('test Error');
+    hideError();
+    expect(wrapper.state('formError')).toBe(null);
+  });
+
   /* ============================== */
   /* ============ UPLOAD ========== */
   /* ============================== */
@@ -210,13 +276,18 @@ describe('CreatePlugin', () => {
     expect(wrapper.instance().handleDrag(event)).toBe(false);
   });
 
-  it('should call handleFile method when valid file has been dropped', () => {
-    // spy for handleFile method
-    const spy = jest.spyOn(CreatePlugin.prototype, 'handleFile');
+  const createMockedWrapper = (method) => {
+    const spy = jest.spyOn(CreatePlugin.prototype, method);
     const mockedWrapper = shallow(<CreatePlugin />);
     spy.mockRestore();
+    return { spy, mockedWrapper };
+  };
 
-    const blob = new Blob([JSON.stringify({ test: 'json' }, null, 2)]);
+  it('should call handleFile method when valid file has been dropped', () => {
+    // spy for handleFile method
+    const { spy, mockedWrapper } = createMockedWrapper('handleFile');
+
+    const blob = new Blob([JSON.stringify({ test: 'json' })]);
     const file = new File([blob], 'test.json', { type: 'application/json' });
 
     const mockFn = jest.fn().mockReturnValue(file);
@@ -239,7 +310,7 @@ describe('CreatePlugin', () => {
 
   it('should set fileName state when handleFile method is called with a valid file', () => {
     const options = { type: 'application/json' };
-    const blob = new Blob([JSON.stringify({ test: 'json' }, null, 2)]);
+    const blob = new Blob([JSON.stringify({ test: 'json' })]);
     const file = new File([blob], 'test.json', options);
 
     const event = {
@@ -282,7 +353,7 @@ describe('CreatePlugin', () => {
 
   it('should set pluginRepresentation state when readFile method is called with valid file', () => {
     const { readFile } = wrapper.instance();
-    const blob = new Blob([JSON.stringify({ test: 'json' }, null, 2)], { type: 'application/json' });
+    const blob = new Blob([JSON.stringify({ test: 'json' })], { type: 'application/json' });
 
     expect(wrapper.state('pluginRepresentation')).toEqual({});
     return readFile(blob)
@@ -386,5 +457,60 @@ describe('CreatePlugin', () => {
         title: 'testTitle',
         version: '1.0',
       });
+  });
+
+  /* ============================== */
+  /* =========== SUBMIT =========== */
+  /* ============================== */
+
+  it('should have handleSubmit method', () => {
+    const instance = wrapper.instance();
+    expect(instance.handleSubmit).toBeDefined();
+  });
+
+  it('should call handleError method if a field is blank', () => {
+    // a spy for handleError method
+    const { spy, mockedWrapper } = createMockedWrapper('handleError');
+
+    mockedWrapper.instance().handleSubmit();
+    expect(spy).toHaveBeenCalledWith('All fields are required.');
+  });
+
+  const defaultFormState = {
+    name: 'Mock Plugin',
+    image: 'dock/image',
+    repo: 'https://repository.com',
+  };
+
+  it('should call handleError if all fields are filled but invalid JSON is received', async () => {
+    // setup localStorage mock
+    window.localStorage = localStorage;
+    window.localStorage.setItem('AUTH_TOKEN', 'testToken');
+
+    // a spy for the handleError method
+    const { spy, mockedWrapper } = createMockedWrapper('handleError');
+    mockedWrapper.setState({
+      ...defaultFormState,
+      pluginRepresentation: invalidPluginRepresentation,
+    });
+
+    await mockedWrapper.instance().handleSubmit();
+    expect(spy).toHaveBeenCalledWith('Missing JSON');
+  });
+
+  it('should return newPlugin if all fields are filled and valid JSON is received', async () => {
+    // a spy for the handleError method
+    const { spy, mockedWrapper } = createMockedWrapper('handleError');
+    mockedWrapper.setState({
+      ...defaultFormState,
+      pluginRepresentation: validPluginRepresentation,
+    });
+
+    const response = await mockedWrapper.instance().handleSubmit();
+    expect(spy).toHaveBeenCalledTimes(0);
+    expect(response).toEqual({
+      ...defaultFormState,
+      ...validPluginRepresentation,
+    });
   });
 });
