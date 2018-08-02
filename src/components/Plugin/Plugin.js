@@ -16,10 +16,16 @@ class Plugin extends Component {
   constructor(props) {
     super(props);
 
+    this.mounted = false;
+
     const { pluginData } = props;
     this.state = { pluginData };
 
     this.fetchPluginData = this.fetchPluginData.bind(this);
+  }
+
+  componentWillMount() {
+    this.mounted = true;
   }
 
   componentDidMount() {
@@ -29,6 +35,10 @@ class Plugin extends Component {
           console.error(err);
         });
     }
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   fetchPluginData() {
@@ -44,7 +54,9 @@ class Plugin extends Component {
         return reject(e);
       }
 
-      this.setState({ pluginData });
+      if (this.mounted) {
+        this.setState({ pluginData });
+      }
       return resolve(pluginData);
     });
   }

@@ -97,6 +97,23 @@ describe('Plugins', () => {
   });
 
   /* ============================== */
+  /* =========== METHODS ========== */
+  /* ============================== */
+
+  it('sets mounted to true on after mounting', () => {
+    expect(Plugins.prototype.mounted).toBeFalsy();
+    Plugins.prototype.componentWillMount();
+    expect(Plugins.prototype.mounted).toBeTruthy();
+  });
+
+  it('sets mounted to false after componentWillUnmount is called', () => {
+    const instance = wrapper.instance();
+    expect(instance.mounted).toBeTruthy();
+    instance.componentWillUnmount();
+    expect(instance.mounted).toBeFalsy();
+  });
+
+  /* ============================== */
   /* ====== FETCH PLUGINS FN ====== */
   /* ============================== */
 
