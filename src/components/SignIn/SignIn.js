@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import {
-  Card, CardTitle, CardBody, Button, Alert,
-  Form, FormGroup, FormControl, ControlLabel,
+  Card, CardBody, Button, Alert,
+  Form, FormGroup, FormControl,
 } from 'patternfly-react';
 import { StoreClient } from '@fnndsc/chrisstoreapi';
 import './SignIn.css';
@@ -82,7 +82,7 @@ class SignIn extends Component {
     }
 
     return (
-      <div className="signin">
+      <div className="signin login-pf-page">
         <div className="signin-container">
           {
             error && (
@@ -111,28 +111,26 @@ class SignIn extends Component {
             </Link>
           </div>
           <Card className="signin-card">
-            <CardTitle className="signin-card-title">Sign In</CardTitle>
+            <header className="login-pf-page-header">
+              <h1>Login to your account</h1>
+            </header>
             <CardBody>
               <Form className="signin-form" onSubmit={this.handleSubmit}>
-                <FormGroup className="signin-username-form-group">
-                  <ControlLabel>
-                    Username
-                  </ControlLabel>
+                <FormGroup className="signin-username-form-group" bsSize="large">
                   <FormControl
                     type="text"
                     name="username"
+                    placeholder="Username"
                     value={username}
                     onChange={this.handleChange}
                     autoComplete="username"
                   />
                 </FormGroup>
-                <FormGroup className="signin-password-form-group">
-                  <ControlLabel>
-                    Password
-                  </ControlLabel>
+                <FormGroup className="signin-password-form-group" bsSize="large">
                   <FormControl
                     type="password"
                     name="password"
+                    placeholder="Password"
                     value={password}
                     onChange={this.handleChange}
                     autoComplete="current-password"
@@ -145,11 +143,14 @@ class SignIn extends Component {
                   type="submit"
                   disabled={loading}
                 >
-                  Login
+                  Log In
                 </Button>
-                <Button className="signin-signup-btn" bsStyle="link" bsSize="large">
-                  Create account
-                </Button>
+                <p className="login-pf-signup">
+                  Need an account?
+                  <Link to="/signup" href="/signup">
+                    Signup
+                  </Link>
+                </p>
               </Form>
             </CardBody>
           </Card>

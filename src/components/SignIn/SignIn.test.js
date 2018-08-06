@@ -19,7 +19,7 @@ describe('SignIn', () => {
   });
 
   it('should render signin div', () => {
-    expect(wrapper.find('div.signin')).toHaveLength(1);
+    expect(wrapper.find('div.signin.login-pf-page')).toHaveLength(1);
   });
 
   it('should render signin-container div inside signin div', () => {
@@ -54,9 +54,8 @@ describe('SignIn', () => {
       .toHaveLength(1);
   });
 
-  it('should render Card children correctly', () => {
+  it('should render CardBody inside signin Card', () => {
     const card = wrapper.find('Card');
-    expect(card.find('CardTitle.signin-card-title')).toHaveLength(1);
     expect(card.find('CardBody')).toHaveLength(1);
   });
 
@@ -78,19 +77,32 @@ describe('SignIn', () => {
       .toHaveLength(2);
   });
 
-  it('should render each FormGroup with ControlLabel and FormControl', () => {
+  it('should render each FormGroup with FormControl', () => {
     const groups = wrapper.find('Form.signin-form').find('FormGroup');
     groups.forEach((group) => {
-      expect(group.find('ControlLabel')).toHaveLength(1);
       expect(group.find('FormControl')).toHaveLength(1);
     });
   });
 
-  it('should render 2 buttons inside signin-form', () => {
+  it('should render signin-login-btn Button component inside signin-form', () => {
     expect(wrapper
       .find('Form.signin-form')
       .find('Button'))
-      .toHaveLength(2);
+      .toHaveLength(1);
+  });
+
+  it('should render login-pf-signup inside signin-form', () => {
+    expect(wrapper
+      .find('Form.signin-form')
+      .find('p.login-pf-signup'))
+      .toHaveLength(1);
+  });
+
+  it('should render Link component inside login-pf-signup', () => {
+    expect(wrapper
+      .find('p.login-pf-signup')
+      .find('Link'))
+      .toHaveLength(1);
   });
 
   /* ============================== */
