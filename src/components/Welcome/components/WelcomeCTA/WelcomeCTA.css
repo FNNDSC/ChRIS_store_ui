@@ -8,7 +8,7 @@
   background: var(--pf-black-800);
   background: linear-gradient(135deg #4d5258, #393f44);
   background: linear-gradient(135deg, var(--pf-black-700), var(--pf-black-800));
-  background-image: url('../../../../assets/img/banner_chris-users.png');
+  background: url('../../../../assets/img/banner_chris-users.png') #393f44;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

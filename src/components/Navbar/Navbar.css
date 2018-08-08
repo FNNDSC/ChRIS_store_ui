@@ -138,9 +138,10 @@ header .navbar.navbar-default .navbar-right > li > a {
   font-size: 1.2em;
 }
 
-header .navbar.navbar-default .navbar-right > li > button {
+header .navbar.navbar-default .navbar-right > li > a.navbar-signin-btn-link {
   /* display */
   margin: 16px 13px;
+  padding: 0;
 }
 
 /* ====== ACTIVE NAV LINKS ====== */
@@ -200,12 +201,27 @@ header > .navbar-dropdown {
   background: var(--pf-black-900);
 }
 
+.navbar-signin-dropdown-btn-link {
+  /* display */
+  display: block;
+}
+
+.navbar-signin-dropdown-btn-link > .navbar-signin-dropdown-btn {
+  /* display */
+  display: block;
+  width: 100%;
+  padding-top: 11px;
+  padding-bottom: 11px;
+
+  /* font */
+  font-size: 1.5em;
+}
+
 /* ===== ACTIVE DROPDOWN BTN ==== */
 
 .navbar-dropdown-btn.active {
   /* color */
-  background: #030303;
-  background: var(--pf-black);
+  background: #1d1d1d;
   color: #fafafa;
   color: var(--pf-black-100);
 

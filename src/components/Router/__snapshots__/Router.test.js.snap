@@ -15,45 +15,157 @@ ShallowWrapper {
   Symbol(enzyme.__node__): Object {
     "instance": null,
     "key": undefined,
-    "nodeType": "class",
+    "nodeType": "host",
     "props": Object {
-      "children": <div>
-        <Route
-                component={[Function]}
-                path="/"
-        />
+      "children": Array [
+        <Navbar
+          location={
+                    Object {
+                              "search": "",
+                            }
+          }
+/>,
         <Switch>
-                <Route
-                        component={[Function]}
-                        exact={true}
-                        path="/"
-                />
-                <Route
-                        component={[Function]}
-                        path="/plugins"
-                />
-                <Route
-                        component={[Function]}
-                        path="/developers"
-                />
-                <Route
-                        component={[Function]}
-                        path="/plugin/:plugin"
-                />
-        </Switch>
-        <Footer />
-</div>,
+          <Route
+                    component={[Function]}
+                    exact={true}
+                    path="/"
+          />
+          <Route
+                    component={[Function]}
+                    path="/plugins"
+          />
+          <Route
+                    component={[Function]}
+                    path="/plugin/:plugin"
+          />
+          <Route
+                    component={[Function]}
+                    path="/developers"
+          />
+</Switch>,
+        <Footer />,
+      ],
     },
     "ref": null,
-    "rendered": Object {
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "location": Object {
+            "search": "",
+          },
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": Array [
+            <Route
+              component={[Function]}
+              exact={true}
+              path="/"
+/>,
+            <Route
+              component={[Function]}
+              path="/plugins"
+/>,
+            <Route
+              component={[Function]}
+              path="/plugin/:plugin"
+/>,
+            <Route
+              component={[Function]}
+              path="/developers"
+/>,
+          ],
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "component": [Function],
+              "exact": true,
+              "path": "/",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "component": [Function],
+              "path": "/plugins",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "component": [Function],
+              "path": "/plugin/:plugin",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "component": [Function],
+              "path": "/developers",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+        ],
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {},
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
       "instance": null,
       "key": undefined,
       "nodeType": "host",
       "props": Object {
         "children": Array [
-          <Route
-            component={[Function]}
-            path="/"
+          <Navbar
+            location={
+                        Object {
+                                    "search": "",
+                                  }
+            }
 />,
           <Switch>
             <Route
@@ -67,11 +179,11 @@ ShallowWrapper {
             />
             <Route
                         component={[Function]}
-                        path="/developers"
+                        path="/plugin/:plugin"
             />
             <Route
                         component={[Function]}
-                        path="/plugin/:plugin"
+                        path="/developers"
             />
 </Switch>,
           <Footer />,
@@ -84,8 +196,9 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "class",
           "props": Object {
-            "component": [Function],
-            "path": "/",
+            "location": Object {
+              "search": "",
+            },
           },
           "ref": null,
           "rendered": null,
@@ -108,11 +221,11 @@ ShallowWrapper {
 />,
               <Route
                 component={[Function]}
-                path="/developers"
+                path="/plugin/:plugin"
 />,
               <Route
                 component={[Function]}
-                path="/plugin/:plugin"
+                path="/developers"
 />,
             ],
           },
@@ -149,7 +262,7 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "component": [Function],
-                "path": "/developers",
+                "path": "/plugin/:plugin",
               },
               "ref": null,
               "rendered": null,
@@ -161,7 +274,7 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "component": [Function],
-                "path": "/plugin/:plugin",
+                "path": "/developers",
               },
               "ref": null,
               "rendered": null,
@@ -181,181 +294,6 @@ ShallowWrapper {
         },
       ],
       "type": "div",
-    },
-    "type": [Function],
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "class",
-      "props": Object {
-        "children": <div>
-          <Route
-                    component={[Function]}
-                    path="/"
-          />
-          <Switch>
-                    <Route
-                              component={[Function]}
-                              exact={true}
-                              path="/"
-                    />
-                    <Route
-                              component={[Function]}
-                              path="/plugins"
-                    />
-                    <Route
-                              component={[Function]}
-                              path="/developers"
-                    />
-                    <Route
-                              component={[Function]}
-                              path="/plugin/:plugin"
-                    />
-          </Switch>
-          <Footer />
-</div>,
-      },
-      "ref": null,
-      "rendered": Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": Array [
-            <Route
-              component={[Function]}
-              path="/"
-/>,
-            <Switch>
-              <Route
-                            component={[Function]}
-                            exact={true}
-                            path="/"
-              />
-              <Route
-                            component={[Function]}
-                            path="/plugins"
-              />
-              <Route
-                            component={[Function]}
-                            path="/developers"
-              />
-              <Route
-                            component={[Function]}
-                            path="/plugin/:plugin"
-              />
-</Switch>,
-            <Footer />,
-          ],
-        },
-        "ref": null,
-        "rendered": Array [
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "component": [Function],
-              "path": "/",
-            },
-            "ref": null,
-            "rendered": null,
-            "type": [Function],
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "children": Array [
-                <Route
-                  component={[Function]}
-                  exact={true}
-                  path="/"
-/>,
-                <Route
-                  component={[Function]}
-                  path="/plugins"
-/>,
-                <Route
-                  component={[Function]}
-                  path="/developers"
-/>,
-                <Route
-                  component={[Function]}
-                  path="/plugin/:plugin"
-/>,
-              ],
-            },
-            "ref": null,
-            "rendered": Array [
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "class",
-                "props": Object {
-                  "component": [Function],
-                  "exact": true,
-                  "path": "/",
-                },
-                "ref": null,
-                "rendered": null,
-                "type": [Function],
-              },
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "class",
-                "props": Object {
-                  "component": [Function],
-                  "path": "/plugins",
-                },
-                "ref": null,
-                "rendered": null,
-                "type": [Function],
-              },
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "class",
-                "props": Object {
-                  "component": [Function],
-                  "path": "/developers",
-                },
-                "ref": null,
-                "rendered": null,
-                "type": [Function],
-              },
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "class",
-                "props": Object {
-                  "component": [Function],
-                  "path": "/plugin/:plugin",
-                },
-                "ref": null,
-                "rendered": null,
-                "type": [Function],
-              },
-            ],
-            "type": [Function],
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "function",
-            "props": Object {},
-            "ref": null,
-            "rendered": null,
-            "type": [Function],
-          },
-        ],
-        "type": "div",
-      },
-      "type": [Function],
     },
   ],
   Symbol(enzyme.__options__): Object {
