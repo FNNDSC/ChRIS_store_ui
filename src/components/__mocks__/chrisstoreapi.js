@@ -57,6 +57,28 @@ class StoreClient {
       return reject(new Error('invalid URL'));
     });
   }
+
+  addPlugin(name, image, representation, repo) {
+    if (this.validToken) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const { target: { result } } = e;
+
+          const pluginRepresentation = JSON.parse(result);
+          if (pluginRepresentation.title === undefined) {
+            reject(new Error('Missing JSON'));
+          } else {
+            resolve({
+              name, image, repo, ...pluginRepresentation,
+            });
+          }
+        };
+        reader.readAsText(representation);
+      });
+    }
+    return Promise.reject(new Error('invalid Token'));
+  }
 }
 
 export default { StoreClient };

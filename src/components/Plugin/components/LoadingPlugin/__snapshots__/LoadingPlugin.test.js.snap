@@ -123,7 +123,7 @@ ShallowWrapper {
           </div>
 </div>,
       ],
-      "className": "",
+      "className": "loading-plugin-container",
     },
     "ref": null,
     "rendered": Array [
@@ -672,7 +672,7 @@ ShallowWrapper {
             </div>
 </div>,
         ],
-        "className": "",
+        "className": "loading-plugin-container",
       },
       "ref": null,
       "rendered": Array [

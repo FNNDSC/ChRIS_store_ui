@@ -7,22 +7,38 @@ import PluginBody from './components/PluginBody/PluginBody';
 import RelativeDate from '../RelativeDate/RelativeDate';
 import './Plugin.css';
 
+const removeEmail = (author) => {
+  if (author) return author.replace(/( ?\(.*\))/g, '');
+  return undefined;
+};
+
 class Plugin extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      pluginData: null,
-    };
+    this.mounted = false;
+
+    const { pluginData } = props;
+    this.state = { pluginData };
 
     this.fetchPluginData = this.fetchPluginData.bind(this);
   }
 
+  componentWillMount() {
+    this.mounted = true;
+  }
+
   componentDidMount() {
-    this.fetchPluginData()
-      .catch((err) => {
-        console.error(err);
-      });
+    if (!this.state.pluginData) {
+      this.fetchPluginData()
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   fetchPluginData() {
@@ -30,35 +46,50 @@ class Plugin extends Component {
     const { plugin: pluginName } = this.props.match.params;
     const client = new StoreClient(storeURL);
 
+    let pluginData;
     return new Promise(async (resolve, reject) => {
-      let pluginData;
-
       try {
         pluginData = await client.getPlugin(pluginName);
       } catch (e) {
         return reject(e);
       }
 
-      this.setState({ pluginData });
+      if (this.mounted) {
+        this.setState({ pluginData });
+      }
       return resolve(pluginData);
     });
   }
 
   render() {
-    // define plugin name from url
-    const { plugin } = this.props.match.params;
-    const pluginURL = `/plugin/${plugin}`;
+    let plugin;
+    let pluginURL;
+    let authorURL;
+    let data;
 
-    // define plugin data
-    const { pluginData } = this.state;
-    const data = pluginData || {};
+    const pluginDataProp = this.props.pluginData;
+    if (pluginDataProp) {
+      // define plugin name from props
+      ({ plugin, pluginURL, authorURL } = pluginDataProp);
+
+      data = pluginDataProp;
+    } else {
+      // define plugin name from url
+      ({ plugin } = this.props.match.params);
+      pluginURL = `/plugin/${plugin}`;
+
+      const { pluginData } = this.state;
+      data = pluginData || {};
+    }
 
     // conditional rendering
     let container;
     if (Object.keys(data).length > 0) {
       const modificationDate = new RelativeDate(data.modification_date);
       const creationDate = new RelativeDate(data.creation_date);
-      const author = data.authors.replace(/( ?\(.*\))/g, '');
+
+      const author = removeEmail(data.authors);
+      if (!authorURL) authorURL = `/author/${author}`;
 
       container = (
         <div className="plugin-container">
@@ -66,8 +97,8 @@ class Plugin extends Component {
             <div className="row no-flex">
               <div className="plugin-category">Visualization</div>
               <Link
-                href={pluginURL}
-                to={pluginURL}
+                href={pluginURL || '/'}
+                to={pluginURL || '/'}
                 className="plugin-name"
               >
                 {plugin}
@@ -85,8 +116,8 @@ class Plugin extends Component {
                 </div>
                 <div className="plugin-created plugin-tag">
                   <Link
-                    href={`/author/${author}`}
-                    to={`/author/${author}`}
+                    href={authorURL}
+                    to={authorURL}
                     className="plugin-author"
                   >
                     {author}
@@ -108,7 +139,7 @@ class Plugin extends Component {
     }
 
     return (
-      <div className="plugin">
+      <div className={`plugin ${this.props.className}`}>
         {container}
       </div>
     );
@@ -121,6 +152,19 @@ Plugin.propTypes = {
       plugin: PropTypes.string,
     }),
   }),
+  pluginData: PropTypes.shape({
+    plugin: PropTypes.string,
+    pluginURL: PropTypes.string,
+    authorURL: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    dock_image: PropTypes.string,
+    modification_date: PropTypes.string,
+    creation_date: PropTypes.string,
+    authors: PropTypes.string,
+    version: PropTypes.string,
+  }),
+  className: PropTypes.string,
 };
 
 Plugin.defaultProps = {
@@ -129,6 +173,8 @@ Plugin.defaultProps = {
       plugin: undefined,
     },
   },
+  pluginData: null,
+  className: '',
 };
 
 export default Plugin;

@@ -1,7 +1,22 @@
 .plugin {
+  /* display */
+  min-height: calc(100vh - 66px);
 
   /* font */
   font-size: 1.2em;
+}
+
+.plugin, .plugin-container {
+  /* display */
+  display: flex;
+
+  /* flex */
+  flex-direction: column;
+}
+
+.plugin-container, .plugin-body {
+  /* flex */
+  flex: 1;
 }
 
 .plugin-header {

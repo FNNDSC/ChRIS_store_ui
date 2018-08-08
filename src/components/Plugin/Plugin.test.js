@@ -19,6 +19,29 @@ describe('Plugin', () => {
     expect(wrapper.find('div.plugin')).toHaveLength(1);
   });
 
+  it('should render plugin div based on className prop', () => {
+    expect(wrapper.find('div.plugin.testClass')).toHaveLength(0);
+    wrapper.setProps({ className: 'testClass' });
+    expect(wrapper.find('div.plugin.testClass')).toHaveLength(1);
+  });
+
+  /* ============================== */
+  /* =========== METHODS ========== */
+  /* ============================== */
+
+  it('sets mounted to true on after mounting', () => {
+    expect(Plugin.prototype.mounted).toBeFalsy();
+    Plugin.prototype.componentWillMount();
+    expect(Plugin.prototype.mounted).toBeTruthy();
+  });
+
+  it('sets mounted to false after componentWillUnmount is called', () => {
+    const instance = wrapper.instance();
+    expect(instance.mounted).toBeTruthy();
+    instance.componentWillUnmount();
+    expect(instance.mounted).toBeFalsy();
+  });
+
   /* ============================== */
   /* ==== FETCH PLUGIN DATA FN ==== */
   /* ============================== */
@@ -43,6 +66,20 @@ describe('Plugin', () => {
       expect(pluginData).toBeDefined();
       expect(pluginData.name).toEqual('testName1');
     });
+  });
+
+  const propsData = {
+    modification_date: '3/14/15',
+    creation_date: '9/26/53',
+    version: '0.1',
+    authors: 'testAuthor (user@domain.com)',
+  };
+
+  it('should set pluginData state to pluginData props if passed', () => {
+    const wrapperWithoutProps = shallow(<Plugin />);
+    expect(wrapperWithoutProps.state('pluginData')).toBeNull();
+    const wrapperWithProps = shallow(<Plugin pluginData={propsData} />);
+    expect(wrapperWithProps.state('pluginData')).toEqual(propsData);
   });
 });
 
@@ -187,7 +224,7 @@ describe('Plugin with data', () => {
     expect(link.prop('href')).toEqual(whatItShould);
   });
 
-  it('plugin-autor Link should render correct text', () => {
+  it('plugin-author Link should render correct text', () => {
     const changedData = Object.assign({}, sampleData);
     changedData.pluginData.authors = 'testAuthor (user@domain.com)';
     wrapper.setState(changedData);
@@ -197,6 +234,17 @@ describe('Plugin with data', () => {
       .childAt(0)
       .text())
       .toEqual('testAuthor');
+  });
+
+  it('plugin-author Link should render "to" and "href" props based on pluginData.authorURL prop', () => {
+    const pluginData = {
+      authorURL: '/test/url',
+    };
+    wrapper.setProps({ pluginData });
+
+    const link = wrapper.find('Link.plugin-author');
+    expect(link.prop('to')).toEqual('/test/url');
+    expect(link.prop('href')).toEqual('/test/url');
   });
 
   const getPluginCreatedText = () => {

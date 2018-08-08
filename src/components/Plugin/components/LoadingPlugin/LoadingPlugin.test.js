@@ -13,7 +13,7 @@ describe('LoadingPlugin', () => {
   });
 
   it('should render LoadingContainer component', () => {
-    expect(wrapper.find('LoadingContainer')).toHaveLength(1);
+    expect(wrapper.find('LoadingContainer.loading-plugin-container')).toHaveLength(1);
   });
 
   /* ============================== */

@@ -37,6 +37,7 @@ const Search = ({ className, location }) => {
             name="q"
             placeholder="Search plugins"
             defaultValue={query}
+            autoComplete="off"
           />
         </div>
       </div>

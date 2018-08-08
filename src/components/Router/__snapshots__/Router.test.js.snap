@@ -43,6 +43,10 @@ ShallowWrapper {
                     component={[Function]}
                     path="/developers"
           />
+          <Route
+                    component={[Function]}
+                    path="/create"
+          />
 </Switch>,
         <Footer />,
       ],
@@ -84,6 +88,10 @@ ShallowWrapper {
             <Route
               component={[Function]}
               path="/developers"
+/>,
+            <Route
+              component={[Function]}
+              path="/create"
 />,
           ],
         },
@@ -138,6 +146,18 @@ ShallowWrapper {
             "rendered": null,
             "type": [Function],
           },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "component": [Function],
+              "path": "/create",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
         ],
         "type": [Function],
       },
@@ -185,6 +205,10 @@ ShallowWrapper {
                         component={[Function]}
                         path="/developers"
             />
+            <Route
+                        component={[Function]}
+                        path="/create"
+            />
 </Switch>,
           <Footer />,
         ],
@@ -226,6 +250,10 @@ ShallowWrapper {
               <Route
                 component={[Function]}
                 path="/developers"
+/>,
+              <Route
+                component={[Function]}
+                path="/create"
 />,
             ],
           },
@@ -275,6 +303,18 @@ ShallowWrapper {
               "props": Object {
                 "component": [Function],
                 "path": "/developers",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "component": [Function],
+                "path": "/create",
               },
               "ref": null,
               "rendered": null,

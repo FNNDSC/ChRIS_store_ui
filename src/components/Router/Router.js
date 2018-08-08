@@ -8,6 +8,7 @@ import Welcome from '../Welcome/Welcome';
 import Plugins from '../Plugins/Plugins';
 import Plugin from '../Plugin/Plugin';
 import Developers from '../Developers/Developers';
+import CreatePlugin from '../CreatePlugin/CreatePlugin';
 
 const Router = () => (
   <div>
@@ -17,6 +18,7 @@ const Router = () => (
       <Route path="/plugins" component={Plugins} />
       <Route path="/plugin/:plugin" component={Plugin} />
       <Route path="/developers" component={Developers} />
+      <Route path="/create" component={CreatePlugin} />
     </Switch>
     <Footer />
   </div>

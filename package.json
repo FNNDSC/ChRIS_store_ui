@@ -8,6 +8,7 @@
     "test": "react-scripts test --env=jsdom --notify true",
     "lint": "eslint --fix ./src/components",
     "serve": "node serve.js",
+    "deploy": "npm run build && npm run serve",
     "precommit": "lint-staged",
     "test:staged": "cross-env CI=true react-scripts test --env=jsdom --findRelatedTests"
   },
@@ -20,6 +21,7 @@
   },
   "dependencies": {
     "@fnndsc/chrisstoreapi": "^1.0.3",
+    "classnames": "^2.2.6",
     "core-js": "^2.5.7",
     "express": "^4.16.3",
     "moment": "^2.22.2",

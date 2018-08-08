@@ -15,6 +15,8 @@ import LoadingContent from '../LoadingContainer/components/LoadingContent/Loadin
 class Plugins extends Component {
   constructor() {
     super();
+
+    this.mounted = false;
     this.state = {
       pluginList: null,
       categories: [
@@ -36,10 +38,18 @@ class Plugins extends Component {
     this.fetchPlugins = this.fetchPlugins.bind(this);
   }
 
+  componentWillMount() {
+    this.mounted = true;
+  }
+
   componentDidMount() {
     this.fetchPlugins().catch((err) => {
       console.error(err);
     });
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   fetchPlugins() {
@@ -57,11 +67,13 @@ class Plugins extends Component {
         plugins = await client.getPlugins(searchParams, (onePageResponse) => {
           const onePagePlugins = onePageResponse.plugins;
 
-          this.setState((prevState) => {
-            const prevPluginList = prevState.pluginList ? prevState.pluginList : [];
-            const nextPluginList = prevPluginList.concat(onePagePlugins);
-            return { pluginList: nextPluginList };
-          });
+          if (this.mounted) {
+            this.setState((prevState) => {
+              const prevPluginList = prevState.pluginList ? prevState.pluginList : [];
+              const nextPluginList = prevPluginList.concat(onePagePlugins);
+              return { pluginList: nextPluginList };
+            });
+          }
         });
       } catch (e) {
         return reject(e);
@@ -88,7 +100,7 @@ class Plugins extends Component {
           name={plugin.name}
           author={removeEmail(plugin.authors)}
           creationDate={plugin.creation_date}
-          key={plugin.dock_image}
+          key={plugin.name}
         />
       ));
 
