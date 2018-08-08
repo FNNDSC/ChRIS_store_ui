@@ -5,6 +5,7 @@ import {
   Form, FormGroup, ControlLabel, FormControl, HelpBlock,
   Col, Icon, Card, Button, Alert,
 } from 'patternfly-react';
+import classNames from 'classnames';
 import './CreatePlugin.css';
 
 import Plugin from '../Plugin/Plugin';
@@ -247,7 +248,11 @@ class CreatePlugin extends Component {
       fileText = 'Upload Plugin Representation';
     }
 
-    const labelClassNames = `${dragOver ? ' dragover' : ''}${fileName ? ' hasfile' : ''}${fileError ? ' haserror' : ''}`;
+    const labelClassNames = classNames('createplugin-upload-label', {
+      dragover: dragOver,
+      hasfile: fileName,
+      haserror: fileError,
+    });
 
     return (
       <div className="createplugin">
@@ -324,7 +329,7 @@ class CreatePlugin extends Component {
                     onChange={this.handleFile}
                   />
                   <ControlLabel
-                    className={`createplugin-upload-label${labelClassNames}`}
+                    className={labelClassNames}
                     onDragOver={this.handleDrag}
                     onDragEnter={this.handleDrag}
                     onDragLeave={this.handleDrag}
