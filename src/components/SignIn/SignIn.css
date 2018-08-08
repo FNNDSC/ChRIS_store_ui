@@ -37,12 +37,6 @@
   margin: 0 auto;
 }
 
-.signin-card > .signin-card-title {
-  /* font */
-  font-size: 1.8em;
-  font-weight: 500;
-}
-
 .signin-login-btn, .signin-signup-btn {
   /* display */
   margin-top: 1em !important;
@@ -54,12 +48,6 @@
   width: 100%;
 }
 
-.signin-card .signin-signup-btn {
-  /* display */
-  display: block;
-  width: auto;
-  margin: 0 auto;
-}
 
 /* ============================== */
 /* ---------- RESPONSIVE -------- */
