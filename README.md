@@ -4,6 +4,11 @@ UI for the ChRIS Store.
 
 ![Homepage](../assets/home.png?raw=true)
 
+![License][license-badge]
+![Last Commit][last-commit-badge]
+[![Stars][stars-badge]][repo-link]
+[![Forks][forks-badge]][repo-link]
+
 ## Installation
 
 ```bash
@@ -23,13 +28,13 @@ $> yarn serve
 
 ### JavaScript package manager prerequisite
 
-* [yarn](https://yarnpkg.com/)
+* [yarn][yarn-link]
 
 Open a terminal in the directory of this README file
 
 ### ChRIS Store server prerequisite
 
-[Click here](http://bit.ly/2Jhegip) for instructions on how to setup the ChRIS Store
+[Click here][chris-store] for instructions on how to setup the ChRIS Store
 
 ### Commands
 
@@ -53,10 +58,19 @@ $> yarn test
 
 ### Precommit
 
-Before each commit, a precommit script is run automatically to ensure all tests pass and all JavaScript code follows the [Airbnb style guide](https://bit.ly/2J9W0Yf)
+Before each commit, a precommit script is run automatically to ensure all tests pass and all JavaScript code follows the [Airbnb style guide][airbnb-style]
 
 To do this step manually, run `yarn precommit` after staging files
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details
+
+[repo-link]: https://github.com/FNNDSC/ChRIS_store_ui
+[yarn-link]: https://yarnpkg.com/
+[chris-store]: https://github.com/FNNDSC/chris_store#preconditions
+[airbnb-style]: https://github.com/airbnb/javascript
+[license-badge]: https://img.shields.io/github/license/fnndsc/chris_store_ui.svg
+[stars-badge]: https://img.shields.io/github/stars/fnndsc/chris_store_ui.svg?style=social&label=Stars
+[last-commit-badge]: https://img.shields.io/github/last-commit/fnndsc/chris_store_ui.svg
+[forks-badge]: https://img.shields.io/github/forks/badges/shields.svg?style=social&label=Fork
