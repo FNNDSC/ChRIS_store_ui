@@ -2,6 +2,8 @@
 
 UI for the ChRIS Store.
 
+![Homepage](../assets/home.png?raw=true)
+
 ## Installation
 
 ```bash
