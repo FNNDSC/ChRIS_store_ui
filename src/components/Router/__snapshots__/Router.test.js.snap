@@ -47,6 +47,9 @@ ShallowWrapper {
                     component={[Function]}
                     path="/create"
           />
+          <Route
+                    component={[Function]}
+          />
 </Switch>,
         <Footer />,
       ],
@@ -92,6 +95,9 @@ ShallowWrapper {
             <Route
               component={[Function]}
               path="/create"
+/>,
+            <Route
+              component={[Function]}
 />,
           ],
         },
@@ -158,6 +164,17 @@ ShallowWrapper {
             "rendered": null,
             "type": [Function],
           },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "component": [Function],
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
         ],
         "type": [Function],
       },
@@ -209,6 +226,9 @@ ShallowWrapper {
                         component={[Function]}
                         path="/create"
             />
+            <Route
+                        component={[Function]}
+            />
 </Switch>,
           <Footer />,
         ],
@@ -254,6 +274,9 @@ ShallowWrapper {
               <Route
                 component={[Function]}
                 path="/create"
+/>,
+              <Route
+                component={[Function]}
 />,
             ],
           },
@@ -315,6 +338,17 @@ ShallowWrapper {
               "props": Object {
                 "component": [Function],
                 "path": "/create",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "component": [Function],
               },
               "ref": null,
               "rendered": null,

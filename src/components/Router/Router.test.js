@@ -25,13 +25,12 @@ describe('Router', () => {
   });
 
   it('should render 5 Routes', () => {
-    expect(wrapper.find('Route')).toHaveLength(5);
+    expect(wrapper.find('Route')).toHaveLength(6);
   });
 
   it('every route should have a path prop and component prop', () => {
     const routes = wrapper.find('Route');
     routes.forEach((route) => {
-      expect(route.prop('path')).toBeDefined();
       expect(route.prop('component')).toBeDefined();
     });
   });
