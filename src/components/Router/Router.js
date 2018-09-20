@@ -9,6 +9,7 @@ import Plugins from '../Plugins/Plugins';
 import Plugin from '../Plugin/Plugin';
 import Developers from '../Developers/Developers';
 import CreatePlugin from '../CreatePlugin/CreatePlugin';
+import NotFound from '../NotFound/NotFound';
 
 const Router = () => (
   <div>
@@ -19,6 +20,7 @@ const Router = () => (
       <Route path="/plugin/:plugin" component={Plugin} />
       <Route path="/developers" component={Developers} />
       <Route path="/create" component={CreatePlugin} />
+      <Route component={NotFound} />
     </Switch>
     <Footer />
   </div>
