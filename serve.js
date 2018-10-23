@@ -3,7 +3,7 @@ const express = require('express');
 const { join } = require('path');
 
 // constants
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
 
 // serve static files
