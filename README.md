@@ -73,4 +73,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) f
 [license-badge]: https://img.shields.io/github/license/fnndsc/chris_store_ui.svg
 [stars-badge]: https://img.shields.io/github/stars/fnndsc/chris_store_ui.svg?style=social&label=Stars
 [last-commit-badge]: https://img.shields.io/github/last-commit/fnndsc/chris_store_ui.svg
-[forks-badge]: https://img.shields.io/github/forks/badges/shields.svg?style=social&label=Fork
+[forks-badge]: https://img.shields.io/github/forks/fnndsc/chris_store_ui.svg?style=social&label=Fork
