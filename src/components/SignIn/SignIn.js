@@ -147,7 +147,7 @@ class SignIn extends Component {
                 </Button>
                 <p className="login-pf-signup">
                   Need an account?
-                  <Link to="/signup" href="/signup">
+                  <Link to="/developers" href="/developers">
                     Signup
                   </Link>
                 </p>
