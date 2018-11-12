@@ -10,6 +10,7 @@ import {
   Spinner,
 } from 'patternfly-react';
 import StoreClient from '@fnndsc/chrisstoreapi';
+import { validate } from 'email-validator';
 import './DeveloperSignup.css';
 
 /* inspired by http://bit.ly/2KycT4G */
@@ -46,7 +47,9 @@ class DeveloperSignup extends Component {
   }
 
   handleSubmit(event) {
-    const { username, password, passwordConfirm } = this.state;
+    const {
+      username, email, password, passwordConfirm,
+    } = this.state;
     event.preventDefault();
 
     if (!username) {
@@ -54,6 +57,15 @@ class DeveloperSignup extends Component {
         error: {
           message: 'Username is required',
           controls: ['username'],
+        },
+      });
+    }
+
+    if (!email || !validate(email)) {
+      return this.setState({
+        error: {
+          message: 'A valid Email is required',
+          controls: ['email'],
         },
       });
     }
@@ -97,7 +109,7 @@ class DeveloperSignup extends Component {
   }
 
   handleStoreLogin() {
-    const { username, password } = this.state;
+    const { username, email, password } = this.state;
     const storeURL = process.env.REACT_APP_STORE_URL;
     const usersURL = `${storeURL}users/`;
     const authURL = `${storeURL}auth-token/`;
@@ -106,7 +118,7 @@ class DeveloperSignup extends Component {
 
     return new Promise(async (resolve, reject) => {
       try {
-        userData = await StoreClient.createUser(usersURL, username, password, username);
+        userData = await StoreClient.createUser(usersURL, username, password, email);
       } catch (e) {
         /* TODO: JCC Enhance error handling */
         this.setState({
@@ -136,7 +148,7 @@ class DeveloperSignup extends Component {
     } = this.state;
     const disableControls = loading || userData;
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form onSubmit={this.handleSubmit} novalidate>
         <p>{loading ? 'Creating' : 'Create'} a ChRIS Developer account:</p>
         <FormGroup
           controlId="username"
@@ -155,6 +167,25 @@ class DeveloperSignup extends Component {
           />
           <HelpBlock>
             { error.controls.includes('username') ? error.message : 'Enter your username' }
+          </HelpBlock>
+        </FormGroup>
+        <FormGroup
+          controlId="email"
+          validationState={error.controls.includes('email') ? 'error' : null}
+        >
+          <ControlLabel>
+            Email
+          </ControlLabel>
+          <FormControl
+            type="email"
+            autoComplete="off"
+            autoFocus={!isTouchDevice()}
+            onChange={this.handleChange}
+            name="email"
+            disabled={disableControls}
+          />
+          <HelpBlock>
+            { error.controls.includes('email') ? error.message : 'Enter your email' }
           </HelpBlock>
         </FormGroup>
         <FormGroup

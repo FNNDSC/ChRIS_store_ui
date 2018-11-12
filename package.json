@@ -23,6 +23,7 @@
     "@fnndsc/chrisstoreapi": "^1.1.2",
     "classnames": "^2.2.6",
     "core-js": "^2.5.7",
+    "email-validator": "^2.0.4",
     "express": "^4.16.3",
     "moment": "^2.22.2",
     "patternfly": "^3.51.0",

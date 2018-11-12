@@ -52,6 +52,33 @@ ShallowWrapper {
 </FormGroup>,
         <FormGroup
           bsClass="form-group"
+          controlId="email"
+          validationState={null}
+>
+          <ControlLabel
+                    bsClass="control-label"
+                    srOnly={false}
+          >
+                    Email
+          </ControlLabel>
+          <FormControl
+                    autoComplete="off"
+                    autoFocus={true}
+                    bsClass="form-control"
+                    componentClass="input"
+                    disabled={undefined}
+                    name="email"
+                    onChange={[Function]}
+                    type="email"
+          />
+          <HelpBlock
+                    bsClass="help-block"
+          >
+                    Enter your email
+          </HelpBlock>
+</FormGroup>,
+        <FormGroup
+          bsClass="form-group"
           controlId="password"
           validationState={null}
 >
@@ -126,6 +153,7 @@ ShallowWrapper {
       "componentClass": "form",
       "horizontal": false,
       "inline": false,
+      "novalidate": true,
       "onSubmit": [Function],
     },
     "ref": null,
@@ -222,6 +250,86 @@ ShallowWrapper {
             },
             "ref": null,
             "rendered": "Enter your username",
+            "type": [Function],
+          },
+        ],
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "bsClass": "form-group",
+          "children": Array [
+            <ControlLabel
+              bsClass="control-label"
+              srOnly={false}
+>
+              Email
+</ControlLabel>,
+            <FormControl
+              autoComplete="off"
+              autoFocus={true}
+              bsClass="form-control"
+              componentClass="input"
+              disabled={undefined}
+              name="email"
+              onChange={[Function]}
+              type="email"
+/>,
+            <HelpBlock
+              bsClass="help-block"
+>
+              Enter your email
+</HelpBlock>,
+          ],
+          "controlId": "email",
+          "validationState": null,
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "bsClass": "control-label",
+              "children": "Email",
+              "srOnly": false,
+            },
+            "ref": null,
+            "rendered": "Email",
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "autoComplete": "off",
+              "autoFocus": true,
+              "bsClass": "form-control",
+              "componentClass": "input",
+              "disabled": undefined,
+              "name": "email",
+              "onChange": [Function],
+              "type": "email",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "bsClass": "help-block",
+              "children": "Enter your email",
+            },
+            "ref": null,
+            "rendered": "Enter your email",
             "type": [Function],
           },
         ],
@@ -471,6 +579,33 @@ ShallowWrapper {
 </FormGroup>,
           <FormGroup
             bsClass="form-group"
+            controlId="email"
+            validationState={null}
+>
+            <ControlLabel
+                        bsClass="control-label"
+                        srOnly={false}
+            >
+                        Email
+            </ControlLabel>
+            <FormControl
+                        autoComplete="off"
+                        autoFocus={true}
+                        bsClass="form-control"
+                        componentClass="input"
+                        disabled={undefined}
+                        name="email"
+                        onChange={[Function]}
+                        type="email"
+            />
+            <HelpBlock
+                        bsClass="help-block"
+            >
+                        Enter your email
+            </HelpBlock>
+</FormGroup>,
+          <FormGroup
+            bsClass="form-group"
             controlId="password"
             validationState={null}
 >
@@ -545,6 +680,7 @@ ShallowWrapper {
         "componentClass": "form",
         "horizontal": false,
         "inline": false,
+        "novalidate": true,
         "onSubmit": [Function],
       },
       "ref": null,
@@ -641,6 +777,86 @@ ShallowWrapper {
               },
               "ref": null,
               "rendered": "Enter your username",
+              "type": [Function],
+            },
+          ],
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "bsClass": "form-group",
+            "children": Array [
+              <ControlLabel
+                bsClass="control-label"
+                srOnly={false}
+>
+                Email
+</ControlLabel>,
+              <FormControl
+                autoComplete="off"
+                autoFocus={true}
+                bsClass="form-control"
+                componentClass="input"
+                disabled={undefined}
+                name="email"
+                onChange={[Function]}
+                type="email"
+/>,
+              <HelpBlock
+                bsClass="help-block"
+>
+                Enter your email
+</HelpBlock>,
+            ],
+            "controlId": "email",
+            "validationState": null,
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "bsClass": "control-label",
+                "children": "Email",
+                "srOnly": false,
+              },
+              "ref": null,
+              "rendered": "Email",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "autoComplete": "off",
+                "autoFocus": true,
+                "bsClass": "form-control",
+                "componentClass": "input",
+                "disabled": undefined,
+                "name": "email",
+                "onChange": [Function],
+                "type": "email",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "bsClass": "help-block",
+                "children": "Enter your email",
+              },
+              "ref": null,
+              "rendered": "Enter your email",
               "type": [Function],
             },
           ],
