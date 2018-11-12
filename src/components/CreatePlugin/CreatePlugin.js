@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StoreClient } from '@fnndsc/chrisstoreapi';
+import StoreClient from '@fnndsc/chrisstoreapi';
 import { Link } from 'react-router-dom';
 import {
   Form, FormGroup, ControlLabel, FormControl, HelpBlock,

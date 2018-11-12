@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { StoreClient } from '@fnndsc/chrisstoreapi';
+import StoreClient from '@fnndsc/chrisstoreapi';
 import LoadingPlugin from './components/LoadingPlugin/LoadingPlugin';
 import PluginBody from './components/PluginBody/PluginBody';
 import RelativeDate from '../RelativeDate/RelativeDate';

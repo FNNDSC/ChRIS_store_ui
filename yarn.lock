@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@fnndsc/chrisstoreapi@^1.0.3":
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/@fnndsc/chrisstoreapi/-/chrisstoreapi-1.0.9.tgz#7bd9bdc45142dc0e8689e85f25bf7c1db742d3cd"
+"@fnndsc/chrisstoreapi@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@fnndsc/chrisstoreapi/-/chrisstoreapi-1.1.2.tgz#0fc0bb6f566d293e290cfd33e06ca9009a3b5899"
   dependencies:
     axios "^0.18.0"
 
@@ -2569,6 +2569,10 @@ elliptic@^6.0.0:
     inherits "^2.0.1"
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
+
+email-validator@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/email-validator/-/email-validator-2.0.4.tgz#b8dfaa5d0dae28f1b03c95881d904d4e40bfe7ed"
 
 emoji-regex@^6.1.0, emoji-regex@^6.5.1:
   version "6.5.1"

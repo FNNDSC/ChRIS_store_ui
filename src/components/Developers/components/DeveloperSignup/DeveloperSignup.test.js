@@ -16,19 +16,19 @@ describe('DeveloperSignup', () => {
     expect(wrapper.find('Form')).toHaveLength(1);
   });
 
-  it('should render 2 FormGroup components', () => {
-    expect(wrapper.find('FormGroup')).toHaveLength(2);
+  it('should render 4 FormGroup components', () => {
+    expect(wrapper.find('FormGroup')).toHaveLength(4);
   });
 
-  it('should render 2 ControlLabel components', () => {
-    expect(wrapper.find('ControlLabel')).toHaveLength(2);
+  it('should render 4 ControlLabel components', () => {
+    expect(wrapper.find('ControlLabel')).toHaveLength(4);
   });
 
-  it('should render 2 FormControl components', () => {
-    expect(wrapper.find('FormControl')).toHaveLength(2);
+  it('should render 4 FormControl components', () => {
+    expect(wrapper.find('FormControl')).toHaveLength(4);
   });
 
-  it('should render 2 HelpBlock components', () => {
-    expect(wrapper.find('HelpBlock')).toHaveLength(2);
+  it('should render 4 HelpBlock components', () => {
+    expect(wrapper.find('HelpBlock')).toHaveLength(4);
   });
 });

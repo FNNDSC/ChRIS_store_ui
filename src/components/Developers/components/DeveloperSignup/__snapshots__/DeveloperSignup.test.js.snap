@@ -20,11 +20,13 @@ ShallowWrapper {
       "bsClass": "form",
       "children": Array [
         <p>
-          Create a ChRIS Developer account:
+          Create
+           a ChRIS Developer account:
 </p>,
         <FormGroup
           bsClass="form-group"
           controlId="username"
+          validationState={null}
 >
           <ControlLabel
                     bsClass="control-label"
@@ -37,6 +39,9 @@ ShallowWrapper {
                     autoFocus={true}
                     bsClass="form-control"
                     componentClass="input"
+                    disabled={undefined}
+                    name="username"
+                    onChange={[Function]}
                     type="text"
           />
           <HelpBlock
@@ -47,7 +52,34 @@ ShallowWrapper {
 </FormGroup>,
         <FormGroup
           bsClass="form-group"
+          controlId="email"
+          validationState={null}
+>
+          <ControlLabel
+                    bsClass="control-label"
+                    srOnly={false}
+          >
+                    Email
+          </ControlLabel>
+          <FormControl
+                    autoComplete="off"
+                    bsClass="form-control"
+                    componentClass="input"
+                    disabled={undefined}
+                    name="email"
+                    onChange={[Function]}
+                    type="email"
+          />
+          <HelpBlock
+                    bsClass="help-block"
+          >
+                    Enter your email
+          </HelpBlock>
+</FormGroup>,
+        <FormGroup
+          bsClass="form-group"
           controlId="password"
+          validationState={null}
 >
           <ControlLabel
                     bsClass="control-label"
@@ -59,6 +91,9 @@ ShallowWrapper {
                     autoComplete="new-password"
                     bsClass="form-control"
                     componentClass="input"
+                    disabled={undefined}
+                    name="password"
+                    onChange={[Function]}
                     type="password"
           />
           <HelpBlock
@@ -67,20 +102,58 @@ ShallowWrapper {
                     Enter your password
           </HelpBlock>
 </FormGroup>,
-        <Button
-          active={false}
-          block={false}
-          bsClass="btn"
-          bsSize="large"
-          bsStyle="primary"
-          disabled={false}
+        <FormGroup
+          bsClass="form-group"
+          controlId="password-confirm"
+          validationState={null}
 >
-          Create Account
-</Button>,
+          <ControlLabel
+                    bsClass="control-label"
+                    srOnly={false}
+          >
+                    Password Confirmation
+          </ControlLabel>
+          <FormControl
+                    autoComplete="new-password"
+                    bsClass="form-control"
+                    componentClass="input"
+                    disabled={undefined}
+                    name="passwordConfirm"
+                    onChange={[Function]}
+                    type="password"
+          />
+          <HelpBlock
+                    bsClass="help-block"
+          >
+                    Confirm your password
+          </HelpBlock>
+</FormGroup>,
+        <Spinner
+          className=""
+          inline={true}
+          inverse={false}
+          loading={false}
+          size="md"
+>
+          <Button
+                    active={false}
+                    block={false}
+                    bsClass="btn"
+                    bsSize="large"
+                    bsStyle="primary"
+                    disabled={false}
+                    type="submit"
+          >
+                    Create Account
+          </Button>
+</Spinner>,
+        undefined,
       ],
       "componentClass": "form",
       "horizontal": false,
       "inline": false,
+      "novalidate": true,
+      "onSubmit": [Function],
     },
     "ref": null,
     "rendered": Array [
@@ -89,10 +162,16 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "host",
         "props": Object {
-          "children": "Create a ChRIS Developer account:",
+          "children": Array [
+            "Create",
+            " a ChRIS Developer account:",
+          ],
         },
         "ref": null,
-        "rendered": "Create a ChRIS Developer account:",
+        "rendered": Array [
+          "Create",
+          " a ChRIS Developer account:",
+        ],
         "type": "p",
       },
       Object {
@@ -113,6 +192,9 @@ ShallowWrapper {
               autoFocus={true}
               bsClass="form-control"
               componentClass="input"
+              disabled={undefined}
+              name="username"
+              onChange={[Function]}
               type="text"
 />,
             <HelpBlock
@@ -122,6 +204,7 @@ ShallowWrapper {
 </HelpBlock>,
           ],
           "controlId": "username",
+          "validationState": null,
         },
         "ref": null,
         "rendered": Array [
@@ -147,6 +230,9 @@ ShallowWrapper {
               "autoFocus": true,
               "bsClass": "form-control",
               "componentClass": "input",
+              "disabled": undefined,
+              "name": "username",
+              "onChange": [Function],
               "type": "text",
             },
             "ref": null,
@@ -179,12 +265,93 @@ ShallowWrapper {
               bsClass="control-label"
               srOnly={false}
 >
+              Email
+</ControlLabel>,
+            <FormControl
+              autoComplete="off"
+              bsClass="form-control"
+              componentClass="input"
+              disabled={undefined}
+              name="email"
+              onChange={[Function]}
+              type="email"
+/>,
+            <HelpBlock
+              bsClass="help-block"
+>
+              Enter your email
+</HelpBlock>,
+          ],
+          "controlId": "email",
+          "validationState": null,
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "bsClass": "control-label",
+              "children": "Email",
+              "srOnly": false,
+            },
+            "ref": null,
+            "rendered": "Email",
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "autoComplete": "off",
+              "bsClass": "form-control",
+              "componentClass": "input",
+              "disabled": undefined,
+              "name": "email",
+              "onChange": [Function],
+              "type": "email",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "bsClass": "help-block",
+              "children": "Enter your email",
+            },
+            "ref": null,
+            "rendered": "Enter your email",
+            "type": [Function],
+          },
+        ],
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "bsClass": "form-group",
+          "children": Array [
+            <ControlLabel
+              bsClass="control-label"
+              srOnly={false}
+>
               Password
 </ControlLabel>,
             <FormControl
               autoComplete="new-password"
               bsClass="form-control"
               componentClass="input"
+              disabled={undefined}
+              name="password"
+              onChange={[Function]}
               type="password"
 />,
             <HelpBlock
@@ -194,6 +361,7 @@ ShallowWrapper {
 </HelpBlock>,
           ],
           "controlId": "password",
+          "validationState": null,
         },
         "ref": null,
         "rendered": Array [
@@ -218,6 +386,9 @@ ShallowWrapper {
               "autoComplete": "new-password",
               "bsClass": "form-control",
               "componentClass": "input",
+              "disabled": undefined,
+              "name": "password",
+              "onChange": [Function],
               "type": "password",
             },
             "ref": null,
@@ -244,18 +415,123 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "class",
         "props": Object {
-          "active": false,
-          "block": false,
-          "bsClass": "btn",
-          "bsSize": "large",
-          "bsStyle": "primary",
-          "children": "Create Account",
-          "disabled": false,
+          "bsClass": "form-group",
+          "children": Array [
+            <ControlLabel
+              bsClass="control-label"
+              srOnly={false}
+>
+              Password Confirmation
+</ControlLabel>,
+            <FormControl
+              autoComplete="new-password"
+              bsClass="form-control"
+              componentClass="input"
+              disabled={undefined}
+              name="passwordConfirm"
+              onChange={[Function]}
+              type="password"
+/>,
+            <HelpBlock
+              bsClass="help-block"
+>
+              Confirm your password
+</HelpBlock>,
+          ],
+          "controlId": "password-confirm",
+          "validationState": null,
         },
         "ref": null,
-        "rendered": "Create Account",
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "bsClass": "control-label",
+              "children": "Password Confirmation",
+              "srOnly": false,
+            },
+            "ref": null,
+            "rendered": "Password Confirmation",
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "autoComplete": "new-password",
+              "bsClass": "form-control",
+              "componentClass": "input",
+              "disabled": undefined,
+              "name": "passwordConfirm",
+              "onChange": [Function],
+              "type": "password",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "bsClass": "help-block",
+              "children": "Confirm your password",
+            },
+            "ref": null,
+            "rendered": "Confirm your password",
+            "type": [Function],
+          },
+        ],
         "type": [Function],
       },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "children": <Button
+            active={false}
+            block={false}
+            bsClass="btn"
+            bsSize="large"
+            bsStyle="primary"
+            disabled={false}
+            type="submit"
+>
+            Create Account
+</Button>,
+          "className": "",
+          "inline": true,
+          "inverse": false,
+          "loading": false,
+          "size": "md",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "active": false,
+            "block": false,
+            "bsClass": "btn",
+            "bsSize": "large",
+            "bsStyle": "primary",
+            "children": "Create Account",
+            "disabled": false,
+            "type": "submit",
+          },
+          "ref": null,
+          "rendered": "Create Account",
+          "type": [Function],
+        },
+        "type": [Function],
+      },
+      undefined,
     ],
     "type": [Function],
   },
@@ -268,11 +544,13 @@ ShallowWrapper {
         "bsClass": "form",
         "children": Array [
           <p>
-            Create a ChRIS Developer account:
+            Create
+             a ChRIS Developer account:
 </p>,
           <FormGroup
             bsClass="form-group"
             controlId="username"
+            validationState={null}
 >
             <ControlLabel
                         bsClass="control-label"
@@ -285,6 +563,9 @@ ShallowWrapper {
                         autoFocus={true}
                         bsClass="form-control"
                         componentClass="input"
+                        disabled={undefined}
+                        name="username"
+                        onChange={[Function]}
                         type="text"
             />
             <HelpBlock
@@ -295,7 +576,34 @@ ShallowWrapper {
 </FormGroup>,
           <FormGroup
             bsClass="form-group"
+            controlId="email"
+            validationState={null}
+>
+            <ControlLabel
+                        bsClass="control-label"
+                        srOnly={false}
+            >
+                        Email
+            </ControlLabel>
+            <FormControl
+                        autoComplete="off"
+                        bsClass="form-control"
+                        componentClass="input"
+                        disabled={undefined}
+                        name="email"
+                        onChange={[Function]}
+                        type="email"
+            />
+            <HelpBlock
+                        bsClass="help-block"
+            >
+                        Enter your email
+            </HelpBlock>
+</FormGroup>,
+          <FormGroup
+            bsClass="form-group"
             controlId="password"
+            validationState={null}
 >
             <ControlLabel
                         bsClass="control-label"
@@ -307,6 +615,9 @@ ShallowWrapper {
                         autoComplete="new-password"
                         bsClass="form-control"
                         componentClass="input"
+                        disabled={undefined}
+                        name="password"
+                        onChange={[Function]}
                         type="password"
             />
             <HelpBlock
@@ -315,20 +626,58 @@ ShallowWrapper {
                         Enter your password
             </HelpBlock>
 </FormGroup>,
-          <Button
-            active={false}
-            block={false}
-            bsClass="btn"
-            bsSize="large"
-            bsStyle="primary"
-            disabled={false}
+          <FormGroup
+            bsClass="form-group"
+            controlId="password-confirm"
+            validationState={null}
 >
-            Create Account
-</Button>,
+            <ControlLabel
+                        bsClass="control-label"
+                        srOnly={false}
+            >
+                        Password Confirmation
+            </ControlLabel>
+            <FormControl
+                        autoComplete="new-password"
+                        bsClass="form-control"
+                        componentClass="input"
+                        disabled={undefined}
+                        name="passwordConfirm"
+                        onChange={[Function]}
+                        type="password"
+            />
+            <HelpBlock
+                        bsClass="help-block"
+            >
+                        Confirm your password
+            </HelpBlock>
+</FormGroup>,
+          <Spinner
+            className=""
+            inline={true}
+            inverse={false}
+            loading={false}
+            size="md"
+>
+            <Button
+                        active={false}
+                        block={false}
+                        bsClass="btn"
+                        bsSize="large"
+                        bsStyle="primary"
+                        disabled={false}
+                        type="submit"
+            >
+                        Create Account
+            </Button>
+</Spinner>,
+          undefined,
         ],
         "componentClass": "form",
         "horizontal": false,
         "inline": false,
+        "novalidate": true,
+        "onSubmit": [Function],
       },
       "ref": null,
       "rendered": Array [
@@ -337,10 +686,16 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "host",
           "props": Object {
-            "children": "Create a ChRIS Developer account:",
+            "children": Array [
+              "Create",
+              " a ChRIS Developer account:",
+            ],
           },
           "ref": null,
-          "rendered": "Create a ChRIS Developer account:",
+          "rendered": Array [
+            "Create",
+            " a ChRIS Developer account:",
+          ],
           "type": "p",
         },
         Object {
@@ -361,6 +716,9 @@ ShallowWrapper {
                 autoFocus={true}
                 bsClass="form-control"
                 componentClass="input"
+                disabled={undefined}
+                name="username"
+                onChange={[Function]}
                 type="text"
 />,
               <HelpBlock
@@ -370,6 +728,7 @@ ShallowWrapper {
 </HelpBlock>,
             ],
             "controlId": "username",
+            "validationState": null,
           },
           "ref": null,
           "rendered": Array [
@@ -395,6 +754,9 @@ ShallowWrapper {
                 "autoFocus": true,
                 "bsClass": "form-control",
                 "componentClass": "input",
+                "disabled": undefined,
+                "name": "username",
+                "onChange": [Function],
                 "type": "text",
               },
               "ref": null,
@@ -427,12 +789,93 @@ ShallowWrapper {
                 bsClass="control-label"
                 srOnly={false}
 >
+                Email
+</ControlLabel>,
+              <FormControl
+                autoComplete="off"
+                bsClass="form-control"
+                componentClass="input"
+                disabled={undefined}
+                name="email"
+                onChange={[Function]}
+                type="email"
+/>,
+              <HelpBlock
+                bsClass="help-block"
+>
+                Enter your email
+</HelpBlock>,
+            ],
+            "controlId": "email",
+            "validationState": null,
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "bsClass": "control-label",
+                "children": "Email",
+                "srOnly": false,
+              },
+              "ref": null,
+              "rendered": "Email",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "autoComplete": "off",
+                "bsClass": "form-control",
+                "componentClass": "input",
+                "disabled": undefined,
+                "name": "email",
+                "onChange": [Function],
+                "type": "email",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "bsClass": "help-block",
+                "children": "Enter your email",
+              },
+              "ref": null,
+              "rendered": "Enter your email",
+              "type": [Function],
+            },
+          ],
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "bsClass": "form-group",
+            "children": Array [
+              <ControlLabel
+                bsClass="control-label"
+                srOnly={false}
+>
                 Password
 </ControlLabel>,
               <FormControl
                 autoComplete="new-password"
                 bsClass="form-control"
                 componentClass="input"
+                disabled={undefined}
+                name="password"
+                onChange={[Function]}
                 type="password"
 />,
               <HelpBlock
@@ -442,6 +885,7 @@ ShallowWrapper {
 </HelpBlock>,
             ],
             "controlId": "password",
+            "validationState": null,
           },
           "ref": null,
           "rendered": Array [
@@ -466,6 +910,9 @@ ShallowWrapper {
                 "autoComplete": "new-password",
                 "bsClass": "form-control",
                 "componentClass": "input",
+                "disabled": undefined,
+                "name": "password",
+                "onChange": [Function],
                 "type": "password",
               },
               "ref": null,
@@ -492,18 +939,123 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "class",
           "props": Object {
-            "active": false,
-            "block": false,
-            "bsClass": "btn",
-            "bsSize": "large",
-            "bsStyle": "primary",
-            "children": "Create Account",
-            "disabled": false,
+            "bsClass": "form-group",
+            "children": Array [
+              <ControlLabel
+                bsClass="control-label"
+                srOnly={false}
+>
+                Password Confirmation
+</ControlLabel>,
+              <FormControl
+                autoComplete="new-password"
+                bsClass="form-control"
+                componentClass="input"
+                disabled={undefined}
+                name="passwordConfirm"
+                onChange={[Function]}
+                type="password"
+/>,
+              <HelpBlock
+                bsClass="help-block"
+>
+                Confirm your password
+</HelpBlock>,
+            ],
+            "controlId": "password-confirm",
+            "validationState": null,
           },
           "ref": null,
-          "rendered": "Create Account",
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "bsClass": "control-label",
+                "children": "Password Confirmation",
+                "srOnly": false,
+              },
+              "ref": null,
+              "rendered": "Password Confirmation",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "autoComplete": "new-password",
+                "bsClass": "form-control",
+                "componentClass": "input",
+                "disabled": undefined,
+                "name": "passwordConfirm",
+                "onChange": [Function],
+                "type": "password",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "bsClass": "help-block",
+                "children": "Confirm your password",
+              },
+              "ref": null,
+              "rendered": "Confirm your password",
+              "type": [Function],
+            },
+          ],
           "type": [Function],
         },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "children": <Button
+              active={false}
+              block={false}
+              bsClass="btn"
+              bsSize="large"
+              bsStyle="primary"
+              disabled={false}
+              type="submit"
+>
+              Create Account
+</Button>,
+            "className": "",
+            "inline": true,
+            "inverse": false,
+            "loading": false,
+            "size": "md",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "active": false,
+              "block": false,
+              "bsClass": "btn",
+              "bsSize": "large",
+              "bsStyle": "primary",
+              "children": "Create Account",
+              "disabled": false,
+              "type": "submit",
+            },
+            "ref": null,
+            "rendered": "Create Account",
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        undefined,
       ],
       "type": [Function],
     },

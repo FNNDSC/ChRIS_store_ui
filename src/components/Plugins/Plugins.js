@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StoreClient } from '@fnndsc/chrisstoreapi';
+import StoreClient from '@fnndsc/chrisstoreapi';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 import PluginItem from './components/PluginItem/PluginItem';
 import LoadingPluginItem from './components/LoadingPluginItem/LoadingPluginItem';

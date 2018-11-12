@@ -4,7 +4,7 @@ import {
   Card, CardBody, Button, Alert,
   Form, FormGroup, FormControl,
 } from 'patternfly-react';
-import { StoreClient } from '@fnndsc/chrisstoreapi';
+import StoreClient from '@fnndsc/chrisstoreapi';
 import './SignIn.css';
 import chrisLogo from '../../assets/img/chris_logo-white.png';
 
