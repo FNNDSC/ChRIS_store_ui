@@ -63,7 +63,6 @@ ShallowWrapper {
           </ControlLabel>
           <FormControl
                     autoComplete="off"
-                    autoFocus={true}
                     bsClass="form-control"
                     componentClass="input"
                     disabled={undefined}
@@ -270,7 +269,6 @@ ShallowWrapper {
 </ControlLabel>,
             <FormControl
               autoComplete="off"
-              autoFocus={true}
               bsClass="form-control"
               componentClass="input"
               disabled={undefined}
@@ -308,7 +306,6 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "autoComplete": "off",
-              "autoFocus": true,
               "bsClass": "form-control",
               "componentClass": "input",
               "disabled": undefined,
@@ -590,7 +587,6 @@ ShallowWrapper {
             </ControlLabel>
             <FormControl
                         autoComplete="off"
-                        autoFocus={true}
                         bsClass="form-control"
                         componentClass="input"
                         disabled={undefined}
@@ -797,7 +793,6 @@ ShallowWrapper {
 </ControlLabel>,
               <FormControl
                 autoComplete="off"
-                autoFocus={true}
                 bsClass="form-control"
                 componentClass="input"
                 disabled={undefined}
@@ -835,7 +830,6 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "autoComplete": "off",
-                "autoFocus": true,
                 "bsClass": "form-control",
                 "componentClass": "input",
                 "disabled": undefined,

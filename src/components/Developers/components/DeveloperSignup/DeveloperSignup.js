@@ -179,7 +179,6 @@ class DeveloperSignup extends Component {
           <FormControl
             type="email"
             autoComplete="off"
-            autoFocus={!isTouchDevice()}
             onChange={this.handleChange}
             name="email"
             disabled={disableControls}
