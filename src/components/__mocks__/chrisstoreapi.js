@@ -81,4 +81,4 @@ class StoreClient {
   }
 }
 
-export default { StoreClient };
+export default StoreClient;
