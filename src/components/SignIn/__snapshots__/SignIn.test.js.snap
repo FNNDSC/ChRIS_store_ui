@@ -111,9 +111,9 @@ ShallowWrapper {
                                 >
                                         Need an account?
                                         <Link
-                                                href="/signup"
+                                                href="/developers"
                                                 replace={false}
-                                                to="/signup"
+                                                to="/developers"
                                         >
                                                 Signup
                                         </Link>
@@ -223,9 +223,9 @@ ShallowWrapper {
                                     >
                                                 Need an account?
                                                 <Link
-                                                            href="/signup"
+                                                            href="/developers"
                                                             replace={false}
-                                                            to="/signup"
+                                                            to="/developers"
                                                 >
                                                             Signup
                                                 </Link>
@@ -369,9 +369,9 @@ ShallowWrapper {
                                 >
                                                 Need an account?
                                                 <Link
-                                                                href="/signup"
+                                                                href="/developers"
                                                                 replace={false}
-                                                                to="/signup"
+                                                                to="/developers"
                                                 >
                                                                 Signup
                                                 </Link>
@@ -470,9 +470,9 @@ ShallowWrapper {
                   >
                                     Need an account?
                                     <Link
-                                                      href="/signup"
+                                                      href="/developers"
                                                       replace={false}
-                                                      to="/signup"
+                                                      to="/developers"
                                     >
                                                       Signup
                                     </Link>
@@ -537,9 +537,9 @@ ShallowWrapper {
 >
                       Need an account?
                       <Link
-                                            href="/signup"
+                                            href="/developers"
                                             replace={false}
-                                            to="/signup"
+                                            to="/developers"
                       >
                                             Signup
                       </Link>
@@ -660,9 +660,9 @@ ShallowWrapper {
                       "children": Array [
                         "Need an account?",
                         <Link
-                          href="/signup"
+                          href="/developers"
                           replace={false}
-                          to="/signup"
+                          to="/developers"
 >
                           Signup
 </Link>,
@@ -678,9 +678,9 @@ ShallowWrapper {
                         "nodeType": "class",
                         "props": Object {
                           "children": "Signup",
-                          "href": "/signup",
+                          "href": "/developers",
                           "replace": false,
-                          "to": "/signup",
+                          "to": "/developers",
                         },
                         "ref": null,
                         "rendered": "Signup",
@@ -802,9 +802,9 @@ ShallowWrapper {
                                         >
                                                   Need an account?
                                                   <Link
-                                                            href="/signup"
+                                                            href="/developers"
                                                             replace={false}
-                                                            to="/signup"
+                                                            to="/developers"
                                                   >
                                                             Signup
                                                   </Link>
@@ -914,9 +914,9 @@ ShallowWrapper {
                                           >
                                                         Need an account?
                                                         <Link
-                                                                      href="/signup"
+                                                                      href="/developers"
                                                                       replace={false}
-                                                                      to="/signup"
+                                                                      to="/developers"
                                                         >
                                                                       Signup
                                                         </Link>
@@ -1060,9 +1060,9 @@ ShallowWrapper {
                                     >
                                                       Need an account?
                                                       <Link
-                                                                        href="/signup"
+                                                                        href="/developers"
                                                                         replace={false}
-                                                                        to="/signup"
+                                                                        to="/developers"
                                                       >
                                                                         Signup
                                                       </Link>
@@ -1161,9 +1161,9 @@ ShallowWrapper {
                     >
                                         Need an account?
                                         <Link
-                                                            href="/signup"
+                                                            href="/developers"
                                                             replace={false}
-                                                            to="/signup"
+                                                            to="/developers"
                                         >
                                                             Signup
                                         </Link>
@@ -1228,9 +1228,9 @@ ShallowWrapper {
 >
                         Need an account?
                         <Link
-                                                href="/signup"
+                                                href="/developers"
                                                 replace={false}
-                                                to="/signup"
+                                                to="/developers"
                         >
                                                 Signup
                         </Link>
@@ -1351,9 +1351,9 @@ ShallowWrapper {
                         "children": Array [
                           "Need an account?",
                           <Link
-                            href="/signup"
+                            href="/developers"
                             replace={false}
-                            to="/signup"
+                            to="/developers"
 >
                             Signup
 </Link>,
@@ -1369,9 +1369,9 @@ ShallowWrapper {
                           "nodeType": "class",
                           "props": Object {
                             "children": "Signup",
-                            "href": "/signup",
+                            "href": "/developers",
                             "replace": false,
-                            "to": "/signup",
+                            "to": "/developers",
                           },
                           "ref": null,
                           "rendered": "Signup",
