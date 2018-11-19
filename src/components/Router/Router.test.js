@@ -24,8 +24,8 @@ describe('Router', () => {
     expect(wrapper.find('Switch')).toHaveLength(1);
   });
 
-  it('should render 5 Routes', () => {
-    expect(wrapper.find('Route')).toHaveLength(6);
+  it('should render 7 Routes', () => {
+    expect(wrapper.find('Route')).toHaveLength(7);
   });
 
   it('every route should have a path prop and component prop', () => {
