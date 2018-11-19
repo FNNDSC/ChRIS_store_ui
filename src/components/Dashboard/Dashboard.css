@@ -1,0 +1,42 @@
+.title-bar {
+    /* color */
+    color: #393f44;
+    color: var(--pf-black-800);
+
+    /* display */
+    padding: 1em;
+
+    /* font */
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.dashboard-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-top: 20px;
+}
+
+.dashboard-left-column {
+    display: flex;
+    flex-direction: column;
+    flex: 3;
+}
+
+.dashboard-right-column {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.dashboard__developercta-button {
+    height: 50px;
+    width: 100%;
+}
+
+.dashboard-body {
+    margin-top: -20px;
+}
+
