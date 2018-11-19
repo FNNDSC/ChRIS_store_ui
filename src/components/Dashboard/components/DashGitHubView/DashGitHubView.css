@@ -1,6 +1,12 @@
 @media (min-width: 598px) {
     .github-card-body {
-        min-height: 68vh;
+        min-height: 711px;
+    }
+}
+
+@media (min-width: 992px) {
+    .github-card-body {
+        min-height: 573px;
     }
 }
 
