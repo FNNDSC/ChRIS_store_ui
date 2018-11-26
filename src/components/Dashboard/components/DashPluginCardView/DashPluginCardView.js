@@ -60,7 +60,7 @@ const DashPluginCardView = (props) => {
   const { plugins } = props;
   const showEmptyState = _.isEmpty(plugins);
   const addNewPlugin = (
-    <Col xs={12} sm={6} md={4}>
+    <Col xs={12} sm={6} md={4} key="addNewPlugin">
       <Card>
         <CardBody className="card-view-add-plugin">
           <div>
@@ -82,7 +82,7 @@ const DashPluginCardView = (props) => {
       const creationDate = new RelativeDate(plugin.creation_date);
       const applicationType = new DashApplicationType(plugin.type);
       return (
-        <Col xs={12} sm={6} md={4}>
+        <Col xs={12} sm={6} md={4} key={plugin.name}>
           <Card>
             <CardHeading>
               <CardTitle>
@@ -141,7 +141,12 @@ const DashPluginCardView = (props) => {
 };
 
 DashPluginCardView.propTypes = {
-  plugins: PropTypes.arrayOf(PropTypes.object).isRequired,
+  plugins: PropTypes.arrayOf(PropTypes.object),
 };
+
+DashPluginCardView.defaultProps = {
+  plugins: [],
+};
+
 
 export default DashPluginCardView;

@@ -225,7 +225,7 @@ class DeveloperSignup extends Component {
           </HelpBlock>
         </FormGroup>
         <Spinner loading={loading} size="md" inline>
-          { userData && authToken ? <Alert type="success"><span>Account created successfully. <a href="/dashboard">View Dashboard</a></span></Alert> :
+          { userData && authToken ? <Alert type="success"><span>Account created successfully. <a href="/signin">Sign in here</a></span></Alert> :
           <Button bsStyle="primary" bsSize="large" type="submit" disabled={disableControls}>
             Create Account
           </Button> }

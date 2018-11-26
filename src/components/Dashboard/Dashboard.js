@@ -97,6 +97,10 @@ class Dashboard extends Component {
   }
 }
 Dashboard.propTypes = {
-  store: PropTypes.objectOf(PropTypes.object).isRequired,
+  store: PropTypes.objectOf(PropTypes.object),
 };
+Dashboard.defaultProps = {
+  store: {},
+};
+
 export default ChrisStore.withStore(Dashboard);
