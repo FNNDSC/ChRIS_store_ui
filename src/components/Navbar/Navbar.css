@@ -40,10 +40,10 @@ header .row > .navbar-header > .navbar-logo {
   /* color */
   color: #ededed;
   color: var(--pf-black-200);
-  
+
   /* display */
   display: block;
-  
+
   /* position */
   position: absolute;
   top: 66px;
@@ -112,7 +112,7 @@ header .row > .navbar-header > .navbar-logo {
 
   /* font */
   font-size: 2em;
-  
+
   /* other */
   float: right;
   cursor: pointer;
@@ -185,7 +185,7 @@ header > .navbar-dropdown {
   /* display */
   display: block;
   padding: 0.5em;
-  
+
   /* color */
   color: #fafafa;
   color: var(--pf-black-100);
@@ -248,7 +248,7 @@ header > .navbar-dropdown {
 @media (min-width: 768px) {
   nav.navbar-default { height: 66px; }
 
-  .navbar-header > .navbar-search.search-pf { 
+  .navbar-header > .navbar-search.search-pf {
     /* color */
     color: inherit;
 
@@ -256,9 +256,9 @@ header > .navbar-dropdown {
     display: table;
     margin: 19px 0;
     padding-left: 1em;
-    
+
     /* position */
-    position: static; 
+    position: static;
   }
 
   .navbar-search .form-group {
@@ -277,7 +277,7 @@ header > .navbar-dropdown {
     /* display */
     width: 1.35em;
     height: 1.35em;
-  
+
     /* font */
     font-size: 1.5em;
   }

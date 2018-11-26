@@ -72,3 +72,55 @@
     font-size: 1.2em;
 }
 
+.card-view-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.card-view-add-plugin {
+    text-align: center;
+    padding: 33px !important;
+}
+
+.card-view-kebob {
+    margin-top: -20px !important;
+    padding: 5px;
+}
+
+.card-view-kebob .dropdown-menu {
+    margin-right: 5px;
+    min-width: 100px;
+}
+
+.card-view-plugin-tag {
+    /* color */
+    color: #8b8d8f;
+    color: var(--pf-black-500);
+
+    /* display */
+    display: inline-block;
+    margin-right: 0.5em;
+    padding: 0 0.25em;
+
+    /* border */
+    border-color: #8b8d8f;
+    border: 1px solid var(--pf-black-500);
+    border-radius: 4px;
+
+    /* font */
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+
+.card-view-tag-title {
+    display: inline-block;
+    margin-bottom: -10px;
+}
+
+.card-view-app-type {
+    font-size: 14px;
+    padding: 0 3px 10px 3px;
+}
