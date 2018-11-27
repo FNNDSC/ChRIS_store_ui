@@ -55,6 +55,11 @@ class DashGitHubView extends Component {
   }
 }
 DashGitHubView.propTypes = {
-  plugins: PropTypes.arrayOf(PropTypes.object).isRequired,
+  plugins: PropTypes.arrayOf(PropTypes.object),
 };
+
+DashGitHubView.defaultProps = {
+  plugins: [],
+};
+
 export default DashGitHubView;

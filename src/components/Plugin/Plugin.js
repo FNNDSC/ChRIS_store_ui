@@ -126,6 +126,9 @@ class Plugin extends Component {
                     ` created ${creationDate.format()}`
                   }
                 </div>
+                <div className="plugin-license plugin-tag">
+                  {`${data.license} license`}
+                </div>
               </div>
             </div>
           </div>

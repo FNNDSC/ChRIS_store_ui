@@ -254,6 +254,11 @@ class DashTeamView extends Component {
   }
 }
 DashTeamView.propTypes = {
-  plugins: PropTypes.arrayOf(PropTypes.object).isRequired,
+  plugins: PropTypes.arrayOf(PropTypes.object),
 };
+
+DashTeamView.defaultProps = {
+  plugins: [],
+};
+
 export default DashTeamView;

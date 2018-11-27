@@ -193,7 +193,7 @@ class CreatePlugin extends Component {
     const file = new Blob([fileData], { type: 'application/json' });
 
     const storeURL = process.env.REACT_APP_STORE_URL;
-    const token = window.localStorage.getItem('AUTH_TOKEN');
+    const token = window.sessionStorage.getItem('AUTH_TOKEN');
     const client = new StoreClient(storeURL, { token });
 
     let newPlugin;

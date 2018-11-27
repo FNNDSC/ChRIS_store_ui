@@ -35,6 +35,7 @@ class DeveloperSignup extends Component {
     this.handleChange = this.handleChange.bind(this);
 
     this.state = {
+      loading: false,
       error: {
         message: '',
         controls: '',
@@ -148,7 +149,7 @@ class DeveloperSignup extends Component {
     } = this.state;
     const disableControls = loading || userData;
     return (
-      <Form onSubmit={this.handleSubmit} novalidate>
+      <Form onSubmit={this.handleSubmit} noValidate>
         <p>{loading ? 'Creating' : 'Create'} a ChRIS Developer account:</p>
         <FormGroup
           controlId="username"
@@ -224,7 +225,7 @@ class DeveloperSignup extends Component {
           </HelpBlock>
         </FormGroup>
         <Spinner loading={loading} size="md" inline>
-          { userData && authToken ? <Alert type="success"><span>Account created successfully</span></Alert> :
+          { userData && authToken ? <Alert type="success"><span>Account created successfully. <a href="/signin">Sign in here</a></span></Alert> :
           <Button bsStyle="primary" bsSize="large" type="submit" disabled={disableControls}>
             Create Account
           </Button> }

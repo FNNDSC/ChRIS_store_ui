@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
 import {
   Card, CardBody, Button, Alert,
@@ -7,6 +8,7 @@ import {
 import StoreClient from '@fnndsc/chrisstoreapi';
 import './SignIn.css';
 import chrisLogo from '../../assets/img/chris_logo-white.png';
+import ChrisStore from '../../store/ChrisStore';
 
 class SignIn extends Component {
   constructor() {
@@ -42,11 +44,13 @@ class SignIn extends Component {
   handleSubmit(event) {
     const authURL = process.env.REACT_APP_STORE_AUTH_URL;
     const { username, password } = this.state;
+    const { store } = this.props;
 
     this.setState({ loading: true });
     const promise = StoreClient.getAuthToken(authURL, username, password)
       .then((token) => {
-        window.localStorage.setItem('AUTH_TOKEN', token);
+        store.set('userName')(username);
+        store.set('authToken')(token);
         if (this.mounted) {
           this.setState({ toDashboard: true });
         }
@@ -78,7 +82,7 @@ class SignIn extends Component {
     } = this.state;
 
     if (toDashboard) {
-      return <Redirect to="/developers" />;
+      return <Redirect to="/dashboard" />;
     }
 
     return (
@@ -160,4 +164,8 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+export default ChrisStore.withStore(SignIn);
+
+SignIn.propTypes = {
+  store: PropTypes.objectOf(PropTypes.object).isRequired,
+};

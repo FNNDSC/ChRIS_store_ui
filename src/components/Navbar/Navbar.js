@@ -6,6 +6,7 @@ import { NavLink, Link } from 'react-router-dom';
 import Search from './components/Search/Search';
 import './Navbar.css';
 import LogoImg from '../../assets/img/chris-plugin-store_logo.png';
+import ChrisStore from '../../store/ChrisStore';
 
 class Navbar extends Component {
   constructor() {
@@ -13,9 +14,17 @@ class Navbar extends Component {
 
     this.state = { open: false };
 
+    this.onSigninClick = this.onSigninClick.bind(this);
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.closeDropdown = this.closeDropdown.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+  }
+
+  onSigninClick() {
+    const { store } = this.props;
+    if (store.get('isLoggedIn')) {
+      store.set('authToken')('');
+    }
   }
 
   toggleDropdown(e) {
@@ -37,6 +46,26 @@ class Navbar extends Component {
   }
 
   render() {
+    const { store } = this.props;
+    const isLoggedIn = store.get('isLoggedIn');
+    const loginText = isLoggedIn ? 'Sign out' : 'Sign in';
+    const dashboardLink = isLoggedIn ? (
+      <li>
+        <NavLink to="/dashboard" href="/dashboard">
+        Dashboard
+        </NavLink>
+      </li>) : '';
+    const dashboardDropdown = store.get('isLoggedIn') ? (
+      <div className="navbar-btn-container">
+        <NavLink
+          to="/dashboard"
+          href="/dashboard"
+          className="navbar-dropdown-btn"
+          onClick={this.toggleDropdown}
+        >
+          Dashboard
+        </NavLink>
+      </div>) : '';
     return (
       <header>
         <nav className="navbar navbar-pf-vertical navbar-default">
@@ -70,8 +99,8 @@ class Navbar extends Component {
               <ul className="nav navbar-nav navbar-right">
                 <li>
                   <Link to="/signin" href="/signin" className="navbar-signin-btn-link">
-                    <Button className="navbar-signin-btn" bsStyle="info" bsSize="large">
-                      Sign in
+                    <Button className="navbar-signin-btn" bsStyle="info" bsSize="large" onClick={this.onSigninClick}>
+                      {loginText}
                     </Button>
                   </Link>
                 </li>
@@ -87,6 +116,7 @@ class Navbar extends Component {
                     Developers
                   </NavLink>
                 </li>
+                {dashboardLink}
               </ul>
             </div>
           </div>
@@ -113,10 +143,11 @@ class Navbar extends Component {
                 Developers
               </NavLink>
             </div>
+            {dashboardDropdown}
             <div className="navbar-btn-container">
               <Link to="/signin" href="/signin" className="navbar-signin-dropdown-btn-link">
-                <Button className="navbar-signin-dropdown-btn" bsStyle="info" bsSize="large">
-                  Sign in
+                <Button className="navbar-signin-dropdown-btn" bsStyle="info" bsSize="large" onClick={this.onSigninClick}>
+                  {loginText}
                 </Button>
               </Link>
             </div>
@@ -128,6 +159,7 @@ class Navbar extends Component {
 }
 
 Navbar.propTypes = {
+  store: PropTypes.objectOf(PropTypes.object).isRequired,
   location: PropTypes.shape({
     search: PropTypes.string,
   }),
@@ -139,4 +171,4 @@ Navbar.defaultProps = {
   },
 };
 
-export default Navbar;
+export default ChrisStore.withStore(Navbar);
