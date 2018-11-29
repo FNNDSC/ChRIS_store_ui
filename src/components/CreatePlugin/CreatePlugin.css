@@ -164,7 +164,7 @@
 
   /* display */
   padding: 0 1em 0.75em;
-  
+
   /* font */
   font-size: 2em;
   font-weight: 600;
@@ -242,4 +242,8 @@ label.createplugin-upload-label.haserror > .createplugin-upload-body {
   /* other */
   box-shadow: 0 0.1em 1em 0 #bbbbbb;
   box-shadow: 0 0.1em 1em 0 var(--pf-black-400);
+}
+
+.createplugin-info {
+  margin: 0px 15px 20px 20px !important;
 }

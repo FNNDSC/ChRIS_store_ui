@@ -3,7 +3,7 @@ import StoreClient from '@fnndsc/chrisstoreapi';
 import { Link } from 'react-router-dom';
 import {
   Form, FormGroup, ControlLabel, FormControl, HelpBlock,
-  Col, Icon, Card, Button, Alert,
+  Col, Icon, Card, Button, Alert, CardBody, HintBlock,
 } from 'patternfly-react';
 import classNames from 'classnames';
 import './CreatePlugin.css';
@@ -261,7 +261,7 @@ class CreatePlugin extends Component {
             <div className="row">
               <div className="createplugin-header-container">
                 <div className="createplugin-display-1">
-                  Create Plugin
+                  Add Plugin Details
                 </div>
                 <div className="createplugin-create-btn-container">
                   <Button
@@ -316,6 +316,15 @@ class CreatePlugin extends Component {
           <Form className="createplugin-form" horizontal>
             <div className="row">
               <div className="createplugin-col">
+                <Card className="createplugin-info">
+                  <CardBody>
+                    <HintBlock body="Plugins should already exist and have their own public source repo
+                      and existing docker image. Adding a plugin to the store simply adds
+                      the location of your plugin, as well as some metadata, to the store,
+                      allowing other users easy access to it."
+                    />
+                  </CardBody>
+                </Card>
                 <div className="createplugin-form-fields">
                   {formGroups}
                 </div>
