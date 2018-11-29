@@ -16,6 +16,7 @@ class Dashboard extends Component {
       loading: true,
     };
     this.initialize = this.initialize.bind(this);
+    this.deletePlugin = this.deletePlugin.bind(this);
   }
 
   componentDidMount() {
@@ -33,6 +34,7 @@ class Dashboard extends Component {
       limit: 1,
       offset: 0,
     };
+    this.setState({ loading: true, pluginList: null });
 
     return new Promise(async (resolve, reject) => {
       let plugins;
@@ -53,6 +55,24 @@ class Dashboard extends Component {
 
       return resolve(plugins);
     });
+  }
+
+  deletePlugin(pluginName) {
+    const { store } = this.props;
+    const storeURL = process.env.REACT_APP_STORE_URL;
+    const auth = { token: store.get('authToken') };
+    const client = new StoreClient(storeURL, auth);
+
+    let response;
+    try {
+      response = client.removePlugin(pluginName);
+      response.then(() => {
+        this.fetchPlugins();
+      });
+    } catch (e) {
+      return e;
+    }
+    return response;
   }
 
   initialize() {
@@ -82,7 +102,7 @@ class Dashboard extends Component {
             <div className="dashboard-row">
               <Spinner size="lg" loading={loading}>
                 <div className="dashboard-left-column">
-                  <DashPluginCardView plugins={pluginList} />
+                  <DashPluginCardView plugins={pluginList} onDelete={this.deletePlugin} />
                   <DashTeamView plugins={pluginList} />
                 </div>
                 <div className="dashboard-right-column">
