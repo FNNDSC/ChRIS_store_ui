@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import * as _ from 'lodash-es';
+import isEmpty from 'lodash/isEmpty';
+import orderBy from 'lodash/orderBy';
 import PropTypes from 'prop-types';
 import * as sort from 'sortabular';
 import * as resolve from 'table-resolver';
@@ -190,12 +191,12 @@ class DashTeamView extends Component {
   render() {
     const { plugins } = this.props;
     const { rows, sortingColumns, columns } = this.state;
-    const showEmptyState = _.isEmpty(plugins);
+    const showEmptyState = isEmpty(plugins);
 
     const sortedRows = compose(sort.sorter({
       columns,
       sortingColumns,
-      sort: _.orderBy,
+      sort: orderBy,
       strategy: sort.strategies.byProperty,
     }))(rows);
 

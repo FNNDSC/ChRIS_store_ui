@@ -1,4 +1,4 @@
-import * as _ from 'lodash-es';
+import isEmpty from 'lodash/isEmpty';
 
 const effects = (store) => {
   store
@@ -10,7 +10,7 @@ const effects = (store) => {
     .on('authToken')
     .subscribe((authToken) => {
       window.sessionStorage.setItem('AUTH_TOKEN', authToken);
-      store.set('isLoggedIn')(!_.isEmpty(authToken));
+      store.set('isLoggedIn')(!isEmpty(authToken));
     });
   return store;
 };

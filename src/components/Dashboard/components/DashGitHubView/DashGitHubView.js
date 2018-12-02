@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import * as _ from 'lodash-es';
+import isEmpty from 'lodash/isEmpty';
 import {
   ListView,
   Col,
@@ -32,7 +32,7 @@ class DashGitHubView extends Component {
 
   render() {
     const { plugins } = this.props;
-    const showEmptyState = _.isEmpty(plugins);
+    const showEmptyState = isEmpty(plugins);
 
     return (
       <Col sm={12}>

@@ -18,13 +18,7 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": Array [
-        <Navbar
-          location={
-                    Object {
-                              "search": "",
-                            }
-          }
-/>,
+        <withStore(Navbar) />,
         <Switch>
           <Route
                     component={[Function]}
@@ -49,6 +43,10 @@ ShallowWrapper {
           />
           <Route
                     component={[Function]}
+                    path="/dashboard"
+          />
+          <Route
+                    component={[Function]}
           />
 </Switch>,
         <Footer />,
@@ -59,12 +57,8 @@ ShallowWrapper {
       Object {
         "instance": null,
         "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "location": Object {
-            "search": "",
-          },
-        },
+        "nodeType": "function",
+        "props": Object {},
         "ref": null,
         "rendered": null,
         "type": [Function],
@@ -95,6 +89,10 @@ ShallowWrapper {
             <Route
               component={[Function]}
               path="/create"
+/>,
+            <Route
+              component={[Function]}
+              path="/dashboard"
 />,
             <Route
               component={[Function]}
@@ -170,6 +168,18 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "component": [Function],
+              "path": "/dashboard",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "component": [Function],
             },
             "ref": null,
             "rendered": null,
@@ -197,13 +207,7 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "children": Array [
-          <Navbar
-            location={
-                        Object {
-                                    "search": "",
-                                  }
-            }
-/>,
+          <withStore(Navbar) />,
           <Switch>
             <Route
                         component={[Function]}
@@ -228,6 +232,10 @@ ShallowWrapper {
             />
             <Route
                         component={[Function]}
+                        path="/dashboard"
+            />
+            <Route
+                        component={[Function]}
             />
 </Switch>,
           <Footer />,
@@ -238,12 +246,8 @@ ShallowWrapper {
         Object {
           "instance": null,
           "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "location": Object {
-              "search": "",
-            },
-          },
+          "nodeType": "function",
+          "props": Object {},
           "ref": null,
           "rendered": null,
           "type": [Function],
@@ -274,6 +278,10 @@ ShallowWrapper {
               <Route
                 component={[Function]}
                 path="/create"
+/>,
+              <Route
+                component={[Function]}
+                path="/dashboard"
 />,
               <Route
                 component={[Function]}
@@ -338,6 +346,18 @@ ShallowWrapper {
               "props": Object {
                 "component": [Function],
                 "path": "/create",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "component": [Function],
+                "path": "/dashboard",
               },
               "ref": null,
               "rendered": null,

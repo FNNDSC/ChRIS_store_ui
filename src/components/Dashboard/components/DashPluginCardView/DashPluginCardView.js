@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import * as _ from 'lodash-es';
+import isEmpty from 'lodash/isEmpty';
 import {
   Col,
   CardTitle,
@@ -69,7 +69,7 @@ class DashPluginCardView extends Component {
   render() {
     let pluginCardBody;
     const { plugins } = this.props;
-    const showEmptyState = _.isEmpty(plugins);
+    const showEmptyState = isEmpty(plugins);
     const addNewPlugin = (
       <Col xs={12} sm={6} md={4} key="addNewPlugin">
         <Card>

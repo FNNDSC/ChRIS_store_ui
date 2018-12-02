@@ -3,8 +3,6 @@ import { shallow } from 'enzyme';
 import { ControlLabel } from 'patternfly-react';
 import CreatePlugin from './CreatePlugin';
 
-// import localStorage mock
-import localStorage from '../__mocks__/localStorage';
 import validPluginRepresentation from './samplePluginRepresentation';
 
 const invalidPluginRepresentation = { ...validPluginRepresentation, title: undefined };
@@ -512,9 +510,7 @@ describe('CreatePlugin', () => {
   };
 
   it('should call handleError if all fields are filled but invalid JSON is received', async () => {
-    // setup localStorage mock
-    window.localStorage = localStorage;
-    window.localStorage.setItem('AUTH_TOKEN', 'testToken');
+    window.sessionStorage.setItem('AUTH_TOKEN', 'testToken');
 
     // a spy for the handleError method
     const { spy, mockedWrapper } = createMockedWrapper('handleError');
