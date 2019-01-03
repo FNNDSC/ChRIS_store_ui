@@ -2,9 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import SignIn from './SignIn';
 
-// import localStorage mock
-import localStorage from '../__mocks__/localStorage';
-
 // define mock for @fnndsc/chrisstoreapi module
 jest.mock('@fnndsc/chrisstoreapi', () => require.requireActual('../__mocks__/chrisstoreapi').default);
 
@@ -181,9 +178,6 @@ describe('SignIn', () => {
   });
 
   it('should update toDashboard state if username and password were correct', () => {
-    // setup localStorage mock
-    window.localStorage = localStorage;
-
     // define credentials
     wrapper.setState({
       username: 'cube',
@@ -200,9 +194,6 @@ describe('SignIn', () => {
   });
 
   it('should set AUTH_TOKEN localStorage item if credentials were correct', () => {
-    // setup localStorage mock
-    window.localStorage = localStorage;
-
     // define credentials
     wrapper.setState({
       username: 'cube',
@@ -217,9 +208,6 @@ describe('SignIn', () => {
   });
 
   it('should render error Alert if credentials were not correct', () => {
-    // setup localStorage mock
-    window.localStorage = localStorage;
-
     const containerSelector = 'div.signin-error-container';
     const alertSelector = 'Alert[type="error"]';
     expect(wrapper.find(containerSelector)).toHaveLength(0);
@@ -233,9 +221,6 @@ describe('SignIn', () => {
   });
 
   it('should redirect if credentials were correct', () => {
-    // setup localStorage mock
-    window.localStorage = localStorage;
-
     // define credentials
     wrapper.setState({
       username: 'cube',
@@ -251,9 +236,6 @@ describe('SignIn', () => {
   });
 
   it('should not redirect if credentials were incorrect', () => {
-    // setup localStorage mock
-    window.localStorage = localStorage;
-
     expect(wrapper.find('Redirect')).toHaveLength(0);
     return wrapper.instance().handleSubmit(event)
       .then(() => {
