@@ -10,7 +10,7 @@ import './SignIn.css';
 import chrisLogo from '../../assets/img/chris_logo-white.png';
 import ChrisStore from '../../store/ChrisStore';
 
-class SignIn extends Component {
+export class SignIn extends Component {
   constructor() {
     super();
 
@@ -167,5 +167,5 @@ class SignIn extends Component {
 export default ChrisStore.withStore(SignIn);
 
 SignIn.propTypes = {
-  store: PropTypes.objectOf(PropTypes.object).isRequired,
+  store: PropTypes.objectOf(PropTypes.func).isRequired,
 };

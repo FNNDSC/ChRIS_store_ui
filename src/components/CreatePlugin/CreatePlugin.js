@@ -318,7 +318,9 @@ class CreatePlugin extends Component {
               <div className="createplugin-col">
                 <Card className="createplugin-info">
                   <CardBody>
-                    <HintBlock body="Plugins should already exist and have their own public source repo
+                    <HintBlock
+                      title=""
+                      body="Plugins should already exist and have their own public source repo
                       and existing docker image. Adding a plugin to the store simply adds
                       the location of your plugin, as well as some metadata, to the store,
                       allowing other users easy access to it."

@@ -1,11 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Navbar from './Navbar';
+import { Navbar } from './Navbar';
 
 describe('Navbar', () => {
   let wrapper;
+  const initialStore = { get() { return { isLoggedIn: false }; } };
   beforeEach(() => {
-    wrapper = shallow(<Navbar />);
+    wrapper = shallow(<Navbar store={initialStore} />);
   });
 
   it('should render correctly', () => {
@@ -20,8 +21,8 @@ describe('Navbar', () => {
     expect(wrapper.find('div.navbar-row')).toHaveLength(1);
   });
 
-  it('should render 5 NavLink components', () => {
-    expect(wrapper.find('NavLink')).toHaveLength(5);
+  it('should render 7 NavLink components', () => {
+    expect(wrapper.find('NavLink')).toHaveLength(7);
   });
 
   it('navbar brand should have href="/" attribute', () => {
@@ -131,11 +132,11 @@ describe('Navbar', () => {
       .toHaveLength(1);
   });
 
-  it('should render 3 navbar-btn-container divs inside navbar-dropdown-container', () => {
+  it('should render 4 navbar-btn-container divs inside navbar-dropdown-container', () => {
     expect(wrapper
       .find('div.navbar-dropdown-container')
       .find('div.navbar-btn-container'))
-      .toHaveLength(3);
+      .toHaveLength(4);
   });
 
   it("should render a NavLink or Link component in each navbar-btn-container's", () => {
