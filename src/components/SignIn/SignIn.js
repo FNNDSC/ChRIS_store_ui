@@ -167,5 +167,5 @@ export class SignIn extends Component {
 export default ChrisStore.withStore(SignIn);
 
 SignIn.propTypes = {
-  store: PropTypes.objectOf(PropTypes.func).isRequired,
+  store: PropTypes.objectOf(PropTypes.object).isRequired,
 };

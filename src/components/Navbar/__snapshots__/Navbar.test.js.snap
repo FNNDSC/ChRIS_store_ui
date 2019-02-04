@@ -13,6 +13,9 @@ ShallowWrapper {
     store={
         Object {
             "get": [Function],
+            "state": Object {
+              "isLoggedIn": false,
+            },
           }
     }
 />,

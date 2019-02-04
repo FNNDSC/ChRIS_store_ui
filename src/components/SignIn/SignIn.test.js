@@ -7,7 +7,7 @@ jest.mock('@fnndsc/chrisstoreapi', () => require.requireActual('../__mocks__/chr
 
 describe('SignIn', () => {
   let wrapper;
-  const initialStore = { get() { return { isLoggedIn: false }; } };
+  const initialStore = { state: { isLoggedIn: false } };
   beforeEach(() => {
     wrapper = shallow(<SignIn store={initialStore} />);
   });

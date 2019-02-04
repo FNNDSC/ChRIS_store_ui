@@ -4,7 +4,7 @@ import { Navbar } from './Navbar';
 
 describe('Navbar', () => {
   let wrapper;
-  const initialStore = { get() { return { isLoggedIn: false }; } };
+  const initialStore = { state: { isLoggedIn: false }, get() { return { isLoggedIn: false }; } };
   beforeEach(() => {
     wrapper = shallow(<Navbar store={initialStore} />);
   });

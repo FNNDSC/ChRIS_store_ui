@@ -159,7 +159,7 @@ export class Navbar extends Component {
 }
 
 Navbar.propTypes = {
-  store: PropTypes.objectOf(PropTypes.func).isRequired,
+  store: PropTypes.objectOf(PropTypes.object).isRequired,
   location: PropTypes.shape({
     search: PropTypes.string,
   }),
