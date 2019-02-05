@@ -8,7 +8,7 @@ import './Navbar.css';
 import LogoImg from '../../assets/img/chris-plugin-store_logo.png';
 import ChrisStore from '../../store/ChrisStore';
 
-class Navbar extends Component {
+export class Navbar extends Component {
   constructor() {
     super();
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import SignIn from '../SignIn/SignIn';
+import ConnectedSignIn from '../SignIn/SignIn';
 import Router from '../Router/Router';
 import ChrisStore from '../../store/ChrisStore';
 import './App.css';
@@ -14,7 +14,7 @@ const App = () => (
     <div className="App">
       <BrowserRouter>
         <Switch>
-          <Route path="/signin" component={SignIn} />
+          <Route path="/signin" component={ConnectedSignIn} />
           <Route path="/" component={Router} />
         </Switch>
       </BrowserRouter>

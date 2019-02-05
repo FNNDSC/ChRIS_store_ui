@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Navbar from '../Navbar/Navbar';
+import ConnectedNavbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
 
 // pages
@@ -14,7 +14,7 @@ import Dashboard from '../Dashboard/Dashboard';
 
 const Router = () => (
   <div>
-    <Navbar />
+    <ConnectedNavbar />
     <Switch>
       <Route exact path="/" component={Welcome} />
       <Route path="/plugins" component={Plugins} />

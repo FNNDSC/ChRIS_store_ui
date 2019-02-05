@@ -17,7 +17,7 @@ describe('Router', () => {
   });
 
   it('should render a Navbar component', () => {
-    expect(wrapper.find('Navbar')).toHaveLength(1);
+    expect(wrapper.find('withStore(Navbar)')).toHaveLength(1);
   });
 
   it('should render a Switch coponent', () => {

@@ -10,7 +10,7 @@ import './SignIn.css';
 import chrisLogo from '../../assets/img/chris_logo-white.png';
 import ChrisStore from '../../store/ChrisStore';
 
-class SignIn extends Component {
+export class SignIn extends Component {
   constructor() {
     super();
 
