@@ -181,15 +181,12 @@ class CreatePlugin extends Component {
       pluginRepresentation,
     } = this.state;
 
-    let errormsg = ' ';
-
     if (!(
       pluginName.trim() && pluginImage.trim() &&
       pluginRepo.trim() && pluginRepresentation &&
       Object.keys(pluginRepresentation).length > 0
     )) {
-      errormsg = 'All fields are required.';
-      return this.handleError(errormsg);
+      return this.handleError('All fields are required.');
     }
 
     const fileData = JSON.stringify(pluginRepresentation);
