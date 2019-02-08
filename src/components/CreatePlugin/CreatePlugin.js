@@ -181,12 +181,36 @@ class CreatePlugin extends Component {
       pluginRepresentation,
     } = this.state;
 
+    let errorMsg = '';
+    let errorCount = 4;
+
     if (!(
       pluginName.trim() && pluginImage.trim() &&
       pluginRepo.trim() && pluginRepresentation &&
       Object.keys(pluginRepresentation).length > 0
     )) {
-      return this.handleError('All fields are required.');
+      if (!pluginName.trim()) {
+        errorMsg += ' Please enter the plugin name.';
+        errorCount -= 1;
+      }
+      if (!pluginImage.trim()) {
+        errorMsg += ' Please enter the Docker Image.';
+        errorCount -= 1;
+      }
+      if (!pluginRepo.trim()) {
+        errorMsg += ' Please enter the Piblic Repo.';
+        errorCount -= 1;
+      }
+      if (!Object.keys(pluginRepresentation).length > 0) {
+        errorMsg += ' Please upload the plugin Representation.';
+        errorCount -= 1;
+      }
+
+
+      if (errorCount === 0) {
+        return this.handleError('All fields are required.');
+      }
+      return this.handleError(errorMsg);
     }
 
     const fileData = JSON.stringify(pluginRepresentation);
