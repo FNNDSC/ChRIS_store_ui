@@ -181,7 +181,9 @@ class CreatePlugin extends Component {
       pluginRepresentation,
     } = this.state;
 
+    // Build error message
     let errorMsg = '';
+    // Track the number of missing fields in the submission form
     let errorCount = 4;
 
     if (!(
@@ -189,6 +191,7 @@ class CreatePlugin extends Component {
       pluginRepo.trim() && pluginRepresentation &&
       Object.keys(pluginRepresentation).length > 0
     )) {
+      // Checks for individual field completion
       if (!pluginName.trim()) {
         errorMsg += ' Please enter the plugin name.';
         errorCount -= 1;
@@ -206,7 +209,7 @@ class CreatePlugin extends Component {
         errorCount -= 1;
       }
 
-
+      // If all the fields are empty
       if (errorCount === 0) {
         return this.handleError('All fields are required.');
       }
