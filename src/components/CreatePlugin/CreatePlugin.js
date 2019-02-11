@@ -181,10 +181,9 @@ class CreatePlugin extends Component {
       pluginRepresentation,
     } = this.state;
 
-    // Build error message
-    let errorMsg = '';
-    // Track the number of missing fields in the submission form
-    let errorCount = 4;
+    // Array to store the errors
+    const errors = [];
+    let missingRepresentationString = '';
 
     if (!(
       pluginName.trim() && pluginImage.trim() &&
@@ -193,27 +192,38 @@ class CreatePlugin extends Component {
     )) {
       // Checks for individual field completion
       if (!pluginName.trim()) {
-        errorMsg += ' Please enter the plugin name.';
-        errorCount -= 1;
+        errors.push('Plugin Name');
       }
       if (!pluginImage.trim()) {
-        errorMsg += ' Please enter the Docker Image.';
-        errorCount -= 1;
+        errors.push('Docker Image');
       }
       if (!pluginRepo.trim()) {
-        errorMsg += ' Please enter the Piblic Repo.';
-        errorCount -= 1;
+        errors.push('Public Repo');
       }
       if (!Object.keys(pluginRepresentation).length > 0) {
-        errorMsg += ' Please upload the plugin Representation.';
-        errorCount -= 1;
+        missingRepresentationString = 'upload the plugin representation and ';
       }
 
-      // If all the fields are empty
-      if (errorCount === 0) {
+      // If all the fields are empty in submission
+      if (errors.length === 3 && missingRepresentationString !== '') {
         return this.handleError('All fields are required.');
+      // If one fields is empty
+      } else if (errors.length === 1) {
+        return this.handleError(`Please ${missingRepresentationString}enter
+          the ${errors[0]}`);
+      // If two fields are empty
+      } else if (errors.length === 2) {
+        return this.handleError(`Please ${missingRepresentationString}enter
+          the ${errors[0]} and ${errors[1]}`);
+      // If more than Plugin Representation or two fields are empty or
       }
-      return this.handleError(errorMsg);
+      // If only the Plugin Representation is missing
+      if (errors.length === 0) {
+        return this.handleError('Please upload the plugin representation');
+      }
+      const lastError = errors.pop();
+      return this.handleError(`Please ${missingRepresentationString}enter
+          the ${errors.join(', ')}, and ${lastError}`);
     }
 
     const fileData = JSON.stringify(pluginRepresentation);
