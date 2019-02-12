@@ -181,12 +181,49 @@ class CreatePlugin extends Component {
       pluginRepresentation,
     } = this.state;
 
+    // Array to store the errors
+    const errors = [];
+    let missingRepresentationString = '';
+
     if (!(
       pluginName.trim() && pluginImage.trim() &&
       pluginRepo.trim() && pluginRepresentation &&
       Object.keys(pluginRepresentation).length > 0
     )) {
-      return this.handleError('All fields are required.');
+      // Checks for individual field completion
+      if (!pluginName.trim()) {
+        errors.push('Plugin Name');
+      }
+      if (!pluginImage.trim()) {
+        errors.push('Docker Image');
+      }
+      if (!pluginRepo.trim()) {
+        errors.push('Public Repo');
+      }
+      if (!Object.keys(pluginRepresentation).length > 0) {
+        missingRepresentationString = 'upload the plugin representation and ';
+      }
+
+      // If all the fields are empty in submission
+      if (errors.length === 3 && missingRepresentationString !== '') {
+        return this.handleError('All fields are required.');
+      // If one fields is empty
+      } else if (errors.length === 1) {
+        return this.handleError(`Please ${missingRepresentationString}enter
+          the ${errors[0]}`);
+      // If two fields are empty
+      } else if (errors.length === 2) {
+        return this.handleError(`Please ${missingRepresentationString}enter
+          the ${errors[0]} and ${errors[1]}`);
+      // If more than Plugin Representation or two fields are empty or
+      }
+      // If only the Plugin Representation is missing
+      if (errors.length === 0) {
+        return this.handleError('Please upload the plugin representation');
+      }
+      const lastError = errors.pop();
+      return this.handleError(`Please ${missingRepresentationString}enter
+          the ${errors.join(', ')}, and ${lastError}`);
     }
 
     const fileData = JSON.stringify(pluginRepresentation);
