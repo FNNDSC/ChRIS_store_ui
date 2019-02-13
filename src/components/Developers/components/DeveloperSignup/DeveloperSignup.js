@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import {
   Form,
   FormGroup,
@@ -6,12 +8,12 @@ import {
   FormControl,
   HelpBlock,
   Button,
-  Alert,
   Spinner,
 } from 'patternfly-react';
 import StoreClient from '@fnndsc/chrisstoreapi';
 import { validate } from 'email-validator';
 import './DeveloperSignup.css';
+import ChrisStore from '../../../../store/ChrisStore';
 
 /* inspired by http://bit.ly/2KycT4G */
 const isTouchDevice = () => {
@@ -28,12 +30,11 @@ const isTouchDevice = () => {
   return false;
 };
 
-class DeveloperSignup extends Component {
+export class DeveloperSignup extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-
     this.state = {
       loading: false,
       error: {
@@ -51,6 +52,7 @@ class DeveloperSignup extends Component {
     const {
       username, email, password, passwordConfirm,
     } = this.state;
+    const { store } = this.props;
     event.preventDefault();
 
     if (!username) {
@@ -104,25 +106,26 @@ class DeveloperSignup extends Component {
         message: '',
         controls: '',
       },
-    });
+    }, () => store.set('userName')(username));
 
-    return this.handleStoreLogin().then(() => this.setState({ loading: false }));
+    return this.handleStoreLogin();
   }
 
   handleStoreLogin() {
     const { username, email, password } = this.state;
+    const { store } = this.props;
     const storeURL = process.env.REACT_APP_STORE_URL;
     const usersURL = `${storeURL}users/`;
     const authURL = `${storeURL}auth-token/`;
     let authToken;
-    let userData;
 
     return new Promise(async (resolve, reject) => {
       try {
-        userData = await StoreClient.createUser(usersURL, username, password, email);
+        await StoreClient.createUser(usersURL, username, password, email);
       } catch (e) {
         /* TODO: JCC Enhance error handling */
         this.setState({
+          loading: false,
           error: {
             message: 'This field must be unique',
             controls: ['username'],
@@ -135,19 +138,26 @@ class DeveloperSignup extends Component {
       } catch (e) {
         return reject(e);
       }
-      this.setState({
-        userData,
-        authToken,
+      return this.setState({
+        toDashboard: true,
+      }, () => {
+        store.set('authToken')(authToken);
+        return resolve(authToken);
       });
-      return resolve(authToken);
     });
   }
 
   render() {
     const {
-      error, loading, userData, authToken,
+      error,
+      loading,
+      toDashboard,
     } = this.state;
-    const disableControls = loading || userData;
+    const { store } = this.props;
+    if (toDashboard) {
+      return <Redirect to="/dashboard" />;
+    }
+    const disableControls = loading || store.get('userName') == null;
     return (
       <Form onSubmit={this.handleSubmit} noValidate>
         <p>{loading ? 'Creating' : 'Create'} a ChRIS Developer account:</p>
@@ -225,13 +235,18 @@ class DeveloperSignup extends Component {
           </HelpBlock>
         </FormGroup>
         <Spinner loading={loading} size="md" inline>
-          { userData && authToken ? <Alert type="success"><span>Account created successfully. <a href="/signin">Sign in here</a></span></Alert> :
-          <Button bsStyle="primary" bsSize="large" type="submit" disabled={disableControls}>
+          {
+            <Button bsStyle="primary" bsSize="large" type="submit" disabled={disableControls}>
             Create Account
-          </Button> }
+            </Button>
+          }
         </Spinner>{loading && <span className="developer-signup-creating">  Creating Account</span>}
       </Form>);
   }
 }
 
-export default DeveloperSignup;
+export default ChrisStore.withStore(DeveloperSignup);
+
+DeveloperSignup.propTypes = {
+  store: PropTypes.objectOf(PropTypes.object).isRequired,
+};

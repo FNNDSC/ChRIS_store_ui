@@ -11,6 +11,9 @@ const effects = (store) => {
     .subscribe((authToken) => {
       window.sessionStorage.setItem('AUTH_TOKEN', authToken);
       store.set('isLoggedIn')(!isEmpty(authToken));
+      if (isEmpty(authToken)) {
+        store.set('userName')('');
+      }
     });
   return store;
 };

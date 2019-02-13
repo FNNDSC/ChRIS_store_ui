@@ -18,7 +18,7 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": Array [
-        <DeveloperCTA />,
+        <withStore(Component) />,
         <Instructions />,
       ],
     },
@@ -52,7 +52,7 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "children": Array [
-          <DeveloperCTA />,
+          <withStore(Component) />,
           <Instructions />,
         ],
       },
