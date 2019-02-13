@@ -1,12 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import DeveloperCTA from './DeveloperCTA';
-import DeveloperSignup from '../DeveloperSignup/DeveloperSignup';
+import { DeveloperCTA } from './DeveloperCTA';
+import ConnectedDeveloperSignup from '../DeveloperSignup/DeveloperSignup';
 
 describe('DeveloperCTA', () => {
   let wrapper;
+  const initialStore = { state: { isLoggedIn: false }, get() { return false; } };
   beforeEach(() => {
-    wrapper = shallow(<DeveloperCTA />);
+    wrapper = shallow(<DeveloperCTA store={initialStore} />);
   });
 
   it('should render correctly', () => {
@@ -26,6 +27,6 @@ describe('DeveloperCTA', () => {
   });
 
   it('should render the DeveloperSignup component', () => {
-    expect(wrapper.containsMatchingElement(<DeveloperSignup />)).toEqual(true);
+    expect(wrapper.containsMatchingElement(<ConnectedDeveloperSignup />)).toEqual(true);
   });
 });

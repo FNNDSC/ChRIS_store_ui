@@ -1,11 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import DeveloperSignup from './DeveloperSignup';
+import { DeveloperSignup } from './DeveloperSignup';
 
 describe('DeveloperSignup', () => {
   let wrapper;
+  const initialStore = { state: { isLoggedIn: false }, get() { return { isLoggedIn: false }; } };
   beforeEach(() => {
-    wrapper = shallow(<DeveloperSignup />);
+    wrapper = shallow(<DeveloperSignup store={initialStore} />);
   });
 
   it('should render correctly', () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Developers from './Developers';
-import DeveloperCTA from './components/DeveloperCTA/DeveloperCTA';
+import ConnectedDeveloperCTA from './components/DeveloperCTA/DeveloperCTA';
 import Instructions from './components/Instructions/Instructions';
 
 describe('Developers', () => {
@@ -15,7 +15,7 @@ describe('Developers', () => {
   });
 
   it('should render the DeveloperCTA component', () => {
-    expect(wrapper.containsMatchingElement(<DeveloperCTA />)).toEqual(true);
+    expect(wrapper.containsMatchingElement(<ConnectedDeveloperCTA />)).toEqual(true);
   });
 
   it('should render the Instructions component', () => {

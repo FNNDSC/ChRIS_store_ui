@@ -85,11 +85,13 @@ class Dashboard extends Component {
 
   render() {
     const { pluginList, loading } = this.state;
+    const { store } = this.props;
+    const userName = store.get('userName') || '';
     return (
       <React.Fragment>
         <div className="plugins-stats">
           <div className="row plugins-stats-row">
-            <div className="title-bar">Dashboard</div>
+            <div className="title-bar">{`Dashboard for ${userName}`}</div>
             <div className="dropdown btn-group">
               <Button bsStyle="primary" bsSize="large" href="/create">
                 Add Plugin

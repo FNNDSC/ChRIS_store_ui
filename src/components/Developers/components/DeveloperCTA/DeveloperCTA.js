@@ -1,9 +1,11 @@
 import React from 'react';
 import { Card, CardBody } from 'patternfly-react';
+import PropTypes from 'prop-types';
 import './DeveloperCTA.css';
-import DeveloperSignup from '../DeveloperSignup/DeveloperSignup';
+import ConnectedDeveloperSignup from '../DeveloperSignup/DeveloperSignup';
+import ChrisStore from '../../../../store/ChrisStore';
 
-const DeveloperCTA = () => (
+export const DeveloperCTA = ({ store }) => (
   <div className="developer-cta">
     <div className="row developer-cta-container">
       <div className="developer-cta-overview">
@@ -28,15 +30,24 @@ const DeveloperCTA = () => (
           </p>
         </div>
       </div>
-      <div className="developer-cta-form">
-        <Card>
-          <CardBody>
-            <DeveloperSignup />
-          </CardBody>
-        </Card>
-      </div>
+      {
+        store.get('isLoggedIn') ?
+          null
+          :
+          <div className="developer-cta-form">
+            <Card>
+              <CardBody>
+                <ConnectedDeveloperSignup />
+              </CardBody>
+            </Card>
+          </div>
+      }
     </div>
   </div>
 );
 
-export default DeveloperCTA;
+export default ChrisStore.withStore(DeveloperCTA);
+
+DeveloperCTA.propTypes = {
+  store: PropTypes.objectOf(PropTypes.object).isRequired,
+};

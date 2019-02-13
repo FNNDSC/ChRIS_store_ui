@@ -1,10 +1,10 @@
 import React from 'react';
-import DeveloperCTA from './components/DeveloperCTA/DeveloperCTA';
+import ConnectedDeveloperCTA from './components/DeveloperCTA/DeveloperCTA';
 import Instructions from './components/Instructions/Instructions';
 
 const Developers = () => (
   <div>
-    <DeveloperCTA />
+    <ConnectedDeveloperCTA />
     <Instructions />
   </div>
 );

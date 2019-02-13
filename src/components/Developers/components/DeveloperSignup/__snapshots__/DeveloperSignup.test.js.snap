@@ -4,7 +4,16 @@ exports[`DeveloperSignup should render correctly 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <DeveloperSignup />,
+  Symbol(enzyme.__unrendered__): <DeveloperSignup
+    store={
+        Object {
+            "get": [Function],
+            "state": Object {
+              "isLoggedIn": false,
+            },
+          }
+    }
+/>,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -39,7 +48,7 @@ ShallowWrapper {
                     autoFocus={true}
                     bsClass="form-control"
                     componentClass="input"
-                    disabled={undefined}
+                    disabled={false}
                     name="username"
                     onChange={[Function]}
                     type="text"
@@ -65,7 +74,7 @@ ShallowWrapper {
                     autoComplete="off"
                     bsClass="form-control"
                     componentClass="input"
-                    disabled={undefined}
+                    disabled={false}
                     name="email"
                     onChange={[Function]}
                     type="email"
@@ -91,7 +100,7 @@ ShallowWrapper {
                     autoComplete="new-password"
                     bsClass="form-control"
                     componentClass="input"
-                    disabled={undefined}
+                    disabled={false}
                     name="password"
                     onChange={[Function]}
                     type="password"
@@ -117,7 +126,7 @@ ShallowWrapper {
                     autoComplete="new-password"
                     bsClass="form-control"
                     componentClass="input"
-                    disabled={undefined}
+                    disabled={false}
                     name="passwordConfirm"
                     onChange={[Function]}
                     type="password"
@@ -192,7 +201,7 @@ ShallowWrapper {
               autoFocus={true}
               bsClass="form-control"
               componentClass="input"
-              disabled={undefined}
+              disabled={false}
               name="username"
               onChange={[Function]}
               type="text"
@@ -230,7 +239,7 @@ ShallowWrapper {
               "autoFocus": true,
               "bsClass": "form-control",
               "componentClass": "input",
-              "disabled": undefined,
+              "disabled": false,
               "name": "username",
               "onChange": [Function],
               "type": "text",
@@ -271,7 +280,7 @@ ShallowWrapper {
               autoComplete="off"
               bsClass="form-control"
               componentClass="input"
-              disabled={undefined}
+              disabled={false}
               name="email"
               onChange={[Function]}
               type="email"
@@ -308,7 +317,7 @@ ShallowWrapper {
               "autoComplete": "off",
               "bsClass": "form-control",
               "componentClass": "input",
-              "disabled": undefined,
+              "disabled": false,
               "name": "email",
               "onChange": [Function],
               "type": "email",
@@ -349,7 +358,7 @@ ShallowWrapper {
               autoComplete="new-password"
               bsClass="form-control"
               componentClass="input"
-              disabled={undefined}
+              disabled={false}
               name="password"
               onChange={[Function]}
               type="password"
@@ -386,7 +395,7 @@ ShallowWrapper {
               "autoComplete": "new-password",
               "bsClass": "form-control",
               "componentClass": "input",
-              "disabled": undefined,
+              "disabled": false,
               "name": "password",
               "onChange": [Function],
               "type": "password",
@@ -427,7 +436,7 @@ ShallowWrapper {
               autoComplete="new-password"
               bsClass="form-control"
               componentClass="input"
-              disabled={undefined}
+              disabled={false}
               name="passwordConfirm"
               onChange={[Function]}
               type="password"
@@ -464,7 +473,7 @@ ShallowWrapper {
               "autoComplete": "new-password",
               "bsClass": "form-control",
               "componentClass": "input",
-              "disabled": undefined,
+              "disabled": false,
               "name": "passwordConfirm",
               "onChange": [Function],
               "type": "password",
@@ -563,7 +572,7 @@ ShallowWrapper {
                         autoFocus={true}
                         bsClass="form-control"
                         componentClass="input"
-                        disabled={undefined}
+                        disabled={false}
                         name="username"
                         onChange={[Function]}
                         type="text"
@@ -589,7 +598,7 @@ ShallowWrapper {
                         autoComplete="off"
                         bsClass="form-control"
                         componentClass="input"
-                        disabled={undefined}
+                        disabled={false}
                         name="email"
                         onChange={[Function]}
                         type="email"
@@ -615,7 +624,7 @@ ShallowWrapper {
                         autoComplete="new-password"
                         bsClass="form-control"
                         componentClass="input"
-                        disabled={undefined}
+                        disabled={false}
                         name="password"
                         onChange={[Function]}
                         type="password"
@@ -641,7 +650,7 @@ ShallowWrapper {
                         autoComplete="new-password"
                         bsClass="form-control"
                         componentClass="input"
-                        disabled={undefined}
+                        disabled={false}
                         name="passwordConfirm"
                         onChange={[Function]}
                         type="password"
@@ -716,7 +725,7 @@ ShallowWrapper {
                 autoFocus={true}
                 bsClass="form-control"
                 componentClass="input"
-                disabled={undefined}
+                disabled={false}
                 name="username"
                 onChange={[Function]}
                 type="text"
@@ -754,7 +763,7 @@ ShallowWrapper {
                 "autoFocus": true,
                 "bsClass": "form-control",
                 "componentClass": "input",
-                "disabled": undefined,
+                "disabled": false,
                 "name": "username",
                 "onChange": [Function],
                 "type": "text",
@@ -795,7 +804,7 @@ ShallowWrapper {
                 autoComplete="off"
                 bsClass="form-control"
                 componentClass="input"
-                disabled={undefined}
+                disabled={false}
                 name="email"
                 onChange={[Function]}
                 type="email"
@@ -832,7 +841,7 @@ ShallowWrapper {
                 "autoComplete": "off",
                 "bsClass": "form-control",
                 "componentClass": "input",
-                "disabled": undefined,
+                "disabled": false,
                 "name": "email",
                 "onChange": [Function],
                 "type": "email",
@@ -873,7 +882,7 @@ ShallowWrapper {
                 autoComplete="new-password"
                 bsClass="form-control"
                 componentClass="input"
-                disabled={undefined}
+                disabled={false}
                 name="password"
                 onChange={[Function]}
                 type="password"
@@ -910,7 +919,7 @@ ShallowWrapper {
                 "autoComplete": "new-password",
                 "bsClass": "form-control",
                 "componentClass": "input",
-                "disabled": undefined,
+                "disabled": false,
                 "name": "password",
                 "onChange": [Function],
                 "type": "password",
@@ -951,7 +960,7 @@ ShallowWrapper {
                 autoComplete="new-password"
                 bsClass="form-control"
                 componentClass="input"
-                disabled={undefined}
+                disabled={false}
                 name="passwordConfirm"
                 onChange={[Function]}
                 type="password"
@@ -988,7 +997,7 @@ ShallowWrapper {
                 "autoComplete": "new-password",
                 "bsClass": "form-control",
                 "componentClass": "input",
-                "disabled": undefined,
+                "disabled": false,
                 "name": "passwordConfirm",
                 "onChange": [Function],
                 "type": "password",
