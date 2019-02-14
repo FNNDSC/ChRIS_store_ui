@@ -15,7 +15,9 @@ import {
   MenuItem,
   FieldLevelHelp,
 } from 'patternfly-react';
+import { confirmAlert } from 'react-confirm-alert';
 
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import './DashPluginCardView.css';
 import BrainImg from '../../../../assets/img/empty-brain-xs.png';
 import PluginPointer from '../../../../assets/img/brainy_welcome-pointer.png';
@@ -65,6 +67,24 @@ class DashPluginCardView extends Component {
     const { onDelete } = this.props;
     onDelete(name);
   }
+  submitPlugin(name) {
+    const { onDelete } = this.props;
+    confirmAlert({
+      title: 'Confirm to submit',
+      message: 'Are you sure to do this.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => onDelete(name),
+        },
+        {
+          label: 'No',
+          onClick: () => alert('Click No'),
+        },
+      ],
+    });
+  }
+
 
   render() {
     let pluginCardBody;
