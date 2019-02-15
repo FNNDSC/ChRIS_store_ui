@@ -65,13 +65,9 @@ class DashPluginCardView extends Component {
   }
   deletePlugin(name) {
     const { onDelete } = this.props;
-    onDelete(name);
-  }
-  submitPlugin(name) {
-    const { onDelete } = this.props;
     confirmAlert({
-      title: 'Confirm to submit',
-      message: 'Are you sure to do this.',
+      title: 'Are you sure you want to Delete?',
+      message: `${name} plugin will be permanently deleted`,
       buttons: [
         {
           label: 'Yes',
@@ -79,7 +75,7 @@ class DashPluginCardView extends Component {
         },
         {
           label: 'No',
-          onClick: () => alert('Click No'),
+          onClick: () => alert(`${name} is not deleted`),
         },
       ],
     });
