@@ -12,12 +12,10 @@ import {
   Card,
   CardHeading,
   DropdownKebab,
-  MenuItem,
   FieldLevelHelp,
+  MessageDialog,
 } from 'patternfly-react';
-import { confirmAlert } from 'react-confirm-alert';
 
-import 'react-confirm-alert/src/react-confirm-alert.css';
 import './DashPluginCardView.css';
 import BrainImg from '../../../../assets/img/empty-brain-xs.png';
 import PluginPointer from '../../../../assets/img/brainy_welcome-pointer.png';
@@ -63,29 +61,28 @@ class DashPluginCardView extends Component {
 
     this.deletePlugin = this.deletePlugin.bind(this);
   }
-  deletePlugin(name) {
+  state = {
+    show: false,
+  };
+  deletePlugin = (name) => {
     const { onDelete } = this.props;
-    confirmAlert({
-      title: 'Are you sure you want to Delete?',
-      message: `${name} plugin will be permanently deleted`,
-      buttons: [
-        {
-          label: 'Yes',
-          onClick: () => onDelete(name),
-        },
-        {
-          label: 'No',
-          onClick: () => alert(`${name} is not deleted`),
-        },
-      ],
-    });
+    onDelete(name);
+    this.setState(() => ({ show: false }));
   }
+  secondaryAction = () => {
+    this.setState(() => ({ show: false }));
+  };
+  showModal = () => {
+    this.setState(() => ({ show: true }));
+  };
 
 
   render() {
     let pluginCardBody;
     const { plugins } = this.props;
     const showEmptyState = isEmpty(plugins);
+    const primaryContent = <p className="lead">Are you sure?</p>;
+    const secondaryContent = <p>Plugin will be permanently deleted</p>;
     const addNewPlugin = (
       <Col xs={12} sm={6} md={4} key="addNewPlugin">
         <Card>
@@ -114,9 +111,23 @@ class DashPluginCardView extends Component {
               <CardHeading>
                 <CardTitle>
                   <DropdownKebab id="myKebab" pullRight className="card-view-kebob">
-                    <MenuItem eventKey={plugin.name} onSelect={this.deletePlugin}>
+                    <Button onClick={this.showModal} bsStyle="primary">
                       Delete
-                    </MenuItem>
+                    </Button>
+                    <MessageDialog
+                      show={this.state.show}
+                      onHide={this.secondaryAction}
+                      primaryAction={() => this.deletePlugin(plugin.name)}
+                      secondaryAction={this.secondaryAction}
+                      primaryActionButtonContent="Delete"
+                      secondaryActionButtonContent="Cancel"
+                      primaryActionButtonBsStyle="danger"
+                      title="Plugin Delete Confirmation"
+                      primaryContent={primaryContent}
+                      secondaryContent={secondaryContent}
+                      accessibleName="deleteConfirmationDialog"
+                      accessibleDescription="deleteConfirmationDialogContent"
+                    />
                   </DropdownKebab>
                   <Link
                     to={`/plugin/${plugin.name}`}
