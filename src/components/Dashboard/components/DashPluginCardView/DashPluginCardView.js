@@ -64,7 +64,7 @@ class DashPluginCardView extends Component {
   state = {
     show: false,
   };
-  deletePlugin = (name) => {
+  deletePlugin(name) {
     const { onDelete } = this.props;
     onDelete(name);
     this.setState(() => ({ show: false }));
@@ -81,8 +81,6 @@ class DashPluginCardView extends Component {
     let pluginCardBody;
     const { plugins } = this.props;
     const showEmptyState = isEmpty(plugins);
-    const primaryContent = <p className="lead">Are you sure?</p>;
-    const secondaryContent = <p>Plugin will be permanently deleted</p>;
     const addNewPlugin = (
       <Col xs={12} sm={6} md={4} key="addNewPlugin">
         <Card>
@@ -105,6 +103,8 @@ class DashPluginCardView extends Component {
       pluginCardBody = plugins.map((plugin) => {
         const creationDate = new RelativeDate(plugin.creation_date);
         const applicationType = new DashApplicationType(plugin.type);
+        const primaryContent = <p className="lead">Are you sure?</p>;
+        const secondaryContent = <p>Plugin <b>{plugin.name}</b> will be permanently deleted</p>;
         return (
           <Col xs={12} sm={6} md={4} key={plugin.name}>
             <Card>
