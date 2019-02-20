@@ -60,7 +60,7 @@ class DashPluginCardView extends Component {
     super(props);
 
     this.state = {
-      show: false,
+      showConfirmation: false,
     };
 
     const methods = [
@@ -73,13 +73,13 @@ class DashPluginCardView extends Component {
   deletePlugin(name) {
     const { onDelete } = this.props;
     onDelete(name);
-    this.setState({ show: false });
+    this.setState({ showConfirmation: false });
   }
   secondaryAction() {
-    this.setState({ show: false });
+    this.setState({ showConfirmation: false });
   }
   showModal() {
-    this.setState({ show: true });
+    this.setState({ showConfirmation: true });
   }
 
 
@@ -121,7 +121,7 @@ class DashPluginCardView extends Component {
                       Delete
                     </Button>
                     <MessageDialog
-                      show={this.state.show}
+                      show={this.state.showConfirmation}
                       onHide={this.secondaryAction}
                       primaryAction={() => this.deletePlugin(plugin.name)}
                       secondaryAction={this.secondaryAction}
