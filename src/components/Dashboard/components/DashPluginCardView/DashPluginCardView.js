@@ -59,22 +59,28 @@ class DashPluginCardView extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      show: false,
+    };
+
+    const methods = [
+      'deletePlugin', 'secondaryAction', 'showModal',
+    ];
+    methods.forEach((method) => { this[method] = this[method].bind(this); });
+
     this.deletePlugin = this.deletePlugin.bind(this);
   }
-  state = {
-    show: false,
-  };
   deletePlugin(name) {
     const { onDelete } = this.props;
     onDelete(name);
-    this.setState(() => ({ show: false }));
+    this.setState({ show: false });
   }
-  secondaryAction = () => {
-    this.setState(() => ({ show: false }));
-  };
-  showModal = () => {
-    this.setState(() => ({ show: true }));
-  };
+  secondaryAction() {
+    this.setState({ show: false });
+  }
+  showModal() {
+    this.setState({ show: true });
+  }
 
 
   render() {
