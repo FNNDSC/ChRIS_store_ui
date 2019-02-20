@@ -12,6 +12,7 @@ import {
   Card,
   CardHeading,
   DropdownKebab,
+  MenuItem,
   FieldLevelHelp,
   MessageDialog,
 } from 'patternfly-react';
@@ -117,9 +118,9 @@ class DashPluginCardView extends Component {
               <CardHeading>
                 <CardTitle>
                   <DropdownKebab id="myKebab" pullRight className="card-view-kebob">
-                    <Button onClick={this.showModal} bsStyle="primary">
+                    <MenuItem eventKey={plugin.name} onSelect={this.showModal}>
                       Delete
-                    </Button>
+                    </MenuItem>
                     <MessageDialog
                       show={this.state.showConfirmation}
                       onHide={this.secondaryAction}
