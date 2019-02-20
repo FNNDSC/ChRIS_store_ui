@@ -6809,11 +6809,6 @@ react-collapse@^4.0.3:
   dependencies:
     prop-types "^15.5.8"
 
-react-confirm-alert@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/react-confirm-alert/-/react-confirm-alert-2.1.0.tgz#ca81c923f2e2ec8418b7751f8d6dc45fde6a62fe"
-  integrity sha512-fOVB10TVarUBHrWofDzO2oCez0QUuwpo/iy+/AqtnYkNXTTufF8kZKQnLfv+xhWTKjOhlCXaXQLn3SwDyO0XZw==
-
 react-dev-utils@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-5.0.1.tgz#1f396e161fe44b595db1b186a40067289bf06613"

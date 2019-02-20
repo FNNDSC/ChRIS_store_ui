@@ -38,7 +38,6 @@
     "react-dom": "16.4.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
-    "react-confirm-alert": "2.1.0",
     "recompose": "^0.30.0",
     "rxjs": "^6.3.3",
     "sortabular": "^1.6.0",
