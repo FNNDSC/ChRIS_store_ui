@@ -72,7 +72,8 @@ class DashPluginCardView extends Component {
   }
   deletePlugin() {
     const { onDelete } = this.props;
-    onDelete(this.state.pluginToDelete);
+    const { pluginToDelete } = this.state;
+    onDelete(pluginToDelete);
     this.setState({ showConfirmation: false });
   }
   secondaryAction() {
@@ -89,10 +90,11 @@ class DashPluginCardView extends Component {
   render() {
     let pluginCardBody;
     const { plugins } = this.props;
+    const { pluginToDelete, showConfirmation } = this.state;
     const showEmptyState = isEmpty(plugins);
     const primaryContent = <p className="lead">Are you sure?</p>;
     const secondaryContent =
-      <p>Plugin <b>{this.state.pluginToDelete}</b> will be permanently deleted</p>;
+      <p>Plugin <b>{pluginToDelete}</b> will be permanently deleted</p>;
     const addNewPlugin = (
       <Col xs={12} sm={6} md={4} key="addNewPlugin">
         <Card>
@@ -173,7 +175,7 @@ class DashPluginCardView extends Component {
           <div className="card-view-row">
             {pluginCardBody}
             <MessageDialog
-              show={this.state.showConfirmation}
+              show={showConfirmation}
               onHide={this.secondaryAction}
               primaryAction={this.deletePlugin}
               secondaryAction={this.secondaryAction}
