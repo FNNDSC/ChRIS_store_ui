@@ -153,11 +153,11 @@ export class DeveloperSignup extends Component {
       loading,
       toDashboard,
     } = this.state;
-    const { store } = this.props;
+
     if (toDashboard) {
       return <Redirect to="/dashboard" />;
     }
-    const disableControls = loading || store.get('userName') == null;
+    const disableControls = loading;
     return (
       <Form onSubmit={this.handleSubmit} noValidate>
         <p>{loading ? 'Creating' : 'Create'} a ChRIS Developer account:</p>
