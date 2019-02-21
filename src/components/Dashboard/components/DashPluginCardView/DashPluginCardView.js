@@ -79,8 +79,10 @@ class DashPluginCardView extends Component {
     this.setState({ showConfirmation: false });
   }
   showModal(name) {
-    this.setState({ showConfirmation: true });
-    this.setState({ pluginToDelete: name });
+    this.setState({
+      showConfirmation: true,
+      pluginToDelete: name,
+    });
   }
 
 
@@ -88,6 +90,9 @@ class DashPluginCardView extends Component {
     let pluginCardBody;
     const { plugins } = this.props;
     const showEmptyState = isEmpty(plugins);
+    const primaryContent = <p className="lead">Are you sure?</p>;
+    const secondaryContent =
+    (<p>Plugin <b>{this.state.pluginToDelete}</b> will be permanently deleted</p>);
     const addNewPlugin = (
       <Col xs={12} sm={6} md={4} key="addNewPlugin">
         <Card>
@@ -110,9 +115,6 @@ class DashPluginCardView extends Component {
       pluginCardBody = plugins.map((plugin) => {
         const creationDate = new RelativeDate(plugin.creation_date);
         const applicationType = new DashApplicationType(plugin.type);
-        const primaryContent = <p className="lead">Are you sure?</p>;
-        const secondaryContent =
-        (<p>Plugin <b>{this.state.pluginToDelete}</b> will be permanently deleted</p>);
         return (
           <Col xs={12} sm={6} md={4} key={plugin.name}>
             <Card>
@@ -122,20 +124,6 @@ class DashPluginCardView extends Component {
                     <MenuItem eventKey={plugin.name} onSelect={this.showModal}>
                       Delete
                     </MenuItem>
-                    <MessageDialog
-                      show={this.state.showConfirmation}
-                      onHide={this.secondaryAction}
-                      primaryAction={this.deletePlugin}
-                      secondaryAction={this.secondaryAction}
-                      primaryActionButtonContent="Delete"
-                      secondaryActionButtonContent="Cancel"
-                      primaryActionButtonBsStyle="danger"
-                      title="Plugin Delete Confirmation"
-                      primaryContent={primaryContent}
-                      secondaryContent={secondaryContent}
-                      accessibleName="deleteConfirmationDialog"
-                      accessibleDescription="deleteConfirmationDialogContent"
-                    />
                   </DropdownKebab>
                   <Link
                     to={`/plugin/${plugin.name}`}
@@ -184,6 +172,20 @@ class DashPluginCardView extends Component {
         <React.Fragment>
           <div className="card-view-row">
             {pluginCardBody}
+            <MessageDialog
+              show={this.state.showConfirmation}
+              onHide={this.secondaryAction}
+              primaryAction={this.deletePlugin}
+              secondaryAction={this.secondaryAction}
+              primaryActionButtonContent="Delete"
+              secondaryActionButtonContent="Cancel"
+              primaryActionButtonBsStyle="danger"
+              title="Plugin Delete Confirmation"
+              primaryContent={primaryContent}
+              secondaryContent={secondaryContent}
+              accessibleName="deleteConfirmationDialog"
+              accessibleDescription="deleteConfirmationDialogContent"
+            />
           </div>
         </React.Fragment>
     );
