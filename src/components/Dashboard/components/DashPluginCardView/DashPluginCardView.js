@@ -92,7 +92,7 @@ class DashPluginCardView extends Component {
     const showEmptyState = isEmpty(plugins);
     const primaryContent = <p className="lead">Are you sure?</p>;
     const secondaryContent =
-    (<p>Plugin <b>{this.state.pluginToDelete}</b> will be permanently deleted</p>);
+      <p>Plugin <b>{this.state.pluginToDelete}</b> will be permanently deleted</p>;
     const addNewPlugin = (
       <Col xs={12} sm={6} md={4} key="addNewPlugin">
         <Card>
