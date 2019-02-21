@@ -62,25 +62,25 @@ class DashPluginCardView extends Component {
 
     this.state = {
       showConfirmation: false,
+      pluginToDelete: '',
     };
 
     const methods = [
       'deletePlugin', 'secondaryAction', 'showModal',
     ];
     methods.forEach((method) => { this[method] = this[method].bind(this); });
-
-    this.deletePlugin = this.deletePlugin.bind(this);
   }
-  deletePlugin(name) {
+  deletePlugin() {
     const { onDelete } = this.props;
-    onDelete(name);
+    onDelete(this.state.pluginToDelete);
     this.setState({ showConfirmation: false });
   }
   secondaryAction() {
     this.setState({ showConfirmation: false });
   }
-  showModal() {
+  showModal(name) {
     this.setState({ showConfirmation: true });
+    this.setState({ pluginToDelete: name });
   }
 
 
@@ -111,7 +111,8 @@ class DashPluginCardView extends Component {
         const creationDate = new RelativeDate(plugin.creation_date);
         const applicationType = new DashApplicationType(plugin.type);
         const primaryContent = <p className="lead">Are you sure?</p>;
-        const secondaryContent = <p>Plugin <b>{plugin.name}</b> will be permanently deleted</p>;
+        const secondaryContent =
+        (<p>Plugin <b>{this.state.pluginToDelete}</b> will be permanently deleted</p>);
         return (
           <Col xs={12} sm={6} md={4} key={plugin.name}>
             <Card>
@@ -124,7 +125,7 @@ class DashPluginCardView extends Component {
                     <MessageDialog
                       show={this.state.showConfirmation}
                       onHide={this.secondaryAction}
-                      primaryAction={() => this.deletePlugin(plugin.name)}
+                      primaryAction={this.deletePlugin}
                       secondaryAction={this.secondaryAction}
                       primaryActionButtonContent="Delete"
                       secondaryActionButtonContent="Cancel"
