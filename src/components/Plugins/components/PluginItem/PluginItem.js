@@ -15,8 +15,8 @@ const Plugin = props => (
       <div>
         <div className="row no-flex">
           <Link
-            href={`/plugin/${props.name}`}
-            to={`/plugin/${props.name}`}
+            href={`/plugin/${props.id}`}
+            to={`/plugin/${props.id}`}
             className="plugin-item-name"
           >
             {props.name}
@@ -42,6 +42,7 @@ const Plugin = props => (
 
 Plugin.propTypes = {
   title: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   creationDate: PropTypes.string.isRequired,

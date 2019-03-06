@@ -133,6 +133,7 @@ describe('Plugins', () => {
 const samplePluginList = [
   {
     title: 'testTitle1',
+    id: 1,
     name: 'testName1',
     authors: 'testAuthor1',
     dock_image: 'dock/image1',
@@ -140,6 +141,7 @@ const samplePluginList = [
   },
   {
     title: 'testTitle2',
+    id: 2,
     name: 'testName2',
     authors: 'testAuthor2',
     dock_image: 'dock/image2',

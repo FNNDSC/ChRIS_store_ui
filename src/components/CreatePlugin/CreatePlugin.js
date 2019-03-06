@@ -48,6 +48,8 @@ const formGroupsData = [
   },
 ];
 
+let newPlugin;
+
 class CreatePlugin extends Component {
   constructor() {
     super();
@@ -233,7 +235,6 @@ class CreatePlugin extends Component {
     const token = window.sessionStorage.getItem('AUTH_TOKEN');
     const client = new StoreClient(storeURL, { token });
 
-    let newPlugin;
     try {
       newPlugin = await client.addPlugin(pluginName, pluginImage, file, pluginRepo);
     } catch ({ message }) {
@@ -339,8 +340,8 @@ class CreatePlugin extends Component {
                     {'Plugin was successfully created! '}
                     <Link
                       className="createplugin-success-message-link"
-                      to={`/plugin/${name}`}
-                      href={`/plugin/${name}`}
+                      to={`/plugin/${newPlugin.items[0].data[0].value}`}
+                      href={`/plugin/${newPlugin.items[0].data[0].value}`}
                     >
                       Click Here
                     </Link>

@@ -125,7 +125,7 @@ describe('Plugin with data', () => {
     wrapper.setProps({
       match: {
         params: {
-          plugin: 'testName',
+          plugin: 'testName1',
         },
       },
     });
@@ -134,7 +134,7 @@ describe('Plugin with data', () => {
       .find('.plugin-name')
       .childAt(0)
       .text())
-      .toEqual('testName');
+      .toEqual('testName1');
   });
 
   it('plugin-name Link should render correct "to" and "href" props', () => {

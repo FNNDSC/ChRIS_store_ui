@@ -101,7 +101,7 @@ class Plugin extends Component {
                 to={pluginURL || '/'}
                 className="plugin-name"
               >
-                {plugin}
+                {data.name}
               </Link>
               {modificationDate.isValid() &&
                 <div className="plugin-modified">
@@ -160,6 +160,7 @@ Plugin.propTypes = {
     pluginURL: PropTypes.string,
     authorURL: PropTypes.string,
     title: PropTypes.string,
+    id: PropTypes.number,
     description: PropTypes.string,
     dock_image: PropTypes.string,
     modification_date: PropTypes.string,
