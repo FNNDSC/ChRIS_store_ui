@@ -31,4 +31,10 @@ export default {
       help: 'look up directory',
     },
   ],
+  items: [{
+    data: [{
+      name: 'id',
+      value: 0,
+    }],
+  }],
 };
