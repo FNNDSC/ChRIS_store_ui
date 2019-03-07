@@ -233,16 +233,17 @@ class CreatePlugin extends Component {
     const token = window.sessionStorage.getItem('AUTH_TOKEN');
     const client = new StoreClient(storeURL, { token });
 
-    let newPlugin;
+    let returnedPlugin;
     try {
-      newPlugin = await client.addPlugin(pluginName, pluginImage, file, pluginRepo);
+      returnedPlugin = await client.addPlugin(pluginName, pluginImage, file, pluginRepo);
     } catch ({ message }) {
       return this.handleError(message);
     }
 
     this.hideError();
     this.setState({ success: true });
-    return newPlugin;
+    this.setState({ newPlugin: returnedPlugin });
+    return returnedPlugin;
   }
 
   render() {
