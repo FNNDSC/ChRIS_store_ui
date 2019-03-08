@@ -62,7 +62,8 @@ class DashPluginCardView extends Component {
 
     this.state = {
       showConfirmation: false,
-      pluginToDelete: '',
+      pluginToDelete: null,
+      pluginIDToDelete: null,
     };
 
     const methods = [
@@ -72,17 +73,18 @@ class DashPluginCardView extends Component {
   }
   deletePlugin() {
     const { onDelete } = this.props;
-    const { pluginToDelete } = this.state;
-    onDelete(pluginToDelete);
+    const { pluginIDToDelete } = this.state;
+    onDelete(pluginIDToDelete);
     this.setState({ showConfirmation: false });
   }
   secondaryAction() {
     this.setState({ showConfirmation: false });
   }
-  showModal(id) {
+  showModal(plugin) {
     this.setState({
       showConfirmation: true,
-      pluginToDelete: id,
+      pluginToDelete: plugin.name,
+      pluginIDToDelete: plugin.id,
     });
   }
 
@@ -94,7 +96,7 @@ class DashPluginCardView extends Component {
     const showEmptyState = isEmpty(plugins);
     const primaryContent = <p className="lead">Are you sure?</p>;
     const secondaryContent =
-      <p>Plugin with ID <b>{pluginToDelete}</b> will be permanently deleted</p>;
+      <p>Plugin <b>{pluginToDelete}</b> will be permanently deleted</p>;
     const addNewPlugin = (
       <Col xs={12} sm={6} md={4} key="addNewPlugin">
         <Card>
@@ -123,7 +125,7 @@ class DashPluginCardView extends Component {
               <CardHeading>
                 <CardTitle>
                   <DropdownKebab id="myKebab" pullRight className="card-view-kebob">
-                    <MenuItem eventKey={plugin.id} onSelect={this.showModal}>
+                    <MenuItem eventKey={plugin} onSelect={this.showModal}>
                       Delete
                     </MenuItem>
                   </DropdownKebab>
