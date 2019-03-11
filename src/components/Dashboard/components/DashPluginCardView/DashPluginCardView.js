@@ -62,7 +62,7 @@ class DashPluginCardView extends Component {
 
     this.state = {
       showConfirmation: false,
-      pluginToDelete: '',
+      pluginToDelete: null,
     };
 
     const methods = [
@@ -73,16 +73,16 @@ class DashPluginCardView extends Component {
   deletePlugin() {
     const { onDelete } = this.props;
     const { pluginToDelete } = this.state;
-    onDelete(pluginToDelete);
+    onDelete(pluginToDelete.id);
     this.setState({ showConfirmation: false });
   }
   secondaryAction() {
     this.setState({ showConfirmation: false });
   }
-  showModal(name) {
+  showModal(plugin) {
     this.setState({
       showConfirmation: true,
-      pluginToDelete: name,
+      pluginToDelete: plugin,
     });
   }
 
@@ -93,8 +93,10 @@ class DashPluginCardView extends Component {
     const { pluginToDelete, showConfirmation } = this.state;
     const showEmptyState = isEmpty(plugins);
     const primaryContent = <p className="lead">Are you sure?</p>;
-    const secondaryContent =
-      <p>Plugin <b>{pluginToDelete}</b> will be permanently deleted</p>;
+    const secondaryContent = (
+      <p>
+        Plugin <b>{pluginToDelete ? pluginToDelete.name : null}</b> will be permanently deleted
+      </p>);
     const addNewPlugin = (
       <Col xs={12} sm={6} md={4} key="addNewPlugin">
         <Card>
@@ -123,13 +125,13 @@ class DashPluginCardView extends Component {
               <CardHeading>
                 <CardTitle>
                   <DropdownKebab id="myKebab" pullRight className="card-view-kebob">
-                    <MenuItem eventKey={plugin.name} onSelect={this.showModal}>
+                    <MenuItem eventKey={plugin} onSelect={this.showModal}>
                       Delete
                     </MenuItem>
                   </DropdownKebab>
                   <Link
-                    to={`/plugin/${plugin.name}`}
-                    href={`/plugin/${plugin.name}`}
+                    to={`/plugin/${plugin.id}`}
+                    href={`/plugin/${plugin.id}`}
                   >{plugin.name}
                   </Link>
                   <div className="card-view-tag-title">

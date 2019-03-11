@@ -97,6 +97,7 @@ class Plugins extends Component {
       pluginListBody = pluginList.map(plugin => (
         <PluginItem
           title={plugin.title}
+          id={plugin.id}
           name={plugin.name}
           author={removeEmail(plugin.authors)}
           creationDate={plugin.creation_date}

@@ -241,7 +241,7 @@ class CreatePlugin extends Component {
     }
 
     this.hideError();
-    this.setState({ success: true });
+    this.setState({ success: true, newPlugin });
     return newPlugin;
   }
 
@@ -249,9 +249,14 @@ class CreatePlugin extends Component {
     const { state } = this;
     const {
       dragOver, fileName, name, image, repo,
-      pluginRepresentation, fileError, formError, success,
+      pluginRepresentation, fileError, formError, success, newPlugin,
     } = state;
 
+    let pluginId;
+    if (newPlugin) {
+      pluginId = newPlugin.items[0].data.filter(dataItem =>
+        dataItem.name === 'id')[0].value;
+    }
     // generate formGroups based on data
     const formGroups = formGroupsData.map((formGroup) => {
       const { id, label, help } = formGroup;
@@ -339,8 +344,8 @@ class CreatePlugin extends Component {
                     {'Plugin was successfully created! '}
                     <Link
                       className="createplugin-success-message-link"
-                      to={`/plugin/${name}`}
-                      href={`/plugin/${name}`}
+                      to={`/plugin/${pluginId}`}
+                      href={`/plugin/${pluginId}`}
                     >
                       Click Here
                     </Link>
