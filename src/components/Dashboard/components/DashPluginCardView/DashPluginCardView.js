@@ -63,7 +63,6 @@ class DashPluginCardView extends Component {
     this.state = {
       showConfirmation: false,
       pluginToDelete: null,
-      pluginIDToDelete: null,
     };
 
     const methods = [
@@ -73,8 +72,8 @@ class DashPluginCardView extends Component {
   }
   deletePlugin() {
     const { onDelete } = this.props;
-    const { pluginIDToDelete } = this.state;
-    onDelete(pluginIDToDelete);
+    const { pluginToDelete } = this.state;
+    onDelete(pluginToDelete.id);
     this.setState({ showConfirmation: false });
   }
   secondaryAction() {
@@ -83,8 +82,7 @@ class DashPluginCardView extends Component {
   showModal(plugin) {
     this.setState({
       showConfirmation: true,
-      pluginToDelete: plugin.name,
-      pluginIDToDelete: plugin.id,
+      pluginToDelete: plugin,
     });
   }
 
@@ -95,8 +93,10 @@ class DashPluginCardView extends Component {
     const { pluginToDelete, showConfirmation } = this.state;
     const showEmptyState = isEmpty(plugins);
     const primaryContent = <p className="lead">Are you sure?</p>;
-    const secondaryContent =
-      <p>Plugin <b>{pluginToDelete}</b> will be permanently deleted</p>;
+    const secondaryContent = (
+      <p>
+        Plugin <b>{pluginToDelete ? pluginToDelete.name : null}</b> will be permanently deleted
+      </p>);
     const addNewPlugin = (
       <Col xs={12} sm={6} md={4} key="addNewPlugin">
         <Card>
