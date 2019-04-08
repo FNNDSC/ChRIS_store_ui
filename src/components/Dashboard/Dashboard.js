@@ -31,7 +31,7 @@ class Dashboard extends Component {
     const client = new StoreClient(storeURL);
     const searchParams = {
       owner_username: store.get('userName'),
-      limit: 1,
+      limit: 20,
       offset: 0,
     };
     this.setState({ loading: true, pluginList: null });
