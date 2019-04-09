@@ -83,7 +83,13 @@ class CreatePlugin extends Component {
   }
 
   handleError(message) {
-    this.setState({ formError: message });
+    if (message.includes('non_field_errors')) {
+      this.setState({ formError: 'A Plugin with this name already exists' });
+    } else if (message.includes('public_repo')) {
+      this.setState({ formError: 'Enter a valid URL for public repo.' });
+    } else {
+      this.setState({ formError: message });
+    }
   }
 
   hideError() {
