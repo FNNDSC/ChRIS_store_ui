@@ -64,22 +64,20 @@ class Plugins extends Component {
       let plugins;
       try {
         // add plugins to pluginList as they are received
-        plugins = await client.getPlugins(searchParams, (onePageResponse) => {
-          const onePagePlugins = onePageResponse.plugins;
+        plugins = await client.getPlugins(searchParams);
 
-          if (this.mounted) {
-            this.setState((prevState) => {
-              const prevPluginList = prevState.pluginList ? prevState.pluginList : [];
-              const nextPluginList = prevPluginList.concat(onePagePlugins);
-              return { pluginList: nextPluginList };
-            });
-          }
-        });
+        if (this.mounted) {
+          this.setState((prevState) => {
+            const prevPluginList = prevState.pluginList ? prevState.pluginList : [];
+            const nextPluginList = prevPluginList.concat(plugins.data);
+            return { pluginList: nextPluginList };
+          });
+        }
       } catch (e) {
         return reject(e);
       }
 
-      return resolve(plugins);
+      return resolve(plugins.data);
     });
   }
 

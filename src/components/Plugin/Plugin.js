@@ -43,13 +43,14 @@ class Plugin extends Component {
 
   fetchPluginData() {
     const storeURL = process.env.REACT_APP_STORE_URL;
-    const { plugin: pluginName } = this.props.match.params;
+    const { plugin: pluginId } = this.props.match.params;
     const client = new StoreClient(storeURL);
 
     let pluginData;
     return new Promise(async (resolve, reject) => {
       try {
-        pluginData = await client.getPlugin(pluginName);
+        const plugin = await client.getPlugin(pluginId);
+        pluginData = plugin.data;
       } catch (e) {
         return reject(e);
       }

@@ -40,24 +40,21 @@ class Dashboard extends Component {
       let plugins;
       try {
         // add plugins to pluginList as they are received
-        plugins = await client.getPlugins(searchParams, (onePageResponse) => {
-          const onePagePlugins = onePageResponse.plugins;
-
-          this.setState((prevState) => {
-            const prevPluginList = prevState.pluginList ? prevState.pluginList : [];
-            const nextPluginList = prevPluginList.concat(onePagePlugins);
-            return { pluginList: nextPluginList, loading: false };
-          });
+        plugins = await client.getPlugins(searchParams);
+        this.setState((prevState) => {
+          const prevPluginList = prevState.pluginList ? prevState.pluginList : [];
+          const nextPluginList = prevPluginList.concat(plugins.data);
+          return { pluginList: nextPluginList, loading: false };
         });
       } catch (e) {
         return reject(e);
       }
 
-      return resolve(plugins);
+      return resolve(plugins.data);
     });
   }
 
-  deletePlugin(pluginName) {
+  deletePlugin(pluginId) {
     const { store } = this.props;
     const storeURL = process.env.REACT_APP_STORE_URL;
     const auth = { token: store.get('authToken') };
@@ -65,7 +62,7 @@ class Dashboard extends Component {
 
     let response;
     try {
-      response = client.removePlugin(pluginName);
+      response = client.removePlugin(pluginId);
       response.then(() => {
         this.fetchPlugins();
       });

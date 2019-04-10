@@ -235,7 +235,8 @@ class CreatePlugin extends Component {
 
     let newPlugin;
     try {
-      newPlugin = await client.addPlugin(pluginName, pluginImage, file, pluginRepo);
+      const resp = await client.addPlugin(pluginName, pluginImage, file, pluginRepo);
+      newPlugin = resp.data;
     } catch ({ message }) {
       return this.handleError(message);
     }
@@ -254,8 +255,7 @@ class CreatePlugin extends Component {
 
     let pluginId;
     if (newPlugin) {
-      pluginId = newPlugin.items[0].data.filter(dataItem =>
-        dataItem.name === 'id')[0].value;
+      pluginId = newPlugin.id;
     }
     // generate formGroups based on data
     const formGroups = formGroupsData.map((formGroup) => {
