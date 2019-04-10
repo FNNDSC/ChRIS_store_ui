@@ -9,6 +9,7 @@ const samplePluginList = [
     creation_date: '2018-06-19T15:29:11.349272Z',
     modification_date: '3/14/15',
     version: '0.1',
+    id: 1,
   },
   {
     title: 'testTitle2',
@@ -18,6 +19,7 @@ const samplePluginList = [
     creation_date: '2018-06-19T15:29:11.349272Z',
     modification_date: '3/14/15',
     version: '0.1',
+    id: 2,
   },
 ];
 
@@ -43,7 +45,7 @@ class StoreClient {
   getPlugins() {
     return new Promise((resolve, reject) => {
       if (this.url) {
-        return resolve(samplePluginList);
+        return resolve({ data: samplePluginList });
       }
       return reject(new Error('invalid URL'));
     });
@@ -52,7 +54,7 @@ class StoreClient {
   getPlugin() {
     return new Promise((resolve, reject) => {
       if (this.url) {
-        return resolve(samplePluginList[0]);
+        return resolve({ data: samplePluginList[0] });
       }
       return reject(new Error('invalid URL'));
     });
@@ -70,7 +72,9 @@ class StoreClient {
             reject(new Error('Missing JSON'));
           } else {
             resolve({
-              name, image, repo, ...pluginRepresentation,
+              data: {
+                name, image, repo, ...pluginRepresentation,
+              },
             });
           }
         };
