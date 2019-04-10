@@ -57,7 +57,7 @@ describe('Plugin', () => {
     wrapper.setProps({
       match: {
         params: {
-          plugin: 'dircopy',
+          plugin: '1',
         },
       },
     });
