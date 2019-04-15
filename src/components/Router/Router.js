@@ -11,6 +11,8 @@ import Developers from '../Developers/Developers';
 import CreatePlugin from '../CreatePlugin/CreatePlugin';
 import NotFound from '../NotFound/NotFound';
 import Dashboard from '../Dashboard/Dashboard';
+import NewApp from './NewApp';
+import ProtectedRoute from './ProtectedRoute';
 
 const Router = () => (
   <div>
@@ -22,6 +24,7 @@ const Router = () => (
       <Route path="/developers" component={Developers} />
       <Route path="/create" component={CreatePlugin} />
       <Route path="/dashboard" component={Dashboard} />
+      <ProtectedRoute path="/newapp" component={NewApp} />
       <Route component={NotFound} />
     </Switch>
     <Footer />
