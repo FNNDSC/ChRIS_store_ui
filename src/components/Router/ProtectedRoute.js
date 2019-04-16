@@ -3,8 +3,6 @@ import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ChrisStore from '../../store/ChrisStore';
 
-const isLoggedIn = true;
-
 const ProtectedRoute = ({
   component: Component,
   ...rest
@@ -12,13 +10,12 @@ const ProtectedRoute = ({
   <Route
     {...rest}
     render={(props) => {
-      // const { store } = rest.;
-      // const isLoggedInAPI = store.get('isLoggedIn');
-      console.log(rest);
+      const { store } = rest;
+      const isLoggedIn = store.get('isLoggedIn');
       if (isLoggedIn) {
         return <Component {...props} />;
       }
-        return <Redirect to="/" />;
+        return <Redirect to="/signin" />;
     }}
   />
 );
