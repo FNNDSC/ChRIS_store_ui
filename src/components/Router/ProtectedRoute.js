@@ -18,7 +18,7 @@ const ProtectedRoute = ({
       if (isLoggedIn) {
         return <Component {...props} />;
       }
-        return <Redirect to="/Developers" />;
+        return <Redirect to="/" />;
     }}
   />
 );
@@ -26,9 +26,10 @@ const ProtectedRoute = ({
 
 ProtectedRoute.propTypes = {
   store: PropTypes.objectOf(PropTypes.object),
+  component: PropTypes.oneOfType([PropTypes.func]).isRequired,
 };
 ProtectedRoute.defaultProps = {
   store: {},
 };
 
-export default ChrisStore.withStore(ProtectedRoute);;
+export default ChrisStore.withStore(ProtectedRoute);
