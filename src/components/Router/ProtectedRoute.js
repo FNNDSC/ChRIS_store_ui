@@ -1,19 +1,34 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import ChrisStore from '../../store/ChrisStore';
 
 const isLoggedIn = true;
 
-const ProtectedRoute = ({ component: Component, ...rest }) => (
+const ProtectedRoute = ({
+  component: Component,
+  ...rest
+}) => (
   <Route
     {...rest}
     render={(props) => {
-        // console.log(this.props);
-        if (isLoggedIn) {
-          return <Component {...props} />;
-        }
-          return <Redirect to="/Developers" />;
-      }}
+      // const { store } = rest.;
+      // const isLoggedInAPI = store.get('isLoggedIn');
+      console.log(rest);
+      if (isLoggedIn) {
+        return <Component {...props} />;
+      }
+        return <Redirect to="/Developers" />;
+    }}
   />
 );
 
-export default ProtectedRoute;
+
+ProtectedRoute.propTypes = {
+  store: PropTypes.objectOf(PropTypes.object),
+};
+ProtectedRoute.defaultProps = {
+  store: {},
+};
+
+export default ChrisStore.withStore(ProtectedRoute);;
