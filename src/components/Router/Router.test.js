@@ -28,6 +28,10 @@ describe('Router', () => {
     expect(wrapper.find('Route')).toHaveLength(5);
   });
 
+  it('should render 2 ProtectedRoutes', () => {
+    expect(wrapper.find('withStore(ProtectedRoute)')).toHaveLength(2);
+  });
+
   it('every route should have a path prop and component prop', () => {
     const routes = wrapper.find('Route');
     routes.forEach((route) => {
