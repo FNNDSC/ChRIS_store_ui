@@ -11,7 +11,6 @@ import Developers from '../Developers/Developers';
 import CreatePlugin from '../CreatePlugin/CreatePlugin';
 import NotFound from '../NotFound/NotFound';
 import Dashboard from '../Dashboard/Dashboard';
-// import NewApp from './NewApp';
 import ProtectedRoute from './ProtectedRoute';
 
 const Router = () => (

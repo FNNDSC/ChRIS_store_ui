@@ -3,10 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ChrisStore from '../../store/ChrisStore';
 
-const ProtectedRoute = ({
-  component: Component,
-  ...rest
-}) => (
+const ProtectedRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={(props) => {
