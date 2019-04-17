@@ -37,11 +37,11 @@ ShallowWrapper {
                     component={[Function]}
                     path="/developers"
           />
-          <Route
+          <withStore(ProtectedRoute)
                     component={[Function]}
                     path="/create"
           />
-          <Route
+          <withStore(ProtectedRoute)
                     component={[Function]}
                     path="/dashboard"
           />
@@ -86,11 +86,11 @@ ShallowWrapper {
               component={[Function]}
               path="/developers"
 />,
-            <Route
+            <withStore(ProtectedRoute)
               component={[Function]}
               path="/create"
 />,
-            <Route
+            <withStore(ProtectedRoute)
               component={[Function]}
               path="/dashboard"
 />,
@@ -153,7 +153,7 @@ ShallowWrapper {
           Object {
             "instance": null,
             "key": undefined,
-            "nodeType": "class",
+            "nodeType": "function",
             "props": Object {
               "component": [Function],
               "path": "/create",
@@ -165,7 +165,7 @@ ShallowWrapper {
           Object {
             "instance": null,
             "key": undefined,
-            "nodeType": "class",
+            "nodeType": "function",
             "props": Object {
               "component": [Function],
               "path": "/dashboard",
@@ -226,11 +226,11 @@ ShallowWrapper {
                         component={[Function]}
                         path="/developers"
             />
-            <Route
+            <withStore(ProtectedRoute)
                         component={[Function]}
                         path="/create"
             />
-            <Route
+            <withStore(ProtectedRoute)
                         component={[Function]}
                         path="/dashboard"
             />
@@ -275,11 +275,11 @@ ShallowWrapper {
                 component={[Function]}
                 path="/developers"
 />,
-              <Route
+              <withStore(ProtectedRoute)
                 component={[Function]}
                 path="/create"
 />,
-              <Route
+              <withStore(ProtectedRoute)
                 component={[Function]}
                 path="/dashboard"
 />,
@@ -342,7 +342,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "class",
+              "nodeType": "function",
               "props": Object {
                 "component": [Function],
                 "path": "/create",
@@ -354,7 +354,7 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "class",
+              "nodeType": "function",
               "props": Object {
                 "component": [Function],
                 "path": "/dashboard",

@@ -11,6 +11,7 @@ import Developers from '../Developers/Developers';
 import CreatePlugin from '../CreatePlugin/CreatePlugin';
 import NotFound from '../NotFound/NotFound';
 import Dashboard from '../Dashboard/Dashboard';
+import ProtectedRoute from './ProtectedRoute';
 
 const Router = () => (
   <div>
@@ -20,8 +21,8 @@ const Router = () => (
       <Route path="/plugins" component={Plugins} />
       <Route path="/plugin/:plugin" component={Plugin} />
       <Route path="/developers" component={Developers} />
-      <Route path="/create" component={CreatePlugin} />
-      <Route path="/dashboard" component={Dashboard} />
+      <ProtectedRoute path="/create" component={CreatePlugin} />
+      <ProtectedRoute path="/dashboard" component={Dashboard} />
       <Route component={NotFound} />
     </Switch>
     <Footer />
