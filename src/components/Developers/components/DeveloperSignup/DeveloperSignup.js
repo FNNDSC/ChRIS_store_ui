@@ -123,14 +123,29 @@ export class DeveloperSignup extends Component {
       try {
         await StoreClient.createUser(usersURL, username, password, email);
       } catch (e) {
-        /* TODO: JCC Enhance error handling */
-        this.setState({
-          loading: false,
-          error: {
-            message: 'This field must be unique',
-            controls: ['username'],
-          },
-        });
+        if (Object.prototype.hasOwnProperty.call(e, 'response')) {
+          if (Object.prototype.hasOwnProperty.call(e.response.data, 'username')) {
+            this.setState({
+              loading: false,
+              error: {
+                message: 'This username is already registered.',
+                controls: ['username'],
+              },
+            });
+          } else {
+            this.setState({
+              loading: false,
+              error: {
+                message: 'This email is already registered.',
+                controls: ['email'],
+              },
+            });
+          }
+        } else {
+          this.setState({
+            loading: false,
+          });
+        }
         return resolve(e);
       }
       try {
