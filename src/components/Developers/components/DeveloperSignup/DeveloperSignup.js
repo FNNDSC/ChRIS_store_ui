@@ -10,6 +10,7 @@ import {
   Button,
   Spinner,
 } from 'patternfly-react';
+import _ from 'lodash';
 import StoreClient from '@fnndsc/chrisstoreapi';
 import { validate } from 'email-validator';
 import './DeveloperSignup.css';
@@ -123,8 +124,8 @@ export class DeveloperSignup extends Component {
       try {
         await StoreClient.createUser(usersURL, username, password, email);
       } catch (e) {
-        if (Object.prototype.hasOwnProperty.call(e, 'response')) {
-          if (Object.prototype.hasOwnProperty.call(e.response.data, 'username')) {
+        if (_.has(e, 'response')) {
+          if (_.has(e, 'response.data.username')) {
             this.setState({
               loading: false,
               error: {
