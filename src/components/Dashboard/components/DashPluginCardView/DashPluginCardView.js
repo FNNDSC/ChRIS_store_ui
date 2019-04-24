@@ -61,12 +61,12 @@ class DashPluginCardView extends Component {
     super(props);
 
     this.state = {
-      showConfirmation: false,
+      showDeleteConfirmation: false,
       pluginToDelete: null,
     };
 
     const methods = [
-      'deletePlugin', 'secondaryAction', 'showModal',
+      'deletePlugin', 'secondaryDeleteAction', 'showDeleteModal',
     ];
     methods.forEach((method) => { this[method] = this[method].bind(this); });
   }
@@ -74,14 +74,14 @@ class DashPluginCardView extends Component {
     const { onDelete } = this.props;
     const { pluginToDelete } = this.state;
     onDelete(pluginToDelete.id);
-    this.setState({ showConfirmation: false });
+    this.setState({ showDeleteConfirmation: false });
   }
-  secondaryAction() {
-    this.setState({ showConfirmation: false });
+  secondaryDeleteAction() {
+    this.setState({ showDeleteConfirmation: false });
   }
-  showModal(plugin) {
+  showDeleteModal(plugin) {
     this.setState({
-      showConfirmation: true,
+      showDeleteConfirmation: true,
       pluginToDelete: plugin,
     });
   }
@@ -90,10 +90,10 @@ class DashPluginCardView extends Component {
   render() {
     let pluginCardBody;
     const { plugins } = this.props;
-    const { pluginToDelete, showConfirmation } = this.state;
+    const { pluginToDelete, showDeleteConfirmation } = this.state;
     const showEmptyState = isEmpty(plugins);
-    const primaryContent = <p className="lead">Are you sure?</p>;
-    const secondaryContent = (
+    const primaryDeleteContent = <p className="lead">Are you sure?</p>;
+    const secondaryDeleteContent = (
       <p>
         Plugin <b>{pluginToDelete ? pluginToDelete.name : null}</b> will be permanently deleted
       </p>);
@@ -125,7 +125,7 @@ class DashPluginCardView extends Component {
               <CardHeading>
                 <CardTitle>
                   <DropdownKebab id="myKebab" pullRight className="card-view-kebob">
-                    <MenuItem eventKey={plugin} onSelect={this.showModal}>
+                    <MenuItem eventKey={plugin} onSelect={this.showDeleteModal}>
                       Delete
                     </MenuItem>
                   </DropdownKebab>
@@ -177,16 +177,16 @@ class DashPluginCardView extends Component {
           <div className="card-view-row">
             {pluginCardBody}
             <MessageDialog
-              show={showConfirmation}
-              onHide={this.secondaryAction}
+              show={showDeleteConfirmation}
+              onHide={this.secondaryDeleteAction}
               primaryAction={this.deletePlugin}
-              secondaryAction={this.secondaryAction}
+              secondaryAction={this.secondaryDeleteAction}
               primaryActionButtonContent="Delete"
               secondaryActionButtonContent="Cancel"
               primaryActionButtonBsStyle="danger"
               title="Plugin Delete Confirmation"
-              primaryContent={primaryContent}
-              secondaryContent={secondaryContent}
+              primaryContent={primaryDeleteContent}
+              secondaryContent={secondaryDeleteContent}
               accessibleName="deleteConfirmationDialog"
               accessibleDescription="deleteConfirmationDialogContent"
             />
