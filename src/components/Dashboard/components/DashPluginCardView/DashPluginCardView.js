@@ -89,9 +89,10 @@ class DashPluginCardView extends Component {
     });
   }
   editPlugin() {
-    const { onDelete } = this.props;
+    const { onEdit } = this.props;
     const { pluginToEdit } = this.state;
-    onDelete(pluginToEdit.id);
+    console.log(pluginToEdit);
+    onEdit(pluginToEdit.id, 'bos30/bos30', 'https://github.com/facebook/react/issues/2882');
     this.setState({ showEditConfirmation: false });
   }
   secondaryEditAction() {
@@ -117,10 +118,18 @@ class DashPluginCardView extends Component {
       <p>
         Plugin <b>{pluginToDelete ? pluginToDelete.name : null}</b> will be permanently deleted
       </p>);
-    const primaryEditContent = <p className="lead">Are you sure?</p>;
+    const primaryEditContent = <p className="lead">Edit Plugin</p>;
     const secondaryEditContent = (
       <p>
-          Plugin <b>{pluginToEdit ? pluginToEdit.name : null}</b> will be permanently edited
+          Plublic URL <b>{pluginToEdit ?
+            <form>
+              <label>
+                Name:
+                <input type="text"  />
+              </label>
+              <input type="submit" value="Submit" />
+            </form>
+             : null}</b>
       </p>);
     const addNewPlugin = (
       <Col xs={12} sm={6} md={4} key="addNewPlugin">
@@ -170,6 +179,13 @@ class DashPluginCardView extends Component {
                 </CardTitle>
               </CardHeading>
               <CardBody>
+              <form>
+                <label>
+                  Name:
+                  <input type="text"  />
+                </label>
+                <input type="submit" value="Submit" />
+              </form>
                 <div className="card-view-app-type">
                   {applicationType}
                 </div>
@@ -223,10 +239,10 @@ class DashPluginCardView extends Component {
               onHide={this.secondaryEditAction}
               primaryAction={this.editPlugin}
               secondaryAction={this.secondaryEditAction}
-              primaryActionButtonContent="Edit"
+              primaryActionButtonContent="Save"
               secondaryActionButtonContent="Cancel"
               primaryActionButtonBsStyle="danger"
-              title="Plugin Edit Confirmation"
+              title="Edit Plugin"
               primaryContent={primaryEditContent}
               secondaryContent={secondaryEditContent}
               accessibleName="editConfirmationDialog"
@@ -241,6 +257,7 @@ class DashPluginCardView extends Component {
 DashPluginCardView.propTypes = {
   plugins: PropTypes.arrayOf(PropTypes.object),
   onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
 };
 
 DashPluginCardView.defaultProps = {
