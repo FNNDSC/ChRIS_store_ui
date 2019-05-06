@@ -65,11 +65,12 @@ class DashPluginCardView extends Component {
       showEditConfirmation: false,
       pluginToDelete: null,
       pluginToEdit: null,
+      publicRepo: ''
     };
 
     const methods = [
       'deletePlugin', 'secondaryDeleteAction', 'showDeleteModal',
-      'editPlugin', 'secondaryEditAction', 'showEditModal',
+      'editPlugin', 'secondaryEditAction', 'showEditModal', 'handlePublicRepo'
     ];
     methods.forEach((method) => { this[method] = this[method].bind(this); });
   }
@@ -91,8 +92,7 @@ class DashPluginCardView extends Component {
   editPlugin() {
     const { onEdit } = this.props;
     const { pluginToEdit } = this.state;
-    console.log(pluginToEdit);
-    onEdit(pluginToEdit.id, 'bos30/bos30', 'https://github.com/facebook/react/issues/2882');
+    onEdit(pluginToEdit.id, 'bos30/bos30', this.state.publicRepo);
     this.setState({ showEditConfirmation: false });
   }
   secondaryEditAction() {
@@ -103,6 +103,10 @@ class DashPluginCardView extends Component {
       showEditConfirmation: true,
       pluginToEdit: plugin,
     });
+  }
+  handlePublicRepo(event) {
+    //console.log(event.target.value);
+    this.setState({ publicRepo: event.target.value })
   }
 
 
@@ -118,19 +122,17 @@ class DashPluginCardView extends Component {
       <p>
         Plugin <b>{pluginToDelete ? pluginToDelete.name : null}</b> will be permanently deleted
       </p>);
-    const primaryEditContent = <p className="lead">Edit Plugin</p>;
+    const primaryEditContent = <p className="lead">Edit Plugin Details</p>;
     const secondaryEditContent = (
-      <p>
-          Plublic URL <b>{pluginToEdit ?
-            <form>
-              <label>
-                Name:
-                <input type="text"  />
-              </label>
-              <input type="submit" value="Submit" />
-            </form>
-             : null}</b>
-      </p>);
+      <b>{pluginToEdit ?
+        <form>
+          <label>
+              PublicRepo : <input type="text" defaultValue={pluginToEdit.public_repo} size="40" onChange={this.handlePublicRepo}/>
+          </label>
+        </form>
+          : null}
+      </b>
+    );
     const addNewPlugin = (
       <Col xs={12} sm={6} md={4} key="addNewPlugin">
         <Card>
@@ -179,13 +181,6 @@ class DashPluginCardView extends Component {
                 </CardTitle>
               </CardHeading>
               <CardBody>
-              <form>
-                <label>
-                  Name:
-                  <input type="text"  />
-                </label>
-                <input type="submit" value="Submit" />
-              </form>
                 <div className="card-view-app-type">
                   {applicationType}
                 </div>
