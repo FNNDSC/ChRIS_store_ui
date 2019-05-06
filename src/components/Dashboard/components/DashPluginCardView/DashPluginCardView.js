@@ -65,12 +65,12 @@ class DashPluginCardView extends Component {
       showEditConfirmation: false,
       pluginToDelete: null,
       pluginToEdit: null,
-      publicRepo: ''
+      publicRepo: '',
     };
 
     const methods = [
       'deletePlugin', 'secondaryDeleteAction', 'showDeleteModal',
-      'editPlugin', 'secondaryEditAction', 'showEditModal', 'handlePublicRepo'
+      'editPlugin', 'secondaryEditAction', 'showEditModal', 'handlePublicRepo',
     ];
     methods.forEach((method) => { this[method] = this[method].bind(this); });
   }
@@ -92,7 +92,7 @@ class DashPluginCardView extends Component {
   editPlugin() {
     const { onEdit } = this.props;
     const { pluginToEdit } = this.state;
-    onEdit(pluginToEdit.id, 'bos30/bos30', this.state.publicRepo);
+    onEdit(pluginToEdit.id, pluginToEdit.dock_image, this.state.publicRepo);
     this.setState({ showEditConfirmation: false });
   }
   secondaryEditAction() {
@@ -105,8 +105,7 @@ class DashPluginCardView extends Component {
     });
   }
   handlePublicRepo(event) {
-    //console.log(event.target.value);
-    this.setState({ publicRepo: event.target.value })
+    this.setState({ publicRepo: event.target.value });
   }
 
 
@@ -127,7 +126,10 @@ class DashPluginCardView extends Component {
       <b>{pluginToEdit ?
         <form>
           <label>
-              PublicRepo : <input type="text" defaultValue={pluginToEdit.public_repo} size="40" onChange={this.handlePublicRepo}/>
+              PublicRepo : <input type="text"
+              defaultValue={pluginToEdit.public_repo}
+              size="40"
+              onChange={this.handlePublicRepo} />
           </label>
         </form>
           : null}

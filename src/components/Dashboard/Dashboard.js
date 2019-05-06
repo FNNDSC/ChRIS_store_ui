@@ -73,7 +73,7 @@ class Dashboard extends Component {
     return response;
   }
 
-  editPlugin(pluginId, dockerImage, publicRepo, newOwner) {
+  editPlugin(pluginId, dockerImage, publicRepo) {
     const { store } = this.props;
     const storeURL = process.env.REACT_APP_STORE_URL;
     const auth = { token: store.get('authToken') };
