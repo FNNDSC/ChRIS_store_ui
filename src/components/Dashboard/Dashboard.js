@@ -120,7 +120,11 @@ class Dashboard extends Component {
             <div className="dashboard-row">
               <Spinner size="lg" loading={loading}>
                 <div className="dashboard-left-column">
-                  <DashPluginCardView plugins={pluginList} onDelete={this.deletePlugin} onEdit={this.editPlugin} />
+                  <DashPluginCardView
+                    plugins={pluginList}
+                    onDelete={this.deletePlugin}
+                    onEdit={this.editPlugin}
+                  />
                   <DashTeamView plugins={pluginList} />
                 </div>
                 <div className="dashboard-right-column">
