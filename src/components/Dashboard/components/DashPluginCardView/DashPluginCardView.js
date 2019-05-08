@@ -125,11 +125,14 @@ class DashPluginCardView extends Component {
     const secondaryEditContent = (
       <b>{pluginToEdit ?
         <form>
-          <label>
-              PublicRepo : <input type="text"
+          <label htmlFor="publicRepo">
+            PublicRepo : <input
+              type="text"
               defaultValue={pluginToEdit.public_repo}
               size="40"
-              onChange={this.handlePublicRepo} />
+              onChange={this.handlePublicRepo}
+              id="PublicRepo"
+            />
           </label>
         </form>
           : null}
