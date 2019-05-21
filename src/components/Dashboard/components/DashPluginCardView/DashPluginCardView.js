@@ -92,7 +92,7 @@ class DashPluginCardView extends Component {
   editPlugin() {
     const { onEdit } = this.props;
     const { pluginToEdit } = this.state;
-    onEdit(pluginToEdit.id, pluginToEdit.dock_image, this.state.publicRepo);
+    onEdit(pluginToEdit.id, this.state.publicRepo);
     this.setState({ showEditConfirmation: false });
   }
   secondaryEditAction() {
