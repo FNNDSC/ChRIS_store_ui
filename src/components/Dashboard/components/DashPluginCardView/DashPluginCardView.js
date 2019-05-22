@@ -8,6 +8,10 @@ import {
   CardBody,
   EmptyStateAction,
   EmptyStateInfo,
+  Form,
+  FormGroup,
+  ControlLabel,
+  FormControl,
   Button,
   Card,
   CardHeading,
@@ -122,19 +126,39 @@ class DashPluginCardView extends Component {
         Plugin <b>{pluginToDelete ? pluginToDelete.name : null}</b> will be permanently deleted
       </p>);
     const primaryEditContent = <p className="lead">Edit Plugin Details</p>;
-    const secondaryEditContent = (
+    /* const secondaryEditContent = (
       <b>{pluginToEdit ?
-        <form>
+        <Form horizontal>
           <label htmlFor="publicRepo">
             PublicRepo : <input
-              type="text"
-              defaultValue={pluginToEdit.public_repo}
-              size="40"
-              onChange={this.handlePublicRepo}
-              id="PublicRepo"
-            />
+                            type="text"
+                            defaultValue={pluginToEdit.public_repo}
+                            size="40"
+                            onChange={this.handlePublicRepo}
+                            id="PublicRepo"
+                         />
           </label>
-        </form>
+        </Form>
+          : null}
+      </b>
+    ); */
+    const secondaryEditContent = (
+      <b>{pluginToEdit ?
+        <Form horizontal>
+          <FormGroup controlId="publicRepo">
+            <ControlLabel>
+              Public Repository
+            </ControlLabel>
+            <FormControl
+              type="text"
+              autoComplete="off"
+              size="40"
+              defaultValue={pluginToEdit.public_repo}
+              onChange={this.handlePublicRepo}
+              name="publicRepo"
+            />
+          </FormGroup>
+        </Form>
           : null}
       </b>
     );
