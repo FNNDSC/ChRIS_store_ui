@@ -126,41 +126,25 @@ class DashPluginCardView extends Component {
         Plugin <b>{pluginToDelete ? pluginToDelete.name : null}</b> will be permanently deleted
       </p>);
     const primaryEditContent = <p className="lead">Edit Plugin Details</p>;
-    /* const secondaryEditContent = (
-      <b>{pluginToEdit ?
-        <Form horizontal>
-          <label htmlFor="publicRepo">
-            PublicRepo : <input
-                            type="text"
-                            defaultValue={pluginToEdit.public_repo}
-                            size="40"
-                            onChange={this.handlePublicRepo}
-                            id="PublicRepo"
-                         />
-          </label>
-        </Form>
-          : null}
-      </b>
-    ); */
     const secondaryEditContent = (
-      <b>{pluginToEdit ?
+      pluginToEdit ? (
         <Form horizontal>
-          <FormGroup controlId="publicRepo">
+          <FormGroup controlId="publicRepo" className="edit-plugin">
             <ControlLabel>
               Public Repository
             </ControlLabel>
             <FormControl
               type="text"
               autoComplete="off"
-              size="40"
+              size="60"
               defaultValue={pluginToEdit.public_repo}
               onChange={this.handlePublicRepo}
               name="publicRepo"
             />
           </FormGroup>
         </Form>
-          : null}
-      </b>
+      )
+        : null
     );
     const addNewPlugin = (
       <Col xs={12} sm={6} md={4} key="addNewPlugin">
@@ -265,7 +249,6 @@ class DashPluginCardView extends Component {
               secondaryAction={this.secondaryEditAction}
               primaryActionButtonContent="Save"
               secondaryActionButtonContent="Cancel"
-              primaryActionButtonBsStyle="danger"
               title="Edit Plugin"
               primaryContent={primaryEditContent}
               secondaryContent={secondaryEditContent}
