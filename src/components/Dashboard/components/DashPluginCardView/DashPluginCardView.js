@@ -132,10 +132,10 @@ class DashPluginCardView extends Component {
         <Grid>
           <Form horizontal>
             <FormGroup controlId="name" disabled={false}>
-              <Col componentClass={ControlLabel} sm={1}>
+              <Col componentClass={ControlLabel} sm={2}>
                 Public Repo
               </Col>
-              <Col sm={6}>
+              <Col sm={5}>
                 <FormControl
                   type="text"
                   defaultValue={pluginToEdit.public_repo}
