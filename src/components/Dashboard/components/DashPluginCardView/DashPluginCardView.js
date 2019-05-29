@@ -132,10 +132,10 @@ class DashPluginCardView extends Component {
         <Grid>
           <Form horizontal>
             <FormGroup controlId="name" disabled={false}>
-              <Col componentClass={ControlLabel} sm={2}>
+              <Col componentClass={ControlLabel} sm={1}>
                 Public Repo
               </Col>
-              <Col sm={4}>
+              <Col sm={6}>
                 <FormControl
                   type="text"
                   defaultValue={pluginToEdit.public_repo}
@@ -143,7 +143,7 @@ class DashPluginCardView extends Component {
                   name="publicRepo"
                 />
                 <HelpBlock>
-                  For people to see your code
+                  Enter the public repo URL for your plugin
                 </HelpBlock>
               </Col>
             </FormGroup>
