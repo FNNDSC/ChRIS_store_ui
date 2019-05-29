@@ -17,6 +17,7 @@ class Dashboard extends Component {
     };
     this.initialize = this.initialize.bind(this);
     this.deletePlugin = this.deletePlugin.bind(this);
+    this.editPlugin = this.editPlugin.bind(this);
   }
 
   componentDidMount() {
@@ -72,6 +73,24 @@ class Dashboard extends Component {
     return response;
   }
 
+  editPlugin(pluginId, publicRepo) {
+    const { store } = this.props;
+    const storeURL = process.env.REACT_APP_STORE_URL;
+    const auth = { token: store.get('authToken') };
+    const client = new StoreClient(storeURL, auth);
+
+    let response;
+    try {
+      response = client.modifyPlugin(pluginId, publicRepo);
+      response.then(() => {
+        this.fetchPlugins();
+      });
+    } catch (e) {
+      return e;
+    }
+    return response;
+  }
+
   initialize() {
     const { arePluginsAvailable } = this.state;
 
@@ -101,7 +120,11 @@ class Dashboard extends Component {
             <div className="dashboard-row">
               <Spinner size="lg" loading={loading}>
                 <div className="dashboard-left-column">
-                  <DashPluginCardView plugins={pluginList} onDelete={this.deletePlugin} />
+                  <DashPluginCardView
+                    plugins={pluginList}
+                    onDelete={this.deletePlugin}
+                    onEdit={this.editPlugin}
+                  />
                   <DashTeamView plugins={pluginList} />
                 </div>
                 <div className="dashboard-right-column">

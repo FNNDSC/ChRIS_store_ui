@@ -8,8 +8,14 @@ import {
   CardBody,
   EmptyStateAction,
   EmptyStateInfo,
+  Form,
+  FormGroup,
+  ControlLabel,
+  FormControl,
   Button,
   Card,
+  Grid,
+  HelpBlock,
   CardHeading,
   DropdownKebab,
   MenuItem,
@@ -61,12 +67,16 @@ class DashPluginCardView extends Component {
     super(props);
 
     this.state = {
-      showConfirmation: false,
+      showDeleteConfirmation: false,
+      showEditConfirmation: false,
       pluginToDelete: null,
+      pluginToEdit: null,
+      publicRepo: '',
     };
 
     const methods = [
-      'deletePlugin', 'secondaryAction', 'showModal',
+      'deletePlugin', 'secondaryDeleteAction', 'showDeleteModal',
+      'editPlugin', 'secondaryEditAction', 'showEditModal', 'handlePublicRepo',
     ];
     methods.forEach((method) => { this[method] = this[method].bind(this); });
   }
@@ -74,29 +84,74 @@ class DashPluginCardView extends Component {
     const { onDelete } = this.props;
     const { pluginToDelete } = this.state;
     onDelete(pluginToDelete.id);
-    this.setState({ showConfirmation: false });
+    this.setState({ showDeleteConfirmation: false });
   }
-  secondaryAction() {
-    this.setState({ showConfirmation: false });
+  secondaryDeleteAction() {
+    this.setState({ showDeleteConfirmation: false });
   }
-  showModal(plugin) {
+  showDeleteModal(plugin) {
     this.setState({
-      showConfirmation: true,
+      showDeleteConfirmation: true,
       pluginToDelete: plugin,
     });
+  }
+  editPlugin() {
+    const { onEdit } = this.props;
+    const { pluginToEdit } = this.state;
+    onEdit(pluginToEdit.id, this.state.publicRepo);
+    this.setState({ showEditConfirmation: false });
+  }
+  secondaryEditAction() {
+    this.setState({ showEditConfirmation: false });
+  }
+  showEditModal(plugin) {
+    this.setState({
+      showEditConfirmation: true,
+      pluginToEdit: plugin,
+    });
+  }
+  handlePublicRepo(event) {
+    this.setState({ publicRepo: event.target.value });
   }
 
 
   render() {
     let pluginCardBody;
     const { plugins } = this.props;
-    const { pluginToDelete, showConfirmation } = this.state;
+    const {
+      pluginToDelete, showDeleteConfirmation, pluginToEdit, showEditConfirmation,
+    } = this.state;
     const showEmptyState = isEmpty(plugins);
-    const primaryContent = <p className="lead">Are you sure?</p>;
-    const secondaryContent = (
+    const primaryDeleteContent = <p className="lead">Are you sure?</p>;
+    const secondaryDeleteContent = (
       <p>
         Plugin <b>{pluginToDelete ? pluginToDelete.name : null}</b> will be permanently deleted
       </p>);
+    const secondaryEditContent = (
+      pluginToEdit ? (
+        <Grid>
+          <Form horizontal>
+            <FormGroup controlId="name" disabled={false}>
+              <Col componentClass={ControlLabel} sm={2}>
+                Public Repo
+              </Col>
+              <Col sm={5}>
+                <FormControl
+                  type="text"
+                  defaultValue={pluginToEdit.public_repo}
+                  onChange={this.handlePublicRepo}
+                  name="publicRepo"
+                />
+                <HelpBlock>
+                  Enter the public repo URL for your plugin
+                </HelpBlock>
+              </Col>
+            </FormGroup>
+          </Form>
+        </Grid>
+      )
+        : null
+    );
     const addNewPlugin = (
       <Col xs={12} sm={6} md={4} key="addNewPlugin">
         <Card>
@@ -125,7 +180,10 @@ class DashPluginCardView extends Component {
               <CardHeading>
                 <CardTitle>
                   <DropdownKebab id="myKebab" pullRight className="card-view-kebob">
-                    <MenuItem eventKey={plugin} onSelect={this.showModal}>
+                    <MenuItem eventKey={plugin} onSelect={this.showEditModal}>
+                      Edit
+                    </MenuItem>
+                    <MenuItem eventKey={plugin} onSelect={this.showDeleteModal}>
                       Delete
                     </MenuItem>
                   </DropdownKebab>
@@ -177,18 +235,30 @@ class DashPluginCardView extends Component {
           <div className="card-view-row">
             {pluginCardBody}
             <MessageDialog
-              show={showConfirmation}
-              onHide={this.secondaryAction}
+              show={showDeleteConfirmation}
+              onHide={this.secondaryDeleteAction}
               primaryAction={this.deletePlugin}
-              secondaryAction={this.secondaryAction}
+              secondaryAction={this.secondaryDeleteAction}
               primaryActionButtonContent="Delete"
               secondaryActionButtonContent="Cancel"
               primaryActionButtonBsStyle="danger"
               title="Plugin Delete Confirmation"
-              primaryContent={primaryContent}
-              secondaryContent={secondaryContent}
+              primaryContent={primaryDeleteContent}
+              secondaryContent={secondaryDeleteContent}
               accessibleName="deleteConfirmationDialog"
               accessibleDescription="deleteConfirmationDialogContent"
+            />
+            <MessageDialog
+              show={showEditConfirmation}
+              onHide={this.secondaryEditAction}
+              primaryAction={this.editPlugin}
+              secondaryAction={this.secondaryEditAction}
+              primaryActionButtonContent="Save"
+              secondaryActionButtonContent="Cancel"
+              title="Edit Plugin Details"
+              secondaryContent={secondaryEditContent}
+              accessibleName="editConfirmationDialog"
+              accessibleDescription="editConfirmationDialogContent"
             />
           </div>
         </React.Fragment>
@@ -199,6 +269,7 @@ class DashPluginCardView extends Component {
 DashPluginCardView.propTypes = {
   plugins: PropTypes.arrayOf(PropTypes.object),
   onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
 };
 
 DashPluginCardView.defaultProps = {
