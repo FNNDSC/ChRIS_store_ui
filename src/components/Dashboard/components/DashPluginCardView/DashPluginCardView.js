@@ -14,6 +14,8 @@ import {
   FormControl,
   Button,
   Card,
+  Grid,
+  HelpBlock,
   CardHeading,
   DropdownKebab,
   MenuItem,
@@ -125,24 +127,28 @@ class DashPluginCardView extends Component {
       <p>
         Plugin <b>{pluginToDelete ? pluginToDelete.name : null}</b> will be permanently deleted
       </p>);
-    const primaryEditContent = <p className="lead">Edit Plugin Details</p>;
     const secondaryEditContent = (
       pluginToEdit ? (
-        <Form horizontal>
-          <FormGroup controlId="publicRepo" className="edit-plugin">
-            <ControlLabel>
-              Public Repository
-            </ControlLabel>
-            <FormControl
-              type="text"
-              autoComplete="off"
-              size="60"
-              defaultValue={pluginToEdit.public_repo}
-              onChange={this.handlePublicRepo}
-              name="publicRepo"
-            />
-          </FormGroup>
-        </Form>
+        <Grid>
+          <Form horizontal>
+            <FormGroup controlId="name" disabled={false}>
+              <Col componentClass={ControlLabel} sm={2}>
+                Public Repo
+              </Col>
+              <Col sm={4}>
+                <FormControl
+                  type="text"
+                  defaultValue={pluginToEdit.public_repo}
+                  onChange={this.handlePublicRepo}
+                  name="publicRepo"
+                />
+                <HelpBlock>
+                  For people to see your code
+                </HelpBlock>
+              </Col>
+            </FormGroup>
+          </Form>
+        </Grid>
       )
         : null
     );
@@ -249,8 +255,7 @@ class DashPluginCardView extends Component {
               secondaryAction={this.secondaryEditAction}
               primaryActionButtonContent="Save"
               secondaryActionButtonContent="Cancel"
-              title="Edit Plugin"
-              primaryContent={primaryEditContent}
+              title="Edit Plugin Details"
               secondaryContent={secondaryEditContent}
               accessibleName="editConfirmationDialog"
               accessibleDescription="editConfirmationDialogContent"
