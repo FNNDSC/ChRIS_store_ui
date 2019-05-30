@@ -135,7 +135,7 @@ class DashPluginCardView extends Component {
               <Col componentClass={ControlLabel} sm={2}>
                 Public Repo
               </Col>
-              <Col sm={5}>
+              <Col sm={4}>
                 <FormControl
                   type="text"
                   defaultValue={pluginToEdit.public_repo}
