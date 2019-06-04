@@ -22,7 +22,7 @@
     ]
   },
   "dependencies": {
-    "@fnndsc/chrisstoreapi": "^1.1.8",
+    "@fnndsc/chrisstoreapi": "^1.1.9",
     "classnames": "^2.2.6",
     "core-js": "^2.5.7",
     "email-validator": "^2.0.4",
