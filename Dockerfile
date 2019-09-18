@@ -18,9 +18,9 @@
 #
 #   docker run -ti local/chris_store_ui sh
 #
-# To pass an env var HOST_IP to container, do:
+# To run the server up, do:
 #
-#   docker run -ti -e HOST_IP=$(ip route | grep -v docker | awk '{if(NF==11) print $9}') local/chris_store_ui sh
+#   docker run --name chris_store_ui -p <port>:3000 -d local/chris_store_ui
 #
 
 FROM node:12-alpine
@@ -28,16 +28,16 @@ MAINTAINER fnndsc "dev@babymri.org"
 
 # Pass a UID on build command line (see above) to set internal UID
 ARG UID=1001
-ENV UID=$UID VERSION="0.1"
+ENV UID=$UID  HOME="/home/localuser"  VERSION="0.1"
 
-ENV APPROOT="/home/localuser/app"
+ENV APPROOT="${HOME}/build"
 
 RUN adduser -u $UID -D localuser
 
-COPY --chown=localuser ["./build", "${APPROOT}"]
+COPY --chown=localuser ["./", "${HOME}"]
 
-RUN cd "${APPROOT}"      \
-  && su - localuser -c "yarn add serve --network-timeout 100000"
+# build the app for production and install server
+RUN su - localuser -c "yarn install && yarn build && yarn add serve --network-timeout 100000"
 
 # Start as user localuser
 USER localuser
@@ -45,4 +45,5 @@ USER localuser
 WORKDIR $APPROOT
 EXPOSE 3000
 
+# serve the production build
 CMD /home/localuser/node_modules/serve/bin/serve.js --single -l 3000 .
