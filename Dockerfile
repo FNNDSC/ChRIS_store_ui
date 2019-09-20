@@ -14,13 +14,13 @@
 #    export PROXY="http://10.41.13.4:3128"
 #    docker build --build-arg http_proxy=${PROXY} --build-arg UID=$UID -t local/chris_store_ui .
 #
-# To run an interactive shell inside this container, do:
-#
-#   docker run -ti local/chris_store_ui sh
-#
 # To run the server up, do:
 #
 #   docker run --name chris_store_ui -p <port>:3000 -d local/chris_store_ui
+#
+# To run an interactive shell inside this container, do:
+#
+#   docker exec -it chris_store_ui sh
 #
 
 FROM node:12-alpine

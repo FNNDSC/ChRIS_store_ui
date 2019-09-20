@@ -21,3 +21,8 @@ yarn-error.log*
 .vscode
 
 .idea
+
+# container stuff
+.cache/
+.yarnrc
+yarn-error.log
