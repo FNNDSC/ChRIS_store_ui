@@ -9,66 +9,100 @@ UI for the ChRIS Store.
 [![Stars][stars-badge]][repo-link]
 [![Forks][forks-badge]][repo-link]
 
-## Installation
 
+## Preconditions
+
+### Install latest Docker. Currently tested platforms:
+* ``Ubuntu 16.04+``
+* ``MAC OS X 10.11+``
+
+### Optionally get the backend services up so you can fully test the UI against actual data
+* Install latest ``Docker Compose``
+* On a Linux machine make sure to add your computer user to the ``docker`` group
+
+Then open a terminal and fire the backend services up:
 ```bash
-$> git clone https://github.com/FNNDSC/ChRIS_store_ui
-$> cd ChRIS_store_ui
-$> yarn install
+$ git clone https://github.com/FNNDSC/ChRIS_store.git
+$ cd ChRIS_store
+$ ./docker-make.sh
 ```
 
-## Serve
-
+You can later remove all the backend containers and release storage volumes with:
 ```bash
-$> yarn build
-$> yarn serve
+$ cd ChRIS_store
+$ ./docker-destroy.sh
 ```
 
-## Development and testing
 
-### JavaScript package manager prerequisite
+## Start UI development server
 
-* [yarn][yarn-link]
-
-Open a terminal in the directory of this README file
-
-### ChRIS Store server prerequisite
-
-[Click here][chris-store] for instructions on how to setup the ChRIS Store
-
-### Commands
-
-Install dependencies
-
+Open a new terminal and type:
 ```bash
-$> yarn install
+$ git clone https://github.com/FNNDSC/ChRIS_store_ui.git
+$ cd ChRIS_store_ui
+$ docker run --rm -it -v $(pwd):/home/localuser -p 3000:3000 -u $(id -u):$(id -g) --name chris_store_ui fnndsc/chris_store_ui:dev
 ```
-
-Start web server in watch mode (used for developing)
-
-```bash
-$> yarn start
-```
-
-Start tests in watch mode
-
-```bash
-$> yarn test
-```
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### Precommit
 
 Before each commit, a precommit script is run automatically to ensure all tests pass and all JavaScript code follows the [Airbnb style guide][airbnb-style]
 
-To do this step manually, run `yarn precommit` after staging files
+
+## Notes:
+1. Add .env.local, .env.local, .env.development.local, .env.test.local, .env.production.local file at root to change any local settings
+
+
+## Additional Notes from Create React App:
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+
+## Run the interactive tests
+
+Open a new terminal and type:
+```bash
+$ docker exec -it chris_store_ui yarn test
+```
+Launches the test runner in the interactive watch mode.<br>
+
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+
+## Build the ChRIS Store UI app for production
+
+```bash
+$ cd ChRIS_store_ui
+$ docker build -t local/chris_store_ui .
+```
+It correctly bundles React in production mode and optimizes the build for the best performance.
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
+
+
+## Deploy and serve the ChRIS Store UI app
+
+```bash
+$ docker run --name chris_store_ui -p <desired port>:3000 -d local/chris_store_ui
+```
+
+
+## Development and deployment of the ChRIS Store UI directly on the metal
+
+Consult the Wiki [here](https://github.com/FNNDSC/ChRIS_store_ui/wiki).
+
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details
 
 [repo-link]: https://github.com/FNNDSC/ChRIS_store_ui
-[yarn-link]: https://yarnpkg.com/
-[chris-store]: https://github.com/FNNDSC/chris_store#preconditions
 [airbnb-style]: https://github.com/airbnb/javascript
 [license-badge]: https://img.shields.io/github/license/fnndsc/chris_store_ui.svg
 [stars-badge]: https://img.shields.io/github/stars/fnndsc/chris_store_ui.svg?style=social&label=Stars
