@@ -1,4 +1,4 @@
-# ChRIS_store_ui
+# ![ChRIS logo](https://github.com/FNNDSC/ChRIS_ultron_backEnd/blob/master/docs/assets/logo_chris.png) ChRIS_store_ui
 
 UI for the ChRIS Store.
 
