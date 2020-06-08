@@ -47,6 +47,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 ### Precommit
 
 Before each commit, a precommit script is run automatically to ensure all tests pass and all JavaScript code follows the [Airbnb style guide][airbnb-style]
+Please note that you need to run git inside the container. For instance open a new terminal and type:
+```bash
+$ docker exec -it chris_store_ui git status
+```
 
 
 ## Notes:

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import StoreClient from '@fnndsc/chrisstoreapi';
+import Client from '@fnndsc/chrisstoreapi';
 import LoadingPlugin from './components/LoadingPlugin/LoadingPlugin';
 import PluginBody from './components/PluginBody/PluginBody';
 import RelativeDate from '../RelativeDate/RelativeDate';
@@ -44,12 +44,12 @@ class Plugin extends Component {
   fetchPluginData() {
     const storeURL = process.env.REACT_APP_STORE_URL;
     const { plugin: pluginId } = this.props.match.params;
-    const client = new StoreClient(storeURL);
+    const client = new Client(storeURL);
 
     let pluginData;
     return new Promise(async (resolve, reject) => {
       try {
-        const plugin = await client.getPlugin(pluginId);
+        const plugin = await client.getPlugin(parseInt(pluginId, 10));
         pluginData = plugin.data;
       } catch (e) {
         return reject(e);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import StoreClient from '@fnndsc/chrisstoreapi';
+import Client from '@fnndsc/chrisstoreapi';
 import { Link } from 'react-router-dom';
 import {
   Form, FormGroup, ControlLabel, FormControl, HelpBlock,
@@ -244,14 +244,21 @@ class CreatePlugin extends Component {
 
     const fileData = JSON.stringify(pluginRepresentation);
     const file = new Blob([fileData], { type: 'application/json' });
+    const fileObj = { descriptor_file: file };
+
+    const pluginData = {
+      name: pluginName,
+      dock_image: pluginImage,
+      public_repo: pluginRepo,
+    };
 
     const storeURL = process.env.REACT_APP_STORE_URL;
     const token = window.sessionStorage.getItem('AUTH_TOKEN');
-    const client = new StoreClient(storeURL, { token });
+    const client = new Client(storeURL, { token });
 
     let newPlugin;
     try {
-      const resp = await client.addPlugin(pluginName, pluginImage, file, pluginRepo);
+      const resp = await client.createPlugin(pluginData, fileObj);
       newPlugin = resp.data;
     } catch ({ message }) {
       return this.handleError(message);

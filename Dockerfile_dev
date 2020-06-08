@@ -30,7 +30,8 @@ MAINTAINER fnndsc "dev@babymri.org"
 ARG UID=1001
 ENV UID=$UID  HOME="/home/localuser" VERSION="0.1"
 
-RUN adduser -u $UID -D localuser
+RUN apk add --no-cache git           \
+  && adduser -u $UID -D localuser
 
 # Start as user localuser
 USER localuser
