@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import StoreClient from '@fnndsc/chrisstoreapi';
+import Client from '@fnndsc/chrisstoreapi';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 import PluginItem from './components/PluginItem/PluginItem';
 import LoadingPluginItem from './components/LoadingPluginItem/LoadingPluginItem';
@@ -54,7 +54,7 @@ class Plugins extends Component {
 
   fetchPlugins() {
     const storeURL = process.env.REACT_APP_STORE_URL;
-    const client = new StoreClient(storeURL);
+    const client = new Client(storeURL);
     const searchParams = {
       limit: 20,
       offset: 0,

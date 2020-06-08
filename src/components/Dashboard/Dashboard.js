@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, CardGrid, Spinner } from 'patternfly-react';
 import PropTypes from 'prop-types';
-import StoreClient from '@fnndsc/chrisstoreapi';
+import Client from '@fnndsc/chrisstoreapi';
 import './Dashboard.css';
 import DashPluginCardView from './components/DashPluginCardView/DashPluginCardView';
 import DashTeamView from './components/DashTeamView/DashTeamView';
@@ -29,7 +29,7 @@ class Dashboard extends Component {
   fetchPlugins() {
     const { store } = this.props;
     const storeURL = process.env.REACT_APP_STORE_URL;
-    const client = new StoreClient(storeURL);
+    const client = new Client(storeURL);
     const searchParams = {
       owner_username: store.get('userName'),
       limit: 20,
@@ -59,11 +59,11 @@ class Dashboard extends Component {
     const { store } = this.props;
     const storeURL = process.env.REACT_APP_STORE_URL;
     const auth = { token: store.get('authToken') };
-    const client = new StoreClient(storeURL, auth);
+    const client = new Client(storeURL, auth);
 
     let response;
     try {
-      response = client.removePlugin(pluginId);
+      response = client.getPlugin(pluginId).then(plugin => plugin.delete());
       response.then(() => {
         this.fetchPlugins();
       });
@@ -77,11 +77,13 @@ class Dashboard extends Component {
     const { store } = this.props;
     const storeURL = process.env.REACT_APP_STORE_URL;
     const auth = { token: store.get('authToken') };
-    const client = new StoreClient(storeURL, auth);
+    const client = new Client(storeURL, auth);
 
     let response;
     try {
-      response = client.modifyPlugin(pluginId, publicRepo);
+      response = client.getPlugin(pluginId)
+        .then(plugin => plugin.getPluginMeta())
+        .then(plgMeta => plgMeta.put({ public_repo: publicRepo }));
       response.then(() => {
         this.fetchPlugins();
       });
