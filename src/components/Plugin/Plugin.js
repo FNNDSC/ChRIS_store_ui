@@ -49,7 +49,7 @@ class Plugin extends Component {
     let pluginData;
     return new Promise(async (resolve, reject) => {
       try {
-        const plugin = await client.getPlugin(pluginId);
+        const plugin = await client.getPlugin(parseInt(pluginId, 10));
         pluginData = plugin.data;
       } catch (e) {
         return reject(e);
