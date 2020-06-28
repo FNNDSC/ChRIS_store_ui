@@ -24,13 +24,13 @@ Then open a terminal and fire the backend services up:
 ```bash
 $ git clone https://github.com/FNNDSC/ChRIS_store.git
 $ cd ChRIS_store
-$ ./docker-make.sh up
+$ ./make.sh up
 ```
 
 You can later remove all the backend containers and release storage volumes with:
 ```bash
 $ cd ChRIS_store
-$ ./docker-make.sh down
+$ ./make.sh down
 ```
 
 
