@@ -37,22 +37,15 @@ class Dashboard extends Component {
     };
     this.setState({ loading: true, pluginList: null });
 
-    return new Promise(async (resolve, reject) => {
-      let plugins;
-      try {
-        // add plugins to pluginList as they are received
-        plugins = await client.getPlugins(searchParams);
+    return client.getPlugins(searchParams)
+      .then((plugins) => {
         this.setState((prevState) => {
           const prevPluginList = prevState.pluginList ? prevState.pluginList : [];
           const nextPluginList = prevPluginList.concat(plugins.data);
           return { pluginList: nextPluginList, loading: false };
         });
-      } catch (e) {
-        return reject(e);
-      }
-
-      return resolve(plugins.data);
-    });
+        return plugins.data;
+      });
   }
 
   deletePlugin(pluginId) {

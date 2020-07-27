@@ -8,10 +8,10 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
-"@fnndsc/chrisstoreapi@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@fnndsc/chrisstoreapi/-/chrisstoreapi-2.0.0.tgz#a60364981f15ad93bb97100ae07d57a832d4f6ec"
-  integrity sha512-zSIKxcmbranmsIoYoFYvO16sPniiOclQFKpmvbudIFWQU6dKsEGgVzdqa6QXqHjCw5rdvGQky8oJFMztrasEXA==
+"@fnndsc/chrisstoreapi@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@fnndsc/chrisstoreapi/-/chrisstoreapi-2.0.1.tgz#90b9f13b2983deb0193094c45039c76775487b1b"
+  integrity sha512-L4t6hi5AvDw3Y9uHNW4lIb1L+5IeLR9P42IW+z/PwLynS7LvHpf6PF3mC5XBv4yrbEfOKY+zfZ3a9f51S2sZ0Q==
   dependencies:
     axios "^0.18.0"
 
