@@ -15,6 +15,7 @@ UI for the ChRIS Store.
 ### Install latest Docker. Currently tested platforms:
 * ``Ubuntu 16.04+``
 * ``MAC OS X 10.11+``
+* ``Fedora 31+`` ([Additional instructions for Fedora](https://github.com/mairin/ChRIS_store/wiki/Getting-the-ChRIS-Store-to-work-on-Fedora))
 
 ### Optionally get the backend services up so you can fully test the UI against actual data
 * Install latest ``Docker Compose``
