@@ -37,22 +37,34 @@ $ ./make.sh down
 
 ## Start UI development server
 
+### Using ``node`` and ``yarn`` package manager directly on the metal
+
+Open a new terminal and type:
+```bash
+$ git clone https://github.com/FNNDSC/ChRIS_store_ui.git
+$ cd ChRIS_store_ui
+$ yarn install
+$ yarn start
+```
+
+### Using `docker`
 Open a new terminal and type:
 ```bash
 $ git clone https://github.com/FNNDSC/ChRIS_store_ui.git
 $ cd ChRIS_store_ui
 $ docker run --rm -it -v $(pwd):/home/localuser -p 3000:3000 -u $(id -u):$(id -g) --name chris_store_ui fnndsc/chris_store_ui:dev
 ```
+
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### Precommit
+#### Precommit
 
-Before each commit, a precommit script is run automatically to ensure all tests pass and all JavaScript code follows the [Airbnb style guide][airbnb-style]
-Please note that you need to run git inside the container. For instance open a new terminal and type:
+Before each commit, a precommit script is run automatically to ensure all tests pass and all JavaScript code follows the [Airbnb style guide][airbnb-style].
+
+Please note that if you are using the ``docker`` commands then you need to run git inside the container. For instance open a new terminal and type:
 ```bash
 $ docker exec -it chris_store_ui git status
 ```
-
 
 ## Notes:
 1. Add .env.local, .env.local, .env.development.local, .env.test.local, .env.production.local file at root to change any local settings
@@ -64,10 +76,20 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Run the interactive tests
 
+### Using ``node`` and ``yarn`` package manager directly on the metal
+
+Open a new terminal and type:
+```bash
+$ yarn test
+```
+
+### Using `docker`
+
 Open a new terminal and type:
 ```bash
 $ docker exec -it chris_store_ui yarn test
 ```
+
 Launches the test runner in the interactive watch mode.<br>
 
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
