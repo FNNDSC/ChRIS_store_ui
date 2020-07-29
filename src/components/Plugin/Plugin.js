@@ -111,9 +111,7 @@ class Plugin extends Component {
               }
               <div className="plugin-stats">
                 <div className="plugin-version plugin-tag">
-                  {data &&
-                    `v${data.version}`
-                  }
+                  {data && data.version}
                 </div>
                 <div className="plugin-created plugin-tag">
                   <Link

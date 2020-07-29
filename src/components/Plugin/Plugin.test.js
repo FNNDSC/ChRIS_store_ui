@@ -196,7 +196,7 @@ describe('Plugin with data', () => {
     expect(wrapper
       .find('div.plugin-version')
       .text())
-      .toEqual('vtestVersion');
+      .toEqual('testVersion');
   });
 
   it('should render plugin-created div inside plugin-stats', () => {
