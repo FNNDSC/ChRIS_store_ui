@@ -83,6 +83,29 @@ class StoreClient {
     }
     return Promise.reject(new Error('invalid Token'));
   }
+  createPlugin(data, uploadFileObj) {
+    if (this.validToken) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const { target: { result } } = e;
+
+          const pluginRepresentation = JSON.parse(result);
+          if (pluginRepresentation.title === undefined) {
+            reject(new Error('Missing JSON'));
+          } else {
+            resolve({
+              data: {
+                data, ...pluginRepresentation,
+              },
+            });
+          }
+        };
+        reader.readAsText(uploadFileObj.descriptor_file);
+      });
+    }
+    return Promise.reject(new Error('invalid Token'));
+  }
 }
 
 export default StoreClient;

@@ -509,7 +509,7 @@ describe('CreatePlugin', () => {
     repo: 'https://repository.com',
   };
 
-  xit('should call handleError if all fields are filled but invalid JSON is received', async () => {
+  it('should call handleError if all fields are filled but invalid JSON is received', async () => {
     window.sessionStorage.setItem('AUTH_TOKEN', 'testToken');
 
     // a spy for the handleError method
@@ -523,7 +523,7 @@ describe('CreatePlugin', () => {
     expect(spy).toHaveBeenCalledWith('Missing JSON');
   });
 
-  xit('should return newPlugin and set state if all fields are filled and valid JSON is received', async () => {
+  it('should return newPlugin and set state if all fields are filled and valid JSON is received', async () => {
     // a spy for the handleError method
     const { spy, mockedWrapper } = createMockedWrapper('handleError');
     mockedWrapper.setState({
@@ -534,8 +534,12 @@ describe('CreatePlugin', () => {
     const response = await mockedWrapper.instance().handleSubmit();
     expect(spy).toHaveBeenCalledTimes(0);
     expect(response).toEqual({
-      ...defaultFormState,
       ...validPluginRepresentation,
+      data: {
+        dock_image: defaultFormState.image,
+        name: defaultFormState.name,
+        public_repo: defaultFormState.repo,
+      },
     });
     expect(mockedWrapper.state('formError')).toBeFalsy();
     expect(mockedWrapper.state('success')).toBeTruthy();
