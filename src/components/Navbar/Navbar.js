@@ -112,8 +112,8 @@ export class Navbar extends Component {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/developers" href="/developers" className="navbar-developers-btn">
-                    Developers
+                  <NavLink to="/quickstart" href="/quickstart" className="navbar-developers-btn">
+                  Quick Start
                   </NavLink>
                 </li>
                 {dashboardLink}
@@ -135,12 +135,12 @@ export class Navbar extends Component {
             </div>
             <div className="navbar-btn-container">
               <NavLink
-                to="/developers"
-                href="/developers"
+                to="/quickstart"
+                href="/quickstart"
                 className="navbar-dropdown-btn"
                 onClick={this.toggleDropdown}
               >
-                Developers
+                Quick Start
               </NavLink>
             </div>
             {dashboardDropdown}
