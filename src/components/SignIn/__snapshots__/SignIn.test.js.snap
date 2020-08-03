@@ -119,9 +119,9 @@ ShallowWrapper {
                                 >
                                         Need an account?
                                         <Link
-                                                href="/developers"
+                                                href="/quickstart"
                                                 replace={false}
-                                                to="/developers"
+                                                to="/quickstart"
                                         >
                                                 Signup
                                         </Link>
@@ -231,9 +231,9 @@ ShallowWrapper {
                                     >
                                                 Need an account?
                                                 <Link
-                                                            href="/developers"
+                                                            href="/quickstart"
                                                             replace={false}
-                                                            to="/developers"
+                                                            to="/quickstart"
                                                 >
                                                             Signup
                                                 </Link>
@@ -377,9 +377,9 @@ ShallowWrapper {
                                 >
                                                 Need an account?
                                                 <Link
-                                                                href="/developers"
+                                                                href="/quickstart"
                                                                 replace={false}
-                                                                to="/developers"
+                                                                to="/quickstart"
                                                 >
                                                                 Signup
                                                 </Link>
@@ -478,9 +478,9 @@ ShallowWrapper {
                   >
                                     Need an account?
                                     <Link
-                                                      href="/developers"
+                                                      href="/quickstart"
                                                       replace={false}
-                                                      to="/developers"
+                                                      to="/quickstart"
                                     >
                                                       Signup
                                     </Link>
@@ -545,9 +545,9 @@ ShallowWrapper {
 >
                       Need an account?
                       <Link
-                                            href="/developers"
+                                            href="/quickstart"
                                             replace={false}
-                                            to="/developers"
+                                            to="/quickstart"
                       >
                                             Signup
                       </Link>
@@ -668,9 +668,9 @@ ShallowWrapper {
                       "children": Array [
                         "Need an account?",
                         <Link
-                          href="/developers"
+                          href="/quickstart"
                           replace={false}
-                          to="/developers"
+                          to="/quickstart"
 >
                           Signup
 </Link>,
@@ -686,9 +686,9 @@ ShallowWrapper {
                         "nodeType": "class",
                         "props": Object {
                           "children": "Signup",
-                          "href": "/developers",
+                          "href": "/quickstart",
                           "replace": false,
-                          "to": "/developers",
+                          "to": "/quickstart",
                         },
                         "ref": null,
                         "rendered": "Signup",
@@ -810,9 +810,9 @@ ShallowWrapper {
                                         >
                                                   Need an account?
                                                   <Link
-                                                            href="/developers"
+                                                            href="/quickstart"
                                                             replace={false}
-                                                            to="/developers"
+                                                            to="/quickstart"
                                                   >
                                                             Signup
                                                   </Link>
@@ -922,9 +922,9 @@ ShallowWrapper {
                                           >
                                                         Need an account?
                                                         <Link
-                                                                      href="/developers"
+                                                                      href="/quickstart"
                                                                       replace={false}
-                                                                      to="/developers"
+                                                                      to="/quickstart"
                                                         >
                                                                       Signup
                                                         </Link>
@@ -1068,9 +1068,9 @@ ShallowWrapper {
                                     >
                                                       Need an account?
                                                       <Link
-                                                                        href="/developers"
+                                                                        href="/quickstart"
                                                                         replace={false}
-                                                                        to="/developers"
+                                                                        to="/quickstart"
                                                       >
                                                                         Signup
                                                       </Link>
@@ -1169,9 +1169,9 @@ ShallowWrapper {
                     >
                                         Need an account?
                                         <Link
-                                                            href="/developers"
+                                                            href="/quickstart"
                                                             replace={false}
-                                                            to="/developers"
+                                                            to="/quickstart"
                                         >
                                                             Signup
                                         </Link>
@@ -1236,9 +1236,9 @@ ShallowWrapper {
 >
                         Need an account?
                         <Link
-                                                href="/developers"
+                                                href="/quickstart"
                                                 replace={false}
-                                                to="/developers"
+                                                to="/quickstart"
                         >
                                                 Signup
                         </Link>
@@ -1359,9 +1359,9 @@ ShallowWrapper {
                         "children": Array [
                           "Need an account?",
                           <Link
-                            href="/developers"
+                            href="/quickstart"
                             replace={false}
-                            to="/developers"
+                            to="/quickstart"
 >
                             Signup
 </Link>,
@@ -1377,9 +1377,9 @@ ShallowWrapper {
                           "nodeType": "class",
                           "props": Object {
                             "children": "Signup",
-                            "href": "/developers",
+                            "href": "/quickstart",
                             "replace": false,
-                            "to": "/developers",
+                            "to": "/quickstart",
                           },
                           "ref": null,
                           "rendered": "Signup",

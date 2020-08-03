@@ -20,7 +20,7 @@ const Router = () => (
       <Route exact path="/" component={Welcome} />
       <Route path="/plugins" component={Plugins} />
       <Route path="/plugin/:plugin" component={Plugin} />
-      <Route path="/developers" component={Developers} />
+      <Route path="/quickstart" component={Developers} />
       <ProtectedRoute path="/create" component={CreatePlugin} />
       <ProtectedRoute path="/dashboard" component={Dashboard} />
       <Route component={NotFound} />

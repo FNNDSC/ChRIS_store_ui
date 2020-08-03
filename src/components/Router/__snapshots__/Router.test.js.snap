@@ -35,7 +35,7 @@ ShallowWrapper {
           />
           <Route
                     component={[Function]}
-                    path="/developers"
+                    path="/quickstart"
           />
           <withStore(ProtectedRoute)
                     component={[Function]}
@@ -84,7 +84,7 @@ ShallowWrapper {
 />,
             <Route
               component={[Function]}
-              path="/developers"
+              path="/quickstart"
 />,
             <withStore(ProtectedRoute)
               component={[Function]}
@@ -144,7 +144,7 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "component": [Function],
-              "path": "/developers",
+              "path": "/quickstart",
             },
             "ref": null,
             "rendered": null,
@@ -224,7 +224,7 @@ ShallowWrapper {
             />
             <Route
                         component={[Function]}
-                        path="/developers"
+                        path="/quickstart"
             />
             <withStore(ProtectedRoute)
                         component={[Function]}
@@ -273,7 +273,7 @@ ShallowWrapper {
 />,
               <Route
                 component={[Function]}
-                path="/developers"
+                path="/quickstart"
 />,
               <withStore(ProtectedRoute)
                 component={[Function]}
@@ -333,7 +333,7 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "component": [Function],
-                "path": "/developers",
+                "path": "/quickstart",
               },
               "ref": null,
               "rendered": null,

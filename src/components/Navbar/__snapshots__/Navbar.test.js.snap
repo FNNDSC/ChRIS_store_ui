@@ -124,10 +124,10 @@ ShallowWrapper {
                                                             activeClassName="active"
                                                             aria-current="page"
                                                             className="navbar-developers-btn"
-                                                            href="/developers"
-                                                            to="/developers"
+                                                            href="/quickstart"
+                                                            to="/quickstart"
                                                   >
-                                                            Developers
+                                                            Quick Start
                                                   </NavLink>
                                         </li>
                                         <li>
@@ -178,11 +178,11 @@ ShallowWrapper {
                                         activeClassName="active"
                                         aria-current="page"
                                         className="navbar-dropdown-btn"
-                                        href="/developers"
+                                        href="/quickstart"
                                         onClick={[Function]}
-                                        to="/developers"
+                                        to="/quickstart"
                               >
-                                        Developers
+                                        Quick Start
                               </NavLink>
                     </div>
                     <div
@@ -322,10 +322,10 @@ ShallowWrapper {
                                                             activeClassName="active"
                                                             aria-current="page"
                                                             className="navbar-developers-btn"
-                                                            href="/developers"
-                                                            to="/developers"
+                                                            href="/quickstart"
+                                                            to="/quickstart"
                                                 >
-                                                            Developers
+                                                            Quick Start
                                                 </NavLink>
                                     </li>
                                     <li>
@@ -436,10 +436,10 @@ ShallowWrapper {
                                                                 activeClassName="active"
                                                                 aria-current="page"
                                                                 className="navbar-developers-btn"
-                                                                href="/developers"
-                                                                to="/developers"
+                                                                href="/quickstart"
+                                                                to="/quickstart"
                                                 >
-                                                                Developers
+                                                                Quick Start
                                                 </NavLink>
                                 </li>
                                 <li>
@@ -636,10 +636,10 @@ ShallowWrapper {
                                                             activeClassName="active"
                                                             aria-current="page"
                                                             className="navbar-developers-btn"
-                                                            href="/developers"
-                                                            to="/developers"
+                                                            href="/quickstart"
+                                                            to="/quickstart"
                                         >
-                                                            Developers
+                                                            Quick Start
                                         </NavLink>
                     </li>
                     <li>
@@ -783,10 +783,10 @@ ShallowWrapper {
                                                 activeClassName="active"
                                                 aria-current="page"
                                                 className="navbar-developers-btn"
-                                                href="/developers"
-                                                to="/developers"
+                                                href="/quickstart"
+                                                to="/quickstart"
                         >
-                                                Developers
+                                                Quick Start
                         </NavLink>
 </li>,
                       <li>
@@ -847,10 +847,10 @@ ShallowWrapper {
                           activeClassName="active"
                           aria-current="page"
                           className="navbar-developers-btn"
-                          href="/developers"
-                          to="/developers"
+                          href="/quickstart"
+                          to="/quickstart"
 >
-                          Developers
+                          Quick Start
 </NavLink>,
                       },
                       "ref": null,
@@ -861,13 +861,13 @@ ShallowWrapper {
                         "props": Object {
                           "activeClassName": "active",
                           "aria-current": "page",
-                          "children": "Developers",
+                          "children": "Quick Start",
                           "className": "navbar-developers-btn",
-                          "href": "/developers",
-                          "to": "/developers",
+                          "href": "/quickstart",
+                          "to": "/quickstart",
                         },
                         "ref": null,
-                        "rendered": "Developers",
+                        "rendered": "Quick Start",
                         "type": [Function],
                       },
                       "type": "li",
@@ -945,11 +945,11 @@ ShallowWrapper {
                                     activeClassName="active"
                                     aria-current="page"
                                     className="navbar-dropdown-btn"
-                                    href="/developers"
+                                    href="/quickstart"
                                     onClick={[Function]}
-                                    to="/developers"
+                                    to="/quickstart"
                         >
-                                    Developers
+                                    Quick Start
                         </NavLink>
             </div>
             <div
@@ -1026,11 +1026,11 @@ ShallowWrapper {
                                 activeClassName="active"
                                 aria-current="page"
                                 className="navbar-dropdown-btn"
-                                href="/developers"
+                                href="/quickstart"
                                 onClick={[Function]}
-                                to="/developers"
+                                to="/quickstart"
                 >
-                                Developers
+                                Quick Start
                 </NavLink>
 </div>,
               <div
@@ -1121,11 +1121,11 @@ ShallowWrapper {
                   activeClassName="active"
                   aria-current="page"
                   className="navbar-dropdown-btn"
-                  href="/developers"
+                  href="/quickstart"
                   onClick={[Function]}
-                  to="/developers"
+                  to="/quickstart"
 >
-                  Developers
+                  Quick Start
 </NavLink>,
                 "className": "navbar-btn-container",
               },
@@ -1137,14 +1137,14 @@ ShallowWrapper {
                 "props": Object {
                   "activeClassName": "active",
                   "aria-current": "page",
-                  "children": "Developers",
+                  "children": "Quick Start",
                   "className": "navbar-dropdown-btn",
-                  "href": "/developers",
+                  "href": "/quickstart",
                   "onClick": [Function],
-                  "to": "/developers",
+                  "to": "/quickstart",
                 },
                 "ref": null,
-                "rendered": "Developers",
+                "rendered": "Quick Start",
                 "type": [Function],
               },
               "type": "div",
@@ -1366,10 +1366,10 @@ ShallowWrapper {
                                                                         activeClassName="active"
                                                                         aria-current="page"
                                                                         className="navbar-developers-btn"
-                                                                        href="/developers"
-                                                                        to="/developers"
+                                                                        href="/quickstart"
+                                                                        to="/quickstart"
                                                             >
-                                                                        Developers
+                                                                        Quick Start
                                                             </NavLink>
                                                 </li>
                                                 <li>
@@ -1420,11 +1420,11 @@ ShallowWrapper {
                                                 activeClassName="active"
                                                 aria-current="page"
                                                 className="navbar-dropdown-btn"
-                                                href="/developers"
+                                                href="/quickstart"
                                                 onClick={[Function]}
-                                                to="/developers"
+                                                to="/quickstart"
                                     >
-                                                Developers
+                                                Quick Start
                                     </NavLink>
                         </div>
                         <div
@@ -1564,10 +1564,10 @@ ShallowWrapper {
                                                                       activeClassName="active"
                                                                       aria-current="page"
                                                                       className="navbar-developers-btn"
-                                                                      href="/developers"
-                                                                      to="/developers"
+                                                                      href="/quickstart"
+                                                                      to="/quickstart"
                                                         >
-                                                                      Developers
+                                                                      Quick Start
                                                         </NavLink>
                                           </li>
                                           <li>
@@ -1678,10 +1678,10 @@ ShallowWrapper {
                                                                         activeClassName="active"
                                                                         aria-current="page"
                                                                         className="navbar-developers-btn"
-                                                                        href="/developers"
-                                                                        to="/developers"
+                                                                        href="/quickstart"
+                                                                        to="/quickstart"
                                                       >
-                                                                        Developers
+                                                                        Quick Start
                                                       </NavLink>
                                     </li>
                                     <li>
@@ -1878,10 +1878,10 @@ ShallowWrapper {
                                                                   activeClassName="active"
                                                                   aria-current="page"
                                                                   className="navbar-developers-btn"
-                                                                  href="/developers"
-                                                                  to="/developers"
+                                                                  href="/quickstart"
+                                                                  to="/quickstart"
                                             >
-                                                                  Developers
+                                                                  Quick Start
                                             </NavLink>
                       </li>
                       <li>
@@ -2025,10 +2025,10 @@ ShallowWrapper {
                                                     activeClassName="active"
                                                     aria-current="page"
                                                     className="navbar-developers-btn"
-                                                    href="/developers"
-                                                    to="/developers"
+                                                    href="/quickstart"
+                                                    to="/quickstart"
                           >
-                                                    Developers
+                                                    Quick Start
                           </NavLink>
 </li>,
                         <li>
@@ -2089,10 +2089,10 @@ ShallowWrapper {
                             activeClassName="active"
                             aria-current="page"
                             className="navbar-developers-btn"
-                            href="/developers"
-                            to="/developers"
+                            href="/quickstart"
+                            to="/quickstart"
 >
-                            Developers
+                            Quick Start
 </NavLink>,
                         },
                         "ref": null,
@@ -2103,13 +2103,13 @@ ShallowWrapper {
                           "props": Object {
                             "activeClassName": "active",
                             "aria-current": "page",
-                            "children": "Developers",
+                            "children": "Quick Start",
                             "className": "navbar-developers-btn",
-                            "href": "/developers",
-                            "to": "/developers",
+                            "href": "/quickstart",
+                            "to": "/quickstart",
                           },
                           "ref": null,
-                          "rendered": "Developers",
+                          "rendered": "Quick Start",
                           "type": [Function],
                         },
                         "type": "li",
@@ -2187,11 +2187,11 @@ ShallowWrapper {
                                           activeClassName="active"
                                           aria-current="page"
                                           className="navbar-dropdown-btn"
-                                          href="/developers"
+                                          href="/quickstart"
                                           onClick={[Function]}
-                                          to="/developers"
+                                          to="/quickstart"
                             >
-                                          Developers
+                                          Quick Start
                             </NavLink>
               </div>
               <div
@@ -2268,11 +2268,11 @@ ShallowWrapper {
                                     activeClassName="active"
                                     aria-current="page"
                                     className="navbar-dropdown-btn"
-                                    href="/developers"
+                                    href="/quickstart"
                                     onClick={[Function]}
-                                    to="/developers"
+                                    to="/quickstart"
                   >
-                                    Developers
+                                    Quick Start
                   </NavLink>
 </div>,
                 <div
@@ -2363,11 +2363,11 @@ ShallowWrapper {
                     activeClassName="active"
                     aria-current="page"
                     className="navbar-dropdown-btn"
-                    href="/developers"
+                    href="/quickstart"
                     onClick={[Function]}
-                    to="/developers"
+                    to="/quickstart"
 >
-                    Developers
+                    Quick Start
 </NavLink>,
                   "className": "navbar-btn-container",
                 },
@@ -2379,14 +2379,14 @@ ShallowWrapper {
                   "props": Object {
                     "activeClassName": "active",
                     "aria-current": "page",
-                    "children": "Developers",
+                    "children": "Quick Start",
                     "className": "navbar-dropdown-btn",
-                    "href": "/developers",
+                    "href": "/quickstart",
                     "onClick": [Function],
-                    "to": "/developers",
+                    "to": "/quickstart",
                   },
                   "ref": null,
-                  "rendered": "Developers",
+                  "rendered": "Quick Start",
                   "type": [Function],
                 },
                 "type": "div",

@@ -107,14 +107,14 @@ describe('Navbar', () => {
     expect(wrapper.find('NavLink.navbar-developers-btn')).toHaveLength(1);
   });
 
-  it('developers button should have href="/developers" attribute', () => {
+  it('developers button should have href="/quickstart" attribute', () => {
     expect(wrapper.find('NavLink.navbar-developers-btn').prop('href'))
-      .toEqual('/developers');
+      .toEqual('/quickstart');
   });
 
-  it('developers button should have to="/developers" attribute', () => {
+  it('developers button should have to="/quickstart" attribute', () => {
     expect(wrapper.find('NavLink.navbar-developers-btn').prop('to'))
-      .toEqual('/developers');
+      .toEqual('/quickstart');
   });
 
   /* ============================== */
