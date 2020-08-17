@@ -46,11 +46,6 @@ describe('PluginBody', () => {
       .toHaveLength(1);
   });
 
-  it('should render plugin-body-image Card component', () => {
-    expect(wrapper
-      .find('Card.plugin-body-image'))
-      .toHaveLength(1);
-  });
 
   /* ============================== */
   /* =========== CARDS ============ */
@@ -112,17 +107,5 @@ describe('rendered PluginBody', () => {
       .childAt(0)
       .text())
       .toEqual('testDescription');
-  });
-
-  it('should render docker image inside plugin-body-image', () => {
-    const changedData = Object.assign({}, samplePluginData);
-    changedData.dock_image = 'testImage';
-    wrapper.setProps({ pluginData: changedData });
-    expect(wrapper
-      .find('Card.plugin-body-image')
-      .find('CardBody')
-      .childAt(0)
-      .text())
-      .toEqual('testImage');
   });
 });
