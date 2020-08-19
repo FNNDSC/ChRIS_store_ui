@@ -138,7 +138,7 @@ const PluginBody = ({ pluginData }) => (
                           <div className="plugin-body-documentation">
                             <h4>Documentation:</h4>
                             {/* eslint-disable-next-line */}
-                            <a href="#">
+                            <a>
                               readthedocs.com/freesurfer
                             </a>
                           </div>
@@ -153,7 +153,7 @@ const PluginBody = ({ pluginData }) => (
                             </Link>
                             <div className="plugin-body-contributors-all">
                               {/* eslint-disable-next-line */}
-                              <a href="#">
+                              <a>
                                 View all contributors...
                               </a>
                             </div>
@@ -194,6 +194,8 @@ PluginBody.propTypes = {
     license: PropTypes.string,
     public_repo: PropTypes.string,
     type: PropTypes.string,
+    authorURL: PropTypes.string,
+    authors: PropTypes.string,
   }).isRequired,
 };
 
