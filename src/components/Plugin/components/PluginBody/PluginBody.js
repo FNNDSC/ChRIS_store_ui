@@ -1,7 +1,11 @@
+/* eslint-disable react/jsx-indent-props */
+/* eslint-disable react/jsx-indent */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardHeading, CardTitle, CardBody } from 'patternfly-react';
 import './PluginBody.css';
+import CopyURLButton from '../../../general/CopyURLButton';
+
 
 const PluginBody = ({ pluginData }) => (
   <div className="plugin-body">
@@ -25,7 +29,10 @@ const PluginBody = ({ pluginData }) => (
           <CardHeading>
             <CardTitle>Docker Image</CardTitle>
           </CardHeading>
-          <CardBody>{pluginData.dock_image}</CardBody>
+          <CardBody>
+            {pluginData.dock_image}
+            <CopyURLButton />
+          </CardBody>
         </Card>
       </div>
     </div>

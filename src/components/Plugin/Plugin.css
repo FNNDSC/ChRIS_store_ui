@@ -98,3 +98,12 @@
   color: #72767b;
   color: var(--pf-black-600);
 }
+
+.p-3 {
+    padding: 16px;
+}
+
+.menu-dropdown {
+    margin-top: 10px !important;
+    min-width: 400px !important;
+}
