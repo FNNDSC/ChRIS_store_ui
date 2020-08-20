@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Grid, Icon } from 'patternfly-react';
 import PropTypes from 'prop-types';
 import Client from '@fnndsc/chrisstoreapi';
 import LoadingPlugin from './components/LoadingPlugin/LoadingPlugin';
 import PluginBody from './components/PluginBody/PluginBody';
 import RelativeDate from '../RelativeDate/RelativeDate';
+import PluginImg from '../../assets/img/brainy-pointer.png';
 import './Plugin.css';
 
 const removeEmail = (author) => {
@@ -87,7 +89,6 @@ class Plugin extends Component {
     let container;
     if (Object.keys(data).length > 0) {
       const modificationDate = new RelativeDate(data.modification_date);
-      const creationDate = new RelativeDate(data.creation_date);
 
       const author = removeEmail(data.authors);
       if (!authorURL) authorURL = `/author/${author}`;
@@ -95,41 +96,50 @@ class Plugin extends Component {
       container = (
         <div className="plugin-container">
           <div className="plugin-header">
-            <div className="row no-flex">
-              <div className="plugin-category">Visualization</div>
-              <Link
-                href={pluginURL || '/'}
-                to={pluginURL || '/'}
-                className="plugin-name"
-              >
-                {data.name}
-              </Link>
-              {modificationDate.isValid() &&
-                <div className="plugin-modified">
-                  {`Last modified ${modificationDate.format()}`}
-                </div>
-              }
-              <div className="plugin-stats">
-                <div className="plugin-version plugin-tag">
-                  {data && data.version}
-                </div>
-                <div className="plugin-created plugin-tag">
-                  <Link
-                    href={authorURL}
-                    to={authorURL}
-                    className="plugin-author"
-                  >
-                    {author}
-                  </Link>
-                  {creationDate.isValid() &&
-                    ` created ${creationDate.format()}`
-                  }
-                </div>
-                <div className="plugin-license plugin-tag">
-                  {`${data.license} license`}
-                </div>
-              </div>
-            </div>
+            <Grid>
+              <Grid.Row>
+                <Grid.Col sm={12}>
+                  <Grid.Col sm={1}>
+                    <img
+                      className="plugin-icon"
+                      src={PluginImg}
+                      alt="Plugin icon"
+                    />
+                  </Grid.Col>
+                  <Grid.Col sm={6}>
+                    <div className="plugin-category">
+                      Visualization
+                    </div>
+                    <div className="plugin-name">
+                      <Link
+                        href={pluginURL || '/'}
+                        to={pluginURL || '/'}
+                        className="plugin-name"
+                      >
+                        {data.name}
+                      </Link>
+                      <Icon name="star-o" size="md" className="plugin-star" />
+                    </div>
+                    <div className="plugin-description">
+                      {data.description}
+                    </div>
+                  </Grid.Col>
+                  <Grid.Col sm={4} className="plugin-stats">
+                    <Icon name="star" size="md" /> 10k+
+                    {modificationDate.isValid() &&
+                      <span className="plugin-modified">
+                        <Icon name="clock-o" size="md" />
+                        {`Last modified ${modificationDate.format()}`}
+                      </span>
+                    }
+                    {/* temp text */}
+                    <span className="plugin-modified">
+                      <Icon name="clock-o" size="md" /> Last modified 1 hour ago
+                    </span>
+                  </Grid.Col>
+                </Grid.Col>
+              </Grid.Row>
+            </Grid>
           </div>
           <PluginBody pluginData={data} />
         </div>
@@ -163,7 +173,6 @@ Plugin.propTypes = {
     description: PropTypes.string,
     dock_image: PropTypes.string,
     modification_date: PropTypes.string,
-    creation_date: PropTypes.string,
     authors: PropTypes.string,
     version: PropTypes.string,
   }),
