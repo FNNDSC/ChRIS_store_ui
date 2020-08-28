@@ -48,6 +48,10 @@ describe('Plugin', () => {
       .find('Link.plugin-item-author'))
       .toHaveLength(1);
   });
+
+  it('should render a large star Icon', () => {
+    expect(wrapper.find('Icon[size="lg"]')).toHaveLength(1);
+  });
 });
 
 describe('rendered Plugin', () => {

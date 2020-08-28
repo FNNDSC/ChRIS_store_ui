@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardBody } from 'patternfly-react';
+import { Card, CardBody, Icon } from 'patternfly-react';
 import { Link } from 'react-router-dom';
 import RelativeDate from '../../../RelativeDate/RelativeDate';
 import './PluginItem.css';
@@ -21,6 +21,7 @@ const Plugin = props => (
           >
             {props.name}
           </Link>
+          <Icon name="star" size="lg" />
           <div className="plugin-item-title">{props.title}</div>
           <div className="plugin-item-creation">
             <Link
