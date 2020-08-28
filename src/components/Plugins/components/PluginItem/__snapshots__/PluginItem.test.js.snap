@@ -8,6 +8,7 @@ ShallowWrapper {
     author=""
     creationDate=""
     id=""
+    isLoggedIn={false}
     name=""
     title=""
 />,
@@ -43,7 +44,7 @@ ShallowWrapper {
                                         to="/plugin/"
                                 />
                                 <Icon
-                                        className="plugin-star"
+                                        className="plugin-star-disabled"
                                         name="star-o"
                                         type="fa"
                                 />
@@ -86,7 +87,7 @@ ShallowWrapper {
                                         to="/plugin/"
                               />
                               <Icon
-                                        className="plugin-star"
+                                        className="plugin-star-disabled"
                                         name="star-o"
                                         type="fa"
                               />
@@ -126,7 +127,7 @@ ShallowWrapper {
                                     to="/plugin/"
                         />
                         <Icon
-                                    className="plugin-star"
+                                    className="plugin-star-disabled"
                                     name="star-o"
                                     type="fa"
                         />
@@ -162,7 +163,7 @@ ShallowWrapper {
                                 to="/plugin/"
                 />
                 <Icon
-                                className="plugin-star"
+                                className="plugin-star-disabled"
                                 name="star-o"
                                 type="fa"
                 />
@@ -197,7 +198,7 @@ ShallowWrapper {
                     to="/plugin/"
 />,
                   <Icon
-                    className="plugin-star"
+                    className="plugin-star-disabled"
                     name="star-o"
                     type="fa"
 />,
@@ -225,7 +226,7 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "function",
                   "props": Object {
-                    "className": "plugin-star",
+                    "className": "plugin-star-disabled",
                     "name": "star-o",
                     "type": "fa",
                   },
@@ -320,7 +321,7 @@ ShallowWrapper {
                                                   to="/plugin/"
                                         />
                                         <Icon
-                                                  className="plugin-star"
+                                                  className="plugin-star-disabled"
                                                   name="star-o"
                                                   type="fa"
                                         />
@@ -363,7 +364,7 @@ ShallowWrapper {
                                                 to="/plugin/"
                                     />
                                     <Icon
-                                                className="plugin-star"
+                                                className="plugin-star-disabled"
                                                 name="star-o"
                                                 type="fa"
                                     />
@@ -403,7 +404,7 @@ ShallowWrapper {
                                           to="/plugin/"
                             />
                             <Icon
-                                          className="plugin-star"
+                                          className="plugin-star-disabled"
                                           name="star-o"
                                           type="fa"
                             />
@@ -439,7 +440,7 @@ ShallowWrapper {
                                     to="/plugin/"
                   />
                   <Icon
-                                    className="plugin-star"
+                                    className="plugin-star-disabled"
                                     name="star-o"
                                     type="fa"
                   />
@@ -474,7 +475,7 @@ ShallowWrapper {
                       to="/plugin/"
 />,
                     <Icon
-                      className="plugin-star"
+                      className="plugin-star-disabled"
                       name="star-o"
                       type="fa"
 />,
@@ -502,7 +503,7 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "function",
                     "props": Object {
-                      "className": "plugin-star",
+                      "className": "plugin-star-disabled",
                       "name": "star-o",
                       "type": "fa",
                     },

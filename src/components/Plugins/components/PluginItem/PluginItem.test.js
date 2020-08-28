@@ -48,10 +48,6 @@ describe('Plugin', () => {
       .find('Link.plugin-item-author'))
       .toHaveLength(1);
   });
-
-  it('should render a star Icon', () => {
-    expect(wrapper.find('Icon.plugin-star')).toHaveLength(1);
-  });
 });
 
 describe('rendered Plugin', () => {
@@ -106,5 +102,35 @@ describe('rendered Plugin', () => {
     Date.now = jest.fn(() => 1530814238992);
     wrapper.setProps({ creationDate: '2018-06-19T15:29:11.349272Z' });
     expect(getPluginCreationText()).toEqual(' created 16 days ago');
+  });
+});
+
+
+describe('When user is NOT logged in', () => {
+  it('should render the star with class plugin-star-disabled', () => {
+    const wrapper = shallow(<PluginItem
+      title=""
+      id=""
+      name=""
+      author=""
+      creationDate=""
+    />);
+
+    expect(wrapper.find('Icon.plugin-star-disabled')).toHaveLength(1);
+  });
+});
+
+describe('When user is logged in', () => {
+  it('should render the star with class plugin-star', () => {
+    const wrapper = shallow(<PluginItem
+      title=""
+      id=""
+      name=""
+      author=""
+      creationDate=""
+      isLoggedIn
+    />);
+
+    expect(wrapper.find('Icon.plugin-star')).toHaveLength(1);
   });
 });

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Client from '@fnndsc/chrisstoreapi';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 import PluginItem from './components/PluginItem/PluginItem';
@@ -7,12 +8,13 @@ import PluginsCategories from './components/PluginsCategories/PluginsCategories'
 import './Plugins.css';
 import LoadingContainer from '../LoadingContainer/LoadingContainer';
 import LoadingContent from '../LoadingContainer/components/LoadingContent/LoadingContent';
+import ChrisStore from '../../store/ChrisStore';
 
 // ==============================
 // ------ PLUGINS COMPONENT -----
 // ==============================
 
-class Plugins extends Component {
+export class Plugins extends Component {
   constructor() {
     super();
 
@@ -90,6 +92,9 @@ class Plugins extends Component {
     let pluginsFound;
     let pluginListBody;
 
+    const { store } = this.props;
+    const isLoggedIn = store ? store.get('isLoggedIn') : false;
+
     // Render the pluginList if the plugins have been fetched
     if (pluginList) {
       pluginListBody = pluginList.map(plugin => (
@@ -100,6 +105,7 @@ class Plugins extends Component {
           author={removeEmail(plugin.authors)}
           creationDate={plugin.creation_date}
           key={plugin.name}
+          isLoggedIn={isLoggedIn}
         />
       ));
 
@@ -151,4 +157,8 @@ class Plugins extends Component {
   }
 }
 
-export default Plugins;
+Plugins.propTypes = {
+  store: PropTypes.objectOf(PropTypes.object).isRequired,
+};
+
+export default ChrisStore.withStore(Plugins);

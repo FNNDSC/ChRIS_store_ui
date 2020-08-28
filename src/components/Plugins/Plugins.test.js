@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Plugins from './Plugins';
+import { Plugins } from './Plugins';
 
 // define mock for @fnndsc/chrisstoreapi module
 jest.mock('@fnndsc/chrisstoreapi', () => require.requireActual('../__mocks__/chrisstoreapi').default);
@@ -187,6 +187,17 @@ describe('rendered Plugins', () => {
   it('should render the creation_date prop for each Plugin', () => {
     plugins.forEach((plugin) => {
       expect(plugin.props.creationDate).toEqual('2018-06-19T15:29:11.349272Z');
+    });
+  });
+
+  it('should pass isLoggedIn for each Plugin', () => {
+    const store = new Map([['isLoggedIn', true]]);
+    wrapper = shallow(<Plugins store={store} />);
+    wrapper.setState({ pluginList: samplePluginList });
+    plugins = Array.from(wrapper.find('Plugin'));
+
+    plugins.forEach((plugin) => {
+      expect(plugin.props.isLoggedIn).toEqual(true);
     });
   });
 });

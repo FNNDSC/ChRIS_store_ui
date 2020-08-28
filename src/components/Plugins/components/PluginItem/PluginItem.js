@@ -9,6 +9,11 @@ const dateIsValid = date => new RelativeDate(date).isValid();
 
 const formatDate = date => new RelativeDate(date).format();
 
+const renderIcon = (isLoggedIn) => {
+  const className = isLoggedIn ? 'plugin-star' : 'plugin-star-disabled';
+  return <Icon name="star-o" className={className} />;
+};
+
 const Plugin = props => (
   <Card className="plugin-item-card">
     <CardBody className="plugin-item-card-body">
@@ -21,7 +26,7 @@ const Plugin = props => (
             >
               {props.name}
             </Link>
-            <Icon name="star-o" className="plugin-star" />
+            {renderIcon(props.isLoggedIn)}
           </div>
           <div className="plugin-item-title">{props.title}</div>
           <div className="plugin-item-creation">
@@ -42,12 +47,18 @@ const Plugin = props => (
   </Card>
 );
 
+
 Plugin.propTypes = {
   title: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   creationDate: PropTypes.string.isRequired,
+  isLoggedIn: PropTypes.bool,
+};
+
+Plugin.defaultProps = {
+  isLoggedIn: false,
 };
 
 export default Plugin;

@@ -22,13 +22,31 @@
   /* color */
   color: #0088ce;
   color: var(--pf-blue-400);
-  
+
   /* font */
   font-size: 1.5em;
   font-weight: 600;
 }
 
 .plugin-item-name > .plugin-star {
+  /* display */
+  margin-left: .5em;
+
+  /* color */
+  color: var(--pf-black-400, #bbb);
+
+  /* font */
+  font-size: 22px;
+}
+.plugin-item-name > .plugin-star:hover {
+  /* color */
+  color: var(--pf-black-700, #bbb);
+
+  /* cursor */
+  cursor: pointer;
+}
+
+.plugin-item-name > .plugin-star-disabled {
   /* display */
   margin-left: .5em;
 
