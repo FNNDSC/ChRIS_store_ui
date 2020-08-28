@@ -45,7 +45,6 @@ ShallowWrapper {
                                 <Icon
                                         className="plugin-star"
                                         name="star-o"
-                                        size="md"
                                         type="fa"
                                 />
                         </div>
@@ -89,7 +88,6 @@ ShallowWrapper {
                               <Icon
                                         className="plugin-star"
                                         name="star-o"
-                                        size="md"
                                         type="fa"
                               />
                     </div>
@@ -130,7 +128,6 @@ ShallowWrapper {
                         <Icon
                                     className="plugin-star"
                                     name="star-o"
-                                    size="md"
                                     type="fa"
                         />
             </div>
@@ -167,7 +164,6 @@ ShallowWrapper {
                 <Icon
                                 className="plugin-star"
                                 name="star-o"
-                                size="md"
                                 type="fa"
                 />
 </div>,
@@ -203,7 +199,6 @@ ShallowWrapper {
                   <Icon
                     className="plugin-star"
                     name="star-o"
-                    size="md"
                     type="fa"
 />,
                 ],
@@ -232,7 +227,6 @@ ShallowWrapper {
                   "props": Object {
                     "className": "plugin-star",
                     "name": "star-o",
-                    "size": "md",
                     "type": "fa",
                   },
                   "ref": null,
@@ -328,7 +322,6 @@ ShallowWrapper {
                                         <Icon
                                                   className="plugin-star"
                                                   name="star-o"
-                                                  size="md"
                                                   type="fa"
                                         />
                               </div>
@@ -372,7 +365,6 @@ ShallowWrapper {
                                     <Icon
                                                 className="plugin-star"
                                                 name="star-o"
-                                                size="md"
                                                 type="fa"
                                     />
                         </div>
@@ -413,7 +405,6 @@ ShallowWrapper {
                             <Icon
                                           className="plugin-star"
                                           name="star-o"
-                                          size="md"
                                           type="fa"
                             />
               </div>
@@ -450,7 +441,6 @@ ShallowWrapper {
                   <Icon
                                     className="plugin-star"
                                     name="star-o"
-                                    size="md"
                                     type="fa"
                   />
 </div>,
@@ -486,7 +476,6 @@ ShallowWrapper {
                     <Icon
                       className="plugin-star"
                       name="star-o"
-                      size="md"
                       type="fa"
 />,
                   ],
@@ -515,7 +504,6 @@ ShallowWrapper {
                     "props": Object {
                       "className": "plugin-star",
                       "name": "star-o",
-                      "size": "md",
                       "type": "fa",
                     },
                     "ref": null,

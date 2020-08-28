@@ -21,7 +21,7 @@ const Plugin = props => (
             >
               {props.name}
             </Link>
-            <Icon name="star-o" size="md" className="plugin-star" />
+            <Icon name="star-o" className="plugin-star" />
           </div>
           <div className="plugin-item-title">{props.title}</div>
           <div className="plugin-item-creation">
