@@ -35,7 +35,7 @@ describe('Plugin', () => {
   });
 
   it('should render plugin-item-name div', () => {
-    expect(wrapper.find('Link.plugin-item-name')).toHaveLength(1);
+    expect(wrapper.find('div.plugin-item-name')).toHaveLength(1);
   });
 
   it('should render plugin-item-creation div', () => {
@@ -49,8 +49,8 @@ describe('Plugin', () => {
       .toHaveLength(1);
   });
 
-  it('should render a large star Icon', () => {
-    expect(wrapper.find('Icon[size="lg"]')).toHaveLength(1);
+  it('should render a star Icon', () => {
+    expect(wrapper.find('Icon.plugin-star')).toHaveLength(1);
   });
 });
 
@@ -74,7 +74,8 @@ describe('rendered Plugin', () => {
   it('should render the value of name', () => {
     wrapper.setProps({ name: 'testName' });
     expect(wrapper
-      .find('Link.plugin-item-name')
+      .find('div.plugin-item-name')
+      .find('Link')
       .childAt(0)
       .text())
       .toEqual('testName');

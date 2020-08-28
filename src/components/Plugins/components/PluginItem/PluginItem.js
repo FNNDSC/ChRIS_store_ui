@@ -14,14 +14,15 @@ const Plugin = props => (
     <CardBody className="plugin-item-card-body">
       <div>
         <div className="row no-flex">
-          <Link
-            href={`/plugin/${props.id}`}
-            to={`/plugin/${props.id}`}
-            className="plugin-item-name"
-          >
-            {props.name}
-          </Link>
-          <Icon name="star" size="lg" />
+          <div className="plugin-item-name">
+            <Link
+              href={`/plugin/${props.id}`}
+              to={`/plugin/${props.id}`}
+            >
+              {props.name}
+            </Link>
+            <Icon name="star-o" size="md" className="plugin-star" />
+          </div>
           <div className="plugin-item-title">{props.title}</div>
           <div className="plugin-item-creation">
             <Link

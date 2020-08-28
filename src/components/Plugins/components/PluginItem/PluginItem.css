@@ -28,6 +28,17 @@
   font-weight: 600;
 }
 
+.plugin-item-name > .plugin-star {
+  /* display */
+  margin-left: .5em;
+
+  /* color */
+  color: var(--pf-black-400, #bbb);
+
+  /* font */
+  font-size: 22px;
+}
+
 .plugin-item-name:hover, .plugin-item-name:focus { text-decoration: none; }
 
 .plugin-item-title {
