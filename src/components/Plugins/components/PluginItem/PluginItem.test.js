@@ -134,6 +134,24 @@ describe('PluginItem: when user is logged in', () => {
 
       expect(wrapper.find('Icon.plugin-star')).toHaveLength(1);
     });
+
+    it('should call the API endpoint when Icon is clicked', () => {
+      const onFavoriteHandler = jest.fn();
+
+      const wrapper = shallow(<PluginItem
+        title=""
+        id=""
+        name=""
+        author=""
+        creationDate=""
+        isLoggedIn
+        onFavorited={onFavoriteHandler}
+      />);
+
+      wrapper.find('Icon.plugin-star').simulate('click');
+
+      expect(onFavoriteHandler).toHaveBeenCalled();
+    });
   });
 
   describe('and the item is a user favorite', () => {

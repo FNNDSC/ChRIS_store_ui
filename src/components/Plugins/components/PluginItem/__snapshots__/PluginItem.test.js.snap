@@ -47,6 +47,7 @@ ShallowWrapper {
                                 <Icon
                                         className="plugin-star-disabled"
                                         name="star-o"
+                                        onClick={undefined}
                                         type="fa"
                                 />
                         </div>
@@ -90,6 +91,7 @@ ShallowWrapper {
                               <Icon
                                         className="plugin-star-disabled"
                                         name="star-o"
+                                        onClick={undefined}
                                         type="fa"
                               />
                     </div>
@@ -130,6 +132,7 @@ ShallowWrapper {
                         <Icon
                                     className="plugin-star-disabled"
                                     name="star-o"
+                                    onClick={undefined}
                                     type="fa"
                         />
             </div>
@@ -166,6 +169,7 @@ ShallowWrapper {
                 <Icon
                                 className="plugin-star-disabled"
                                 name="star-o"
+                                onClick={undefined}
                                 type="fa"
                 />
 </div>,
@@ -201,6 +205,7 @@ ShallowWrapper {
                   <Icon
                     className="plugin-star-disabled"
                     name="star-o"
+                    onClick={undefined}
                     type="fa"
 />,
                 ],
@@ -229,6 +234,7 @@ ShallowWrapper {
                   "props": Object {
                     "className": "plugin-star-disabled",
                     "name": "star-o",
+                    "onClick": undefined,
                     "type": "fa",
                   },
                   "ref": null,
@@ -324,6 +330,7 @@ ShallowWrapper {
                                         <Icon
                                                   className="plugin-star-disabled"
                                                   name="star-o"
+                                                  onClick={undefined}
                                                   type="fa"
                                         />
                               </div>
@@ -367,6 +374,7 @@ ShallowWrapper {
                                     <Icon
                                                 className="plugin-star-disabled"
                                                 name="star-o"
+                                                onClick={undefined}
                                                 type="fa"
                                     />
                         </div>
@@ -407,6 +415,7 @@ ShallowWrapper {
                             <Icon
                                           className="plugin-star-disabled"
                                           name="star-o"
+                                          onClick={undefined}
                                           type="fa"
                             />
               </div>
@@ -443,6 +452,7 @@ ShallowWrapper {
                   <Icon
                                     className="plugin-star-disabled"
                                     name="star-o"
+                                    onClick={undefined}
                                     type="fa"
                   />
 </div>,
@@ -478,6 +488,7 @@ ShallowWrapper {
                     <Icon
                       className="plugin-star-disabled"
                       name="star-o"
+                      onClick={undefined}
                       type="fa"
 />,
                   ],
@@ -506,6 +517,7 @@ ShallowWrapper {
                     "props": Object {
                       "className": "plugin-star-disabled",
                       "name": "star-o",
+                      "onClick": undefined,
                       "type": "fa",
                     },
                     "ref": null,
