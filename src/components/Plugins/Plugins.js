@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Client from '@fnndsc/chrisstoreapi';
+import Client, { PluginStar } from '@fnndsc/chrisstoreapi';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 import PluginItem from './components/PluginItem/PluginItem';
 import LoadingPluginItem from './components/LoadingPluginItem/LoadingPluginItem';
@@ -83,6 +83,31 @@ export class Plugins extends Component {
     });
   }
 
+  async handlePluginFavorited(plugin) {
+    const storeURL = process.env.REACT_APP_STORE_URL;
+    const auth = { token: this.props.store.get('authToken') };
+    const client = new Client(storeURL, auth);
+
+    const plugins = this.state.pluginList.map(each => Object.assign({}, each));
+    const favoritedPlugin = plugins.find(each => each.id === plugin.id);
+    favoritedPlugin.isFavorite = true;
+    this.setState({
+      pluginList: plugins,
+    });
+
+    console.log(plugins);
+
+    try {
+      await client.createPluginStar({
+        plugin_name: plugin.name,
+      });
+    } catch (err) {
+      console.log(err);
+    } finally {
+      // this.fetchPlugins();
+    }
+  }
+
   render() {
     const { pluginList, categories } = this.state;
 
@@ -106,6 +131,8 @@ export class Plugins extends Component {
           creationDate={plugin.creation_date}
           key={plugin.name}
           isLoggedIn={isLoggedIn}
+          isFavorite={plugin.isFavorite}
+          onFavorited={() => this.handlePluginFavorited(plugin)}
         />
       ));
 
@@ -136,7 +163,7 @@ export class Plugins extends Component {
       <div className="plugins-container">
         <div className="plugins-stats">
           <div className="row plugins-stats-row">
-            { pluginsFound }
+            {pluginsFound}
             <DropdownButton
               id="sort-by-dropdown"
               title="Sort By"

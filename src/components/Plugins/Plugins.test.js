@@ -8,7 +8,7 @@ jest.mock('@fnndsc/chrisstoreapi', () => require.requireActual('../__mocks__/chr
 describe('Plugins', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<Plugins />);
+    wrapper = shallow(<Plugins store={new Map()} />);
   });
 
   it('should render correctly', () => {
@@ -153,7 +153,7 @@ describe('rendered Plugins', () => {
   let wrapper;
   let plugins;
   beforeEach(() => {
-    wrapper = shallow(<Plugins />);
+    wrapper = shallow(<Plugins store={new Map()} />);
     wrapper.setState({ pluginList: samplePluginList });
     plugins = Array.from(wrapper.find('Plugin'));
   });
@@ -199,5 +199,22 @@ describe('rendered Plugins', () => {
     plugins.forEach((plugin) => {
       expect(plugin.props.isLoggedIn).toEqual(true);
     });
+  });
+
+
+  it('should xxx', async () => {
+    // define mock for @fnndsc/chrisstoreapi module
+    jest.mock('@fnndsc/chrisstoreapi', () => require.requireActual('../__mocks__/chrisstoreapi').default);
+
+
+    const store = new Map([['isLoggedIn', true]]);
+    wrapper = shallow(<Plugins store={store} />);
+    wrapper.setState({ pluginList: samplePluginList });
+
+    const firstPlugin = wrapper.find('Plugin').first();
+
+    await firstPlugin.props().onFavorited();
+
+    expect(firstPlugin.props().isFavorite).toBe(true);
   });
 });
