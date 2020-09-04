@@ -57,6 +57,26 @@
   font-size: 22px;
 }
 
+.plugin-item-name > .plugin-star-favorite {
+  /* display */
+  margin-left: .5em;
+
+  /* color */
+  color: var(--pf-gold-300,#f4c145);
+
+  /* font */
+  font-size: 22px;
+}
+
+
+.plugin-item-name > .plugin-star-favorite:hover {
+  /* color */
+  color: var(--pf-gold-700, #3d2c00);
+
+    /* cursor */
+    cursor: pointer;
+}
+
 .plugin-item-name:hover, .plugin-item-name:focus { text-decoration: none; }
 
 .plugin-item-title {

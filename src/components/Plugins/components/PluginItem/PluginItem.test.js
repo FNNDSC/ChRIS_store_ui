@@ -106,7 +106,7 @@ describe('rendered Plugin', () => {
 });
 
 
-describe('When user is NOT logged in', () => {
+describe('PluginItem: When user is NOT logged in', () => {
   it('should render the star with class plugin-star-disabled', () => {
     const wrapper = shallow(<PluginItem
       title=""
@@ -120,17 +120,35 @@ describe('When user is NOT logged in', () => {
   });
 });
 
-describe('When user is logged in', () => {
-  it('should render the star with class plugin-star', () => {
-    const wrapper = shallow(<PluginItem
-      title=""
-      id=""
-      name=""
-      author=""
-      creationDate=""
-      isLoggedIn
-    />);
+describe('PluginItem: when user is logged in', () => {
+  describe('and the item is NOT a user favorite', () => {
+    it('should render the star with class plugin-star', () => {
+      const wrapper = shallow(<PluginItem
+        title=""
+        id=""
+        name=""
+        author=""
+        creationDate=""
+        isLoggedIn
+      />);
 
-    expect(wrapper.find('Icon.plugin-star')).toHaveLength(1);
+      expect(wrapper.find('Icon.plugin-star')).toHaveLength(1);
+    });
+  });
+
+  describe('and the item is a user favorite', () => {
+    it('should render the star with class plugin-star-favorite', () => {
+      const wrapper = shallow(<PluginItem
+        title=""
+        id=""
+        name=""
+        author=""
+        creationDate=""
+        isLoggedIn
+        isFavorite
+      />);
+
+      expect(wrapper.find('Icon.plugin-star-favorite')).toHaveLength(1);
+    });
   });
 });

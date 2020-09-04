@@ -9,9 +9,19 @@ const dateIsValid = date => new RelativeDate(date).isValid();
 
 const formatDate = date => new RelativeDate(date).format();
 
-const renderIcon = (isLoggedIn) => {
-  const className = isLoggedIn ? 'plugin-star' : 'plugin-star-disabled';
-  return <Icon name="star-o" className={className} />;
+const renderIcon = (isLoggedIn, isFavorite) => {
+  let name;
+  let className;
+
+  if (isLoggedIn) {
+    className = isFavorite ? 'plugin-star-favorite' : 'plugin-star';
+    name = isFavorite ? 'star' : 'star-o';
+  } else {
+    className = 'plugin-star-disabled';
+    name = 'star-o';
+  }
+
+  return <Icon name={name} className={className} />;
 };
 
 const Plugin = props => (
@@ -26,7 +36,7 @@ const Plugin = props => (
             >
               {props.name}
             </Link>
-            {renderIcon(props.isLoggedIn)}
+            {renderIcon(props.isLoggedIn, props.isFavorite)}
           </div>
           <div className="plugin-item-title">{props.title}</div>
           <div className="plugin-item-creation">
@@ -55,10 +65,12 @@ Plugin.propTypes = {
   author: PropTypes.string.isRequired,
   creationDate: PropTypes.string.isRequired,
   isLoggedIn: PropTypes.bool,
+  isFavorite: PropTypes.bool,
 };
 
 Plugin.defaultProps = {
   isLoggedIn: false,
+  isFavorite: false,
 };
 
 export default Plugin;

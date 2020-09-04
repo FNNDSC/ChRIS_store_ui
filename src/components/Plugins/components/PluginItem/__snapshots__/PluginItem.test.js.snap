@@ -8,6 +8,7 @@ ShallowWrapper {
     author=""
     creationDate=""
     id=""
+    isFavorite={false}
     isLoggedIn={false}
     name=""
     title=""
