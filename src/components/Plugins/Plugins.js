@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Client, { PluginStar } from '@fnndsc/chrisstoreapi';
+import Client from '@fnndsc/chrisstoreapi';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 import PluginItem from './components/PluginItem/PluginItem';
 import LoadingPluginItem from './components/LoadingPluginItem/LoadingPluginItem';
@@ -9,6 +9,13 @@ import './Plugins.css';
 import LoadingContainer from '../LoadingContainer/LoadingContainer';
 import LoadingContent from '../LoadingContainer/components/LoadingContent/LoadingContent';
 import ChrisStore from '../../store/ChrisStore';
+
+
+function setPluginFavoriteStatus(plugins, stars) {
+  return plugins.map(plugin => (
+    { ...plugin, isFavorite: stars.some(star => plugin.id === star.meta_id) }
+  ));
+}
 
 // ==============================
 // ------ PLUGINS COMPONENT -----
@@ -64,14 +71,21 @@ export class Plugins extends Component {
 
     return new Promise(async (resolve, reject) => {
       let plugins;
+      let stars;
       try {
         // add plugins to pluginList as they are received
-        plugins = await client.getPlugins(searchParams);
+
+        [plugins, stars] = await Promise.all([
+          await client.getPlugins(searchParams),
+          await client.getPluginStars(searchParams),
+        ]);
 
         if (this.mounted) {
           this.setState((prevState) => {
             const prevPluginList = prevState.pluginList ? prevState.pluginList : [];
-            const nextPluginList = prevPluginList.concat(plugins.data);
+            let nextPluginList = prevPluginList.concat(plugins.data);
+            nextPluginList = setPluginFavoriteStatus(nextPluginList, stars.data);
+
             return { pluginList: nextPluginList };
           });
         }
@@ -83,6 +97,7 @@ export class Plugins extends Component {
     });
   }
 
+
   async handlePluginFavorited(plugin) {
     const storeURL = process.env.REACT_APP_STORE_URL;
     const auth = { token: this.props.store.get('authToken') };
@@ -91,20 +106,17 @@ export class Plugins extends Component {
     const plugins = this.state.pluginList.map(each => Object.assign({}, each));
     const favoritedPlugin = plugins.find(each => each.id === plugin.id);
     favoritedPlugin.isFavorite = true;
-    this.setState({
-      pluginList: plugins,
-    });
 
-    console.log(plugins);
+    this.setState({ pluginList: plugins });
 
     try {
       await client.createPluginStar({
         plugin_name: plugin.name,
       });
     } catch (err) {
-      console.log(err);
-    } finally {
-      // this.fetchPlugins();
+      favoritedPlugin.isFavorite = false;
+      this.setState({ pluginList: plugins });
+      console.error(err);
     }
   }
 
@@ -183,6 +195,7 @@ export class Plugins extends Component {
     );
   }
 }
+
 
 Plugins.propTypes = {
   store: PropTypes.objectOf(PropTypes.object).isRequired,

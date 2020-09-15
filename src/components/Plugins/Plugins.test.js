@@ -202,10 +202,9 @@ describe('rendered Plugins', () => {
   });
 
 
-  it('should xxx', async () => {
+  it('should set favorite: true when calling onFavorited', async () => {
     // define mock for @fnndsc/chrisstoreapi module
     jest.mock('@fnndsc/chrisstoreapi', () => require.requireActual('../__mocks__/chrisstoreapi').default);
-
 
     const store = new Map([['isLoggedIn', true]]);
     wrapper = shallow(<Plugins store={store} />);
@@ -215,6 +214,6 @@ describe('rendered Plugins', () => {
 
     await firstPlugin.props().onFavorited();
 
-    expect(firstPlugin.props().isFavorite).toBe(true);
+    expect(wrapper.state().pluginList[0].isFavorite).toBe(true);
   });
 });
