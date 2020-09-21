@@ -193,7 +193,6 @@ export class Plugin extends Component {
                       >
                         {data.name}
                       </Link>
-                      {/* <Icon name="star-o" size="md" className="plugin-star" /> */}
                       {this.renderStar()}
                     </div>
                     <div className="plugin-description">
