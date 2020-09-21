@@ -204,7 +204,7 @@ describe('rendered Plugins', () => {
   });
 
 
-  it('should set star on a pluging when a plugin star is clicked', async () => {
+  it('should mark plugin as favorited when a plugin star is clicked', async () => {
     // define mock for @fnndsc/chrisstoreapi module
     jest.mock('@fnndsc/chrisstoreapi', () => require.requireActual('../__mocks__/chrisstoreapi').default);
 
@@ -224,7 +224,7 @@ describe('rendered Plugins', () => {
     expect(wrapper.state().starsByPlugin[firstPluginId]).not.toBeUndefined();
   });
 
-  it('should set favorite: false when calling onFavorited and plugin is already a favorite', async () => {
+  it('should mark plugin as NOT favorited when plugin star is clicked and plugin is already a favorite', async () => {
     // define mock for @fnndsc/chrisstoreapi module
     jest.mock('@fnndsc/chrisstoreapi', () => require.requireActual('../__mocks__/chrisstoreapi').default);
 
