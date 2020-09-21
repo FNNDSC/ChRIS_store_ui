@@ -118,7 +118,16 @@ class StoreClient {
 
   createPluginStar() {
     if (this.url) {
-      return {};
+      return { data: {} };
+    }
+    throw new Error('invalid URL');
+  }
+
+  async getPluginStar() {
+    if (this.url) {
+      return {
+        delete: () => {},
+      };
     }
     throw new Error('invalid URL');
   }

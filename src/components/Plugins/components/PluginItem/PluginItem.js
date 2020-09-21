@@ -15,7 +15,7 @@ class Plugin extends Component {
     let name;
     let className;
 
-    const { isLoggedIn, isFavorite, onFavorited } = this.props;
+    const { isLoggedIn, isFavorite, onStarClicked } = this.props;
 
     if (isLoggedIn) {
       className = isFavorite ? 'plugin-star-favorite' : 'plugin-star';
@@ -24,7 +24,7 @@ class Plugin extends Component {
       className = 'plugin-star-disabled';
       name = 'star-o';
     }
-    return <Icon name={name} className={className} onClick={onFavorited} />;
+    return <Icon name={name} className={className} onClick={onStarClicked} />;
   }
 
   render() {
@@ -75,7 +75,7 @@ Plugin.propTypes = {
   creationDate: PropTypes.string.isRequired,
   isLoggedIn: PropTypes.bool,
   isFavorite: PropTypes.bool,
-  onFavorited: PropTypes.func.isRequired,
+  onStarClicked: PropTypes.func.isRequired,
 };
 
 Plugin.defaultProps = {

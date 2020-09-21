@@ -11,23 +11,22 @@ import LoadingContent from '../LoadingContainer/components/LoadingContent/Loadin
 import ChrisStore from '../../store/ChrisStore';
 
 
-function setPluginFavoriteStatus(plugins, stars) {
-  return plugins.map(plugin => (
-    { ...plugin, isFavorite: stars.some(star => plugin.id === star.meta_id) }
-  ));
-}
-
 // ==============================
 // ------ PLUGINS COMPONENT -----
 // ==============================
 
 export class Plugins extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    const storeURL = process.env.REACT_APP_STORE_URL;
+    const auth = { token: props.store.get('authToken') };
+    this.client = new Client(storeURL, auth);
 
     this.mounted = false;
     this.state = {
       pluginList: null,
+      starsByPlugin: {},
       categories: [
         {
           name: 'Visualization',
@@ -55,15 +54,56 @@ export class Plugins extends Component {
     this.fetchPlugins().catch((err) => {
       console.error(err);
     });
+    this.fetchPluginStars().catch((err) => {
+      console.error(err);
+    });
   }
 
   componentWillUnmount() {
     this.mounted = false;
   }
 
+  setPluginStar(pluginId, star) {
+    this.setState({
+      starsByPlugin: {
+        ...this.state.starsByPlugin,
+        [pluginId]: star,
+      },
+    });
+  }
+
+  removePluginStar(pluginId) {
+    this.setPluginStar(pluginId, undefined);
+  }
+
+  async favPlugin(plugin) {
+    // Early state change for instant visual feedback
+    this.setPluginStar(plugin.id, {});
+
+    try {
+      const star = await this.client.createPluginStar({ plugin_name: plugin.name });
+      this.setPluginStar(plugin.id, star.data);
+    } catch (err) {
+      this.removePluginStar(plugin.id);
+      console.error(err);
+    }
+  }
+
+  async unfavPlugin(plugin) {
+    // Early state change for instant visual feedback
+    this.removePluginStar(plugin.id);
+
+    const previousStarState = { ...this.state.starsByPlugin[plugin.id] };
+    try {
+      const star = await this.client.getPluginStar(previousStarState.id);
+      await star.delete();
+    } catch (err) {
+      this.setPluginStar(plugin.id, previousStarState);
+      console.error(err);
+    }
+  }
+
   fetchPlugins() {
-    const storeURL = process.env.REACT_APP_STORE_URL;
-    const client = new Client(storeURL);
     const searchParams = {
       limit: 20,
       offset: 0,
@@ -71,21 +111,14 @@ export class Plugins extends Component {
 
     return new Promise(async (resolve, reject) => {
       let plugins;
-      let stars;
       try {
         // add plugins to pluginList as they are received
-
-        [plugins, stars] = await Promise.all([
-          await client.getPlugins(searchParams),
-          await client.getPluginStars(searchParams),
-        ]);
+        plugins = await this.client.getPlugins(searchParams);
 
         if (this.mounted) {
           this.setState((prevState) => {
             const prevPluginList = prevState.pluginList ? prevState.pluginList : [];
-            let nextPluginList = prevPluginList.concat(plugins.data);
-            nextPluginList = setPluginFavoriteStatus(nextPluginList, stars.data);
-
+            const nextPluginList = prevPluginList.concat(plugins.data);
             return { pluginList: nextPluginList };
           });
         }
@@ -97,27 +130,24 @@ export class Plugins extends Component {
     });
   }
 
+  async fetchPluginStars() {
+    const stars = await this.client.getPluginStars();
+
+    const starsByPlugin = {};
+    stars.data.forEach((star) => {
+      const pluginId = star.meta_id;
+      starsByPlugin[pluginId] = star;
+    });
+
+    this.setState({ starsByPlugin });
+  }
 
   async handlePluginFavorited(plugin) {
-    const storeURL = process.env.REACT_APP_STORE_URL;
-    const auth = { token: this.props.store.get('authToken') };
-    const client = new Client(storeURL, auth);
+    return this.isFavorite(plugin) ? this.unfavPlugin(plugin) : this.favPlugin(plugin);
+  }
 
-    const plugins = this.state.pluginList.map(each => Object.assign({}, each));
-    const favoritedPlugin = plugins.find(each => each.id === plugin.id);
-    favoritedPlugin.isFavorite = true;
-
-    this.setState({ pluginList: plugins });
-
-    try {
-      await client.createPluginStar({
-        plugin_name: plugin.name,
-      });
-    } catch (err) {
-      favoritedPlugin.isFavorite = false;
-      this.setState({ pluginList: plugins });
-      console.error(err);
-    }
+  isFavorite(plugin) {
+    return this.state.starsByPlugin[plugin.id] !== undefined;
   }
 
   render() {
@@ -143,8 +173,8 @@ export class Plugins extends Component {
           creationDate={plugin.creation_date}
           key={plugin.name}
           isLoggedIn={isLoggedIn}
-          isFavorite={plugin.isFavorite}
-          onFavorited={() => this.handlePluginFavorited(plugin)}
+          isFavorite={this.isFavorite(plugin)}
+          onStarClicked={async () => this.handlePluginFavorited(plugin)}
         />
       ));
 

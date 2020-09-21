@@ -145,7 +145,7 @@ describe('PluginItem: when user is logged in', () => {
         author=""
         creationDate=""
         isLoggedIn
-        onFavorited={onFavoriteHandler}
+        onStarClicked={onFavoriteHandler}
       />);
 
       wrapper.find('Icon.plugin-star').simulate('click');
