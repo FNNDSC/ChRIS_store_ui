@@ -90,10 +90,11 @@ export class Plugins extends Component {
   }
 
   async unfavPlugin(plugin) {
+    const previousStarState = { ...this.state.starsByPlugin[plugin.id] };
+
     // Early state change for instant visual feedback
     this.removePluginStar(plugin.id);
 
-    const previousStarState = { ...this.state.starsByPlugin[plugin.id] };
     try {
       const star = await this.client.getPluginStar(previousStarState.id);
       await star.delete();

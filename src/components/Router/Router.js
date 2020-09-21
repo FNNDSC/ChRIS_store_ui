@@ -6,7 +6,7 @@ import Footer from '../Footer/Footer';
 // pages
 import Welcome from '../Welcome/Welcome';
 import ConnectedPlugins from '../Plugins/Plugins';
-import Plugin from '../Plugin/Plugin';
+import ConnectedPlugin from '../Plugin/Plugin';
 import Developers from '../Developers/Developers';
 import CreatePlugin from '../CreatePlugin/CreatePlugin';
 import NotFound from '../NotFound/NotFound';
@@ -19,7 +19,7 @@ const Router = () => (
     <Switch>
       <Route exact path="/" component={Welcome} />
       <Route path="/plugins" component={ConnectedPlugins} />
-      <Route path="/plugin/:plugin" component={Plugin} />
+      <Route path="/plugin/:plugin" component={ConnectedPlugin} />
       <Route path="/quickstart" component={Developers} />
       <ProtectedRoute path="/create" component={CreatePlugin} />
       <ProtectedRoute path="/dashboard" component={Dashboard} />
