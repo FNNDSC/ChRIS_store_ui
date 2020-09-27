@@ -21,11 +21,19 @@
 
 .plugin-header {
   /* display */
-  padding: 1em;
+  padding-top: 26px;
+  padding-bottom: 26px;
 
   /* border */
-  border-bottom-color: #bbbbbb;
-  border-bottom: 1px solid var(--pf-black-400);
+  border-bottom: 1px solid var(--pf-black-400, #bbb);
+}
+
+.plugin-icon {
+  display: block;
+  width: 5em;
+  height: 5em;
+  margin: 0 auto;
+  margin-right: 3em;
 }
 
 .plugin-category {
@@ -38,10 +46,21 @@
   /* color */
   color: #39a5dc;
   color: var(--pf-blue-300);
-  
+
   /* font */
-  font-size: 2.1em;
-  font-weight: 300;
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.plugin-name > .plugin-star {
+  /* display */
+  margin-left: .5em;
+
+  /* color */
+  color: var(--pf-black-400, #bbb);
+
+  /* font */
+  font-size: 22px;
 }
 
 .plugin-name:focus, .plugin-name:hover {
@@ -53,50 +72,22 @@
   text-decoration: none;
 }
 
-.plugin-modified {
+.plugin-description {
   /* color */
-  color: #bbbbbb;
-  color: var(--pf-black-400);
+  color: var(--pf-black-600, #72767b);
 }
 
 .plugin-stats {
   /* display */
-  display: block;
-  margin-top: 1em;
+  margin-left: 1em;
+
+  /* color */
+  color: var(--pf-black-400, #bbb);
 }
 
-.plugin-stats > .plugin-tag {
-  /* color */
-  color: #8b8d8f;
-  color: var(--pf-black-500);
-  
+.plugin-stats .plugin-modified {
   /* display */
-  display: inline-block;
-  margin-right: 0.5em;
-  padding: 0 0.25em;
-
-  /* border */
-  border-color: #8b8d8f;
-  border: 1px solid var(--pf-black-500);
-  border-radius: 4px;
-
-  /* font */
-  font-weight: 600;
-
-  /* flex */
-  flex: 1;
-}
-
-.plugin-author {
-  /* color */
-  color: #8b8d8f;
-  color: var(--pf-black-500);
-}
-
-.plugin-author:hover, .plugin-author:focus {
-  /* color */
-  color: #72767b;
-  color: var(--pf-black-600);
+  padding-left: .5em;
 }
 
 .p-3 {
