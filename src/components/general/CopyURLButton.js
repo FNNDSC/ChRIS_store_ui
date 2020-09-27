@@ -5,7 +5,7 @@ import { Icon } from 'patternfly-react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Dropdown, FormGroup, InputGroup, Button, FormControl } from 'react-bootstrap';
 
-class CopyURLButton extends Component {
+export class CopyURLButton extends Component {
   constructor(props) {
     super(props);
 
@@ -13,9 +13,10 @@ class CopyURLButton extends Component {
       isCopiedText: false
     };
   }
-  onCopyText() {
+  onCopyText = () => {
       this.setState({ isCopiedText: true });
   }
+
   render() {
       return (
         <div className="dropdown">
@@ -34,14 +35,14 @@ class CopyURLButton extends Component {
                             <form>
                                 <FormGroup>
                                     <InputGroup>
-                                        <InputGroup.Button>
-                                            <CopyToClipboard
-                                                text='hello'
-                                                onCopy={this.onCopyText}>
-                                                <Button><Icon name="copy" /></Button>
-                                            </CopyToClipboard>
-                                        </InputGroup.Button>
                                         <FormControl type="text" disabled value="https://localhost:8010/api/v1" />
+                                        <InputGroup.Button>
+                                        <CopyToClipboard
+                                            text='hello'
+                                            onCopy={this.onCopyText}>
+                                            <Button><Icon name="copy" /></Button>
+                                        </CopyToClipboard>
+                                    </InputGroup.Button>
                                     </InputGroup>
                                 </FormGroup>
                             </form>
@@ -53,5 +54,3 @@ class CopyURLButton extends Component {
   );
   }
 }
-
-export default CopyURLButton;

@@ -98,3 +98,8 @@
     margin-top: 10px !important;
     min-width: 400px !important;
 }
+
+.plugin-body-copy-url .dropdown.btn-group {
+    position: relative;
+    margin: 0;
+}

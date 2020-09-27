@@ -34,6 +34,7 @@ class Plugin extends Component {
     if (!this.state.pluginData) {
       this.fetchPluginData()
         .catch((err) => {
+          // eslint-disable-next-line no-console
           console.error(err);
         });
     }
@@ -118,23 +119,28 @@ class Plugin extends Component {
                       >
                         {data.name}
                       </Link>
-                      <Icon name="star-o" size="md" className="plugin-star" />
+                      <Icon name="star-o" size="lg" className="plugin-star" />
                     </div>
                     <div className="plugin-description">
                       {data.description}
                     </div>
                   </Grid.Col>
                   <Grid.Col sm={4} className="plugin-stats">
-                    <Icon name="star" size="md" /> 10k+
-                    {modificationDate.isValid() &&
+                    <Icon name="star" size="lg" />
+                    {' '}
+                    10k+
+                    {modificationDate.isValid()
+                      && (
                       <span className="plugin-modified">
-                        <Icon name="clock-o" size="md" />
+                        <Icon name="clock-o" size="lg" />
                         {`Last modified ${modificationDate.format()}`}
                       </span>
-                    }
+                      )}
                     {/* temp text */}
                     <span className="plugin-modified">
-                      <Icon name="clock-o" size="md" /> Last modified 1 hour ago
+                      <Icon name="clock-o" size="lg" />
+                      {' '}
+                      Last modified 1 hour ago
                     </span>
                   </Grid.Col>
                 </Grid.Col>

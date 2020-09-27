@@ -3,10 +3,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Icon, Grid, Nav, NavItem, TabContainer, TabContent, TabPane } from 'patternfly-react';
+import {
+  Icon, Grid, Nav, NavItem, TabContainer, TabContent, TabPane,
+} from 'patternfly-react';
 import './PluginBody.css';
-// import CopyURLButton from '../../../general/CopyURLButton';
-
+import { CopyURLButton } from '../../../general/CopyURLButton';
 
 const PluginBody = ({ pluginData }) => (
   <div className="plugin-body">
@@ -78,7 +79,9 @@ const PluginBody = ({ pluginData }) => (
                                       href={pluginData.title}
                                       to={pluginData.title}
                                     >
-                                      Using <code>docker run</code>
+                                      Using
+{' '}
+<code>docker run</code>
                                     </Link>
                                   </li>
                                 </ul>
@@ -130,6 +133,9 @@ const PluginBody = ({ pluginData }) => (
                           </div>
                         </div>
                         <div className="plugin-body-side-col">
+                        <div className="plugin-body-copy-url">
+                        <CopyURLButton />
+                        </div>
                           <div className="plugin-body-public-repo">
                             <h4>Public Repo:</h4>
                             <Link
@@ -148,7 +154,7 @@ const PluginBody = ({ pluginData }) => (
                           </div>
                           <div className="plugin-body-contributors">
                             <h4>Contributors (20):</h4>
-                            <Icon name="user" size="md" />
+                            <Icon name="user" size="lg" />
                             <Link
                               href={pluginData.authorURL}
                               to={pluginData.authors}
@@ -204,4 +210,3 @@ PluginBody.propTypes = {
 };
 
 export default PluginBody;
-
