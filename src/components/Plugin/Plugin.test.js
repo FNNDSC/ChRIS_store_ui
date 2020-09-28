@@ -1,12 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Plugin from './Plugin';
+import { Plugin } from './Plugin';
 
 // define mock for @fnndsc/chrisstoreapi module
 jest.mock('@fnndsc/chrisstoreapi', () => require.requireActual('../__mocks__/chrisstoreapi').default);
 
 describe('Plugin', () => {
   let wrapper;
+
   beforeEach(() => {
     wrapper = shallow(<Plugin />);
   });
@@ -274,5 +275,83 @@ describe('Plugin with data', () => {
       .find('div.plugin-container')
       .find('PluginBody'))
       .toHaveLength(1);
+  });
+});
+
+
+/* ============================== */
+/* ===== FAVORITE/UNFAVORITE ==== */
+/* ============================== */
+
+describe('Plugin star', () => {
+  let wrapper;
+  const store = new Map();
+  beforeEach(() => {
+    wrapper = shallow(<Plugin store={store} />);
+  });
+
+  /* ============================== */
+  /* ===== FETCH STAR DATA FN ===== */
+  /* ============================== */
+
+  it('should be able to fetch star data if user is logged in', async () => {
+    // define mock for @fnndsc/chrisstoreapi module
+    jest.mock('@fnndsc/chrisstoreapi', () => require.requireActual('../__mocks__/chrisstoreapi').default);
+
+    store.set('authToken', 'some-token');
+
+    await wrapper.instance().fetchStarDataByPluginName('my-plugin');
+
+    expect(wrapper.state().star).not.toBeUndefined();
+  });
+
+  it('should render star with class plugin-star-favorite when plugin is favorite', async () => {
+    store.set('isLoggedIn', true);
+
+    wrapper.setState({ star: { id: 3 } });
+
+    expect(wrapper.find('Icon.plugin-star-favorite')).toHaveLength(1);
+  });
+
+  it('should render star with class plugin-star-disabled when user is not logged in', async () => {
+    store.set('isLoggedIn', false);
+
+    wrapper.setState({ star: { id: 3 } });
+
+    expect(wrapper.find('Icon.plugin-star-disabled')).toHaveLength(1);
+  });
+
+  it('should render star with class plugin-star when plugin is not favorite', async () => {
+    store.set('isLoggedIn', true);
+
+    wrapper.setState({ star: undefined });
+
+    expect(wrapper.find('Icon.plugin-star')).toHaveLength(1);
+  });
+
+  it('should mark plugin as favorited when a plugin star is clicked', () => {
+    // define mock for @fnndsc/chrisstoreapi module
+    jest.mock('@fnndsc/chrisstoreapi', () => require.requireActual('../__mocks__/chrisstoreapi').default);
+
+    store.set('isLoggedIn', true);
+
+    wrapper.setState({ star: undefined });
+
+    wrapper.find('Icon.plugin-star').simulate('click');
+
+    expect(wrapper.state().star).not.toBeUndefined();
+  });
+
+  it('should mark plugin as NOT favorited when plugin star is clicked and plugin is already a favorite', () => {
+    // define mock for @fnndsc/chrisstoreapi module
+    jest.mock('@fnndsc/chrisstoreapi', () => require.requireActual('../__mocks__/chrisstoreapi').default);
+
+    store.set('isLoggedIn', true);
+
+    wrapper.setState({ star: { id: 3 } });
+
+    wrapper.find('Icon.plugin-star-favorite').simulate('click');
+
+    expect(wrapper.state().star).toBeUndefined();
   });
 });

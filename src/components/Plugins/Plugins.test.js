@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Plugins from './Plugins';
+import { Plugins } from './Plugins';
 
 // define mock for @fnndsc/chrisstoreapi module
 jest.mock('@fnndsc/chrisstoreapi', () => require.requireActual('../__mocks__/chrisstoreapi').default);
@@ -8,7 +8,7 @@ jest.mock('@fnndsc/chrisstoreapi', () => require.requireActual('../__mocks__/chr
 describe('Plugins', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<Plugins />);
+    wrapper = shallow(<Plugins store={new Map()} />);
   });
 
   it('should render correctly', () => {
@@ -130,30 +130,32 @@ describe('Plugins', () => {
   });
 });
 
-const samplePluginList = [
-  {
-    title: 'testTitle1',
-    id: 1,
-    name: 'testName1',
-    authors: 'testAuthor1',
-    dock_image: 'dock/image1',
-    creation_date: '2018-06-19T15:29:11.349272Z',
-  },
-  {
-    title: 'testTitle2',
-    id: 2,
-    name: 'testName2',
-    authors: 'testAuthor2',
-    dock_image: 'dock/image2',
-    creation_date: '2018-06-19T15:29:11.349272Z',
-  },
-];
 
 describe('rendered Plugins', () => {
   let wrapper;
   let plugins;
+  let samplePluginList;
+
   beforeEach(() => {
-    wrapper = shallow(<Plugins />);
+    samplePluginList = [
+      {
+        title: 'testTitle1',
+        id: 1,
+        name: 'testName1',
+        authors: 'testAuthor1',
+        dock_image: 'dock/image1',
+        creation_date: '2018-06-19T15:29:11.349272Z',
+      },
+      {
+        title: 'testTitle2',
+        id: 2,
+        name: 'testName2',
+        authors: 'testAuthor2',
+        dock_image: 'dock/image2',
+        creation_date: '2018-06-19T15:29:11.349272Z',
+      },
+    ];
+    wrapper = shallow(<Plugins store={new Map()} />);
     wrapper.setState({ pluginList: samplePluginList });
     plugins = Array.from(wrapper.find('Plugin'));
   });
@@ -188,5 +190,57 @@ describe('rendered Plugins', () => {
     plugins.forEach((plugin) => {
       expect(plugin.props.creationDate).toEqual('2018-06-19T15:29:11.349272Z');
     });
+  });
+
+  it('should pass isLoggedIn for each Plugin', () => {
+    const store = new Map([['isLoggedIn', true]]);
+    wrapper = shallow(<Plugins store={store} />);
+    wrapper.setState({ pluginList: samplePluginList });
+    plugins = Array.from(wrapper.find('Plugin'));
+
+    plugins.forEach((plugin) => {
+      expect(plugin.props.isLoggedIn).toEqual(true);
+    });
+  });
+
+
+  it('should mark plugin as favorited when a plugin star is clicked', async () => {
+    // define mock for @fnndsc/chrisstoreapi module
+    jest.mock('@fnndsc/chrisstoreapi', () => require.requireActual('../__mocks__/chrisstoreapi').default);
+
+    const store = new Map([['isLoggedIn', true]]);
+    wrapper = shallow(<Plugins store={store} />);
+    // wait for component to be mounted
+    await Promise.resolve();
+
+    wrapper.setState({ pluginList: samplePluginList });
+
+    const firstPlugin = wrapper.find('Plugin').first();
+
+    await firstPlugin.props().onStarClicked();
+
+    const firstPluginId = firstPlugin.props().id;
+
+    expect(wrapper.state().starsByPlugin[firstPluginId]).not.toBeUndefined();
+  });
+
+  it('should mark plugin as NOT favorited when plugin star is clicked and plugin is already a favorite', async () => {
+    // define mock for @fnndsc/chrisstoreapi module
+    jest.mock('@fnndsc/chrisstoreapi', () => require.requireActual('../__mocks__/chrisstoreapi').default);
+
+    const store = new Map([['isLoggedIn', true]]);
+    wrapper = shallow(<Plugins store={store} />);
+    // wait for component to be mounted
+    await Promise.resolve();
+
+    // The first plugin in the list is favorited
+    const firstPluginId = samplePluginList[0].id;
+    wrapper.setState({ starsByPlugin: { [firstPluginId]: { id: 4 } } });
+
+    // Click the star button
+    const firstPlugin = wrapper.find('Plugin').first();
+    firstPlugin.props().onStarClicked();
+
+    expect(wrapper.state().starsByPlugin[firstPluginId]).toBeUndefined();
   });
 });

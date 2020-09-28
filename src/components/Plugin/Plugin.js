@@ -6,6 +6,7 @@ import Client from '@fnndsc/chrisstoreapi';
 import LoadingPlugin from './components/LoadingPlugin/LoadingPlugin';
 import PluginBody from './components/PluginBody/PluginBody';
 import RelativeDate from '../RelativeDate/RelativeDate';
+import ChrisStore from '../../store/ChrisStore';
 import PluginImg from '../../assets/img/brainy-pointer.png';
 import './Plugin.css';
 
@@ -14,28 +15,40 @@ const removeEmail = (author) => {
   return undefined;
 };
 
-class Plugin extends Component {
+export class Plugin extends Component {
   constructor(props) {
     super(props);
 
     this.mounted = false;
 
     const { pluginData } = props;
-    this.state = { pluginData };
+    this.state = {
+      pluginData,
+      star: undefined,
+    };
+
+    const storeURL = process.env.REACT_APP_STORE_URL;
+    const auth = { token: props.store.get('authToken') };
+    this.client = new Client(storeURL, auth);
 
     this.fetchPluginData = this.fetchPluginData.bind(this);
+    this.onStarClicked = this.onStarClicked.bind(this);
   }
 
   componentWillMount() {
     this.mounted = true;
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    let pluginData;
     if (!this.state.pluginData) {
-      this.fetchPluginData()
-        .catch((err) => {
-          console.error(err);
-        });
+      pluginData = await this.fetchPluginData();
+    } else {
+      ({ pluginData } = this.state);
+    }
+
+    if (this.isLoggedIn()) {
+      this.fetchStarDataByPluginName(pluginData.name);
     }
   }
 
@@ -43,15 +56,44 @@ class Plugin extends Component {
     this.mounted = false;
   }
 
+  onStarClicked() {
+    return this.isFavorite() ? this.unfavPlugin() : this.favPlugin();
+  }
+
+  async favPlugin() {
+    // Early state change for instant visual feedback
+    this.setState({ star: {} });
+
+    const { name } = this.state.pluginData;
+    try {
+      const star = await this.client.createPluginStar({ plugin_name: name });
+      this.setState({ star: star.data });
+    } catch (err) {
+      this.setState({ star: undefined });
+    }
+  }
+
+  async unfavPlugin() {
+    const previousStarState = { ...this.state.star };
+
+    // Early state change for instant visual feedback
+    this.setState({ star: undefined });
+
+    try {
+      const star = await this.client.getPluginStar(previousStarState.id);
+      await star.delete();
+    } catch (err) {
+      this.setState({ star: previousStarState });
+    }
+  }
+
   fetchPluginData() {
-    const storeURL = process.env.REACT_APP_STORE_URL;
     const { plugin: pluginId } = this.props.match.params;
-    const client = new Client(storeURL);
 
     let pluginData;
     return new Promise(async (resolve, reject) => {
       try {
-        const plugin = await client.getPlugin(parseInt(pluginId, 10));
+        const plugin = await this.client.getPlugin(parseInt(pluginId, 10));
         pluginData = plugin.data;
       } catch (e) {
         return reject(e);
@@ -62,6 +104,44 @@ class Plugin extends Component {
       }
       return resolve(pluginData);
     });
+  }
+
+  async fetchStarDataByPluginName(pluginName) {
+    const storeURL = process.env.REACT_APP_STORE_URL;
+    const auth = { token: this.props.store.get('authToken') };
+    let stars = [];
+
+    if (auth) {
+      const client = new Client(storeURL, auth);
+      const response = await client.getPluginStars({ plugin_name: pluginName });
+      stars = response.data;
+    }
+
+    if (stars.length > 0) {
+      this.setState({ star: stars[0] });
+    }
+  }
+
+  isFavorite() {
+    return this.state.star !== undefined;
+  }
+
+  isLoggedIn() {
+    return this.props.store ? this.props.store.get('isLoggedIn') : false;
+  }
+
+  renderStar() {
+    let name;
+    let className;
+
+    if (this.isLoggedIn()) {
+      className = this.isFavorite() ? 'plugin-star-favorite' : 'plugin-star';
+      name = this.isFavorite() ? 'star' : 'star-o';
+    } else {
+      className = 'plugin-star-disabled';
+      name = 'star-o';
+    }
+    return <Icon name={name} className={className} onClick={this.onStarClicked} />;
   }
 
   render() {
@@ -118,7 +198,7 @@ class Plugin extends Component {
                       >
                         {data.name}
                       </Link>
-                      <Icon name="star-o" size="md" className="plugin-star" />
+                      {this.renderStar()}
                     </div>
                     <div className="plugin-description">
                       {data.description}
@@ -177,6 +257,7 @@ Plugin.propTypes = {
     version: PropTypes.string,
   }),
   className: PropTypes.string,
+  store: PropTypes.objectOf(PropTypes.object),
 };
 
 Plugin.defaultProps = {
@@ -187,6 +268,7 @@ Plugin.defaultProps = {
   },
   pluginData: null,
   className: '',
+  store: new Map(),
 };
 
-export default Plugin;
+export default ChrisStore.withStore(Plugin);

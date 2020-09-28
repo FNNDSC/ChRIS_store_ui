@@ -8,7 +8,7 @@ import {
 import classNames from 'classnames';
 import './CreatePlugin.css';
 
-import Plugin from '../Plugin/Plugin';
+import { Plugin } from '../Plugin/Plugin';
 
 const generateFormGroup = (id, label, help, value, handleChange) => (
   <FormGroup controlId={id} key={id}>
