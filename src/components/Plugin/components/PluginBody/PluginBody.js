@@ -9,7 +9,9 @@ import {
 import './PluginBody.css';
 import { CopyURLButton } from '../../../general/CopyURLButton';
 
-const PluginBody = ({ pluginData }) => (
+const PluginBody = ({ pluginData }) => {
+    console.log('pluginData', pluginData)
+    return (
   <div className="plugin-body">
     <div className="container-fluid container-cards-pf">
       <div className="row row-cards-pf">
@@ -194,7 +196,7 @@ const PluginBody = ({ pluginData }) => (
       </div>
     </div>
   </div>
-);
+)};
 
 PluginBody.propTypes = {
   pluginData: PropTypes.shape({
