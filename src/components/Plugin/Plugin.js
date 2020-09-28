@@ -47,7 +47,9 @@ export class Plugin extends Component {
       ({ pluginData } = this.state);
     }
 
-    this.fetchStarDataByPluginName(pluginData.name);
+    if (this.isLoggedIn()) {
+      this.fetchStarDataByPluginName(pluginData.name);
+    }
   }
 
   componentWillUnmount() {
@@ -124,12 +126,15 @@ export class Plugin extends Component {
     return this.state.star !== undefined;
   }
 
+  isLoggedIn() {
+    return this.props.store ? this.props.store.get('isLoggedIn') : false;
+  }
+
   renderStar() {
     let name;
     let className;
-    const isLoggedIn = this.props.store.get('isLoggedIn');
 
-    if (isLoggedIn) {
+    if (this.isLoggedIn()) {
       className = this.isFavorite() ? 'plugin-star-favorite' : 'plugin-star';
       name = this.isFavorite() ? 'star' : 'star-o';
     } else {

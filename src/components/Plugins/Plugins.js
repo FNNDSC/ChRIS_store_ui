@@ -54,9 +54,10 @@ export class Plugins extends Component {
     this.fetchPlugins().catch((err) => {
       console.error(err);
     });
-    this.fetchPluginStars().catch((err) => {
-      console.error(err);
-    });
+
+    if (this.isLoggedIn()) {
+      this.fetchPluginStars();
+    }
   }
 
   componentWillUnmount() {
@@ -151,6 +152,10 @@ export class Plugins extends Component {
     return this.state.starsByPlugin[plugin.id] !== undefined;
   }
 
+  isLoggedIn() {
+    return this.props.store ? this.props.store.get('isLoggedIn') : false;
+  }
+
   render() {
     const { pluginList, categories } = this.state;
 
@@ -159,9 +164,6 @@ export class Plugins extends Component {
 
     let pluginsFound;
     let pluginListBody;
-
-    const { store } = this.props;
-    const isLoggedIn = store ? store.get('isLoggedIn') : false;
 
     // Render the pluginList if the plugins have been fetched
     if (pluginList) {
@@ -173,7 +175,7 @@ export class Plugins extends Component {
           author={removeEmail(plugin.authors)}
           creationDate={plugin.creation_date}
           key={plugin.name}
-          isLoggedIn={isLoggedIn}
+          isLoggedIn={this.isLoggedIn()}
           isFavorite={this.isFavorite(plugin)}
           onStarClicked={async () => this.handlePluginFavorited(plugin)}
         />
