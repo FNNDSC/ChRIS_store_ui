@@ -9,9 +9,7 @@ import {
 import './PluginBody.css';
 import { CopyURLButton } from '../../../general/CopyURLButton';
 
-const PluginBody = ({ pluginData }) => {
-    console.log('pluginData', pluginData);
-    return (
+const PluginBody = ({ pluginData }) => (
   <div className="plugin-body">
     <div className="container-fluid container-cards-pf">
       <div className="row row-cards-pf">
@@ -82,8 +80,7 @@ const PluginBody = ({ pluginData }) => {
                                       to={pluginData.title}
                                     >
                                       Using
-{' '}
-<code>docker run</code>
+                                      <code>docker run</code>
                                     </Link>
                                   </li>
                                 </ul>
@@ -136,7 +133,7 @@ const PluginBody = ({ pluginData }) => {
                         </div>
                         <div className="plugin-body-side-col">
                         <div className="plugin-body-copy-url">
-                        <CopyURLButton />
+                        <CopyURLButton text={pluginData.url} />
                         </div>
                           <div className="plugin-body-public-repo">
                             <h4>Public Repo:</h4>
@@ -196,7 +193,7 @@ const PluginBody = ({ pluginData }) => {
       </div>
     </div>
   </div>
-)};
+);
 
 PluginBody.propTypes = {
   pluginData: PropTypes.shape({

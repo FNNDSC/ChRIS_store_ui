@@ -35,10 +35,10 @@ export class CopyURLButton extends Component {
                             <form>
                                 <FormGroup>
                                     <InputGroup>
-                                        <FormControl type="text" disabled value="https://localhost:8010/api/v1" />
+                                        <FormControl type="text" disabled value={this.props.text} />
                                         <InputGroup.Button>
                                         <CopyToClipboard
-                                            text='hello'
+                                            text={this.props.text}
                                             onCopy={this.onCopyText}>
                                             <Button><Icon name="copy" /></Button>
                                         </CopyToClipboard>

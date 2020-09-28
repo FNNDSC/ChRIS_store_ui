@@ -174,7 +174,7 @@ export class Plugins extends Component {
           name={plugin.name}
           author={removeEmail(plugin.authors)}
           creationDate={plugin.creation_date}
-          key={plugin.name}
+          key={`${plugin.name}-${plugin.id}`}
           isLoggedIn={this.isLoggedIn()}
           isFavorite={this.isFavorite(plugin)}
           onStarClicked={async () => this.handlePluginFavorited(plugin)}

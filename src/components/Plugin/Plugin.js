@@ -95,6 +95,7 @@ export class Plugin extends Component {
       try {
         const plugin = await this.client.getPlugin(parseInt(pluginId, 10));
         pluginData = plugin.data;
+        pluginData.url = plugin.url;
       } catch (e) {
         return reject(e);
       }
