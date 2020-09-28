@@ -106,6 +106,31 @@ class StoreClient {
     }
     return Promise.reject(new Error('invalid Token'));
   }
+
+  async getPluginStars() {
+    if (this.url) {
+      return {
+        data: [{ id: 2 }],
+      };
+    }
+    throw new Error('invalid URL');
+  }
+
+  createPluginStar() {
+    if (this.url) {
+      return { data: {} };
+    }
+    throw new Error('invalid URL');
+  }
+
+  async getPluginStar() {
+    if (this.url) {
+      return {
+        delete: () => { },
+      };
+    }
+    throw new Error('invalid URL');
+  }
 }
 
 export default StoreClient;

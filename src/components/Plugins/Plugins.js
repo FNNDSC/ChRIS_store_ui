@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Client from '@fnndsc/chrisstoreapi';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 import PluginItem from './components/PluginItem/PluginItem';
@@ -7,18 +8,25 @@ import PluginsCategories from './components/PluginsCategories/PluginsCategories'
 import './Plugins.css';
 import LoadingContainer from '../LoadingContainer/LoadingContainer';
 import LoadingContent from '../LoadingContainer/components/LoadingContent/LoadingContent';
+import ChrisStore from '../../store/ChrisStore';
+
 
 // ==============================
 // ------ PLUGINS COMPONENT -----
 // ==============================
 
-class Plugins extends Component {
-  constructor() {
-    super();
+export class Plugins extends Component {
+  constructor(props) {
+    super(props);
+
+    const storeURL = process.env.REACT_APP_STORE_URL;
+    const auth = { token: props.store.get('authToken') };
+    this.client = new Client(storeURL, auth);
 
     this.mounted = false;
     this.state = {
       pluginList: null,
+      starsByPlugin: {},
       categories: [
         {
           name: 'Visualization',
@@ -46,15 +54,58 @@ class Plugins extends Component {
     this.fetchPlugins().catch((err) => {
       console.error(err);
     });
+
+    if (this.isLoggedIn()) {
+      this.fetchPluginStars();
+    }
   }
 
   componentWillUnmount() {
     this.mounted = false;
   }
 
+  setPluginStar(pluginId, star) {
+    this.setState({
+      starsByPlugin: {
+        ...this.state.starsByPlugin,
+        [pluginId]: star,
+      },
+    });
+  }
+
+  removePluginStar(pluginId) {
+    this.setPluginStar(pluginId, undefined);
+  }
+
+  async favPlugin(plugin) {
+    // Early state change for instant visual feedback
+    this.setPluginStar(plugin.id, {});
+
+    try {
+      const star = await this.client.createPluginStar({ plugin_name: plugin.name });
+      this.setPluginStar(plugin.id, star.data);
+    } catch (err) {
+      this.removePluginStar(plugin.id);
+      console.error(err);
+    }
+  }
+
+  async unfavPlugin(plugin) {
+    const previousStarState = { ...this.state.starsByPlugin[plugin.id] };
+
+    // Early state change for instant visual feedback
+    this.removePluginStar(plugin.id);
+
+    try {
+      const star = await this.client.getPluginStar(previousStarState.id);
+      await star.delete();
+    } catch (err) {
+      this.setPluginStar(plugin.id, previousStarState);
+      console.error(err);
+    }
+  }
+
   fetchPlugins() {
-    const storeURL = process.env.REACT_APP_STORE_URL;
-    const client = new Client(storeURL);
     const searchParams = {
       limit: 20,
       offset: 0,
@@ -64,7 +115,7 @@ class Plugins extends Component {
       let plugins;
       try {
         // add plugins to pluginList as they are received
-        plugins = await client.getPlugins(searchParams);
+        plugins = await this.client.getPlugins(searchParams);
 
         if (this.mounted) {
           this.setState((prevState) => {
@@ -79,6 +130,30 @@ class Plugins extends Component {
 
       return resolve(plugins.data);
     });
+  }
+
+  async fetchPluginStars() {
+    const stars = await this.client.getPluginStars();
+
+    const starsByPlugin = {};
+    stars.data.forEach((star) => {
+      const pluginId = star.meta_id;
+      starsByPlugin[pluginId] = star;
+    });
+
+    this.setState({ starsByPlugin });
+  }
+
+  async handlePluginFavorited(plugin) {
+    return this.isFavorite(plugin) ? this.unfavPlugin(plugin) : this.favPlugin(plugin);
+  }
+
+  isFavorite(plugin) {
+    return this.state.starsByPlugin[plugin.id] !== undefined;
+  }
+
+  isLoggedIn() {
+    return this.props.store ? this.props.store.get('isLoggedIn') : false;
   }
 
   render() {
@@ -100,6 +175,9 @@ class Plugins extends Component {
           author={removeEmail(plugin.authors)}
           creationDate={plugin.creation_date}
           key={plugin.name}
+          isLoggedIn={this.isLoggedIn()}
+          isFavorite={this.isFavorite(plugin)}
+          onStarClicked={async () => this.handlePluginFavorited(plugin)}
         />
       ));
 
@@ -130,7 +208,7 @@ class Plugins extends Component {
       <div className="plugins-container">
         <div className="plugins-stats">
           <div className="row plugins-stats-row">
-            { pluginsFound }
+            {pluginsFound}
             <DropdownButton
               id="sort-by-dropdown"
               title="Sort By"
@@ -151,4 +229,9 @@ class Plugins extends Component {
   }
 }
 
-export default Plugins;
+
+Plugins.propTypes = {
+  store: PropTypes.objectOf(PropTypes.object).isRequired,
+};
+
+export default ChrisStore.withStore(Plugins);

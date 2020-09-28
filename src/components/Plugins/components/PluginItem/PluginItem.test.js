@@ -35,7 +35,7 @@ describe('Plugin', () => {
   });
 
   it('should render plugin-item-name div', () => {
-    expect(wrapper.find('Link.plugin-item-name')).toHaveLength(1);
+    expect(wrapper.find('div.plugin-item-name')).toHaveLength(1);
   });
 
   it('should render plugin-item-creation div', () => {
@@ -70,7 +70,8 @@ describe('rendered Plugin', () => {
   it('should render the value of name', () => {
     wrapper.setProps({ name: 'testName' });
     expect(wrapper
-      .find('Link.plugin-item-name')
+      .find('div.plugin-item-name')
+      .find('Link')
       .childAt(0)
       .text())
       .toEqual('testName');
@@ -101,5 +102,71 @@ describe('rendered Plugin', () => {
     Date.now = jest.fn(() => 1530814238992);
     wrapper.setProps({ creationDate: '2018-06-19T15:29:11.349272Z' });
     expect(getPluginCreationText()).toEqual(' created 16 days ago');
+  });
+});
+
+
+describe('PluginItem: When user is NOT logged in', () => {
+  it('should render the star with class plugin-star-disabled', () => {
+    const wrapper = shallow(<PluginItem
+      title=""
+      id=""
+      name=""
+      author=""
+      creationDate=""
+    />);
+
+    expect(wrapper.find('Icon.plugin-star-disabled')).toHaveLength(1);
+  });
+});
+
+describe('PluginItem: when user is logged in', () => {
+  describe('and the item is NOT a user favorite', () => {
+    it('should render the star with class plugin-star', () => {
+      const wrapper = shallow(<PluginItem
+        title=""
+        id=""
+        name=""
+        author=""
+        creationDate=""
+        isLoggedIn
+      />);
+
+      expect(wrapper.find('Icon.plugin-star')).toHaveLength(1);
+    });
+
+    it('should call the API endpoint when Icon is clicked', () => {
+      const onFavoriteHandler = jest.fn();
+
+      const wrapper = shallow(<PluginItem
+        title=""
+        id=""
+        name=""
+        author=""
+        creationDate=""
+        isLoggedIn
+        onStarClicked={onFavoriteHandler}
+      />);
+
+      wrapper.find('Icon.plugin-star').simulate('click');
+
+      expect(onFavoriteHandler).toHaveBeenCalled();
+    });
+  });
+
+  describe('and the item is a user favorite', () => {
+    it('should render the star with class plugin-star-favorite', () => {
+      const wrapper = shallow(<PluginItem
+        title=""
+        id=""
+        name=""
+        author=""
+        creationDate=""
+        isLoggedIn
+        isFavorite
+      />);
+
+      expect(wrapper.find('Icon.plugin-star-favorite')).toHaveLength(1);
+    });
   });
 });

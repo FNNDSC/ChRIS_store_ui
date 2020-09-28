@@ -8,6 +8,8 @@ ShallowWrapper {
     author=""
     creationDate=""
     id=""
+    isFavorite={false}
+    isLoggedIn={false}
     name=""
     title=""
 />,
@@ -34,12 +36,21 @@ ShallowWrapper {
                 <div
                         className="row no-flex"
                 >
-                        <Link
+                        <div
                                 className="plugin-item-name"
-                                href="/plugin/"
-                                replace={false}
-                                to="/plugin/"
-                        />
+                        >
+                                <Link
+                                        href="/plugin/"
+                                        replace={false}
+                                        to="/plugin/"
+                                />
+                                <Icon
+                                        className="plugin-star-disabled"
+                                        name="star-o"
+                                        onClick={undefined}
+                                        type="fa"
+                                />
+                        </div>
                         <div
                                 className="plugin-item-title"
                         />
@@ -69,12 +80,21 @@ ShallowWrapper {
           <div
                     className="row no-flex"
           >
-                    <Link
+                    <div
                               className="plugin-item-name"
-                              href="/plugin/"
-                              replace={false}
-                              to="/plugin/"
-                    />
+                    >
+                              <Link
+                                        href="/plugin/"
+                                        replace={false}
+                                        to="/plugin/"
+                              />
+                              <Icon
+                                        className="plugin-star-disabled"
+                                        name="star-o"
+                                        onClick={undefined}
+                                        type="fa"
+                              />
+                    </div>
                     <div
                               className="plugin-item-title"
                     />
@@ -101,12 +121,21 @@ ShallowWrapper {
           "children": <div
             className="row no-flex"
 >
-            <Link
+            <div
                         className="plugin-item-name"
-                        href="/plugin/"
-                        replace={false}
-                        to="/plugin/"
-            />
+            >
+                        <Link
+                                    href="/plugin/"
+                                    replace={false}
+                                    to="/plugin/"
+                        />
+                        <Icon
+                                    className="plugin-star-disabled"
+                                    name="star-o"
+                                    onClick={undefined}
+                                    type="fa"
+                        />
+            </div>
             <div
                         className="plugin-item-title"
             />
@@ -129,12 +158,21 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": Array [
-              <Link
+              <div
                 className="plugin-item-name"
-                href="/plugin/"
-                replace={false}
-                to="/plugin/"
-/>,
+>
+                <Link
+                                href="/plugin/"
+                                replace={false}
+                                to="/plugin/"
+                />
+                <Icon
+                                className="plugin-star-disabled"
+                                name="star-o"
+                                onClick={undefined}
+                                type="fa"
+                />
+</div>,
               <div
                 className="plugin-item-title"
 />,
@@ -156,17 +194,55 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "class",
+              "nodeType": "host",
               "props": Object {
-                "children": "",
+                "children": Array [
+                  <Link
+                    href="/plugin/"
+                    replace={false}
+                    to="/plugin/"
+/>,
+                  <Icon
+                    className="plugin-star-disabled"
+                    name="star-o"
+                    onClick={undefined}
+                    type="fa"
+/>,
+                ],
                 "className": "plugin-item-name",
-                "href": "/plugin/",
-                "replace": false,
-                "to": "/plugin/",
               },
               "ref": null,
-              "rendered": "",
-              "type": [Function],
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": "",
+                    "href": "/plugin/",
+                    "replace": false,
+                    "to": "/plugin/",
+                  },
+                  "ref": null,
+                  "rendered": "",
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "className": "plugin-star-disabled",
+                    "name": "star-o",
+                    "onClick": undefined,
+                    "type": "fa",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+              ],
+              "type": "div",
             },
             Object {
               "instance": null,
@@ -243,12 +319,21 @@ ShallowWrapper {
                     <div
                               className="row no-flex"
                     >
-                              <Link
+                              <div
                                         className="plugin-item-name"
-                                        href="/plugin/"
-                                        replace={false}
-                                        to="/plugin/"
-                              />
+                              >
+                                        <Link
+                                                  href="/plugin/"
+                                                  replace={false}
+                                                  to="/plugin/"
+                                        />
+                                        <Icon
+                                                  className="plugin-star-disabled"
+                                                  name="star-o"
+                                                  onClick={undefined}
+                                                  type="fa"
+                                        />
+                              </div>
                               <div
                                         className="plugin-item-title"
                               />
@@ -278,12 +363,21 @@ ShallowWrapper {
             <div
                         className="row no-flex"
             >
-                        <Link
+                        <div
                                     className="plugin-item-name"
-                                    href="/plugin/"
-                                    replace={false}
-                                    to="/plugin/"
-                        />
+                        >
+                                    <Link
+                                                href="/plugin/"
+                                                replace={false}
+                                                to="/plugin/"
+                                    />
+                                    <Icon
+                                                className="plugin-star-disabled"
+                                                name="star-o"
+                                                onClick={undefined}
+                                                type="fa"
+                                    />
+                        </div>
                         <div
                                     className="plugin-item-title"
                         />
@@ -310,12 +404,21 @@ ShallowWrapper {
             "children": <div
               className="row no-flex"
 >
-              <Link
+              <div
                             className="plugin-item-name"
-                            href="/plugin/"
-                            replace={false}
-                            to="/plugin/"
-              />
+              >
+                            <Link
+                                          href="/plugin/"
+                                          replace={false}
+                                          to="/plugin/"
+                            />
+                            <Icon
+                                          className="plugin-star-disabled"
+                                          name="star-o"
+                                          onClick={undefined}
+                                          type="fa"
+                            />
+              </div>
               <div
                             className="plugin-item-title"
               />
@@ -338,12 +441,21 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": Array [
-                <Link
+                <div
                   className="plugin-item-name"
-                  href="/plugin/"
-                  replace={false}
-                  to="/plugin/"
-/>,
+>
+                  <Link
+                                    href="/plugin/"
+                                    replace={false}
+                                    to="/plugin/"
+                  />
+                  <Icon
+                                    className="plugin-star-disabled"
+                                    name="star-o"
+                                    onClick={undefined}
+                                    type="fa"
+                  />
+</div>,
                 <div
                   className="plugin-item-title"
 />,
@@ -365,17 +477,55 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "class",
+                "nodeType": "host",
                 "props": Object {
-                  "children": "",
+                  "children": Array [
+                    <Link
+                      href="/plugin/"
+                      replace={false}
+                      to="/plugin/"
+/>,
+                    <Icon
+                      className="plugin-star-disabled"
+                      name="star-o"
+                      onClick={undefined}
+                      type="fa"
+/>,
+                  ],
                   "className": "plugin-item-name",
-                  "href": "/plugin/",
-                  "replace": false,
-                  "to": "/plugin/",
                 },
                 "ref": null,
-                "rendered": "",
-                "type": [Function],
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "children": "",
+                      "href": "/plugin/",
+                      "replace": false,
+                      "to": "/plugin/",
+                    },
+                    "ref": null,
+                    "rendered": "",
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "function",
+                    "props": Object {
+                      "className": "plugin-star-disabled",
+                      "name": "star-o",
+                      "onClick": undefined,
+                      "type": "fa",
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                ],
+                "type": "div",
               },
               Object {
                 "instance": null,

@@ -10,7 +10,7 @@ import './PluginBody.css';
 import { CopyURLButton } from '../../../general/CopyURLButton';
 
 const PluginBody = ({ pluginData }) => {
-    console.log('pluginData', pluginData)
+    console.log('pluginData', pluginData);
     return (
   <div className="plugin-body">
     <div className="container-fluid container-cards-pf">
