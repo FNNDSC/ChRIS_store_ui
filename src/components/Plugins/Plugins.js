@@ -144,8 +144,12 @@ export class Plugins extends Component {
     this.setState({ starsByPlugin });
   }
 
-  async handlePluginFavorited(plugin) {
-    return this.isFavorite(plugin) ? this.unfavPlugin(plugin) : this.favPlugin(plugin);
+  handlePluginFavorited(plugin) {
+    if (this.isLoggedIn()) {
+      return this.isFavorite(plugin) ? this.unfavPlugin(plugin) : this.favPlugin(plugin);
+    }
+
+    return Promise.resolve();
   }
 
   isFavorite(plugin) {

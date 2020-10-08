@@ -57,7 +57,10 @@ export class Plugin extends Component {
   }
 
   onStarClicked() {
-    return this.isFavorite() ? this.unfavPlugin() : this.favPlugin();
+    if (this.isLoggedIn()) {
+      return this.isFavorite() ? this.unfavPlugin() : this.favPlugin();
+    }
+    return Promise.resolve();
   }
 
   async favPlugin() {
