@@ -127,3 +127,7 @@
   /* display */
   padding-left: .5em;
 }
+
+.plugins-container {
+    min-height: calc(100vh - 473px);
+}
