@@ -8,9 +8,9 @@
     "test": "react-scripts test --env=jsdom",
     "lint": "eslint ./src/components",
     "lint:fix": "eslint --fix ./src/components",
-    "ci": "concurrently --kill-others-on-fail \"npm:test\" \"npm:lint\"",
+    "ci": "concurrently --kill-others-on-fail \"yarn:test\" \"yarn:lint\"",
     "serve": "node serve.js",
-    "deploy": "npm run build && npm run serve",
+    "deploy": "yarn run build && yarn run serve",
     "precommit": "lint-staged",
     "test:staged": "cross-env CI=true react-scripts test --env=jsdom --findRelatedTests"
   },
@@ -18,7 +18,7 @@
     "*.js": [
       "eslint --fix",
       "git add",
-      "npm run test:staged"
+      "yarn run test:staged"
     ]
   },
   "dependencies": {
