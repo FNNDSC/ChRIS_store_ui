@@ -354,4 +354,17 @@ describe('Plugin star', () => {
 
     expect(wrapper.state().star).toBeUndefined();
   });
+
+  it('should NOT mark plugin as favorited when a plugin star is clicked and user NOT logged in', () => {
+    // define mock for @fnndsc/chrisstoreapi module
+    jest.mock('@fnndsc/chrisstoreapi', () => require.requireActual('../__mocks__/chrisstoreapi').default);
+
+    store.set('isLoggedIn', false);
+
+    wrapper.setState({ star: undefined });
+
+    wrapper.find('Icon.plugin-star-disabled').simulate('click');
+
+    expect(wrapper.state().star).toBeUndefined();
+  });
 });

@@ -141,3 +141,6 @@
     position: relative;
     margin: 0;
 }
+.plugins-container {
+    min-height: calc(100vh - 473px);
+}

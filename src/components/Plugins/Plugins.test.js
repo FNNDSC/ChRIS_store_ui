@@ -243,4 +243,24 @@ describe('rendered Plugins', () => {
 
     expect(wrapper.state().starsByPlugin[firstPluginId]).toBeUndefined();
   });
+
+  it('should not change plugin status when user NOT logged in and star is clicked', async () => {
+    // define mock for @fnndsc/chrisstoreapi module
+    jest.mock('@fnndsc/chrisstoreapi', () => require.requireActual('../__mocks__/chrisstoreapi').default);
+
+    const store = new Map();
+    wrapper = shallow(<Plugins store={store} />);
+    // wait for component to be mounted
+    await Promise.resolve();
+
+    wrapper.setState({ pluginList: samplePluginList });
+
+    const firstPlugin = wrapper.find('Plugin').first();
+
+    await firstPlugin.props().onStarClicked();
+
+    const firstPluginId = firstPlugin.props().id;
+
+    expect(wrapper.state().starsByPlugin[firstPluginId]).toBeUndefined();
+  });
 });
