@@ -78,3 +78,7 @@
 @media (min-width: 768px)  {
   .row:not(.no-flex) { display: flex; }
 }
+
+.margin-right-sm {
+    margin-right: 5px;
+}

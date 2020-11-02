@@ -128,6 +128,19 @@
   padding-left: .5em;
 }
 
+.p-3 {
+    padding: 16px;
+}
+
+.menu-dropdown {
+    margin-top: 10px !important;
+    min-width: 400px !important;
+}
+
+.plugin-body-copy-url .dropdown.btn-group {
+    position: relative;
+    margin: 0;
+}
 .plugins-container {
     min-height: calc(100vh - 473px);
 }

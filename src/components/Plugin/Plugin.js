@@ -98,6 +98,7 @@ export class Plugin extends Component {
       try {
         const plugin = await this.client.getPlugin(parseInt(pluginId, 10));
         pluginData = plugin.data;
+        pluginData.url = plugin.url;
       } catch (e) {
         return reject(e);
       }
@@ -208,16 +209,21 @@ export class Plugin extends Component {
                     </div>
                   </Grid.Col>
                   <Grid.Col sm={4} className="plugin-stats">
-                    <Icon name="star" size="md" /> 10k+
-                    {modificationDate.isValid() &&
+                    <Icon name="star" size="lg" />
+                    {' '}
+                    10k+
+                    {modificationDate.isValid()
+                      && (
                       <span className="plugin-modified">
-                        <Icon name="clock-o" size="md" />
+                        <Icon name="clock-o" size="lg" />
                         {`Last modified ${modificationDate.format()}`}
                       </span>
-                    }
+                      )}
                     {/* temp text */}
                     <span className="plugin-modified">
-                      <Icon name="clock-o" size="md" /> Last modified 1 hour ago
+                      <Icon name="clock-o" size="lg" />
+                      {' '}
+                      Last modified 1 hour ago
                     </span>
                   </Grid.Col>
                 </Grid.Col>

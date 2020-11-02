@@ -1,5 +1,5 @@
 {
-  "extends": "airbnb",
+  "extends": "react-app",
   "env": {
     "node": true,
     "jest": true,
