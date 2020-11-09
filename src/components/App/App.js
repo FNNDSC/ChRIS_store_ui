@@ -8,6 +8,8 @@ import './App.css';
 // import the patternfly CSS globally
 import '../../../node_modules/patternfly/dist/css/patternfly.min.css';
 import '../../../node_modules/patternfly/dist/css/patternfly-additions.min.css';
+import '../../../node_modules/@patternfly/patternfly/patternfly-no-reset.css';
+import '../../../node_modules/@patternfly/patternfly/patternfly-addons.css';
 
 const App = () => (
   <ChrisStore.Container>
