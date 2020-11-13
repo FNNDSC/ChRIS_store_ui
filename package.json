@@ -38,7 +38,6 @@
     "react-dom": "16.4.2",
     "react-router-dom": "^4.3.1",
     "react-scripts": "3.4.3",
-    "recompose": "^0.30.0",
     "rxjs": "^6.3.3",
     "sirv-cli": "^1.0.8",
     "sortabular": "^1.6.0",
