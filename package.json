@@ -16,9 +16,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "eslint --fix",
-      "git add",
-      "npm run test:staged"
+      "eslint --fix"
     ]
   },
   "dependencies": {
