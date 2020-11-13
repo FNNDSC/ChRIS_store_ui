@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {
-  Icon, Grid, Nav, NavItem, TabContainer, TabContent, TabPane,
+  Grid, Nav, NavItem, TabContainer, TabContent, TabPane,
 } from 'patternfly-react';
 import './PluginBody.css';
 import { CopyURLButton } from '../../../general/CopyURLButton';

@@ -11,8 +11,8 @@ import chrisLogo from '../../assets/img/chris_logo-white.png';
 import ChrisStore from '../../store/ChrisStore';
 
 export class SignIn extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.mounted = false;
     this.state = {
@@ -31,6 +31,17 @@ export class SignIn extends Component {
 
   componentWillMount() {
     this.mounted = true;
+  }
+
+  componentDidMount() {
+    // if the user attempts to see the login page when they are
+    // already logged in, we will log them out.
+    // TODO SECURITY idk if safe from CSRF
+    // TODO SECURITY send goodbye to backend to invalidate authToken
+    const { store } = this.props;
+    if (store.get('isLoggedIn')) {
+      store.set('authToken')('');
+    }
   }
 
   componentWillUnmount() {
@@ -164,8 +175,8 @@ export class SignIn extends Component {
   }
 }
 
-export default ChrisStore.withStore(SignIn);
-
 SignIn.propTypes = {
   store: PropTypes.objectOf(PropTypes.object).isRequired,
 };
+
+export default ChrisStore.withStore(SignIn);

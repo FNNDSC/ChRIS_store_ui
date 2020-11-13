@@ -1,61 +1,55 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Icon } from 'patternfly-react';
+import React, { useState } from 'react';
 import './Search.css';
+import SearchIcon from '@patternfly/react-icons/dist/esm/icons/search-icon';
+import TimesIcon from '@patternfly/react-icons/dist/esm/icons/times-icon';
 
-// a helper function to get query params from page url
-const getQueryParams = (search) => {
-  const groups = search.slice(1).split('&');
-  const splitGroups = groups.map(group => group.split('='));
-  const queryParams = splitGroups.reduce((acc, group) => {
-    const [key, value] = group;
-    acc[key] = value;
-    return acc;
-  }, {});
-  return queryParams;
-};
+import { Button, PageHeaderTools, PageHeaderToolsItem, TextInput } from '@patternfly/react-core';
 
-const Search = ({ className, location }) => {
-  const { search } = location;
-  const { q: query } = getQueryParams(search);
+/*
+ * (C) 2020 Red Hat, MIT License
+ * https://github.com/patternfly/patternfly-org/blob/d6e1950b764b55b612709dfe8e84e6e636116d23/packages/theme-patternfly-org/layouts/sideNavLayout/sideNavLayout.js#L52-76
+ */
+
+/*
+ * TODO search bar is not accessible on small screens.
+ * Neither does it "focus" correctly on Firefox for Android (tested 2020-11-13)
+ * as in the on-screen keyboard fails to pop up.
+ * This problem exists upstream on https://patternfly.org
+ *
+ * Feasible workaround: hide the logo or move the search somewhere else
+ * if screen size is too small.
+ */
+
+const Search = () => {
+  const [isSearchExpanded, setSearchExpanded] = useState(false);
+  const searchRef = React.useRef();  // idk what this does
+
   return (
-    <form
-      method="get"
-      action="/plugins"
-      autoComplete="off"
-      className={`search-pf ${className}`}
-    >
-      <div className="form-group has-icon">
-        <div className="search-pf-input-group">
-          <div className="search-icon">
-            <Icon name="search" />
-          </div>
-          <input
-            type="search"
-            id="search"
-            className="form-control"
-            name="q"
-            placeholder="Search plugins"
-            defaultValue={query}
-            autoComplete="off"
-          />
-        </div>
-      </div>
-    </form>
-  );
-};
-
-Search.propTypes = {
-  className: PropTypes.string,
-  location: PropTypes.shape({
-    search: PropTypes.string,
-  }),
-};
-Search.defaultProps = {
-  className: '',
-  location: {
-    search: '',
-  },
-};
+    <PageHeaderTools>
+      <PageHeaderToolsItem id="ws-global-search-wrapper" className={isSearchExpanded ? '' : 'ws-hide-search-input'}>
+        <form method="get" action="/plugins" autoComplete="off">
+          <TextInput id="ws-global-search" ref={searchRef} placeholder="Search plugins" name="q"/>
+        </form>
+        {isSearchExpanded && <SearchIcon className="global-search-icon" />}
+      </PageHeaderToolsItem>
+      <Button
+        aria-label={`${isSearchExpanded ? 'Collapse' : 'Expand'} search input`}
+        variant="plain"
+        className="ws-toggle-search"
+        onClick={() => {
+          setSearchExpanded(!isSearchExpanded);
+          if (!isSearchExpanded) {
+            setTimeout(() => searchRef.current && searchRef.current.focus(), 0);
+          }
+        }}
+      >
+        {isSearchExpanded
+          ? <TimesIcon />
+          : <SearchIcon className="global-search-icon" />
+        }
+      </Button>
+    </PageHeaderTools>
+  )
+}
 
 export default Search;

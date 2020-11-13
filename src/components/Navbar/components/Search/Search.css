@@ -1,20 +1,51 @@
-.form-group.has-icon .form-control {
-  /* display */
-  padding-left: 24px;
+/*
+ * (C) 2020 Red Hat, MIT License
+ * https://github.com/patternfly/patternfly-org/blob/d6e1950b764b55b612709dfe8e84e6e636116d23/packages/theme-patternfly-org/layouts/sideNavLayout/sideNavLayout.css#L27-L72
+ */
+
+/* Search */
+#ws-global-search-wrapper {
+  /* For icon */
+  position: relative;
+}
+#ws-global-search {
+  background-color: transparent;
+  border: none;
+  /* For icon */
+  padding-left: 32px;
+  width: 250px;
+}
+.ws-hide-search-input .algolia-autocomplete,
+.ws-hide-search-input #ws-global-search {
+  display: none !important;
+}
+.ws-toggle-search {
+  /* Search icon is taller than it is wide */
+  margin-top: 2px;
+}
+#ws-global-search-wrapper > .global-search-icon {
+  position: absolute;
+  top: 10px;
+  left: 4px;
+}
+#ws-global-search,
+#ws-global-search::placeholder {
+  color: #fff;
+}
+#ws-global-search:focus {
+  outline-offset: 2px;
 }
 
-.search-pf .has-icon .search-icon {
-  /* display */
-  height: 25px;
-  width: 20px;
-
-  /* font */
-  line-height: 1.6em;
-  text-align: center;
-  font-size: 1.2em;
-  
-  /* position */
-  position: absolute;
-  left: 1px;
-  top: 1px;
+/* TODO: PageHeaderTools on small viewports */
+@media (max-width: 670px) {
+  #ws-global-search-wrapper {
+    display: none;
+    visibility: hidden;
+  }
+}
+@media (max-width: 430px) {
+  .ws-page-header > .pf-c-page__header-brand > .pf-c-page__header-brand-link {
+    display: none;
+    visibility: hidden;
+  }
 }

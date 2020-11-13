@@ -11,6 +11,11 @@ import '../../../node_modules/patternfly/dist/css/patternfly-additions.min.css';
 import '../../../node_modules/@patternfly/patternfly/patternfly-no-reset.css';
 import '../../../node_modules/@patternfly/patternfly/patternfly-addons.css';
 
+/*
+ * The router here serves pages which replace the entire document,
+ * whereas '../Router/Router' has a navbar and footer.
+ */
+
 const App = () => (
   <ChrisStore.Container>
     <div className="App">
