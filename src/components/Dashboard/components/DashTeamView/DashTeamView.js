@@ -4,7 +4,6 @@ import orderBy from 'lodash/orderBy';
 import PropTypes from 'prop-types';
 import * as sort from 'sortabular';
 import * as resolve from 'table-resolver';
-import { compose } from 'recompose';
 import {
   actionHeaderCellFormatter,
   customHeaderFormattersDefinition,
@@ -193,12 +192,12 @@ class DashTeamView extends Component {
     const { rows, sortingColumns, columns } = this.state;
     const showEmptyState = isEmpty(plugins);
 
-    const sortedRows = compose(sort.sorter({
+    const sortedRows = sort.sorter({
       columns,
       sortingColumns,
       sort: orderBy,
       strategy: sort.strategies.byProperty,
-    }))(rows);
+    })(rows);
 
     return (
       <Col sm={12}>
