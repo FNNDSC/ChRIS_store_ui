@@ -34,50 +34,33 @@ const navLinks = [
 /**
  * Conditionally renders a list of links into a <Nav>.
  */
-class Navigation extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeItem: 0
-    };
-  }
-
-  onSelect(result) {
-    this.setState({
-      activeItem: result.itemId
-    });
-  }
-
-  shouldShowLink(linkInfo) {
+const Navigation = ({ store }) => {
+  const shouldShowLink = (linkInfo) => {
     if (!linkInfo.cond) {
       return true;
     }
-    return linkInfo.cond(this.props.store);
-  }
-
-  render() {
-    const { activeItem } = this.state;
-    return (
-      <Nav onSelect={this.onSelect} variant="horizontal">
-        <NavList>
-          {
-            navLinks
-              .filter((l) => this.shouldShowLink(l))
-              .map(link => (
-                <NavItem
-                  key={link.to}
-                  itemId={link.to}
-                  isActive={activeItem === link.to}>
-                  <NavLink to={link.to} activeClassName="pf-m-current">
-                    {link.label}
-                  </NavLink>
-                </NavItem>
-              ))
-          }
-        </NavList>
-      </Nav>
-    )
-  }
+    return linkInfo.cond(store);
+  };
+  return (
+    <Nav variant="horizontal">
+      <NavList>
+        {
+          navLinks
+            .filter((l) => shouldShowLink(l))
+            .map(link => (
+              <NavItem
+                key={link.to}
+                itemId={link.to}
+                isActive={window && window.location.pathname === link.to}>
+                <NavLink to={link.to} activeClassName="pf-m-current">
+                  {link.label}
+                </NavLink>
+              </NavItem>
+            ))
+        }
+      </NavList>
+    </Nav>
+  );
 }
 
 const StatefulNavigation = ChrisStore.withStore(Navigation);
