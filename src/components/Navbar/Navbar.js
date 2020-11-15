@@ -4,7 +4,9 @@ import {
   PageHeader,
   Nav,
   NavList,
-  NavItem
+  NavItem,
+  PageHeaderTools,
+  PageHeaderToolsItem
 } from '@patternfly/react-core';
 import { NavLink } from 'react-router-dom';
 import Search from './components/Search/Search';
@@ -93,13 +95,21 @@ class Navigation extends Component {
 const StatefulNavigation = ChrisStore.withStore(Navigation);
 const statefulNavigation = (<StatefulNavigation />);
 
+const HeaderTools = (
+  <PageHeaderTools>
+    <PageHeaderToolsItem>
+      <Search />
+    </PageHeaderToolsItem>
+  </PageHeaderTools>
+)
+
 const Navbar = () => (
   <PageHeader
     logo={Logo}
     logoComponent={NavLink}
     logoProps={{to: '/'}}
     topNav={statefulNavigation}
-    headerTools={<Search />}
+    headerTools={HeaderTools}
   />
 );
 

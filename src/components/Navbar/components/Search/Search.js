@@ -3,7 +3,7 @@ import './Search.css';
 import SearchIcon from '@patternfly/react-icons/dist/esm/icons/search-icon';
 import TimesIcon from '@patternfly/react-icons/dist/esm/icons/times-icon';
 
-import { Button, PageHeaderTools, PageHeaderToolsItem, TextInput } from '@patternfly/react-core';
+import { Button, TextInput } from '@patternfly/react-core';
 
 /*
  * (C) 2020 Red Hat, MIT License
@@ -25,13 +25,13 @@ const Search = () => {
   const searchRef = React.useRef();  // idk what this does
 
   return (
-    <PageHeaderTools>
-      <PageHeaderToolsItem id="ws-global-search-wrapper" className={isSearchExpanded ? '' : 'ws-hide-search-input'}>
+    <div id="search">
+      <div id="ws-global-search-wrapper" className={isSearchExpanded ? '' : 'ws-hide-search-input'}>
         <form method="get" action="/plugins" autoComplete="off">
           <TextInput id="ws-global-search" ref={searchRef} placeholder="Search plugins" name="q"/>
         </form>
         {isSearchExpanded && <SearchIcon className="global-search-icon" />}
-      </PageHeaderToolsItem>
+      </div>
       <Button
         aria-label={`${isSearchExpanded ? 'Collapse' : 'Expand'} search input`}
         variant="plain"
@@ -48,7 +48,7 @@ const Search = () => {
           : <SearchIcon className="global-search-icon" />
         }
       </Button>
-    </PageHeaderTools>
+    </div>
   )
 }
 
