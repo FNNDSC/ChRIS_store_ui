@@ -8,15 +8,19 @@ import './App.css';
 // import the patternfly CSS globally
 import '../../../node_modules/patternfly/dist/css/patternfly.min.css';
 import '../../../node_modules/patternfly/dist/css/patternfly-additions.min.css';
+import ScrollToTop from '../general/ScrollToTop';
 
 const App = () => (
   <ChrisStore.Container>
     <div className="App">
       <BrowserRouter>
-        <Switch>
+      <div>
+        <ScrollToTop/>
+        <Switch>   
           <Route path="/signin" component={ConnectedSignIn} />
           <Route path="/" component={Router} />
         </Switch>
+      </div>
       </BrowserRouter>
     </div>
   </ChrisStore.Container>
