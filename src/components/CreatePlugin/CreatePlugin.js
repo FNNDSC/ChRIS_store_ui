@@ -61,6 +61,7 @@ class CreatePlugin extends Component {
       fileError: false,
       formError: null,
       success: false,
+      warning: null,
     };
 
     const methods = [
@@ -82,6 +83,11 @@ class CreatePlugin extends Component {
     });
   }
 
+  handleWarning(message) {
+    this.setState({
+      warning: message
+    })
+  }
   handleError(message) {
     let errorObj;
     try {
@@ -200,7 +206,23 @@ class CreatePlugin extends Component {
     // Array to store the errors
     const errors = [];
     let missingRepresentationString = '';
-
+    if (pluginImage.trim()){
+      const imageName = pluginImage.trim().split(':');
+      let message = [];
+      if(imageName[1] === 'latest'){
+        message.push('The :latest tag is discouraged. Please tag your Docker image by version.');
+      }
+      else if ( !imageName[1] ){
+        const description = 'Please tag your Docker image by version.';
+        let tagExample = `docker tag ${imageName[0]} ${imageName[0]}:1.0.1`;
+        let pushExample = `docker push ${imageName[0]}:1.0.1`;
+        message=[description, tagExample, pushExample];
+      }
+      this.handleWarning(message)
+    }
+    else{
+      this.handleWarning(null)
+    }
     if (!(
       pluginName.trim() && pluginImage.trim() &&
       pluginRepo.trim() && pluginRepresentation &&
@@ -273,7 +295,7 @@ class CreatePlugin extends Component {
     const { state } = this;
     const {
       dragOver, fileName, name, image, repo,
-      pluginRepresentation, fileError, formError, success, newPlugin,
+      pluginRepresentation, fileError, formError, success, newPlugin, warning,
     } = state;
 
     let pluginId;
@@ -351,6 +373,29 @@ class CreatePlugin extends Component {
                     onDismiss={this.hideMessage}
                   >
                     {formError}
+                  </Alert>
+                </div>
+              </div>
+            )
+          }
+          {
+            warning && (
+              <div className="createplugin-message-container error">
+                <div className="row">
+                  <Alert
+                    type="warning"
+                    className="createplugin-message"
+                    onDismiss={this.hideMessage}
+                  >
+                    {warning[0]}
+                    {warning[1] && (
+                      <div>
+                        <b>Example:</b>
+                        <p>{warning[1]} 
+                        <br/>
+                        {warning[2]}</p>
+                      </div>
+                    )}  
                   </Alert>
                 </div>
               </div>
