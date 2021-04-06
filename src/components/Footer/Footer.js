@@ -16,13 +16,13 @@ const Footer = () => (
         </div>
         <div className="footer-links">
           <div className="footer-link">
-            <a href="http://chrisproject.org/">About ChRIS</a>
+            <a href="https://chrisproject.org">About ChRIS</a>
           </div>
           <div className="footer-link">
             <a href="/quickstart">Submit your plugin</a>
           </div>
           <div className="footer-link">
-            <a href="mailto:devel@chrisproject.org/?subject=Contact from ChRIS Store">
+            <a href="mailto:dev@babyMRI.org?subject=Contact from ChRIS Store">
               Contact Us
             </a>
           </div>
@@ -32,7 +32,7 @@ const Footer = () => (
             </a>
           </div>
           <div className="footer-link">
-            <a href="mailto:devel@chrisproject.org/?subject=ChRIS Store Plugin Request">
+            <a href="mailto:dev@babyMRI.org?subject=ChRIS Store Plugin Request">
               Request a plugin
             </a>
           </div>
