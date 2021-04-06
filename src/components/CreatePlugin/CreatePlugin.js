@@ -203,13 +203,13 @@ class CreatePlugin extends Component {
     const inputImage = pluginImage.trim();
     if(inputImage){
       if (inputImage.endsWith(':latest')) {
-        return this.handleError('The :latest tag is discouraged. Please tag your Docker image by version.');
+        return this.handleError(<span>The <code>:latest</code> tag is discouraged.</span>);
       }
       else if (!inputImage.includes(':')) {
         const description = 'Please tag your Docker image by version.';
-        let tagExample = `docker tag ${inputImage.split(':')[0]} ${inputImage.split(':')[0]}:1.0.1`;
-        let pushExample = `docker push ${inputImage.split(':')[0]}:1.0.1`;
-        return this.handleError({dockerImageError: [description, tagExample, pushExample]});
+        let tagExample = `docker tag ${inputImage.split(':')[0]} ${inputImage.split(':')[0]}:1.0.1`; //TODO 
+        let pushExample = `docker push ${inputImage.split(':')[0]}:1.0.1`; //TODO
+        return this.handleError(<div>{description} <p><b>Example:</b><br/>{tagExample}<br/>{pushExample}</p></div> );
       }
     }
     if (!(
@@ -361,15 +361,7 @@ class CreatePlugin extends Component {
                     type="error"
                     onDismiss={this.hideMessage}
                   > 
-                    { dockerImageError ?
-                      <p>
-                        {dockerImageError[0]}<br/>
-                        <b>Example</b><br/>
-                        {dockerImageError[1]}<br/>
-                        {dockerImageError[2]}
-                      </p>
-                      : formError
-                    }
+                    {formError}
                   </Alert>
                 </div>
               </div>
