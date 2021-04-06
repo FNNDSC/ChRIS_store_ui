@@ -286,7 +286,6 @@ class CreatePlugin extends Component {
       dragOver, fileName, name, image, repo,
       pluginRepresentation, fileError, formError, success, newPlugin,
     } = state;
-    const { dockerImageError } = formError || {};
     let pluginId;
     if (newPlugin) {
       pluginId = newPlugin.id;
