@@ -505,7 +505,7 @@ describe('CreatePlugin', () => {
 
   const defaultFormState = {
     name: 'Mock Plugin',
-    image: 'dock/image',
+    image: 'dock/image:1.0.1',
     repo: 'https://repository.com',
   };
 
