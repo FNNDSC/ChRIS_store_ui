@@ -167,7 +167,7 @@ const PluginBody = ({ pluginData }) => (
                               </a>
                             </div>
                           </div>
-                          <div className="plugin-body-plugin-id">
+                          <div className="plugin-body-id">
                             <h4>Plugin ID:</h4>
                             {pluginData.id}
                           </div>
