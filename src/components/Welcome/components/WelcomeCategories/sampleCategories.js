@@ -18,25 +18,25 @@ const sampleCategories = [
     items: [
       {
         img: freesurferLogo,
-        name: 'pI-z2labelmap',
+        name: 'pl-z2labelmap',
         desc: 'z-score to FreeSurfer label map',
         tags: ['TAG1', 'TAG2'],
       },
       {
         img: freesurferLogo,
-        name: 'pI-dsdircopy',
+        name: 'pl-dsdircopy',
         desc: 'A ChRIS ds app to copy obj storage directories',
         tags: ['TAG1', 'TAG2'],
       },
       {
         img: freesurferLogo,
-        name: 'pI-fetal-brain-mask',
+        name: 'pl-fetal-brain-mask',
         desc: 'Automatic masking of fetal brain images',
         tags: ['TAG1', 'TAG2'],
       },
       {
         img: freesurferLogo,
-        name: 'pI-flip',
+        name: 'pl-flip',
         desc: 'A ChRIS plugin app',
         tags: ['TAG1', 'TAG2'],
       },

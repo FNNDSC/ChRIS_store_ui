@@ -20,11 +20,11 @@ const WelcomeCTA = () => (
         Apps available in the ChRIS store include:
       </div>
       <div className="row welcome-cta-featured-container">
-        <WelcomeFeature name="pI-z2labelmap" img={freesurferLogo} />
-        <WelcomeFeature name="pI-dsdircopy" img={freesurferLogo} />
-        <WelcomeFeature name="pI-fetal-brain-mask" img={freesurferLogo} />
-        <WelcomeFeature name="pI-flip" img={freesurferLogo} />
-        
+        <WelcomeFeature name="pl-z2labelmap" img={freesurferLogo} />
+        <WelcomeFeature name="pl-dsdircopy" img={freesurferLogo} />
+        <WelcomeFeature name="pl-fetal-brain-mask" img={freesurferLogo} />
+        <WelcomeFeature name="pl-flip" img={freesurferLogo} />
+        <WelcomeFeature name="pl-freesurfer-pp" img={freesurferLogo} />
       </div>
       <div className="welcome-scroll-caret">
         <Icon name="angle-down" />
