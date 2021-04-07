@@ -9,6 +9,8 @@ import RelativeDate from '../RelativeDate/RelativeDate';
 import ChrisStore from '../../store/ChrisStore';
 import PluginImg from '../../assets/img/brainy-pointer.png';
 import './Plugin.css';
+import Notifications from '../Notifications/Notifications';
+import HttpApiCallError from '../../errors/HttpApiCallError';
 
 const removeEmail = (author) => {
   if (author) return author.replace(/( ?\(.*\))/g, '');
@@ -25,6 +27,7 @@ export class Plugin extends Component {
     this.state = {
       pluginData,
       star: undefined,
+      error: null,
     };
 
     const storeURL = process.env.REACT_APP_STORE_URL;
@@ -41,12 +44,15 @@ export class Plugin extends Component {
 
   async componentDidMount() {
     let pluginData;
-    if (!this.state.pluginData) {
-      pluginData = await this.fetchPluginData();
-    } else {
-      ({ pluginData } = this.state);
+    try{
+      if (!this.state.pluginData) {
+        pluginData = await this.fetchPluginData();
+      } else {
+        ({ pluginData } = this.state);
+      }
+    }catch(errors){
+      this.showNotifications(new HttpApiCallError('Unable to fetch plugin data'));
     }
-
     if (this.isLoggedIn()) {
       this.fetchStarDataByPluginName(pluginData.name);
     }
@@ -55,7 +61,11 @@ export class Plugin extends Component {
   componentWillUnmount() {
     this.mounted = false;
   }
-
+  showNotifications = (error) => {
+    this.setState({
+      erros: error.message,
+    })
+  }
   onStarClicked() {
     if (this.isLoggedIn()) {
       return this.isFavorite() ? this.unfavPlugin() : this.favPlugin();
@@ -72,6 +82,7 @@ export class Plugin extends Component {
       const star = await this.client.createPluginStar({ plugin_name: name });
       this.setState({ star: star.data });
     } catch (err) {
+      this.showNotifications(new HttpApiCallError('Unable to mark as favourite'));
       this.setState({ star: undefined });
     }
   }
@@ -87,6 +98,7 @@ export class Plugin extends Component {
       await star.delete();
     } catch (err) {
       this.setState({ star: previousStarState });
+      this.showNotifications(new HttpApiCallError('Unable to mark as unfavourite'));
     }
   }
 
@@ -114,18 +126,20 @@ export class Plugin extends Component {
     const storeURL = process.env.REACT_APP_STORE_URL;
     const auth = { token: this.props.store.get('authToken') };
     let stars = [];
-
-    if (auth) {
-      const client = new Client(storeURL, auth);
-      const response = await client.getPluginStars({ plugin_name: pluginName });
-      stars = response.data;
-    }
-
-    if (stars.length > 0) {
-      this.setState({ star: stars[0] });
+    try{
+      if (auth) {
+        const client = new Client(storeURL, auth);
+        const response = await client.getPluginStars({ plugin_name: pluginName });
+        stars = response.data;
+      }
+  
+      if (stars.length > 0) {
+        this.setState({ star: stars[0] });
+      }
+    }catch(errors){
+      this.showNotifications(new HttpApiCallError('Unable to fetch star data'));
     }
   }
-
   isFavorite() {
     return this.state.star !== undefined;
   }
@@ -240,9 +254,20 @@ export class Plugin extends Component {
     }
 
     return (
-      <div className={`plugin ${this.props.className}`}>
+      <React.Fragment>
+        {this.state.errors && (
+          <Notifications
+            message={this.state.errors}
+            position='top-right'
+            variant='danger'
+            closeNotification={()=>this.setState({errors:null})}
+          />
+        )}
+        <div className={`plugin ${this.props.className}`}>
         {container}
-      </div>
+        </div>
+      </React.Fragment>
+      
     );
   }
 }

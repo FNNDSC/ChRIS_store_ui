@@ -7,6 +7,8 @@ import DashPluginCardView from './components/DashPluginCardView/DashPluginCardVi
 import DashTeamView from './components/DashTeamView/DashTeamView';
 import DashGitHubView from './components/DashGitHubView/DashGitHubView';
 import ChrisStore from '../../store/ChrisStore';
+import Notifications from '../Notifications/Notifications';
+import HttpApiCallError from '../../errors/HttpApiCallError';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -14,6 +16,7 @@ class Dashboard extends Component {
     this.state = {
       pluginList: null,
       loading: true,
+      error: null,
     };
     this.initialize = this.initialize.bind(this);
     this.deletePlugin = this.deletePlugin.bind(this);
@@ -22,10 +25,15 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.fetchPlugins().catch((err) => {
+      this.showNotifications(new HttpApiCallError('Unable to fetch plugin'));
       console.error(err);
     });
   }
-
+  showNotifications = (error) => {
+    this.setState({
+      error: error.message,
+    })
+  }
   fetchPlugins() {
     const { store } = this.props;
     const storeURL = process.env.REACT_APP_STORE_URL;
@@ -61,6 +69,7 @@ class Dashboard extends Component {
         this.fetchPlugins();
       });
     } catch (e) {
+      this.showNotifications(new HttpApiCallError('Unable to delete plugin'));
       return e;
     }
     return response;
@@ -81,6 +90,7 @@ class Dashboard extends Component {
         this.fetchPlugins();
       });
     } catch (e) {
+      this.showNotifications(new HttpApiCallError('Unable to edit plugin'));
       return e;
     }
     return response;
@@ -95,11 +105,19 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { pluginList, loading } = this.state;
+    const { pluginList, loading, error } = this.state;
     const { store } = this.props;
     const userName = store.get('userName') || '';
     return (
       <React.Fragment>
+        {error && (
+          <Notifications 
+            message={error} 
+            position='top-right' 
+            variant='danger' 
+            closeNotification={()=>this.setState({error:null})} 
+          />
+        )}
         <div className="plugins-stats">
           <div className="row plugins-stats-row">
             <div className="title-bar">{`Dashboard for ${userName}`}</div>

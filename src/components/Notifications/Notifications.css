@@ -1,0 +1,60 @@
+.notification {
+    position: fixed;
+    z-index: 1000;
+    width: 400px;
+    font-size: 14px;
+    transition: .3s ease;
+    opacity: 1;
+    background: #fff;
+    border-radius: 3px 3px 3px 3px;
+    height: max-content;
+    box-shadow: 0 0 10px #999;
+}
+.notification .alert {
+    margin: 0;
+}
+.top-right {
+    top: 12px;
+    right: 12px;
+    transition: transform .6s ease-in-out;
+    animation: notification-in-right .7s;
+}
+    
+    .bottom-right {
+    bottom: 12px;
+    right: 12px;
+    transition: transform .6s ease-in-out;
+    animation: notification-in-right .7s;
+    }
+    
+    .top-left {
+    top: 12px;
+    left: 12px;
+    transition: transform .6s ease-in;
+    animation: notification-in-left .7s;
+    }
+    
+    .bottom-left {
+    bottom: 12px;
+    left: 12px;
+    transition: transform .6s ease-in;
+    animation: notification-in-left .7s;
+    }
+    
+    @keyframes notification-in-right {
+    from {
+    transform: translateX(100%);
+    }
+    to {
+    transform: translateX(0);
+    }
+    }
+    
+    @keyframes notification-in-left {
+    from {
+    transform: translateX(-100%);
+    }
+    to {
+    transform: translateX(0);
+    }
+}
