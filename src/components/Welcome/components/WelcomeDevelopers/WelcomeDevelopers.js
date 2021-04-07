@@ -10,16 +10,15 @@ const WelcomeDevelopers = () => (
       </div>
       <div className="text-light">
         <p>
-          ChRIS is an <strong>open source platform</strong> for medical
-          analytics in the cloud, democratizing the development of image
-          processing apps within an ecosystem following
-          <strong> common standards, rather than disparate silos</strong>.
+          <i>ChRIS</i> is an <strong>open source platform</strong> for medical
+          analytics in the cloud, democratizing the development and usage of
+          image processing software within an ecosystem following
+          <strong> common standards.</strong>.
         </p>
         <p>
-          A ChRIS Developer account enables you to submit your image processing
-          application as a containerized ChRIS plugin and share it with the
-          broader ChRIS community of researchers and clinicians.{" "}
-          <strong>Join us!</strong>
+          A <i>ChRIS</i> developer account enables you to share your analysis
+          workflows as containerized software with the <i>ChRIS</i> community of
+          researchers and clinicians. <strong>Join us!</strong>
         </p>
       </div>
       <Link to="/quickstart" className="btn callToAction-btn btn-primary">
