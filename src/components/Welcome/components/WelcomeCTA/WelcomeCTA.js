@@ -5,10 +5,6 @@ import WelcomeFeature from '../WelcomeFeature/WelcomeFeature';
 
 /* plugin images */
 import freesurferLogo from '../../../../assets/img/plugins/freesurfer_90.png';
-import tensorflowLogo from '../../../../assets/img/plugins/tensorflow_90.png';
-import fslLogo from '../../../../assets/img/plugins/fsl_90.png';
-import rhoanaLogo from '../../../../assets/img/plugins/rhoana_90.png';
-import slicerLogo from '../../../../assets/img/plugins/slicer_90.png';
 
 const WelcomeCTA = () => (
   <div className="welcome-cta">
@@ -24,11 +20,11 @@ const WelcomeCTA = () => (
         Apps available in the ChRIS store include:
       </div>
       <div className="row welcome-cta-featured-container">
-        <WelcomeFeature name="FreeSurfer" img={freesurferLogo} />
-        <WelcomeFeature name="TensorFlow" img={tensorflowLogo} />
-        <WelcomeFeature name="FMRIB Software Library" img={fslLogo} />
-        <WelcomeFeature name="RhoANA" img={rhoanaLogo} />
-        <WelcomeFeature name="Slicer" img={slicerLogo} />
+        <WelcomeFeature name="pI-z2labelmap" img={freesurferLogo} />
+        <WelcomeFeature name="pI-dsdircopy" img={freesurferLogo} />
+        <WelcomeFeature name="pI-fetal-brain-mask" img={freesurferLogo} />
+        <WelcomeFeature name="pI-flip" img={freesurferLogo} />
+        
       </div>
       <div className="welcome-scroll-caret">
         <Icon name="angle-down" />

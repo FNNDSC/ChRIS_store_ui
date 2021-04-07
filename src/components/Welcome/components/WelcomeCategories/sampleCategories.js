@@ -10,33 +10,34 @@ import ielectrodesLogo from '../../../../assets/img/plugins/ielectrodes_90.png';
 import leaddbsLogo from '../../../../assets/img/plugins/leaddbs_90.png';
 import mangoLogo from '../../../../assets/img/plugins/mango_90.png';
 import mricrosLogo from '../../../../assets/img/plugins/mricros_90.png';
+import freesurferLogo from '../../../../assets/img/plugins/freesurfer_90.png';
 
 const sampleCategories = [
   {
     name: 'Visualization',
     items: [
       {
-        img: amilabLogo,
-        name: 'AMILab',
-        desc: 'Lorem ipsum dolor',
+        img: freesurferLogo,
+        name: 'pI-z2labelmap',
+        desc: 'z-score to FreeSurfer label map',
         tags: ['TAG1', 'TAG2'],
       },
       {
-        img: brainbrowserLogo,
-        name: 'BrainBrowser',
-        desc: 'Lorem ipsum dolor',
+        img: freesurferLogo,
+        name: 'pI-dsdircopy',
+        desc: 'A ChRIS ds app to copy obj storage directories',
         tags: ['TAG1', 'TAG2'],
       },
       {
-        img: connectomeviewerLogo,
-        name: 'Connectome Viewer',
-        desc: 'Lorem ipsum dolor',
+        img: freesurferLogo,
+        name: 'pI-fetal-brain-mask',
+        desc: 'Automatic masking of fetal brain images',
         tags: ['TAG1', 'TAG2'],
       },
       {
-        img: mricrosLogo,
-        name: 'MRIcroS',
-        desc: 'Lorem ipsum dolor',
+        img: freesurferLogo,
+        name: 'pI-flip',
+        desc: 'A ChRIS plugin app',
         tags: ['TAG1', 'TAG2'],
       },
     ],
