@@ -2,7 +2,7 @@
   /* display */
   display:flex;
   flex-direction:column;
-  width:70% !important;
+  width:70%;
   padding: 6em 2em;
 
   /* font */
