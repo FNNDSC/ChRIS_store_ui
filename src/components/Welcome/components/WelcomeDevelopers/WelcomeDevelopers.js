@@ -22,7 +22,7 @@ const WelcomeDevelopers = () => (
         </p>
       </div>
       <Link to="/quickstart" className="btn callToAction-btn btn-primary">
-        Learn More
+        Sign Up
       </Link>
     </div>
   </React.Fragment>
