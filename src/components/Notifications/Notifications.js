@@ -4,14 +4,12 @@ import "./Notifications.css";
 class Notifications extends Component {
   constructor(props) {
     super(props);
-    this.deleteTime = 2000;
+    this.deleteTime = 4000;
   }
   componentDidMount() {
     this.timer = setInterval(() => {
-      console.log("here");
       this.props.closeNotification();
     }, this.deleteTime);
-    console.log(this.props.message, this.props);
   }
   componentWillUnmount() {
     clearInterval(this.timer);

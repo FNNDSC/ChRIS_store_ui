@@ -4,7 +4,7 @@
     width: 400px;
     font-size: 14px;
     transition: .3s ease;
-    opacity: 1;
+    opacity: 0.9;
     background: #fff;
     border-radius: 3px 3px 3px 3px;
     height: max-content;
@@ -16,45 +16,47 @@
 .top-right {
     top: 12px;
     right: 12px;
-    transition: transform .6s ease-in-out;
-    animation: notification-in-right .7s;
+    transition: transform .3s ease-in-out;
+    animation: notification-in-down .3s;
 }
     
     .bottom-right {
     bottom: 12px;
     right: 12px;
-    transition: transform .6s ease-in-out;
-    animation: notification-in-right .7s;
+    transition: transform .3s ease-in-out;
+    animation: notification-in-up .3s;
     }
     
     .top-left {
     top: 12px;
     left: 12px;
-    transition: transform .6s ease-in;
-    animation: notification-in-left .7s;
+    transition: transform .3s ease-in;
+    animation: notification-in-down .3s;
     }
     
     .bottom-left {
     bottom: 12px;
     left: 12px;
-    transition: transform .6s ease-in;
-    animation: notification-in-left .7s;
+    transition: transform .3s ease-in;
+    animation: notification-in-up .3s;
     }
     
-    @keyframes notification-in-right {
+    @keyframes notification-in-down {
     from {
-    transform: translateX(100%);
+        transform: translateY(-100%);
+        opacity: 0;
     }
     to {
-    transform: translateX(0);
+        transform: translateY(0);
+        opacity: 0.9;
     }
     }
     
-    @keyframes notification-in-left {
+    @keyframes notification-in-up {
     from {
-    transform: translateX(-100%);
+        transform: translateY(-100%);
     }
     to {
-    transform: translateX(0);
+        transform: translateY(0);
     }
 }
