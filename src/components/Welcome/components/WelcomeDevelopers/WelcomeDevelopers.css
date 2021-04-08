@@ -2,9 +2,8 @@
   /* display */
   display:flex;
   flex-direction:column;
-  width:80%;
+  width:70% !important;
   padding: 6em 2em;
-  margin: 0 auto;
 
   /* font */
   font-size: 1.4em;
@@ -20,6 +19,15 @@
 .callToAction-btn{
   width: max-content;
   margin:0 auto;
-  width:208.5px;
-  margin-top: 1em;
+  width: 208.5px;
+}
+
+/* ============================== */
+/* ---------- RESPONSIVE -------- */
+/* ============================== */
+
+@media (min-width: 768px) {
+  .welcome-developers{
+    width: 70%;
+  }
 }

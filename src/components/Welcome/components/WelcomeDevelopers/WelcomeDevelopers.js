@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const WelcomeDevelopers = () => (
   <React.Fragment>
-    <div className="welcome-developers column">
+    <div className="welcome-developers row">
       <div className="welcome-developers-header">
         Expand the reach of your image processing software
       </div>
