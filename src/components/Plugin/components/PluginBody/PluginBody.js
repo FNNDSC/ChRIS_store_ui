@@ -137,10 +137,7 @@ const PluginBody = ({ pluginData }) => (
                         </div>
                           <div className="plugin-body-public-repo">
                             <h4>Public Repo:</h4>
-                            <a
-                              href={pluginData.public_repo}
-                              to={pluginData.public_repo}
-                            >
+                            <a href={pluginData.public_repo}>
                               {pluginData.public_repo}
                             </a>
                           </div>
