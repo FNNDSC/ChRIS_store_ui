@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import {
   Brand,
   PageHeader,
@@ -35,6 +35,7 @@ const navLinks = [
  * Conditionally renders a list of links into a <Nav>.
  */
 const Navigation = ({ store }) => {
+  const [searchKey, setSearchKey] = useState('');
   const shouldShowLink = (linkInfo) => {
     if (!linkInfo.cond) {
       return true;
@@ -58,6 +59,15 @@ const Navigation = ({ store }) => {
               </NavItem>
             ))
         }
+        <NavItem>
+          <Search 
+            placeholder="Search Plugin"
+            value={searchKey}
+            onChange={(value) => setSearchKey(value)}
+            onClear={() => setSearchKey('')}
+            onSearch={() => {console.log('Enter pressed')}}
+          />
+        </NavItem>
       </NavList>
     </Nav>
   );
@@ -80,9 +90,6 @@ const StatefulLoginButton = ChrisStore.withStore(LoginButton);
 
 const HeaderTools = (
   <PageHeaderTools>
-    <PageHeaderToolsItem>
-      <Search />
-    </PageHeaderToolsItem>
     <PageHeaderToolsItem>
       <StatefulLoginButton />
     </PageHeaderToolsItem>

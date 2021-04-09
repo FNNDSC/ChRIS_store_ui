@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Search.css';
 import SearchIcon from '@patternfly/react-icons/dist/esm/icons/search-icon';
 import TimesIcon from '@patternfly/react-icons/dist/esm/icons/times-icon';
@@ -19,35 +19,37 @@ import { Button, TextInput } from '@patternfly/react-core';
  * Feasible workaround: hide the logo or move the search somewhere else
  * if screen size is too small.
  */
-
-const Search = () => {
-  const [isSearchExpanded, setSearchExpanded] = useState(false);
-  const searchRef = React.useRef();  // idk what this does
-
+const Search = (props) => {
+  const { value, onClear, onSearch, onChange, placeholder } = props;
+  const searchRef = React.useRef();
   return (
     <div id="search">
-      <div id="ws-global-search-wrapper" className={isSearchExpanded ? '' : 'ws-hide-search-input'}>
-        <form method="get" action="/plugins" autoComplete="off">
-          <TextInput id="ws-global-search" ref={searchRef} placeholder="Search plugins" name="q"/>
-        </form>
-        {isSearchExpanded && <SearchIcon className="global-search-icon" />}
+      <div id="ws-global-search-wrapper" >
+        <SearchIcon
+          className="global-search-icon"
+          onClick={onSearch}
+        />
+          <TextInput
+            id="ws-global-search"
+            innerRef={searchRef} 
+            value={value}
+            name="q" 
+            placeholder={placeholder}
+            onChange={onChange}
+            onKeyDown={(e) => {
+              if(e.key === 'Enter' ) onSearch();
+            }}
+          />
       </div>
-      <Button
-        aria-label={`${isSearchExpanded ? 'Collapse' : 'Expand'} search input`}
-        variant="plain"
-        className="ws-toggle-search"
-        onClick={() => {
-          setSearchExpanded(!isSearchExpanded);
-          if (!isSearchExpanded) {
-            setTimeout(() => searchRef.current && searchRef.current.focus(), 0);
-          }
-        }}
-      >
-        {isSearchExpanded
-          ? <TimesIcon />
-          : <SearchIcon className="global-search-icon" />
-        }
-      </Button>
+      {value.length > 0 && (
+        <Button
+          variant="plain"
+          className="ws-clear-search"
+          onClick={onClear}
+        >
+          <TimesIcon />
+        </Button>
+      )}
     </div>
   )
 }
