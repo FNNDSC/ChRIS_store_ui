@@ -6,13 +6,13 @@ import 'core-js/fn/array/includes';
 
 import './index.css';
 import App from './components/App/App';
+import { hydrate, render } from "react-dom";
 import registerServiceWorker from './registerServiceWorker';
 
 const rootElement = document.getElementById("root");
-
 if (rootElement.hasChildNodes()) {
-  ReactDOM.hydrate(<App />, rootElement);
+  hydrate(<App />, rootElement);
 } else {
-  ReactDOM.render(<App />, rootElement);
+  render(<App />, rootElement);
 }
 registerServiceWorker();

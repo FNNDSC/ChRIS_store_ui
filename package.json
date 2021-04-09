@@ -22,9 +22,6 @@
       "yarn run test:staged"
     ]
   },
-  "reactSnap": {
-    "inlineCss": true
-  },
   "dependencies": {
     "@fnndsc/chrisstoreapi": "^2.0.2",
     "classnames": "^2.2.6",
