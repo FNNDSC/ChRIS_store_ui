@@ -37,7 +37,7 @@
     "react-clipboard.js": "^2.0.0",
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.8.0",
-    "react-router-dom": "^4.3.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "rxjs": "^6.3.3",
     "sirv-cli": "^1.0.8",

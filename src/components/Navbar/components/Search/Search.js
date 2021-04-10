@@ -21,23 +21,23 @@ import { Button, TextInput } from '@patternfly/react-core';
  */
 const Search = (props) => {
   const { value, onClear, onSearch, onChange, placeholder } = props;
-  const searchRef = React.useRef();
+  const searchRef = React.useRef(null);
   return (
     <div id="search">
       <div id="ws-global-search-wrapper" >
         <SearchIcon
           className="global-search-icon"
-          onClick={onSearch}
+          onClick={()=>{searchRef.current.focus()}}
         />
           <TextInput
             id="ws-global-search"
-            innerRef={searchRef} 
+            ref={searchRef} 
             value={value}
             name="q" 
             placeholder={placeholder}
             onChange={onChange}
             onKeyDown={(e) => {
-              if(e.key === 'Enter' ) onSearch();
+              if(e.key === 'Enter' && value.length >= 3 ) onSearch();
             }}
           />
       </div>

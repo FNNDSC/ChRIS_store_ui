@@ -9,7 +9,7 @@ import {
   PageHeaderToolsItem,
   Button
 } from '@patternfly/react-core';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import Search from './components/Search/Search';
 import './Navbar.css';
 import LogoImg from '../../assets/img/chris-plugin-store_logo.png';
@@ -36,6 +36,7 @@ const navLinks = [
  */
 const Navigation = ({ store }) => {
   const [searchKey, setSearchKey] = useState('');
+  const history = useHistory();
   const shouldShowLink = (linkInfo) => {
     if (!linkInfo.cond) {
       return true;
@@ -65,7 +66,7 @@ const Navigation = ({ store }) => {
             value={searchKey}
             onChange={(value) => setSearchKey(value)}
             onClear={() => setSearchKey('')}
-            onSearch={() => {console.log('Enter pressed')}}
+            onSearch={() => {history.push('/plugins')}}
           />
         </NavItem>
       </NavList>
