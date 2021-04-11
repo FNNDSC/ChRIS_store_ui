@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Client from '@fnndsc/chrisstoreapi';
-import { DropdownButton, MenuItem } from 'react-bootstrap';
-import PluginItem from './components/PluginItem/PluginItem';
-import LoadingPluginItem from './components/LoadingPluginItem/LoadingPluginItem';
-import PluginsCategories from './components/PluginsCategories/PluginsCategories';
-import './Plugins.css';
-import LoadingContainer from '../LoadingContainer/LoadingContainer';
-import LoadingContent from '../LoadingContainer/components/LoadingContent/LoadingContent';
-import ChrisStore from '../../store/ChrisStore';
-
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Client from "@fnndsc/chrisstoreapi";
+import { DropdownButton, MenuItem } from "react-bootstrap";
+import PluginItem from "./components/PluginItem/PluginItem";
+import LoadingPluginItem from "./components/LoadingPluginItem/LoadingPluginItem";
+import PluginsCategories from "./components/PluginsCategories/PluginsCategories";
+import "./Plugins.css";
+import LoadingContainer from "../LoadingContainer/LoadingContainer";
+import LoadingContent from "../LoadingContainer/components/LoadingContent/LoadingContent";
+import ChrisStore from "../../store/ChrisStore";
 
 // ==============================
 // ------ PLUGINS COMPONENT -----
@@ -20,7 +19,7 @@ export class Plugins extends Component {
     super(props);
 
     const storeURL = process.env.REACT_APP_STORE_URL;
-    const auth = { token: props.store.get('authToken') };
+    const auth = { token: props.store.get("authToken") };
     this.client = new Client(storeURL, auth);
 
     this.mounted = false;
@@ -29,15 +28,15 @@ export class Plugins extends Component {
       starsByPlugin: {},
       categories: [
         {
-          name: 'Visualization',
+          name: "Visualization",
           length: 3,
         },
         {
-          name: 'Modeling',
+          name: "Modeling",
           length: 11,
         },
         {
-          name: 'Statistical Operation',
+          name: "Statistical Operation",
           length: 7,
         },
       ],
@@ -82,7 +81,9 @@ export class Plugins extends Component {
     this.setPluginStar(plugin.id, {});
 
     try {
-      const star = await this.client.createPluginStar({ plugin_name: plugin.name });
+      const star = await this.client.createPluginStar({
+        plugin_name: plugin.name,
+      });
       this.setPluginStar(plugin.id, star.data);
     } catch (err) {
       this.removePluginStar(plugin.id);
@@ -106,9 +107,12 @@ export class Plugins extends Component {
   }
 
   fetchPlugins() {
+    const params = new URLSearchParams(window.location.search)
+    const name = params.get('q') //get value searched from the URL
     const searchParams = {
       limit: 20,
       offset: 0,
+      name_title_category:name,
     };
 
     return new Promise(async (resolve, reject) => {
@@ -116,10 +120,11 @@ export class Plugins extends Component {
       try {
         // add plugins to pluginList as they are received
         plugins = await this.client.getPlugins(searchParams);
-
         if (this.mounted) {
           this.setState((prevState) => {
-            const prevPluginList = prevState.pluginList ? prevState.pluginList : [];
+            const prevPluginList = prevState.pluginList
+              ? prevState.pluginList
+              : [];
             const nextPluginList = prevPluginList.concat(plugins.data);
             return { pluginList: nextPluginList };
           });
@@ -127,7 +132,7 @@ export class Plugins extends Component {
       } catch (e) {
         return reject(e);
       }
-
+      
       return resolve(plugins.data);
     });
   }
@@ -146,7 +151,9 @@ export class Plugins extends Component {
 
   handlePluginFavorited(plugin) {
     if (this.isLoggedIn()) {
-      return this.isFavorite(plugin) ? this.unfavPlugin(plugin) : this.favPlugin(plugin);
+      return this.isFavorite(plugin)
+        ? this.unfavPlugin(plugin)
+        : this.favPlugin(plugin);
     }
 
     return Promise.resolve();
@@ -157,21 +164,21 @@ export class Plugins extends Component {
   }
 
   isLoggedIn() {
-    return this.props.store ? this.props.store.get('isLoggedIn') : false;
+    return this.props.store ? this.props.store.get("isLoggedIn") : false;
   }
 
   render() {
     const { pluginList, categories } = this.state;
 
     // Remove email from author
-    const removeEmail = author => author.replace(/( ?\(.*\))/g, '');
+    const removeEmail = (author) => author.replace(/( ?\(.*\))/g, "");
 
     let pluginsFound;
     let pluginListBody;
 
     // Render the pluginList if the plugins have been fetched
     if (pluginList) {
-      pluginListBody = pluginList.map(plugin => (
+      pluginListBody = pluginList.map((plugin) => (
         <PluginItem
           title={plugin.title}
           id={plugin.id}
@@ -213,26 +220,19 @@ export class Plugins extends Component {
         <div className="plugins-stats">
           <div className="row plugins-stats-row">
             {pluginsFound}
-            <DropdownButton
-              id="sort-by-dropdown"
-              title="Sort By"
-              pullRight
-            >
+            <DropdownButton id="sort-by-dropdown" title="Sort By" pullRight>
               <MenuItem eventKey="1">Name</MenuItem>
             </DropdownButton>
           </div>
         </div>
         <div className="row plugins-row">
           <PluginsCategories categories={categories} />
-          <div className="plugins-list">
-            {pluginListBody}
-          </div>
+          <div className="plugins-list">{pluginListBody}</div>
         </div>
       </div>
     );
   }
 }
-
 
 Plugins.propTypes = {
   store: PropTypes.objectOf(PropTypes.object).isRequired,
