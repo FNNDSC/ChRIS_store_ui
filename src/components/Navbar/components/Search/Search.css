@@ -61,7 +61,7 @@
     width: 100px;
   }
   #ws-global-search{
-    width: max-content;
+    width: 100%;
   }
   #ws-global-search::placeholder{
     color: transparent;
