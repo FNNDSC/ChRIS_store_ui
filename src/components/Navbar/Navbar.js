@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import {
   Brand,
   PageHeader,
@@ -9,7 +9,7 @@ import {
   PageHeaderToolsItem,
   Button
 } from '@patternfly/react-core';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import Search from './components/Search/Search';
 import './Navbar.css';
 import LogoImg from '../../assets/img/chris-plugin-store_logo.png';
@@ -35,6 +35,8 @@ const navLinks = [
  * Conditionally renders a list of links into a <Nav>.
  */
 const Navigation = ({ store }) => {
+  const [searchKey, setSearchKey] = useState('');
+  const history = useHistory();
   const shouldShowLink = (linkInfo) => {
     if (!linkInfo.cond) {
       return true;
@@ -58,6 +60,15 @@ const Navigation = ({ store }) => {
               </NavItem>
             ))
         }
+        <NavItem>
+          <Search 
+            placeholder="Search Plugin"
+            value={searchKey}
+            onChange={(value) => setSearchKey(value)}
+            onClear={() => setSearchKey('')}
+            onSearch={() => {history.push('/plugins')}}
+          />
+        </NavItem>
       </NavList>
     </Nav>
   );
@@ -80,9 +91,6 @@ const StatefulLoginButton = ChrisStore.withStore(LoginButton);
 
 const HeaderTools = (
   <PageHeaderTools>
-    <PageHeaderToolsItem>
-      <Search />
-    </PageHeaderToolsItem>
     <PageHeaderToolsItem>
       <StatefulLoginButton />
     </PageHeaderToolsItem>

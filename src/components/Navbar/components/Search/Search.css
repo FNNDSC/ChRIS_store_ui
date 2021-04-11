@@ -5,6 +5,10 @@
 
 #search {
   display: flex;
+  height: max-content;
+  justify-self: center;
+  align-self: center;
+  margin-left: 14px;
 }
 
 
@@ -18,23 +22,29 @@
   border: none;
   /* For icon */
   padding-left: 32px;
+  outline: none;
   width: 250px;
+}
+#ws-global-search:focus {
+  border-bottom: 1px solid #3da1da;
 }
 .ws-hide-search-input .algolia-autocomplete,
 .ws-hide-search-input #ws-global-search {
   display: none !important;
 }
-.ws-toggle-search {
+.ws-clear-search {
   /* Search icon is taller than it is wide */
+  outline: none;
   margin-top: 2px;
 }
 #ws-global-search-wrapper > .global-search-icon {
   position: absolute;
   top: 10px;
   left: 4px;
+  font-size: 1.5em;
+  cursor: pointer;
 }
-#ws-global-search,
-#ws-global-search::placeholder {
+#ws-global-search {
   color: #fff;
 }
 #ws-global-search:focus {
@@ -43,8 +53,17 @@
 
 /* TODO: PageHeaderTools on small viewports */
 @media (max-width: 670px) {
+  .pf-c-brand{
+    height: 40px;
+    width: auto;
+  }
   #ws-global-search-wrapper {
-    display: none;
-    visibility: hidden;
+    width: 100px;
+  }
+  #ws-global-search{
+    width: 100%;
+  }
+  #ws-global-search::placeholder{
+    color: transparent;
   }
 }
