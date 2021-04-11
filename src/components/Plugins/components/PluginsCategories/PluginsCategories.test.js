@@ -16,10 +16,6 @@ describe('PluginsCategories', () => {
     expect(wrapper.find('div.plugins-categories')).toHaveLength(1);
   });
 
-  it('should render 3 divs inside plugins-categories', () => {
-    expect(wrapper.find('div')).toHaveLength(3);
-  });
-
   it('should render plugins-categories-header div', () => {
     expect(wrapper.find('div.plugins-categories-header')).toHaveLength(1);
   });
