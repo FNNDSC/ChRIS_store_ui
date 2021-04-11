@@ -188,7 +188,7 @@ class CreatePlugin extends Component {
 
     return true;
   }
-
+  
   async handleSubmit() {
     const {
       name: pluginName,
@@ -200,7 +200,18 @@ class CreatePlugin extends Component {
     // Array to store the errors
     const errors = [];
     let missingRepresentationString = '';
-
+    const inputImage = pluginImage.trim();
+    if(inputImage){
+      if (inputImage.endsWith(':latest')) {
+        return this.handleError(<span>The <code>:latest</code> tag is discouraged.</span>);
+      }
+      else if (!inputImage.includes(':')) {
+        const description = 'Please tag your Docker image by version.';
+        let tagExample = `docker tag ${inputImage.split(':')[0]} ${inputImage.split(':')[0]}:1.0.1`; //TODO 
+        let pushExample = `docker push ${inputImage.split(':')[0]}:1.0.1`; //TODO
+        return this.handleError(<div>{description} <p><b>Example:</b><br/>{tagExample}<br/>{pushExample}</p></div> );
+      }
+    }
     if (!(
       pluginName.trim() && pluginImage.trim() &&
       pluginRepo.trim() && pluginRepresentation &&
@@ -275,7 +286,6 @@ class CreatePlugin extends Component {
       dragOver, fileName, name, image, repo,
       pluginRepresentation, fileError, formError, success, newPlugin,
     } = state;
-
     let pluginId;
     if (newPlugin) {
       pluginId = newPlugin.id;
@@ -349,7 +359,7 @@ class CreatePlugin extends Component {
                     className="createplugin-message"
                     type="error"
                     onDismiss={this.hideMessage}
-                  >
+                  > 
                     {formError}
                   </Alert>
                 </div>
