@@ -181,23 +181,13 @@ export class Plugins extends Component {
 
   async handleCategorySelect(category) {
     this.setState({ pluginList: null })
-    await this.fetchPlugins()
-    if (!category) return
+    if (!category) return await this.fetchPlugins()
 
-    /**
-     * Temporary 
-     * filtering while fetching plugins by category is not implemented.
-     * When it is, change to fetchPluginsByCategory()
-     */
-    let { pluginList } = this.state;
-    pluginList = pluginList.filter(plugin => {      
-      if (plugin.category === category)
-        return true;
-      else
-        return false;
+    this.setState({ 
+      pluginList: (await this.client.getPlugins({
+        name_title_category: category
+      })).data 
     })
-
-    this.setState({ pluginList })
   }
 
   isFavorite(plugin) {
