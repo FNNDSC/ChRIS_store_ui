@@ -55,7 +55,7 @@ export class SignIn extends Component {
   handleSubmit(event) {
     const authURL = process.env.REACT_APP_STORE_AUTH_URL;
     const { username, password } = this.state;
-    const { store } = this.props;
+    const { store, location, history } = this.props;
 
     this.setState({ loading: true });
     const promise = StoreClient.getAuthToken(authURL, username, password)
@@ -63,18 +63,21 @@ export class SignIn extends Component {
         store.set('userName')(username);
         store.set('authToken')(token);
         if (this.mounted) {
-          this.setState({ toDashboard: true });
+          this.setState({ loading: false });
+          if (location.state && location.state.from) {
+            history.replace(location.state.from);
+          }
+          else {
+            history.push('/dashboard');
+          }
         }
       })
       .catch(() => {
         this.showError('Invalid username or password');
-      })
-      .then(() => {
         if (this.mounted) {
           this.setState({ loading: false });
         }
       });
-
     event.preventDefault();
     return promise; // for tests
   }
@@ -89,12 +92,8 @@ export class SignIn extends Component {
 
   render() {
     const {
-      toDashboard, error, username, password, loading,
+      error, username, password, loading,
     } = this.state;
-
-    if (toDashboard) {
-      return <Redirect to="/dashboard" />;
-    }
 
     return (
       <div className="signin login-pf-page">
