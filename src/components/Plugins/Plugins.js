@@ -27,32 +27,42 @@ export class Plugins extends Component {
       pluginList: null,
       starsByPlugin: {},
       categories: [
-        {
-          name: "Visualization",
-          length: 3,
-        },
-        {
-          name: "Modeling",
-          length: 11,
-        },
-        {
-          name: "Statistical Operation",
-          length: 7,
-        },
+        { name: "Visualization", length: 3 },
+        { name: "Modeling", length: 11 },
+        { name: "Statistical Operation", length: 7 },
+        { name: "FreeSurfer", length: 0 },
+        { name: "MRI Processing", length: 0 },
       ],
     };
 
     this.fetchPlugins = this.fetchPlugins.bind(this);
+    this.handleCategorySelect = this.handleCategorySelect.bind(this)
   }
 
   componentWillMount() {
     this.mounted = true;
   }
 
-  componentDidMount() {
-    this.fetchPlugins().catch((err) => {
+  async componentDidMount() {
+    try {
+      const plugins = await this.fetchPlugins()
+      /**
+       * Accumulate counts of categories from fetched plugins
+       */
+      let { categories } = this.state;
+      for (const [index, { name, length }] of categories.entries()) {
+        categories[index].length = plugins.reduce(
+          (count, current) => (name === current.category) 
+            ? ++count
+            : count, 
+          length
+        );
+      }
+      
+      this.setState({ categories });
+    } catch (err) {
       console.error(err);
-    });
+    }
 
     if (this.isLoggedIn()) {
       this.fetchPluginStars();
@@ -122,11 +132,11 @@ export class Plugins extends Component {
         plugins = await this.client.getPlugins(searchParams);
         if (this.mounted) {
           this.setState((prevState) => {
-            const prevPluginList = prevState.pluginList
-              ? prevState.pluginList
-              : [];
-            const nextPluginList = prevPluginList.concat(plugins.data);
-            return { pluginList: nextPluginList };
+            // const prevPluginList = prevState.pluginList
+            //   ? prevState.pluginList
+            //   : [];
+            // const nextPluginList = prevPluginList.concat(plugins.data);
+            return { pluginList: plugins.data };
           });
         }
       } catch (e) {
@@ -157,6 +167,17 @@ export class Plugins extends Component {
     }
 
     return Promise.resolve();
+  }
+
+  async handleCategorySelect(category) {
+    this.setState({ pluginList: null })
+    if (!category) return await this.fetchPlugins()
+
+    this.setState({ 
+      pluginList: (await this.client.getPlugins({
+        name_title_category: category
+      })).data 
+    })
   }
 
   isFavorite(plugin) {
@@ -226,7 +247,9 @@ export class Plugins extends Component {
           </div>
         </div>
         <div className="row plugins-row">
-          <PluginsCategories categories={categories} />
+          <PluginsCategories categories={categories} 
+            onSelect={this.handleCategorySelect} 
+          />
           <div className="plugins-list">{pluginListBody}</div>
         </div>
       </div>
