@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import './PluginsCategories.css';
@@ -37,8 +37,7 @@ PluginsCategories.propTypes = {
     name: PropTypes.string.isRequired,
     length: PropTypes.number.isRequired,
   })).isRequired,
-  onSelect: PropTypes.func,
-  onClear: PropTypes.func
+  onSelect: PropTypes.func
 };
 
 export default PluginsCategories;

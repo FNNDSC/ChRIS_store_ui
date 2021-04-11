@@ -27,18 +27,11 @@ export class Plugins extends Component {
       pluginList: null,
       starsByPlugin: {},
       categories: [
-        {
-          name: "Visualization",
-          length: 3,
-        },
-        {
-          name: "Modeling",
-          length: 11,
-        },
-        {
-          name: "Statistical Operation",
-          length: 7,
-        },
+        { name: "Visualization", length: 3 },
+        { name: "Modeling", length: 11 },
+        { name: "Statistical Operation", length: 7 },
+        { name: "FreeSurfer", length: 0 },
+        { name: "MRI Processing", length: 0 },
       ],
     };
 
@@ -50,29 +43,26 @@ export class Plugins extends Component {
     this.mounted = true;
   }
 
-  componentDidMount() {
-    this.fetchPlugins().then((plugins) => {
+  async componentDidMount() {
+    try {
+      const plugins = await this.fetchPlugins()
       /**
-       * Temporary
-       * Accumulate categories from fetched plugins
+       * Accumulate counts of categories from fetched plugins
        */
-      let { categories } = this.state, list = [];
-      plugins.reduce((_, current) => {
-        // if list doesn't include category, add it
-        if (current.category && !list.includes(current.category)) {
-          list.push(current.category)
-          categories.push({
-            name: current.category, length: 1
-          });
-        // Else increment count
-        } else if (list.includes(current.category)) {
-          categories[categories.map(({ name }, _) => name).indexOf(current.category)].length++;
-        }
-      });
+      let { categories } = this.state;
+      for (const [index, { name, length }] of categories.entries()) {
+        categories[index].length = plugins.reduce(
+          (count, current) => (name === current.category) 
+            ? ++count
+            : count, 
+          length
+        );
+      }
+      
       this.setState({ categories });
-    }).catch((err) => {
+    } catch (err) {
       console.error(err);
-    });
+    }
 
     if (this.isLoggedIn()) {
       this.fetchPluginStars();
