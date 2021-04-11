@@ -27,16 +27,13 @@ export class Plugins extends Component {
       pluginList: null,
       starsByPlugin: {},
       categories: [
-        { name: "Visualization", length: 3 },
-        { name: "Modeling", length: 11 },
-        { name: "Statistical Operation", length: 7 },
+        { name: "Visualization", length: 0 },
+        { name: "Modeling", length: 0 },
+        { name: "Statistical Operation", length: 0 },
         { name: "FreeSurfer", length: 0 },
         { name: "MRI Processing", length: 0 },
       ],
     };
-
-    this.fetchPlugins = this.fetchPlugins.bind(this);
-    this.handleCategorySelect = this.handleCategorySelect.bind(this)
   }
 
   componentWillMount() {
@@ -116,7 +113,7 @@ export class Plugins extends Component {
     }
   }
 
-  fetchPlugins() {
+  fetchPlugins = () => {
     const params = new URLSearchParams(window.location.search)
     const name = params.get('q') //get value searched from the URL
     const searchParams = {
@@ -169,7 +166,7 @@ export class Plugins extends Component {
     return Promise.resolve();
   }
 
-  async handleCategorySelect(category) {
+  handleCategorySelect = async (category) => {
     this.setState({ pluginList: null })
     if (!category) return await this.fetchPlugins()
 
