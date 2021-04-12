@@ -55,11 +55,11 @@ describe('Plugins', () => {
       .toHaveLength(1);
   });
 
-  it('should render 1 MenuItem component inside DropdownButton', () => {
+  it('should render 3 MenuItem component inside DropdownButton', () => {
     expect(wrapper
       .find('DropdownButton')
       .find('MenuItem'))
-      .toHaveLength(1);
+      .toHaveLength(3);
   });
 
   it('every MenuItem component should have eventKey prop', () => {

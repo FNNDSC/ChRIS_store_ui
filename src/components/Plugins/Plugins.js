@@ -24,6 +24,7 @@ export class Plugins extends Component {
 
     this.mounted = false;
     this.state = {
+      sortType: "",
       pluginList: null,
       starsByPlugin: {},
       categories: [
@@ -107,12 +108,12 @@ export class Plugins extends Component {
   }
 
   fetchPlugins() {
-    const params = new URLSearchParams(window.location.search)
-    const name = params.get('q') //get value searched from the URL
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("q"); //get value searched from the URL
     const searchParams = {
       limit: 20,
       offset: 0,
-      name_title_category:name,
+      name_title_category: name,
     };
 
     return new Promise(async (resolve, reject) => {
@@ -120,6 +121,7 @@ export class Plugins extends Component {
       try {
         // add plugins to pluginList as they are received
         plugins = await this.client.getPlugins(searchParams);
+        
         if (this.mounted) {
           this.setState((prevState) => {
             const prevPluginList = prevState.pluginList
@@ -132,7 +134,7 @@ export class Plugins extends Component {
       } catch (e) {
         return reject(e);
       }
-      
+
       return resolve(plugins.data);
     });
   }
@@ -167,8 +169,12 @@ export class Plugins extends Component {
     return this.props.store ? this.props.store.get("isLoggedIn") : false;
   }
 
+  onSort(sortType) {
+    this.setState({ sortType });
+  }
+
   render() {
-    const { pluginList, categories } = this.state;
+    const { pluginList, categories, sortType } = this.state;
 
     // Remove email from author
     const removeEmail = (author) => author.replace(/( ?\(.*\))/g, "");
@@ -178,7 +184,22 @@ export class Plugins extends Component {
 
     // Render the pluginList if the plugins have been fetched
     if (pluginList) {
-      pluginListBody = pluginList.map((plugin) => (
+
+      const sorted = pluginList.sort((a, b) => {
+        if (sortType === "name") {
+          return a[sortType] > b[sortType] ? 1 : -1;
+        }
+        if (sortType === "authors") {
+          return a[sortType] > b[sortType] ? 1 : -1;
+        }
+        if (sortType === "creation_date") {
+          return a[sortType] > b[sortType] ? 1 : -1;
+        }
+        const isReversed = sortType === "creation_date" ? 1 : -1;
+        return isReversed * a.creation_date.localeCompare(b.creation_date);
+      });
+
+      pluginListBody = sorted.map((plugin) => (
         <PluginItem
           title={plugin.title}
           id={plugin.id}
@@ -219,9 +240,21 @@ export class Plugins extends Component {
       <div className="plugins-container">
         <div className="plugins-stats">
           <div className="row plugins-stats-row">
+            {/* number of plugins found related to the search  */}
             {pluginsFound}
             <DropdownButton id="sort-by-dropdown" title="Sort By" pullRight>
-              <MenuItem eventKey="1">Name</MenuItem>
+              <MenuItem eventKey="1" onClick={() => this.onSort("name")}>
+                Name
+              </MenuItem>
+              <MenuItem eventKey="2" onClick={() => this.onSort("authors")}>
+                Author
+              </MenuItem>
+              <MenuItem
+                eventKey="3"
+                onClick={() => this.onSort("creation_date")}
+              >
+                Date Created
+              </MenuItem>
             </DropdownButton>
           </div>
         </div>
