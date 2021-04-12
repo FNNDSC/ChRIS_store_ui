@@ -52,15 +52,14 @@ export class SignIn extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     const authURL = process.env.REACT_APP_STORE_AUTH_URL;
     const { username, password } = this.state;
     const { store, location, history } = this.props;
-
     this.setState({ loading: true });
-    const promise = StoreClient.getAuthToken(authURL, username, password)
-      .then((token) => {
-        store.set('userName')(username);
+    try{
+      const token = await StoreClient.getAuthToken(authURL, username, password);
+      store.set('userName')(username);
         store.set('authToken')(token);
         if (this.mounted) {
           this.setState({ loading: false });
@@ -71,15 +70,13 @@ export class SignIn extends Component {
             history.push('/dashboard');
           }
         }
-      })
-      .catch(() => {
-        this.showError('Invalid username or password');
+    } catch(error){
+      this.showError('Invalid username or password');
         if (this.mounted) {
           this.setState({ loading: false });
         }
-      });
+    }
     event.preventDefault();
-    return promise; // for tests
   }
 
   showError(message) {
@@ -129,7 +126,7 @@ export class SignIn extends Component {
               <h1>Login to your account</h1>
             </header>
             <CardBody>
-              <Form className="signin-form" onSubmit={this.handleSubmit}>
+              <Form className="signin-form" >
                 <FormGroup className="signin-username-form-group" bsSize="large">
                   <FormControl
                     type="text"
@@ -156,6 +153,7 @@ export class SignIn extends Component {
                   bsSize="large"
                   type="submit"
                   disabled={loading}
+                  onClick={this.handleSubmit}
                 >
                   Log In
                 </Button>

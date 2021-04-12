@@ -15,7 +15,6 @@ const ProtectedRoute = ({ component: Component, ...rest }) => (
         return <Redirect to={{
           pathname: "/signin",
           state: {from: props.location},
-          search: `?next=${props.location.pathname}`
         }} />;
     }}
   />
