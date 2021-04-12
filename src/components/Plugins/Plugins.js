@@ -108,20 +108,22 @@ export class Plugins extends Component {
   }
 
   fetchPlugins() {
+
     const params = new URLSearchParams(window.location.search);
     const name = params.get("q"); //get value searched from the URL
     const searchParams = {
       limit: 20,
       offset: 0,
-      name_title_category: name,
-    };
+      name_title_category:name,
+
+ 
 
     return new Promise(async (resolve, reject) => {
       let plugins;
       try {
         // add plugins to pluginList as they are received
         plugins = await this.client.getPlugins(searchParams);
-        
+
         if (this.mounted) {
           this.setState((prevState) => {
             const prevPluginList = prevState.pluginList
@@ -134,7 +136,7 @@ export class Plugins extends Component {
       } catch (e) {
         return reject(e);
       }
-
+      
       return resolve(plugins.data);
     });
   }
