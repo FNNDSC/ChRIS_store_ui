@@ -28,7 +28,7 @@ import BrainImg from '../../../../assets/img/empty-brain-xs.png';
 import PluginPointer from '../../../../assets/img/brainy_welcome-pointer.png';
 import RelativeDate from '../../../RelativeDate/RelativeDate';
 
-const DashGitHubEmptyState = () => (
+const DashGitHubEmptyState = ({history}) => (
   <Col xs={12}>
     <Card>
       <CardTitle>
@@ -48,7 +48,7 @@ const DashGitHubEmptyState = () => (
             </p>
             <Button
               variant="primary"
-              onClick={() => {}} //Todo
+              onClick={() => {history.push('/create')}} 
             >
               Add Plugin
             </Button>
@@ -120,7 +120,7 @@ class DashPluginCardView extends Component {
 
   render() {
     let pluginCardBody;
-    const { plugins } = this.props;
+    const { plugins, history } = this.props;
     const {
       pluginToDelete, showDeleteConfirmation, pluginToEdit, showEditConfirmation,
     } = this.state;
@@ -166,7 +166,10 @@ class DashPluginCardView extends Component {
               Click below to add a new ChRIS plugin
             </EmptyStateInfo>
             <EmptyStateAction>
-              <Button bsStyle="primary" bsSize="large" href="/create">
+              <Button
+              variant="primary"
+              onClick={()=>{history.push('/create')}}
+              >
                 Add Plugin
               </Button>
             </EmptyStateAction>
@@ -232,7 +235,7 @@ class DashPluginCardView extends Component {
     }
     return (
       showEmptyState ?
-        <DashGitHubEmptyState />
+        <DashGitHubEmptyState history={history}/>
         :
         <React.Fragment>
           <div className="card-view-row">

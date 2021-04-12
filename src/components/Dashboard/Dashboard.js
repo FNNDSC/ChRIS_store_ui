@@ -123,6 +123,7 @@ class Dashboard extends Component {
                     plugins={pluginList}
                     onDelete={this.deletePlugin}
                     onEdit={this.editPlugin}
+                    history={history}
                   />
                   <DashTeamView plugins={pluginList} />
                 </div>
