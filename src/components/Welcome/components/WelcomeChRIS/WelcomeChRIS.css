@@ -58,6 +58,7 @@
 
 .welcome-chris-btn {
   /* display */
+  background: #fafafa !important;
   display: block !important;
   width: 100%;
 }

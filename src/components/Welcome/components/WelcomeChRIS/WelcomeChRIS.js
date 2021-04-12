@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button } from 'patternfly-react';
+import Button from '../../../Button';
+
 import './WelcomeChRIS.css';
 import chrisBanner from '../../../../assets/img/chris_logo-ribbon.png';
 
@@ -43,18 +44,18 @@ const WelcomeChRIS = () => (
     <div className="row welcome-chris-btn-row">
       <div>
         <Button
-          bsStyle="default"
-          bsSize="large"
-          className="welcome-chris-btn welcome-chris-more-btn"
+          variant="secondary"
+          customClass="welcome-chris-btn welcome-chris-more-btn"
+          onClick={() => {}}
         >
           Learn more
         </Button>
       </div>
       <div>
         <Button
-          bsStyle="default"
-          bsSize="large"
-          className="welcome-chris-btn"
+          variant="secondary"
+          customClass="welcome-chris-btn"
+          onClick={() => {}}
         >
           Don{"'"}t have access to ChRIS?
         </Button>

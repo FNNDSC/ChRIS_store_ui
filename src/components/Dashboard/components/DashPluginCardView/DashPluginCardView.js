@@ -12,7 +12,6 @@ import {
   FormGroup,
   ControlLabel,
   FormControl,
-  Button,
   Card,
   Grid,
   HelpBlock,
@@ -23,6 +22,7 @@ import {
   MessageDialog,
 } from 'patternfly-react';
 
+import Button from '../../../Button';
 import './DashPluginCardView.css';
 import BrainImg from '../../../../assets/img/empty-brain-xs.png';
 import PluginPointer from '../../../../assets/img/brainy_welcome-pointer.png';
@@ -46,7 +46,10 @@ const DashGitHubEmptyState = () => (
               Create a new listing for your plugin in the ChRIS
               store by clicking &#34;Add Plugin&#34; below.
             </p>
-            <Button bsStyle="primary" bsSize="large" href="/create">
+            <Button
+              variant="primary"
+              onClick={() => {}} //Todo
+            >
               Add Plugin
             </Button>
           </div>

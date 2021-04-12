@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Button, CardGrid, Spinner } from 'patternfly-react';
+import { CardGrid, Spinner } from 'patternfly-react';
 import PropTypes from 'prop-types';
+import Button from '../Button';
 import Client from '@fnndsc/chrisstoreapi';
 import './Dashboard.css';
 import DashPluginCardView from './components/DashPluginCardView/DashPluginCardView';
@@ -96,7 +97,7 @@ class Dashboard extends Component {
 
   render() {
     const { pluginList, loading } = this.state;
-    const { store } = this.props;
+    const { store, history } = this.props;
     const userName = store.get('userName') || '';
     return (
       <React.Fragment>
@@ -104,7 +105,10 @@ class Dashboard extends Component {
           <div className="row plugins-stats-row">
             <div className="title-bar">{`Dashboard for ${userName}`}</div>
             <div className="dropdown btn-group">
-              <Button bsStyle="primary" bsSize="large" href="/create">
+              <Button 
+                variant="primary"
+                onClick={() => {history.push('/create')}}
+              >
                 Add Plugin
               </Button>
             </div>
