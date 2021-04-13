@@ -97,7 +97,7 @@ class Dashboard extends Component {
 
   render() {
     const { pluginList, loading } = this.state;
-    const { store, history } = this.props;
+    const { store } = this.props;
     const userName = store.get('userName') || '';
     return (
       <React.Fragment>
@@ -107,7 +107,7 @@ class Dashboard extends Component {
             <div className="dropdown btn-group">
               <Button 
                 variant="primary"
-                onClick={() => {history.push('/create')}}
+                toRoute='/create'
               >
                 Add Plugin
               </Button>
@@ -123,7 +123,6 @@ class Dashboard extends Component {
                     plugins={pluginList}
                     onDelete={this.deletePlugin}
                     onEdit={this.editPlugin}
-                    history={history}
                   />
                   <DashTeamView plugins={pluginList} />
                 </div>

@@ -28,7 +28,7 @@ import BrainImg from '../../../../assets/img/empty-brain-xs.png';
 import PluginPointer from '../../../../assets/img/brainy_welcome-pointer.png';
 import RelativeDate from '../../../RelativeDate/RelativeDate';
 
-const DashGitHubEmptyState = ({history}) => (
+const DashGitHubEmptyState = () => (
   <Col xs={12}>
     <Card>
       <CardTitle>
@@ -48,7 +48,7 @@ const DashGitHubEmptyState = ({history}) => (
             </p>
             <Button
               variant="primary"
-              onClick={() => {history.push('/create')}} 
+              toRoute='/create'
             >
               Add Plugin
             </Button>
@@ -120,7 +120,7 @@ class DashPluginCardView extends Component {
 
   render() {
     let pluginCardBody;
-    const { plugins, history } = this.props;
+    const { plugins } = this.props;
     const {
       pluginToDelete, showDeleteConfirmation, pluginToEdit, showEditConfirmation,
     } = this.state;
@@ -168,7 +168,7 @@ class DashPluginCardView extends Component {
             <EmptyStateAction>
               <Button
               variant="primary"
-              onClick={()=>{history.push('/create')}}
+              toRoute='/create'
               >
                 Add Plugin
               </Button>
@@ -235,7 +235,7 @@ class DashPluginCardView extends Component {
     }
     return (
       showEmptyState ?
-        <DashGitHubEmptyState history={history}/>
+        <DashGitHubEmptyState />
         :
         <React.Fragment>
           <div className="card-view-row">
