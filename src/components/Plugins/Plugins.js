@@ -115,7 +115,7 @@ export class Plugins extends Component {
       limit: 20,
       offset: 0,
       name_title_category:name,
-
+    }
  
 
     return new Promise(async (resolve, reject) => {
