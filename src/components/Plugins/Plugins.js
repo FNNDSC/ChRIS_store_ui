@@ -43,18 +43,20 @@ export class Plugins extends Component {
 
   async componentDidMount() {
     try {
-      const plugins = await this.fetchPlugins();
+      const plugins = await this.fetchPlugins()
       /**
        * Accumulate counts of categories from fetched plugins
        */
       let { categories } = this.state;
       for (const [index, { name, length }] of categories.entries()) {
         categories[index].length = plugins.reduce(
-          (count, current) => (name === current.category ? ++count : count),
+          (count, current) => (name === current.category) 
+            ? ++count
+            : count, 
           length
         );
       }
-
+      
       this.setState({ categories });
     } catch (err) {
       console.error(err);
@@ -112,21 +114,20 @@ export class Plugins extends Component {
     }
   }
 
-  fetchPlugins =()=> {
-    const params = new URLSearchParams(window.location.search);
-    const name = params.get("q"); //get value searched from the URL
-
+  fetchPlugins = () => {
+    const params = new URLSearchParams(window.location.search)
+    const name = params.get('q') //get value searched from the URL
     const searchParams = {
       limit: 20,
       offset: 0,
-      name_title_category: name,
+      name_title_category:name,
     };
 
     return new Promise(async (resolve, reject) => {
       let plugins;
       try {
         // add plugins to pluginList as they are received
-        plugins = await this.client?.getPlugins(searchParams);
+        plugins = await this.client.getPlugins(searchParams);
         if (this.mounted) {
           this.setState((prevState) => {
             // const prevPluginList = prevState.pluginList
@@ -139,7 +140,7 @@ export class Plugins extends Component {
       } catch (e) {
         return reject(e);
       }
-
+      
       return resolve(plugins.data);
     });
   }
@@ -167,17 +168,15 @@ export class Plugins extends Component {
   }
 
   handleCategorySelect = async (category) => {
-    this.setState({ pluginList: null });
-    if (!category) return await this.fetchPlugins();
+    this.setState({ pluginList: null })
+    if (!category) return await this.fetchPlugins()
 
-    this.setState({
-      pluginList: (
-        await this.client.getPlugins({
-          name_title_category: category,
-        })
-      ).data,
-    });
-  };
+    this.setState({ 
+      pluginList: (await this.client.getPlugins({
+        name_title_category: category
+      })).data 
+    })
+  }
 
   isFavorite(plugin) {
     return this.state.starsByPlugin[plugin.id] !== undefined;
@@ -276,9 +275,8 @@ export class Plugins extends Component {
           </div>
         </div>
         <div className="row plugins-row">
-          <PluginsCategories
-            categories={categories}
-            onSelect={this.handleCategorySelect}
+          <PluginsCategories categories={categories} 
+            onSelect={this.handleCategorySelect} 
           />
           <div className="plugins-list">{pluginListBody}</div>
         </div>

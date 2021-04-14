@@ -46,6 +46,7 @@ const WelcomeChRIS = () => (
           bsStyle="default"
           bsSize="large"
           className="welcome-chris-btn welcome-chris-more-btn"
+          onClick={()=>{window.open('https://www.chrisproject.org')}}
         >
           Learn more
         </Button>

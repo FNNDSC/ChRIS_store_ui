@@ -137,12 +137,9 @@ const PluginBody = ({ pluginData }) => (
                         </div>
                           <div className="plugin-body-public-repo">
                             <h4>Public Repo:</h4>
-                            <Link
-                              href={pluginData.public_repo}
-                              to={pluginData.public_repo}
-                            >
+                            <a href={pluginData.public_repo}>
                               {pluginData.public_repo}
-                            </Link>
+                            </a>
                           </div>
                           <div className="plugin-body-documentation">
                             <h4>Documentation:</h4>
@@ -166,6 +163,10 @@ const PluginBody = ({ pluginData }) => (
                                 View all contributors...
                               </a>
                             </div>
+                          </div>
+                          <div className="plugin-body-id">
+                            <h4>Plugin ID:</h4>
+                            {pluginData.id}
                           </div>
                           <div className="plugin-body-license">
                             <h4>License:</h4>

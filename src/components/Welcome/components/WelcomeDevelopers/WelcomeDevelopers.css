@@ -1,14 +1,33 @@
 .welcome-developers {
   /* display */
+  display:flex;
+  flex-direction:column;
+  width:70%;
   padding: 6em 2em;
-  padding-bottom: 8em;
 
   /* font */
   font-size: 1.4em;
 }
+.welcome-developers-header{
+  /* display */
+  margin-bottom: 0.5em;
 
-.welcome-developers-header {
   /* font */
   font-size: 2em;
   line-height: 1.3;
+}
+.callToAction-btn{
+  width: max-content;
+  margin:0 auto;
+  width: 208.5px;
+}
+
+/* ============================== */
+/* ---------- RESPONSIVE -------- */
+/* ============================== */
+
+@media (min-width: 768px) {
+  .welcome-developers{
+    width: 70%;
+  }
 }
