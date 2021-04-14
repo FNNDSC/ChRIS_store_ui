@@ -9,6 +9,8 @@ const ButtonComponent = (props) => {
     customClass,
     loading,
     toRoute,
+    children,
+    ...otherProps
   } = props;
   const history = useHistory();
   return(
@@ -19,9 +21,9 @@ const ButtonComponent = (props) => {
         variant={variant}
         onClick={toRoute?history.push(toRoute):onClick}
         className={customClass}
-        {...props}
+        {...otherProps}
       >
-        {props.children}
+        {children}
         </Button>
     </div>
   );
