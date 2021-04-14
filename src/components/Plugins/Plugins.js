@@ -55,7 +55,6 @@ export class Plugins extends Component {
 
   componentDidMount() {
     this.fetchPlugins().catch((err) => {
-      console.log("here")
       this.showNotifications(new HttpApiCallError(err));
     });
 
