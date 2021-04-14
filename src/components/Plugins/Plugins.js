@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Client from '@fnndsc/chrisstoreapi';
-import { DropdownButton, MenuItem } from 'react-bootstrap';
-import PluginItem from './components/PluginItem/PluginItem';
-import LoadingPluginItem from './components/LoadingPluginItem/LoadingPluginItem';
-import PluginsCategories from './components/PluginsCategories/PluginsCategories';
-import './Plugins.css';
-import LoadingContainer from '../LoadingContainer/LoadingContainer';
-import LoadingContent from '../LoadingContainer/components/LoadingContent/LoadingContent';
-import ChrisStore from '../../store/ChrisStore';
-
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Client from "@fnndsc/chrisstoreapi";
+import { DropdownButton, MenuItem } from "react-bootstrap";
+import PluginItem from "./components/PluginItem/PluginItem";
+import LoadingPluginItem from "./components/LoadingPluginItem/LoadingPluginItem";
+import PluginsCategories from "./components/PluginsCategories/PluginsCategories";
+import "./Plugins.css";
+import LoadingContainer from "../LoadingContainer/LoadingContainer";
+import LoadingContent from "../LoadingContainer/components/LoadingContent/LoadingContent";
+import ChrisStore from "../../store/ChrisStore";
 
 // ==============================
 // ------ PLUGINS COMPONENT -----
@@ -20,40 +19,46 @@ export class Plugins extends Component {
     super(props);
 
     const storeURL = process.env.REACT_APP_STORE_URL;
-    const auth = { token: props.store.get('authToken') };
+    const auth = { token: props.store.get("authToken") };
     this.client = new Client(storeURL, auth);
 
     this.mounted = false;
     this.state = {
+      sortType: "",
       pluginList: null,
       starsByPlugin: {},
       categories: [
-        {
-          name: 'Visualization',
-          length: 3,
-        },
-        {
-          name: 'Modeling',
-          length: 11,
-        },
-        {
-          name: 'Statistical Operation',
-          length: 7,
-        },
+        { name: "Visualization", length: 0 },
+        { name: "Modeling", length: 0 },
+        { name: "Statistical Operation", length: 0 },
+        { name: "FreeSurfer", length: 0 },
+        { name: "MRI Processing", length: 0 },
       ],
     };
-
-    this.fetchPlugins = this.fetchPlugins.bind(this);
   }
 
   componentWillMount() {
     this.mounted = true;
   }
 
-  componentDidMount() {
-    this.fetchPlugins().catch((err) => {
+  async componentDidMount() {
+    try {
+      const plugins = await this.fetchPlugins();
+      /**
+       * Accumulate counts of categories from fetched plugins
+       */
+      let { categories } = this.state;
+      for (const [index, { name, length }] of categories.entries()) {
+        categories[index].length = plugins.reduce(
+          (count, current) => (name === current.category ? ++count : count),
+          length
+        );
+      }
+
+      this.setState({ categories });
+    } catch (err) {
       console.error(err);
-    });
+    }
 
     if (this.isLoggedIn()) {
       this.fetchPluginStars();
@@ -82,7 +87,9 @@ export class Plugins extends Component {
     this.setPluginStar(plugin.id, {});
 
     try {
-      const star = await this.client.createPluginStar({ plugin_name: plugin.name });
+      const star = await this.client.createPluginStar({
+        plugin_name: plugin.name,
+      });
       this.setPluginStar(plugin.id, star.data);
     } catch (err) {
       this.removePluginStar(plugin.id);
@@ -105,23 +112,28 @@ export class Plugins extends Component {
     }
   }
 
-  fetchPlugins() {
+  fetchPlugins =()=> {
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("q"); //get value searched from the URL
+
     const searchParams = {
       limit: 20,
       offset: 0,
+      name_title_category: name,
     };
 
     return new Promise(async (resolve, reject) => {
       let plugins;
       try {
         // add plugins to pluginList as they are received
-        plugins = await this.client.getPlugins(searchParams);
-
+        plugins = await this.client?.getPlugins(searchParams);
         if (this.mounted) {
           this.setState((prevState) => {
-            const prevPluginList = prevState.pluginList ? prevState.pluginList : [];
-            const nextPluginList = prevPluginList.concat(plugins.data);
-            return { pluginList: nextPluginList };
+            // const prevPluginList = prevState.pluginList
+            //   ? prevState.pluginList
+            //   : [];
+            // const nextPluginList = prevPluginList.concat(plugins.data);
+            return { pluginList: plugins.data };
           });
         }
       } catch (e) {
@@ -146,32 +158,65 @@ export class Plugins extends Component {
 
   handlePluginFavorited(plugin) {
     if (this.isLoggedIn()) {
-      return this.isFavorite(plugin) ? this.unfavPlugin(plugin) : this.favPlugin(plugin);
+      return this.isFavorite(plugin)
+        ? this.unfavPlugin(plugin)
+        : this.favPlugin(plugin);
     }
 
     return Promise.resolve();
   }
+
+  handleCategorySelect = async (category) => {
+    this.setState({ pluginList: null });
+    if (!category) return await this.fetchPlugins();
+
+    this.setState({
+      pluginList: (
+        await this.client.getPlugins({
+          name_title_category: category,
+        })
+      ).data,
+    });
+  };
 
   isFavorite(plugin) {
     return this.state.starsByPlugin[plugin.id] !== undefined;
   }
 
   isLoggedIn() {
-    return this.props.store ? this.props.store.get('isLoggedIn') : false;
+    return this.props.store ? this.props.store.get("isLoggedIn") : false;
+  }
+
+  onSort(sortType) {
+    this.setState({ sortType });
   }
 
   render() {
-    const { pluginList, categories } = this.state;
+    const { pluginList, categories, sortType } = this.state;
 
     // Remove email from author
-    const removeEmail = author => author.replace(/( ?\(.*\))/g, '');
+    const removeEmail = (author) => author.replace(/( ?\(.*\))/g, "");
 
     let pluginsFound;
     let pluginListBody;
 
     // Render the pluginList if the plugins have been fetched
     if (pluginList) {
-      pluginListBody = pluginList.map(plugin => (
+      const sorted = pluginList.sort((a, b) => {
+        if (sortType === "name") {
+          return a[sortType] > b[sortType] ? 1 : -1;
+        }
+        if (sortType === "authors") {
+          return a[sortType] > b[sortType] ? 1 : -1;
+        }
+        if (sortType === "creation_date") {
+          return a[sortType] > b[sortType] ? 1 : -1;
+        }
+        const isReversed = sortType === "creation_date" ? 1 : -1;
+        return isReversed * a.creation_date.localeCompare(b.creation_date);
+      });
+
+      pluginListBody = sorted.map((plugin) => (
         <PluginItem
           title={plugin.title}
           id={plugin.id}
@@ -212,27 +257,35 @@ export class Plugins extends Component {
       <div className="plugins-container">
         <div className="plugins-stats">
           <div className="row plugins-stats-row">
+            {/* number of plugins found related to the search  */}
             {pluginsFound}
-            <DropdownButton
-              id="sort-by-dropdown"
-              title="Sort By"
-              pullRight
-            >
-              <MenuItem eventKey="1">Name</MenuItem>
+            <DropdownButton id="sort-by-dropdown" title="Sort By" pullRight>
+              <MenuItem eventKey="1" onClick={() => this.onSort("name")}>
+                Name
+              </MenuItem>
+              <MenuItem eventKey="2" onClick={() => this.onSort("authors")}>
+                Author
+              </MenuItem>
+              <MenuItem
+                eventKey="3"
+                onClick={() => this.onSort("creation_date")}
+              >
+                Date Created
+              </MenuItem>
             </DropdownButton>
           </div>
         </div>
         <div className="row plugins-row">
-          <PluginsCategories categories={categories} />
-          <div className="plugins-list">
-            {pluginListBody}
-          </div>
+          <PluginsCategories
+            categories={categories}
+            onSelect={this.handleCategorySelect}
+          />
+          <div className="plugins-list">{pluginListBody}</div>
         </div>
       </div>
     );
   }
 }
-
 
 Plugins.propTypes = {
   store: PropTypes.objectOf(PropTypes.object).isRequired,

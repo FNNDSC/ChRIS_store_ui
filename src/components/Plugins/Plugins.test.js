@@ -55,11 +55,11 @@ describe('Plugins', () => {
       .toHaveLength(1);
   });
 
-  it('should render 1 MenuItem component inside DropdownButton', () => {
+  it('should render 3 MenuItem component inside DropdownButton', () => {
     expect(wrapper
       .find('DropdownButton')
       .find('MenuItem'))
-      .toHaveLength(1);
+      .toHaveLength(3);
   });
 
   it('every MenuItem component should have eventKey prop', () => {
@@ -221,7 +221,7 @@ describe('rendered Plugins', () => {
 
     const firstPluginId = firstPlugin.props().id;
 
-    expect(wrapper.state().starsByPlugin[firstPluginId]).not.toBeUndefined();
+    expect(wrapper.state().pluginList[firstPluginId]).not.toBeUndefined();
   });
 
   it('should mark plugin as NOT favorited when plugin star is clicked and plugin is already a favorite', async () => {
