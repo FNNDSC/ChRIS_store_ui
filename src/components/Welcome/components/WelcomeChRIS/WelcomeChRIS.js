@@ -46,7 +46,6 @@ const WelcomeChRIS = () => (
         <Button
           variant="secondary"
           customClass="welcome-chris-btn welcome-chris-more-btn"
-          onClick={() => {}}
         >
           Learn more
         </Button>
@@ -55,7 +54,6 @@ const WelcomeChRIS = () => (
         <Button
           variant="secondary"
           customClass="welcome-chris-btn"
-          onClick={() => {}}
         >
           Don{"'"}t have access to ChRIS?
         </Button>
