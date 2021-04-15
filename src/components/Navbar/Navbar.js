@@ -81,7 +81,7 @@ const LoginButton = ({ store }) => (
   <NavLink to="/signin">
     <Button
       variant="primary"
-      customClass="login-button"
+      className="login-button"
     >
       {store.get('isLoggedIn') ? 'Sign Out' : 'Sign In'}
     </Button>

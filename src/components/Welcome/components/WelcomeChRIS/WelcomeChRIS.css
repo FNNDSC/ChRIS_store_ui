@@ -60,7 +60,11 @@
   /* display */
   background: #fafafa !important;
   display: block !important;
-  width: 100%;
+  width: auto;
+}
+
+.welcome-chris-btn .other-btn {
+  width: auto;
 }
 
 .welcome-chris-banner { display: none; }
@@ -72,7 +76,7 @@
 @media (min-width: 420px) {
   .welcome-chris-btn-row > div { display: inline-block; }
 
-  .welcome-chris-btn { width: auto; }
+  .welcome-chris-btn { width: max-content; }
 }
 
 @media (min-width: 480px)  {

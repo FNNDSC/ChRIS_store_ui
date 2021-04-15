@@ -1,7 +1,3 @@
-@media (max-width: 480px){
-.chris-button button{
-    width:70px;
-    height:auto;
-    font-size:0.9em;
-}
+.other-button{
+    width: 100%;
 }

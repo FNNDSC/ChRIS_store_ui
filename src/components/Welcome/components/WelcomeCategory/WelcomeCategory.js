@@ -28,7 +28,7 @@ const WelcomeCategory = props => (
     <CardFooter>
       <Button 
         variant="primary"
-        customClass="btn-block"
+        className="btn-block"
         >
           View More ...
       </Button>

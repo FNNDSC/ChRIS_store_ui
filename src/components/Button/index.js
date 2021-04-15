@@ -6,7 +6,6 @@ import "./button.css";
 const ButtonComponent = ({
   variant,
   onClick,
-  customClass,
   loading,
   toRoute,
   children,
@@ -14,14 +13,12 @@ const ButtonComponent = ({
 }) => {
   const history = useHistory();
   return (
-    <div className="chris-button">
+    <div  {...otherProps}>
       <Button
         isLoading={loading}
-        spinnerAriaValueText
         variant={variant}
         onClick={toRoute ? history.push(toRoute) : onClick}
-        className={customClass}
-        {...otherProps}
+        className="other-button"
       >
         {children}
       </Button>
@@ -33,7 +30,6 @@ ButtonComponent.propTypes = {
   onClick: PropTypes.func,
   icon: PropTypes.object,
   loading: PropTypes.bool,
-  customClass: PropTypes.string
-};
+  };
 
 export default ButtonComponent;

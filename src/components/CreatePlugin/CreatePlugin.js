@@ -331,7 +331,7 @@ class CreatePlugin extends Component {
                 </div>
                 <div className="createplugin-create-btn-container">
                   <Button
-                    customClass="createplugin-create-btn"
+                    className="createplugin-create-btn"
                     variant="primary"
                     onClick={this.handleSubmit}
                   >

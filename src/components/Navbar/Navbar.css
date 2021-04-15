@@ -216,7 +216,7 @@ header > .navbar-dropdown {
   /* font */
   font-size: 1.5em;
 }
-.login-button{
+.login-button .other-button{
   background: #06c !important;
   color: white !important;
 }
@@ -314,3 +314,10 @@ header > .navbar-dropdown {
     margin-left: 0;
   }
 }
+@media (max-width: 480px){
+  .login-button .other-button{
+      width:70px;
+      height:auto;
+      font-size:0.9em;
+  }
+  }

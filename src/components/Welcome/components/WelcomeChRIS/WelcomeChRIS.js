@@ -45,7 +45,7 @@ const WelcomeChRIS = () => (
       <div>
         <Button
           variant="secondary"
-          customClass="welcome-chris-btn welcome-chris-more-btn"
+          className="welcome-chris-btn welcome-chris-more-btn"
         >
           Learn more
         </Button>
@@ -53,7 +53,7 @@ const WelcomeChRIS = () => (
       <div>
         <Button
           variant="secondary"
-          customClass="welcome-chris-btn"
+          className="welcome-chris-btn"
         >
           Don{"'"}t have access to ChRIS?
         </Button>

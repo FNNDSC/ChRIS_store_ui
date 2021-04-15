@@ -149,7 +149,7 @@ export class SignIn extends Component {
                   />
                 </FormGroup>
                 <Button
-                  customClass="signin-login-btn"
+                  className="signin-login-btn"
                   variant="primary"
                   type="submit"
                   loading={loading}
