@@ -29,7 +29,6 @@ const WelcomeCategory = props => (
       <Button 
         variant="primary"
         customClass="btn-block"
-        onClick={() => {}}
         >
           View More ...
       </Button>
