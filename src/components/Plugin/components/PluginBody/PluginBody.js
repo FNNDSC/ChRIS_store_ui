@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {
-  Icon, Grid, Nav, NavItem, TabContainer, TabContent, TabPane,
+  Grid, Nav, NavItem, TabContainer, TabContent, TabPane,
 } from 'patternfly-react';
 import './PluginBody.css';
 import { CopyURLButton } from '../../../general/CopyURLButton';
@@ -36,12 +36,12 @@ const PluginBody = ({ pluginData }) => (
                           <div className="plugin-body-readme">
                             README.rst
                           </div>
-                          <h1 className="plugin-body-title">
+                          <h1 className="pf-c-title pf-m-4xl plugin-body-title">
                             {pluginData.title}
                           </h1>
                           <div className="plugin-body-toc">
-                            <h3>Table of Contents</h3>
-                            <ul>
+                            <h3 className="pf-c-title pf-m-2xl">Table of Contents</h3>
+                            <ul className="pf-c-list">
                               <li>
                                 <Link
                                   href={pluginData.title}
@@ -92,7 +92,7 @@ const PluginBody = ({ pluginData }) => (
                                 >
                                   Examples
                                 </Link>
-                                <ul>
+                                <ul className="pf-c-list">
                                   <li>
                                     <Link
                                       href={pluginData.title}
@@ -114,13 +114,13 @@ const PluginBody = ({ pluginData }) => (
                             </ul>
                           </div>
                           <div className="plugin-body-content">
-                            <h2>Abstract</h2>
+                            <h2 className="pf-c-title pf-m-3xl">Abstract</h2>
                             <hr />
                             <p>
                               {/* eslint-disable-next-line */}
                               <code>freesurfer_pp_moc.py</code> is a dummy FreeSurver plugin/container that is prepopulated with the results of several priori FreeSurfer runs. For a given run, this script will simply copy elements of one of these prior runs to the output directory.
                             </p>
-                            <h2>Synopsis</h2>
+                            <h2 className="pf-c-title pf-m-3xl">Synopsis</h2>
                             <hr />
                             <p>
                               <code>
@@ -133,7 +133,7 @@ const PluginBody = ({ pluginData }) => (
                         </div>
                         <div className="plugin-body-side-col">
                         <div className="plugin-body-copy-url">
-                        <CopyURLButton text={pluginData.url} />
+                          <CopyURLButton className="pf-c-button pf-m-primary" text={pluginData.url} />
                         </div>
                           <div className="plugin-body-public-repo">
                             <h4>Public Repo:</h4>
@@ -144,22 +144,31 @@ const PluginBody = ({ pluginData }) => (
                           <div className="plugin-body-documentation">
                             <h4>Documentation:</h4>
                             {/* eslint-disable-next-line */}
-                            <a>
+                            <a className="pf-c-button pf-m-link">
                               readthedocs.com/freesurfer
                             </a>
                           </div>
                           <div className="plugin-body-contributors">
                             <h4>Contributors (20):</h4>
-                            <Icon name="user" size="lg" />
+                            <a
+                              href={pluginData.authorURL}
+                              className="pf-c-button pf-m-link" type="button">
+                              <span className="pf-c-button__icon pf-m-start">
+                                <i className="fas fa-user" aria-hidden="true"></i>
+                              </span>
+                              {pluginData.authors}
+                            </a>
+                            {/* <Icon name="user" size="lg" />
                             <Link
                               href={pluginData.authorURL}
                               to={pluginData.authors}
+                              className="pf-c-button pf-m-link"
                             >
                               {pluginData.authors}
-                            </Link>
+                            </Link> */}
                             <div className="plugin-body-contributors-all">
                               {/* eslint-disable-next-line */}
-                              <a>
+                              <a className="pf-c-button pf-m-link">
                                 View all contributors...
                               </a>
                             </div>

@@ -1,20 +1,69 @@
-.form-group.has-icon .form-control {
-  /* display */
-  padding-left: 24px;
+/*
+ * (C) 2020 Red Hat, MIT License
+ * https://github.com/patternfly/patternfly-org/blob/d6e1950b764b55b612709dfe8e84e6e636116d23/packages/theme-patternfly-org/layouts/sideNavLayout/sideNavLayout.css#L27-L72
+ */
+
+#search {
+  display: flex;
+  height: max-content;
+  justify-self: center;
+  align-self: center;
+  margin-left: 14px;
 }
 
-.search-pf .has-icon .search-icon {
-  /* display */
-  height: 25px;
-  width: 20px;
 
-  /* font */
-  line-height: 1.6em;
-  text-align: center;
-  font-size: 1.2em;
-  
-  /* position */
+/* Search */
+#ws-global-search-wrapper {
+  /* For icon */
+  position: relative;
+}
+#ws-global-search {
+  background-color: transparent;
+  border: none;
+  /* For icon */
+  padding-left: 32px;
+  outline: none;
+  width: 250px;
+}
+#ws-global-search:focus {
+  border-bottom: 1px solid #3da1da;
+}
+.ws-hide-search-input .algolia-autocomplete,
+.ws-hide-search-input #ws-global-search {
+  display: none !important;
+}
+.ws-clear-search {
+  /* Search icon is taller than it is wide */
+  outline: none;
+  margin-top: 2px;
+}
+#ws-global-search-wrapper > .global-search-icon {
   position: absolute;
-  left: 1px;
-  top: 1px;
+  top: 10px;
+  left: 4px;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+#ws-global-search {
+  color: #fff;
+}
+#ws-global-search:focus {
+  outline-offset: 2px;
+}
+
+/* TODO: PageHeaderTools on small viewports */
+@media (max-width: 670px) {
+  .pf-c-brand{
+    height: 40px;
+    width: auto;
+  }
+  #ws-global-search-wrapper {
+    width: 100px;
+  }
+  #ws-global-search{
+    width: 100%;
+  }
+  #ws-global-search::placeholder{
+    color: transparent;
+  }
 }
