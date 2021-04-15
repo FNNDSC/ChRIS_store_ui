@@ -152,8 +152,8 @@ export class SignIn extends Component {
                   customClass="signin-login-btn"
                   variant="primary"
                   type="submit"
-                  disabled={loading}
-                  onClick={this.handleSubmit}
+                  loading={loading}
+                  onClick={this.handleSubmit}>
                   Log In
                 </Button>
                 <p className="login-pf-signup">
