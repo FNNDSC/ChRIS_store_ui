@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './WelcomeFeature.css';
 
-const WelcomeFeature = props => (
+const WelcomeFeature = ({img, name}) => (
   <div className="welcome-feature">
-    <img src={props.img} alt="" className="welcome-feature-img" />
+    <img src={img} alt={name} className="welcome-feature-img" />
     <div className="welcome-feature-text">
-      {props.name}
+      {name}
     </div>
   </div>
 );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from 'patternfly-react';
+import { AngleDownIcon } from '@patternfly/react-icons';
 import './WelcomeCTA.css';
 import WelcomeFeature from '../WelcomeFeature/WelcomeFeature';
 
@@ -31,7 +31,7 @@ const WelcomeCTA = () => (
         <WelcomeFeature name="Slicer" img={slicerLogo} />
       </div>
       <div className="welcome-scroll-caret">
-        <Icon name="angle-down" />
+        <AngleDownIcon/>
       </div>
     </div>
     <div className="row no-flex">
