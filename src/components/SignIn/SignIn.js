@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
 import {
-  Card, CardBody, Button, Alert,
+  Card, CardBody, Alert,
   Form, FormGroup, FormControl,
 } from 'patternfly-react';
+import Button from '../Button';
 import StoreClient from '@fnndsc/chrisstoreapi';
 import './SignIn.css';
 import chrisLogo from '../../assets/img/chris_logo-white.png';
@@ -52,31 +53,31 @@ export class SignIn extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     const authURL = process.env.REACT_APP_STORE_AUTH_URL;
     const { username, password } = this.state;
-    const { store } = this.props;
-
+    const { store, location, history } = this.props;
     this.setState({ loading: true });
-    const promise = StoreClient.getAuthToken(authURL, username, password)
-      .then((token) => {
-        store.set('userName')(username);
+    try{
+      const token = await StoreClient.getAuthToken(authURL, username, password);
+      store.set('userName')(username);
         store.set('authToken')(token);
         if (this.mounted) {
-          this.setState({ toDashboard: true });
+          this.setState({ loading: false });
+          if (location.state && location.state.from) {
+            history.replace(location.state.from);
+          }
+          else {
+            history.push('/dashboard');
+          }
         }
-      })
-      .catch(() => {
-        this.showError('Invalid username or password');
-      })
-      .then(() => {
+    } catch(error){
+      this.showError('Invalid username or password');
         if (this.mounted) {
           this.setState({ loading: false });
         }
-      });
-
+    }
     event.preventDefault();
-    return promise; // for tests
   }
 
   showError(message) {
@@ -89,12 +90,8 @@ export class SignIn extends Component {
 
   render() {
     const {
-      toDashboard, error, username, password, loading,
+      error, username, password, loading,
     } = this.state;
-
-    if (toDashboard) {
-      return <Redirect to="/dashboard" />;
-    }
 
     return (
       <div className="signin login-pf-page">
@@ -130,7 +127,7 @@ export class SignIn extends Component {
               <h1>Login to your account</h1>
             </header>
             <CardBody>
-              <Form className="signin-form" onSubmit={this.handleSubmit}>
+              <Form className="signin-form" >
                 <FormGroup className="signin-username-form-group" bsSize="large">
                   <FormControl
                     type="text"
@@ -153,11 +150,10 @@ export class SignIn extends Component {
                 </FormGroup>
                 <Button
                   className="signin-login-btn"
-                  bsStyle="primary"
-                  bsSize="large"
+                  variant="primary"
                   type="submit"
-                  disabled={loading}
-                >
+                  loading={loading}
+                  onClick={this.handleSubmit}>
                   Log In
                 </Button>
                 <p className="login-pf-signup">

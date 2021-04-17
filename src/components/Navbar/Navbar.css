@@ -216,7 +216,10 @@ header > .navbar-dropdown {
   /* font */
   font-size: 1.5em;
 }
-
+.login-button .other-button{
+  background: #06c !important;
+  color: white !important;
+}
 /* ===== ACTIVE DROPDOWN BTN ==== */
 
 .navbar-dropdown-btn.active {
@@ -305,10 +308,16 @@ header > .navbar-dropdown {
   .navbar-trigger, .navbar-dropdown { display: none; }
   .collapse.in { display: none !important; }
 }
-
 @media (min-width: 1110px) {
   header .row > .navbar-header > .navbar-logo {
     /* display */
     margin-left: 0;
   }
 }
+@media (max-width: 480px){
+  .login-button .other-button{
+      width:70px;
+      height:auto;
+      font-size:0.9em;
+  }
+  }
