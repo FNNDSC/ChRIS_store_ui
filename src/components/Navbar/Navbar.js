@@ -7,8 +7,8 @@ import {
   NavItem,
   PageHeaderTools,
   PageHeaderToolsItem,
-  Button
 } from '@patternfly/react-core';
+import Button from '../Button';
 import { NavLink } from 'react-router-dom';
 import './Navbar.css';
 import LogoImg from '../../assets/img/chris-plugin-store_logo.png';
@@ -65,12 +65,12 @@ const Navigation = ({ store }) => {
 const StatefulNavigation = ChrisStore.withStore(Navigation);
 const statefulNavigation = (<StatefulNavigation />);
 
-// note: color of button is context-aware.
-// "Primary" color is a striking white (instead of blue)
-// because it's in a <PageHeader>
 const LoginButton = ({ store }) => (
   <NavLink to="/signin">
-    <Button variant="secondary">
+    <Button
+      variant="primary"
+      className="login-button"
+    >
       {store.get('isLoggedIn') ? 'Sign Out' : 'Sign In'}
     </Button>
   </NavLink>
