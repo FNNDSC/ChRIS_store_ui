@@ -33,7 +33,9 @@ export class DeveloperSignup extends Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.toggleShow = this.toggleShow.bind(this);
     this.state = {
+      hidden: true,
       loading: false,
       error: {
         message: '',
@@ -48,6 +50,10 @@ export class DeveloperSignup extends Component {
 
   handleChange(value, name) {
     this.setState({ [name]: value });
+  }
+
+  toggleShow() {
+    this.setState({ hidden: !this.state.hidden });
   }
 
   handleSubmit(event) {
@@ -237,6 +243,7 @@ export class DeveloperSignup extends Component {
             type="submit" 
             loading={disableControls}
           >
+
             Create Account
           </Button>
         )}

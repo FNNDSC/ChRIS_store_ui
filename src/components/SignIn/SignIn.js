@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import {
   Card, CardBody, Alert,
 } from 'patternfly-react';
-import Button from '../Button';
 import StoreClient from '@fnndsc/chrisstoreapi';
 import './SignIn.css';
 import chrisLogo from '../../assets/img/chris_logo-white.png';
@@ -23,12 +22,14 @@ export class SignIn extends Component {
       loading: false,
       toDashboard: false,
       error: null,
+      hidden: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.showError = this.showError.bind(this);
     this.hideError = this.hideError.bind(this);
+    this.toggleShow = this.toggleShow.bind(this);
   }
 
   componentWillMount() {
@@ -54,31 +55,35 @@ export class SignIn extends Component {
     this.setState({ [name]: value });
   }
 
-  async handleSubmit(event) {
+  toggleShow() {
+    this.setState({ hidden: !this.state.hidden });
+  }
+
+  handleSubmit(event) {
     const authURL = process.env.REACT_APP_STORE_AUTH_URL;
     const { username, password } = this.state;
-    const { store, location, history } = this.props;
+    const { store } = this.props;
+
     this.setState({ loading: true });
-    try{
-      const token = await StoreClient.getAuthToken(authURL, username, password);
-      store.set('userName')(username);
+    const promise = StoreClient.getAuthToken(authURL, username, password)
+      .then((token) => {
+        store.set('userName')(username);
         store.set('authToken')(token);
         if (this.mounted) {
-          this.setState({ loading: false });
-          if (location.state && location.state.from) {
-            history.replace(location.state.from);
-          }
-          else {
-            history.push('/dashboard');
-          }
+          this.setState({ toDashboard: true });
         }
-    } catch(error){
-      this.showError('Invalid username or password');
+      })
+      .catch(() => {
+        this.showError('Invalid username or password');
+      })
+      .then(() => {
         if (this.mounted) {
           this.setState({ loading: false });
         }
-    }
+      });
+
     event.preventDefault();
+    return promise; // for tests
   }
 
   showError(message) {
@@ -91,8 +96,12 @@ export class SignIn extends Component {
 
   render() {
     const {
-      error, username, password, loading,
+      toDashboard, error, username, password, loading,
     } = this.state;
+
+    if (toDashboard) {
+      return <Redirect to="/dashboard" />;
+    }
 
     return (
       <div className="signin login-pf-page">
