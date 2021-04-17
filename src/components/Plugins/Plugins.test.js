@@ -222,7 +222,7 @@ describe('rendered Plugins', () => {
 
     const firstPluginId = firstPlugin.props().id;
 
-    expect(wrapper.state().pluginList[firstPluginId]).toBeUndefined();
+    expect(wrapper.state().pluginList[firstPluginId]).toBeDefined();
   });
 
   it('should mark plugin as NOT favorited when plugin star is clicked and plugin is already a favorite', async () => {

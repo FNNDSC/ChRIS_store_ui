@@ -24,7 +24,7 @@ export class Plugins extends Component {
 
     this.mounted = false;
     this.state = {
-      sortFunc: (a, b) => (a.creation_date < b.creation_date ? 1 : -1),
+      sortFunc: (a, b) => new Date(a.creation_date) + new Date(b.creation_date),
       pluginList: null,
       starsByPlugin: {},
       categories: [
@@ -186,10 +186,6 @@ export class Plugins extends Component {
     return this.props.store ? this.props.store.get("isLoggedIn") : false;
   }
 
-  onSort(sortType) {
-    this.setState({ sortType });
-  }
-
   render() {
     const { pluginList, categories, sortFunc } = this.state;
 
@@ -271,7 +267,7 @@ export class Plugins extends Component {
                 onClick={() =>
                   this.setState({
                     sortFunc: (a, b) =>
-                      a.creation_date > b.creation_date ? 1 : -1,
+                      new Date(a.creation_date) - new Date(b.creation_date),
                   })
                 }
               >
