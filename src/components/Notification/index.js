@@ -7,9 +7,6 @@ class Notification extends Component {
     super(props);
     this.deleteTime = 4000;
   }
-  componentDidMount() {
-    console.log("MOunted")
-  }
   render() {
     const { position, variant, message, onClose, closeable, title } = this.props;
     return (

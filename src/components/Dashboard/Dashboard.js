@@ -57,7 +57,7 @@ class Dashboard extends Component {
       });
   }
 
-  deletePlugin(pluginId) {
+  async deletePlugin(pluginId) {
     const { store } = this.props;
     const storeURL = process.env.REACT_APP_STORE_URL;
     const auth = { token: store.get('authToken') };
@@ -65,13 +65,13 @@ class Dashboard extends Component {
 
     let response;
     try {
-      response = client.getPlugin(pluginId).then(plugin => plugin.delete());
-      response.then(() => {
+      response = await client.getPlugin(pluginId);
+      response.delete();
+      if(response.data) {
         this.fetchPlugins();
-      });
+      }
     } catch (e) {
       this.showNotifications(new HttpApiCallError(e));
-      return e;
     }
     return response;
   }
