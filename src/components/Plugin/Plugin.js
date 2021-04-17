@@ -183,14 +183,14 @@ export class Plugin extends Component {
             <Grid>
               <Grid.Row>
                 <Grid.Col sm={12}>
-                  <Grid.Col sm={1}>
+                  <Grid.Col sm={2}>
                     <img
                       className="plugin-icon"
                       src={PluginImg}
                       alt="Plugin icon"
                     />
                   </Grid.Col>
-                  <Grid.Col sm={6}>
+                  <Grid.Col sm={10}>
                     <div className="plugin-category">
                       Visualization
                     </div>
@@ -207,24 +207,24 @@ export class Plugin extends Component {
                     <div className="plugin-description">
                       {data.description}
                     </div>
-                  </Grid.Col>
-                  <Grid.Col sm={4} className="plugin-stats">
-                    <Icon name="star" size="lg" />
-                    {' '}
-                    10k+
-                    {modificationDate.isValid()
-                      && (
+                    <div className="plugin-stats">
+                      <Icon name="star" size="lg" />
+                      {' '}
+                      10k+
+                      {modificationDate.isValid()
+                        && (
+                        <span className="plugin-modified">
+                          <Icon name="clock-o" size="lg" />
+                          {`Last modified ${modificationDate.format()}`}
+                        </span>
+                        )}
+                      {/* temp text */}
                       <span className="plugin-modified">
                         <Icon name="clock-o" size="lg" />
-                        {`Last modified ${modificationDate.format()}`}
+                        {' '}
+                        Last modified 1 hour ago
                       </span>
-                      )}
-                    {/* temp text */}
-                    <span className="plugin-modified">
-                      <Icon name="clock-o" size="lg" />
-                      {' '}
-                      Last modified 1 hour ago
-                    </span>
+                    </div>
                   </Grid.Col>
                 </Grid.Col>
               </Grid.Row>

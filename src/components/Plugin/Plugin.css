@@ -116,9 +116,6 @@
 }
 
 .plugin-stats {
-  /* display */
-  margin-left: 1em;
-
   /* color */
   color: var(--pf-black-400, #bbb);
 }

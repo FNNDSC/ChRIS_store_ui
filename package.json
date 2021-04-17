@@ -28,6 +28,7 @@
     "core-js": "^2.5.7",
     "email-validator": "^2.0.4",
     "lodash": "^4.17.19",
+    "marked": "^2.0.3",
     "moment": "^2.22.2",
     "patternfly": "^3.58.0",
     "patternfly-react": "^2.24.0",
