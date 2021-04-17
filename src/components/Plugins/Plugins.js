@@ -24,6 +24,7 @@ export class Plugins extends Component {
 
     this.mounted = false;
     this.state = {
+      sortFunc: (a, b) => new Date(a.creation_date) + new Date(b.creation_date),
       pluginList: null,
       starsByPlugin: {},
       categories: [
@@ -42,20 +43,18 @@ export class Plugins extends Component {
 
   async componentDidMount() {
     try {
-      const plugins = await this.fetchPlugins()
+      const plugins = await this.fetchPlugins();
       /**
        * Accumulate counts of categories from fetched plugins
        */
       let { categories } = this.state;
       for (const [index, { name, length }] of categories.entries()) {
         categories[index].length = plugins.reduce(
-          (count, current) => (name === current.category) 
-            ? ++count
-            : count, 
+          (count, current) => (name === current.category ? ++count : count),
           length
         );
       }
-      
+
       this.setState({ categories });
     } catch (err) {
       console.error(err);
@@ -114,12 +113,12 @@ export class Plugins extends Component {
   }
 
   fetchPlugins = () => {
-    const params = new URLSearchParams(window.location.search)
-    const name = params.get('q') //get value searched from the URL
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("q"); //get value searched from the URL
     const searchParams = {
       limit: 20,
       offset: 0,
-      name_title_category:name,
+      name_title_category: name,
     };
 
     return new Promise(async (resolve, reject) => {
@@ -139,10 +138,10 @@ export class Plugins extends Component {
       } catch (e) {
         return reject(e);
       }
-      
+
       return resolve(plugins.data);
     });
-  }
+  };
 
   async fetchPluginStars() {
     const stars = await this.client.getPluginStars();
@@ -167,15 +166,17 @@ export class Plugins extends Component {
   }
 
   handleCategorySelect = async (category) => {
-    this.setState({ pluginList: null })
-    if (!category) return await this.fetchPlugins()
+    this.setState({ pluginList: null });
+    if (!category) return await this.fetchPlugins();
 
-    this.setState({ 
-      pluginList: (await this.client.getPlugins({
-        name_title_category: category
-      })).data 
-    })
-  }
+    this.setState({
+      pluginList: (
+        await this.client.getPlugins({
+          name_title_category: category,
+        })
+      ).data,
+    });
+  };
 
   isFavorite(plugin) {
     return this.state.starsByPlugin[plugin.id] !== undefined;
@@ -186,7 +187,7 @@ export class Plugins extends Component {
   }
 
   render() {
-    const { pluginList, categories } = this.state;
+    const { pluginList, categories, sortFunc } = this.state;
 
     // Remove email from author
     const removeEmail = (author) => author.replace(/( ?\(.*\))/g, "");
@@ -196,7 +197,8 @@ export class Plugins extends Component {
 
     // Render the pluginList if the plugins have been fetched
     if (pluginList) {
-      pluginListBody = pluginList.map((plugin) => (
+      const sorted = pluginList.sort(sortFunc);
+      pluginListBody = sorted.map((plugin) => (
         <PluginItem
           title={plugin.title}
           id={plugin.id}
@@ -237,15 +239,47 @@ export class Plugins extends Component {
       <div className="plugins-container">
         <div className="plugins-stats">
           <div className="row plugins-stats-row">
+            {/* number of plugins found related to the search  */}
             {pluginsFound}
             <DropdownButton id="sort-by-dropdown" title="Sort By" pullRight>
-              <MenuItem eventKey="1">Name</MenuItem>
+              <MenuItem
+                eventKey="1"
+                onClick={() =>
+                  this.setState({
+                    sortFunc: (a, b) => (a.name > b.name ? 1 : -1),
+                  })
+                }
+              >
+                Name
+              </MenuItem>
+              <MenuItem
+                eventKey="2"
+                onClick={() =>
+                  this.setState({
+                    sortFunc: (a, b) => (a.authors > b.authors ? 1 : -1),
+                  })
+                }
+              >
+                Author
+              </MenuItem>
+              <MenuItem
+                eventKey="3"
+                onClick={() =>
+                  this.setState({
+                    sortFunc: (a, b) =>
+                      new Date(a.creation_date) - new Date(b.creation_date),
+                  })
+                }
+              >
+                Date Created
+              </MenuItem>
             </DropdownButton>
           </div>
         </div>
         <div className="row plugins-row">
-          <PluginsCategories categories={categories} 
-            onSelect={this.handleCategorySelect} 
+          <PluginsCategories
+            categories={categories}
+            onSelect={this.handleCategorySelect}
           />
           <div className="plugins-list">{pluginListBody}</div>
         </div>
