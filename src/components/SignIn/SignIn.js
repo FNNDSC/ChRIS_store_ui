@@ -151,7 +151,6 @@ export class SignIn extends Component {
                 <Button
                   className="signin-login-btn"
                   variant="primary"
-                  type="submit"
                   loading={loading}
                   onClick={this.handleSubmit}>
                   Log In
