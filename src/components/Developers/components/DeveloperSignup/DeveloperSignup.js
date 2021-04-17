@@ -3,8 +3,17 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Form,
+<<<<<<< HEAD
   Spinner,
 } from '@patternfly/react-core';
+=======
+  FormGroup,
+  ControlLabel,
+  FormControl,
+  HelpBlock,
+  Spinner,
+} from 'patternfly-react';
+>>>>>>> Show/Hide password functionality added
 import Button from '../../../Button';
 import _ from 'lodash';
 import StoreClient from '@fnndsc/chrisstoreapi';
@@ -184,6 +193,7 @@ export class DeveloperSignup extends Component {
     return (
       <Form onSubmit={this.handleSubmit} noValidate>
         <p>{loading ? 'Creating' : 'Create'} a ChRIS Developer account:</p>
+<<<<<<< HEAD
         <FormInput
           formLabel="Username"
           fieldId="username"
@@ -245,6 +255,99 @@ export class DeveloperSignup extends Component {
           >
 
 
+=======
+        <FormGroup
+          controlId="username"
+          validationState={error.controls.includes('username') ? 'error' : null}
+        >
+          <ControlLabel>
+            Username
+          </ControlLabel>
+          <FormControl
+            type="text"
+            autoComplete="off"
+            autoFocus={!isTouchDevice()}
+            onChange={this.handleChange}
+            name="username"
+            disabled={disableControls}
+          />
+          <HelpBlock>
+            { error.controls.includes('username') ? error.message : 'Enter your username' }
+          </HelpBlock>
+        </FormGroup>
+        <FormGroup
+          controlId="email"
+          validationState={error.controls.includes('email') ? 'error' : null}
+        >
+          <ControlLabel>
+            Email
+          </ControlLabel>
+          <FormControl
+            type="email"
+            autoComplete="off"
+            onChange={this.handleChange}
+            name="email"
+            disabled={disableControls}
+          />
+          <HelpBlock>
+            { error.controls.includes('email') ? error.message : 'Enter your email' }
+          </HelpBlock>
+        </FormGroup>
+        <FormGroup
+          controlId="password"
+          validationState={error.controls.includes('password') ? 'error' : null}
+        >
+          <ControlLabel>
+            Password
+          </ControlLabel>
+          <FormControl
+            style={{display:"inline"}}
+            type={this.state.hidden ? "password" : "text"}
+            autoComplete="new-password"
+            onChange={this.handleChange}
+            name="password"
+            disabled={disableControls}
+          />
+          <span 
+            style={{marginLeft:"-30px"}} 
+            onClick={this.toggleShow}>
+            {this.state.hidden ? <EyeIcon /> : <EyeSlashIcon />}
+          </span>
+          <HelpBlock>
+            { error.controls.includes('password') ? error.message : 'Enter your password' }
+          </HelpBlock>
+        </FormGroup>
+        <FormGroup
+          controlId="password-confirm"
+          validationState={error.controls.includes('confirmation') ? 'error' : null}
+        >
+          <ControlLabel>
+            Password Confirmation
+          </ControlLabel>
+          <FormControl
+            style={{display:"inline"}}
+            type={this.state.hidden ? "password" : "text"}
+            autoComplete="new-password"
+            onChange={this.handleChange}
+            name="passwordConfirm"
+            disabled={disableControls}
+          />
+          <span 
+            style={{marginLeft:"-30px"}} 
+            onClick={this.toggleShow}>
+            {this.state.hidden ? <EyeIcon /> : <EyeSlashIcon />}
+          </span>
+          <HelpBlock>
+            { error.controls.includes('confirmation') ? error.message : 'Confirm your password' }
+          </HelpBlock>
+        </FormGroup>
+        <Spinner loading={loading} size="md" inline>
+          {
+            <Button 
+              variant="primary"
+              type="submit" 
+              loading={disableControls}>
+>>>>>>> Show/Hide password functionality added
             Create Account
           </Button>
         )}

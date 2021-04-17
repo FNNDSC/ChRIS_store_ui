@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {
   Card, CardBody, Alert,
+  Form, FormGroup, FormControl,
 } from 'patternfly-react';
+import Button from '../Button';
 import StoreClient from '@fnndsc/chrisstoreapi';
 import './SignIn.css';
 import chrisLogo from '../../assets/img/chris_logo-white.png';
@@ -12,8 +14,8 @@ import FormInput from '../FormInput';
 import { Form } from '@patternfly/react-core';
 
 export class SignIn extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.mounted = false;
     this.state = {
@@ -36,6 +38,17 @@ export class SignIn extends Component {
     this.mounted = true;
   }
 
+  componentDidMount() {
+    // if the user attempts to see the login page when they are
+    // already logged in, we will log them out.
+    // TODO SECURITY idk if safe from CSRF
+    // TODO SECURITY send goodbye to backend to invalidate authToken
+    const { store } = this.props;
+    if (store.get('isLoggedIn')) {
+      store.set('authToken')('');
+    }
+  }
+
   componentWillUnmount() {
     this.mounted = false;
   }
@@ -48,31 +61,31 @@ export class SignIn extends Component {
     this.setState({ hidden: !this.state.hidden });
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     const authURL = process.env.REACT_APP_STORE_AUTH_URL;
     const { username, password } = this.state;
-    const { store } = this.props;
-
+    const { store, location, history } = this.props;
     this.setState({ loading: true });
-    const promise = StoreClient.getAuthToken(authURL, username, password)
-      .then((token) => {
-        store.set('userName')(username);
+    try{
+      const token = await StoreClient.getAuthToken(authURL, username, password);
+      store.set('userName')(username);
         store.set('authToken')(token);
         if (this.mounted) {
-          this.setState({ toDashboard: true });
+          this.setState({ loading: false });
+          if (location.state && location.state.from) {
+            history.replace(location.state.from);
+          }
+          else {
+            history.push('/dashboard');
+          }
         }
-      })
-      .catch(() => {
-        this.showError('Invalid username or password');
-      })
-      .then(() => {
+    } catch(error){
+      this.showError('Invalid username or password');
         if (this.mounted) {
           this.setState({ loading: false });
         }
-      });
-
+    }
     event.preventDefault();
-    return promise; // for tests
   }
 
   showError(message) {
@@ -85,12 +98,8 @@ export class SignIn extends Component {
 
   render() {
     const {
-      toDashboard, error, username, password, loading,
+      error, username, password, loading,
     } = this.state;
-
-    if (toDashboard) {
-      return <Redirect to="/dashboard" />;
-    }
 
     return (
       <div className="signin login-pf-page">
@@ -169,8 +178,8 @@ export class SignIn extends Component {
   }
 }
 
-export default ChrisStore.withStore(SignIn);
-
 SignIn.propTypes = {
   store: PropTypes.objectOf(PropTypes.object).isRequired,
 };
+
+export default ChrisStore.withStore(SignIn);
