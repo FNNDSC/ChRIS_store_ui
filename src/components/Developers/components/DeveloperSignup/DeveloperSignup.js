@@ -7,9 +7,9 @@ import {
   ControlLabel,
   FormControl,
   HelpBlock,
-  Button,
   Spinner,
 } from 'patternfly-react';
+import Button from '../../../Button';
 import _ from 'lodash';
 import StoreClient from '@fnndsc/chrisstoreapi';
 import { validate } from 'email-validator';
@@ -252,7 +252,10 @@ export class DeveloperSignup extends Component {
         </FormGroup>
         <Spinner loading={loading} size="md" inline>
           {
-            <Button bsStyle="primary" bsSize="large" type="submit" disabled={disableControls}>
+            <Button 
+              variant="primary"
+              type="submit" 
+              loading={disableControls}>
             Create Account
             </Button>
           }

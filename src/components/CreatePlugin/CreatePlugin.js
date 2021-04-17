@@ -3,8 +3,9 @@ import Client from '@fnndsc/chrisstoreapi';
 import { Link } from 'react-router-dom';
 import {
   Form, FormGroup, ControlLabel, FormControl, HelpBlock,
-  Col, Icon, Card, Button, Alert, CardBody, HintBlock,
+  Col, Icon, Card, Alert, CardBody, HintBlock,
 } from 'patternfly-react';
+import Button from '../Button';
 import classNames from 'classnames';
 import './CreatePlugin.css';
 
@@ -341,8 +342,7 @@ class CreatePlugin extends Component {
                 <div className="createplugin-create-btn-container">
                   <Button
                     className="createplugin-create-btn"
-                    bsStyle="primary"
-                    bsSize="large"
+                    variant="primary"
                     onClick={this.handleSubmit}
                   >
                     Create

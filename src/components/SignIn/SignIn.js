@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
 import {
-  Card, CardBody, Button, Alert,
+  Card, CardBody, Alert,
   Form, FormGroup, FormControl,
 } from 'patternfly-react';
+import Button from '../Button';
 import StoreClient from '@fnndsc/chrisstoreapi';
 import './SignIn.css';
 import chrisLogo from '../../assets/img/chris_logo-white.png';
@@ -149,12 +150,10 @@ export class SignIn extends Component {
                 </FormGroup>
                 <Button
                   className="signin-login-btn"
-                  bsStyle="primary"
-                  bsSize="large"
+                  variant="primary"
                   type="submit"
-                  disabled={loading}
-                  onClick={this.handleSubmit}
-                >
+                  loading={loading}
+                  onClick={this.handleSubmit}>
                   Log In
                 </Button>
                 <p className="login-pf-signup">
