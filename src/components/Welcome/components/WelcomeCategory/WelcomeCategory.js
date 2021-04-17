@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, CardTitle, CardBody, CardFooter, Button } from 'patternfly-react';
+import { Card, CardTitle, CardBody, CardFooter } from 'patternfly-react';
+import Button from '../../../Button';
 import PropTypes from 'prop-types';
 import './WelcomeCategory.css';
 
@@ -25,7 +26,12 @@ const WelcomeCategory = props => (
       }
     </CardBody>
     <CardFooter>
-      <Button bsStyle="primary" bsSize="large" className="btn-block">View More ...</Button>
+      <Button 
+        variant="primary"
+        className="btn-block"
+        >
+          View More ...
+      </Button>
     </CardFooter>
   </Card>
 );
