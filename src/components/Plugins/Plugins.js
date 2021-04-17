@@ -59,7 +59,13 @@ export class Plugins extends Component {
       this.fetchPluginStars();
     }
   }
-
+  componentDidUpdate(prevProps){
+    if(prevProps.location.search !== this.props.location.search) {
+      this.fetchPlugins().catch((err) => {
+        console.error(err);
+      });
+    }
+  }
   componentWillUnmount() {
     this.mounted = false;
   }
@@ -106,9 +112,11 @@ export class Plugins extends Component {
   }
 
   fetchPlugins() {
+    const { location: { search } } = this.props;
     const searchParams = {
       limit: 20,
       offset: 0,
+      name_title_category: search.split('?')[1],
     };
 
     return new Promise(async (resolve, reject) => {
@@ -118,11 +126,10 @@ export class Plugins extends Component {
         plugins = await this.client.getPlugins(searchParams);
 
         if (this.mounted) {
-          this.setState((prevState) => {
-            const prevPluginList = prevState.pluginList ? prevState.pluginList : [];
-            const nextPluginList = prevPluginList.concat(plugins.data);
-            return { pluginList: nextPluginList };
-          });
+          this.setState((prevState) => ({
+            ...prevState,
+            pluginList: plugins.data,
+          }));
         }
       } catch (e) {
         return reject(e);

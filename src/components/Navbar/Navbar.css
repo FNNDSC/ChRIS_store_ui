@@ -312,3 +312,20 @@ header > .navbar-dropdown {
     margin-left: 0;
   }
 }
+@media (max-width: 468px) {
+  .logo{
+    height: 30px;
+    width: auto;
+  }
+  .btnn{
+    height: auto;
+    font-size: 0.7em !important;
+    width: 60px;
+  }
+}
+
+@media (max-width: 767px) {
+  .pf-c-page__header-tools-item #search {
+    display: none;
+  }
+}

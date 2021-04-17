@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Brand,
   PageHeader,
@@ -9,8 +9,7 @@ import {
   PageHeaderToolsItem,
   Button
 } from '@patternfly/react-core';
-import { NavLink, useHistory } from 'react-router-dom';
-import Search from './components/Search/Search';
+import { NavLink } from 'react-router-dom';
 import './Navbar.css';
 import LogoImg from '../../assets/img/chris-plugin-store_logo.png';
 import ChrisStore from '../../store/ChrisStore';
@@ -35,8 +34,6 @@ const navLinks = [
  * Conditionally renders a list of links into a <Nav>.
  */
 const Navigation = ({ store }) => {
-  const [searchKey, setSearchKey] = useState('');
-  const history = useHistory();
   const shouldShowLink = (linkInfo) => {
     if (!linkInfo.cond) {
       return true;
@@ -60,15 +57,6 @@ const Navigation = ({ store }) => {
               </NavItem>
             ))
         }
-        <NavItem>
-          <Search 
-            placeholder="Search Plugin"
-            value={searchKey}
-            onChange={(value) => setSearchKey(value)}
-            onClear={() => setSearchKey('')}
-            onSearch={() => {history.push('/plugins')}}
-          />
-        </NavItem>
       </NavList>
     </Nav>
   );
@@ -89,24 +77,26 @@ const LoginButton = ({ store }) => (
 );
 const StatefulLoginButton = ChrisStore.withStore(LoginButton);
 
-const HeaderTools = (
-  <PageHeaderTools>
-    <PageHeaderToolsItem>
-      <StatefulLoginButton />
-    </PageHeaderToolsItem>
-  </PageHeaderTools>
-)
+const Logo = (<Brand className="logo" alt="ChRIS Plugin Store" src={LogoImg}/>);
 
-const Logo = (<Brand alt="ChRIS Plugin Store" src={LogoImg}/>);
-
-const Navbar = () => (
+const Navbar = ({ searchComponent }) => {
+  const HeaderTools = (
+    <PageHeaderTools>
+      <PageHeaderToolsItem>
+        {searchComponent}
+      </PageHeaderToolsItem>
+      <PageHeaderToolsItem>
+        <StatefulLoginButton />
+      </PageHeaderToolsItem>
+    </PageHeaderTools>
+  )
+  return (
   <PageHeader
     logo={Logo}
     logoComponent={NavLink}
     logoProps={{to: '/'}}
     topNav={statefulNavigation}
     headerTools={HeaderTools}
-  />
-);
-
-export default Navbar;
+  />)
+}
+export default ChrisStore.withStore(Navbar);

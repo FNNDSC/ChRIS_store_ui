@@ -1,0 +1,9 @@
+.searchbar {
+  background: #393f44;
+  color: white
+}
+@media (min-width: 768px ) {
+  .searchbar{
+    display: none;
+  }
+}
