@@ -16,6 +16,8 @@ const PluginBody = ({ pluginData }) => {
   const [readme, setReadme] = useState();
   const [repoData, setRepoData] = useState();
 
+  console.log(pluginData);
+
   const fetchReadme = useCallback(async (repo) => {
     const data = await fetch(`https://api.github.com/repos/${repo}/community/profile`)
     const rm = await fetch((await data.json()).files.readme.url)
@@ -95,7 +97,7 @@ const PluginBody = ({ pluginData }) => {
                                   {pluginData.authors}
                                 </a>
                                 <div className="plugin-body-contributors-all">
-                                  <a className="pf-m-link" href={repoData ? repoData.contributors_url : ''}>
+                                  <a className="pf-m-link" href={`${pluginData.public_repo}/graphs/contributors`}>
                                     View all contributors...
                                   </a>
                                 </div>
@@ -114,7 +116,7 @@ const PluginBody = ({ pluginData }) => {
                               </div>
                               <div className="plugin-body-detail-section">
                                 <h4>Date added</h4>
-                                7 July 2020
+                                {(new Date(pluginData.creation_date)).toDateString()}
                               </div>
                             </div>
                           </div>
