@@ -8,15 +8,12 @@ import {
   Grid, Nav, NavItem, TabContainer, TabContent, TabPane,
 } from 'patternfly-react';
 
-
 import './PluginBody.css';
 import { CopyURLButton } from '../../../general/CopyURLButton';
 
 const PluginBody = ({ pluginData }) => {
   const [readme, setReadme] = useState();
   const [repoData, setRepoData] = useState();
-
-  console.log(pluginData);
 
   const fetchReadme = useCallback(async (repo) => {
     const data = await fetch(`https://api.github.com/repos/${repo}/community/profile`)
@@ -97,6 +94,7 @@ const PluginBody = ({ pluginData }) => {
                                   {pluginData.authors}
                                 </a>
                                 <div className="plugin-body-contributors-all">
+                                  <br/>
                                   <a className="pf-m-link" href={`${pluginData.public_repo}/graphs/contributors`}>
                                     View all contributors...
                                   </a>
