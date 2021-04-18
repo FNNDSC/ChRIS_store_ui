@@ -8,6 +8,8 @@ import PluginBody from './components/PluginBody/PluginBody';
 import RelativeDate from '../RelativeDate/RelativeDate';
 import ChrisStore from '../../store/ChrisStore';
 import PluginImg from '../../assets/img/brainy-pointer.png';
+import NotFound from '../NotFound/NotFound';
+
 import './Plugin.css';
 
 const removeEmail = (author) => {
@@ -24,6 +26,7 @@ export class Plugin extends Component {
     const { pluginData } = props;
     this.state = {
       pluginData,
+      loading: true,
       star: undefined,
     };
 
@@ -42,11 +45,16 @@ export class Plugin extends Component {
   async componentDidMount() {
     let pluginData;
     if (!this.state.pluginData) {
-      pluginData = await this.fetchPluginData();
+      try {
+        pluginData = await this.fetchPluginData();
+      } catch (error) {
+        console.error(error)
+      }
     } else {
       ({ pluginData } = this.state);
     }
-
+    
+    this.setState({ loading: false });
     if (this.isLoggedIn()) {
       this.fetchStarDataByPluginName(pluginData.name);
     }
@@ -90,24 +98,22 @@ export class Plugin extends Component {
     }
   }
 
-  fetchPluginData() {
+  async fetchPluginData() {
     const { plugin: pluginId } = this.props.match.params;
 
     let pluginData;
-    return new Promise(async (resolve, reject) => {
-      try {
-        const plugin = await this.client.getPlugin(parseInt(pluginId, 10));
-        pluginData = plugin.data;
-        pluginData.url = plugin.url;
-      } catch (e) {
-        return reject(e);
-      }
+    try {
+      const plugin = await this.client.getPlugin(parseInt(pluginId, 10));
+      pluginData = plugin.data;
+      pluginData.url = plugin.url;
+    } catch (e) {
+      return Promise.reject(e);
+    }
 
-      if (this.mounted) {
-        this.setState({ pluginData });
-      }
-      return resolve(pluginData);
-    });
+    if (this.mounted) {
+      this.setState({ pluginData, loading: false });
+    }
+    return pluginData;
   }
 
   async fetchStarDataByPluginName(pluginName) {
@@ -149,6 +155,9 @@ export class Plugin extends Component {
   }
 
   render() {
+    if (!this.state.loading && !this.state.pluginData)
+      return <NotFound/>
+
     let plugin;
     let pluginURL;
     let authorURL;
