@@ -4,7 +4,7 @@ import Button from '../../../Button';
 import PropTypes from 'prop-types';
 import './WelcomeCategory.css';
 
-const WelcomeCategory = ({ category }) => (
+const WelcomeCategory = ({ category, ...props }) => (
   <Card className="welcome-category">
     <CardTitle className="welcome-category-header">{category.name}</CardTitle>
     <CardBody>
