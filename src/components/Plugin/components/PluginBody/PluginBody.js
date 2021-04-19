@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import marked from 'marked';
-import rst2html from 'rst2html';
+import rst2mdown from 'rst2mdown';
 import {
   Grid, Nav, NavItem, TabContainer, TabContent, TabPane,
 } from 'patternfly-react';
@@ -19,7 +19,7 @@ const PluginBody = ({ pluginData }) => {
     url
       .split('').reverse().join('')   // Reverse the URL
       .split('.').shift()             // Get first segment before '.'
-      .split('').reverse().join('')   // Reverse again to get original
+      .split('').reverse().join('')   // Reverse again to get extension
   )
 
   const fetchReadme = useCallback(async (repo) => {
@@ -32,10 +32,10 @@ const PluginBody = ({ pluginData }) => {
     const readmeType = getReadmeFileType(downloadUrl)
     const file = await fetch(downloadUrl)
 
-    if (readmeType === 'md' || readmeType === 'rst') // temporary until we find a way to render rst
+    if (readmeType === 'md') 
       setReadme(marked(await file.text()))
-    // else if (readmeType === 'rst')
-    //   setReadme(rst2html(await file.text()))
+    else if (readmeType === 'rst')
+      setReadme(marked(rst2mdown(await file.text()))) // less than ideal rendering for rst
     else if (readmeType === 'html' || readmeType === 'htm')
       setReadme(await file.text())
     else 
