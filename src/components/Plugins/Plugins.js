@@ -116,7 +116,7 @@ export class Plugins extends Component {
     const searchParams = {
       limit: 20,
       offset: 0,
-      name_title_category: search.split('?')[1],
+      name_title_category: search.split('?')[1] || '',
     };
 
     return new Promise(async (resolve, reject) => {
