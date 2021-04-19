@@ -66,7 +66,7 @@ class Dashboard extends Component {
     let response;
     try {
       response = await client.getPlugin(pluginId);
-      response.delete();
+      await response.delete();
       if(response.data) {
         this.fetchPlugins();
       }
