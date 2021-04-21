@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import "./WelcomeDevelopers.css";
 import { Link } from "react-router-dom";
@@ -26,6 +27,15 @@ const WelcomeDevelopers = () => (
       </Link>
     </div>
   </React.Fragment>
+=======
+import React from 'react';
+import styles from './WelcomeDevelopers.module.css';
+
+const WelcomeDevelopers = () => (
+  <div className={`${styles['welcome-developers']} row`}>
+    <div className={styles['welcome-developers-header']}>Developers Call To Action.</div>
+  </div>
+>>>>>>> added CSS modules-1
 );
 
 export default WelcomeDevelopers;

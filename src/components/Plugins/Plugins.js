@@ -6,6 +6,7 @@ import { DropdownButton, MenuItem } from 'react-bootstrap';
 import PluginItem from './components/PluginItem/PluginItem';
 import LoadingPluginItem from './components/LoadingPluginItem/LoadingPluginItem';
 import PluginsCategories from './components/PluginsCategories/PluginsCategories';
+import styles from './Plugins.module.css';
 import LoadingContainer from '../LoadingContainer/LoadingContainer';
 import LoadingContent from '../LoadingContainer/components/LoadingContent/LoadingContent';
 import ChrisStore from '../../store/ChrisStore';
@@ -270,7 +271,7 @@ export class Plugins extends Component {
       ));
 
       pluginsFound = (
-        <span className="plugins-found">{pluginList.length} plugins found</span>
+        <span className={styles['plugins-found']}>{pluginList.length} plugins found</span>
       );
     }
     else {

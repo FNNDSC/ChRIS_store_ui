@@ -1,14 +1,14 @@
 import React from 'react';
 import Button from '../../../Button';
 
-import './WelcomeChRIS.css';
+import styles from './WelcomeChRIS.module.css';
 import chrisBanner from '../../../../assets/img/chris_logo-ribbon.png';
 
 const WelcomeChRIS = () => (
-  <div className="welcome-chris">
-    <div className="row">
-      <div className="welcome-chris-text">
-        <div className="welcome-chris-text-container">
+  <div className={styles['welcome-chris']}>
+    <div className={`row`}>
+      <div className={styles['welcome-chris-text']}>
+        <div className={styles['welcome-chris-text-container']}>
           <div>
             What is ChRIS?
           </div>
@@ -24,29 +24,33 @@ const WelcomeChRIS = () => (
           </p>
         </div>
       </div>
-      <div className="welcome-chris-video-column">
+      <div className={styles['welcome-chris-video-column']}>
         <div>
           <iframe
             title="ChRIS video"
-            className="welcome-chris-video"
+            className={styles['welcome-chris-video']}
             src="https://www.youtube-nocookie.com/embed/dyFQD87jU68"
             frameBorder="0"
             allow="autoplay; encrypted-media"
             allowFullScreen
           />
-          <p className="welcome-chris-video-desc">
+          <p className={styles['welcome-chris-video-desc']}>
             {'"'}Creating ChRIS{'"'} is an upcoming video series by Red Hat films that
             focuses on the ChRIS project - its purpose, development, milestones.
           </p>
         </div>
       </div>
     </div>
-    <div className="row welcome-chris-btn-row">
+    <div className={`row ${styles['welcome-chris-btn-row']}`}>
       <div>
         <Button
           variant="secondary"
+<<<<<<< HEAD
           className="welcome-chris-btn welcome-chris-more-btn"
           onClick={()=>{window.open('https://www.chrisproject.org')}}
+=======
+          className={`${styles['welcome-chris-btn']} ${styles['welcome-chris-more-btn']}`}
+>>>>>>> added CSS modules-1
         >
           Learn more
         </Button>
@@ -54,14 +58,14 @@ const WelcomeChRIS = () => (
       <div>
         <Button
           variant="secondary"
-          className="welcome-chris-btn"
+          className={styles['welcome-chris-btn']}
         >
           Don{"'"}t have access to ChRIS?
         </Button>
       </div>
     </div>
     <span>
-      <img src={chrisBanner} alt="" className="welcome-chris-banner" />
+      <img src={chrisBanner} alt="" className={styles['welcome-chris-banner']} />
     </span>
   </div>
 );
