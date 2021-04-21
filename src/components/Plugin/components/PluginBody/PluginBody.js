@@ -15,15 +15,15 @@ const PluginBody = ({ pluginData }) => {
   const [repoData, setRepoData] = useState();
 
   const fetchReadme = useCallback(async (repo) => {
-    const url = await ((
-      await fetch((
+    const url = (await 
+      (await fetch((
         await (
           await fetch(`https://api.github.com/repos/${repo}/community/profile`)
-      ).json()).files.readme.url)
-    ).json()).download_url
+        ).json()).files.readme.url)
+      ).json()).download_url
 
     const file = await fetch(url)
-    const type = url.split('.').reverse().shift()
+    const type = url.split('.').reverse().shift() //file.headers.get('content-type')
 
     if (type === 'md' || type === 'rst') 
       setReadme(marked(await file.text()))
@@ -96,6 +96,12 @@ const PluginBody = ({ pluginData }) => {
                                   {pluginData.public_repo}
                                 </a>
                               </div>
+                              {/* <div className="plugin-body-detail-section">
+                                <h4>Documentation</h4>
+                                <a className="pf-c-button pf-m-link" href="readthedocs.com/freesurfer">
+                                  readthedocs.com/freesurfer
+                                </a>
+                              </div> */}
                               <div className="plugin-body-detail-section">
                                 <h4>Contributors</h4>
                                 <a href={pluginData.authorURL}
@@ -108,7 +114,7 @@ const PluginBody = ({ pluginData }) => {
                                 <div className="plugin-body-contributors-all">
                                   <br/>
                                   <a className="pf-m-link" href={`${pluginData.public_repo}/graphs/contributors`}>
-                                    View all contributors
+                                    View all contributors...
                                   </a>
                                 </div>
                               </div>
