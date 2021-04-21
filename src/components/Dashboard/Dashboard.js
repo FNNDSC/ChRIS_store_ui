@@ -70,6 +70,9 @@ class Dashboard extends Component {
       if(response.data) {
         this.fetchPlugins();
       }
+      else{
+        throw new Error('Delete unsuccessful');
+      }
     } catch (e) {
       this.showNotifications(new HttpApiCallError(e));
     }

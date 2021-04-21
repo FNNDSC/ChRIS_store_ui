@@ -48,7 +48,7 @@ export class Plugin extends Component {
       if (!this.state.pluginData) {
         pluginData = await this.fetchPluginData();
       } else {
-        ({ pluginData } = this.state);
+        pluginData = this.state.pluginData;
       }
     }catch(errors){
       this.showNotifications(new HttpApiCallError(errors));
@@ -135,6 +135,9 @@ export class Plugin extends Component {
   
       if (stars.length > 0) {
         this.setState({ star: stars[0] });
+      }
+      else {
+        throw new Error('Unable to fetch Plugin stars');
       }
     }catch(errors){
       this.showNotifications(new HttpApiCallError(errors));
