@@ -1,11 +1,9 @@
 /* eslint-disable react/jsx-indent-props */
 /* eslint-disable react/jsx-indent */
 import React, { useState, useEffect, useCallback } from 'react';
+import { Grid, Nav, NavItem, TabContainer, TabContent, TabPane } from 'patternfly-react';
 import PropTypes from 'prop-types';
 import marked from 'marked';
-import {
-  Grid, Nav, NavItem, TabContainer, TabContent, TabPane,
-} from 'patternfly-react';
 
 import './PluginBody.css';
 import { CopyURLButton } from '../../../general/CopyURLButton';
@@ -23,7 +21,7 @@ const PluginBody = ({ pluginData }) => {
       ).json()).download_url
 
     const file = await fetch(url)
-    const type = url.split('.').reverse().shift() //file.headers.get('content-type')
+    const type = url.split('.').reverse().shift()
 
     if (type === 'md' || type === 'rst') 
       setReadme(marked(await file.text()))
@@ -96,12 +94,6 @@ const PluginBody = ({ pluginData }) => {
                                   {pluginData.public_repo}
                                 </a>
                               </div>
-                              {/* <div className="plugin-body-detail-section">
-                                <h4>Documentation</h4>
-                                <a className="pf-c-button pf-m-link" href="readthedocs.com/freesurfer">
-                                  readthedocs.com/freesurfer
-                                </a>
-                              </div> */}
                               <div className="plugin-body-detail-section">
                                 <h4>Contributors</h4>
                                 <a href={pluginData.authorURL}
@@ -114,7 +106,7 @@ const PluginBody = ({ pluginData }) => {
                                 <div className="plugin-body-contributors-all">
                                   <br/>
                                   <a className="pf-m-link" href={`${pluginData.public_repo}/graphs/contributors`}>
-                                    View all contributors...
+                                    View all contributors
                                   </a>
                                 </div>
                               </div>
