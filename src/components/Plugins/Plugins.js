@@ -13,7 +13,6 @@ import ChrisStore from '../../store/ChrisStore';
 import HttpApiCallError from '../../errors/HttpApiCallError';
 import Notification from '../Notification';
 
-import './Plugins.css';
 
 const CATEGORIES = ['FreeSurfer', 'MRI', 'Segmentation', 'copy'];
 
@@ -295,7 +294,7 @@ export class Plugins extends Component {
     }
 
     return (
-      <div className="plugins-container">
+      <div className={styles['plugins-container']}>
         {this.state.errorMsg && (
           <Notification
             title={this.state.errorMsg}
@@ -305,19 +304,19 @@ export class Plugins extends Component {
             onClose={()=>this.setState({ errorMsg: null })}
           />
         )}
-        <div className="plugins-stats">
-          <div className="row plugins-stats-row">
+        <div className={styles['plugins-stats']}>
+          <div className={`row ${styles['plugins-stats-row']}`}>
             {pluginsFound}
             <DropdownButton id="sort-by-dropdown" title="Sort By" pullRight>
               <MenuItem eventKey="1">Name</MenuItem>
             </DropdownButton>
           </div>
         </div>
-        <div className="row plugins-row">
+        <div className={`row ${styles['plugins-row']}`}>
           <PluginsCategories categories={categoryEntries}
             onSelect={this.handleCategorySelect}
           />
-          <div className="plugins-list">{pluginListBody}</div>
+          <div className={styles['plugins-list']}>{pluginListBody}</div>
         </div>
       </div>
     );

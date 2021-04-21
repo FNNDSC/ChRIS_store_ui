@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
-import './Search.css';
-=======
-import React, { useState } from 'react';
 import styles from './Search.module.css';
->>>>>>> added CSS modules-1
 import SearchIcon from '@patternfly/react-icons/dist/esm/icons/search-icon';
 import TimesIcon from '@patternfly/react-icons/dist/esm/icons/times-icon';
 

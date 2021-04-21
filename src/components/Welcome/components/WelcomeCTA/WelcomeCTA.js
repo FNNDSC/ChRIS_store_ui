@@ -1,6 +1,6 @@
 import React from 'react';
 import { AngleDownIcon } from '@patternfly/react-icons';
-import './WelcomeCTA.css';
+import styles from './WelcomeCTA.module.css';
 import WelcomeFeature from '../WelcomeFeature/WelcomeFeature';
 
 /* plugin images */

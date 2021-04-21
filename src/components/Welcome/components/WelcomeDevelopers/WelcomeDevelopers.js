@@ -1,15 +1,14 @@
-<<<<<<< HEAD
 import React from "react";
-import "./WelcomeDevelopers.css";
+import styles from "./WelcomeDevelopers.module.css";
 import { Link } from "react-router-dom";
 
 const WelcomeDevelopers = () => (
   <React.Fragment>
-    <div className="welcome-developers row">
-      <div className="welcome-developers-header">
+    <div className={`${styles['welcome-developers']} row`}>
+      <div className={styles['welcome-developers-header']}>
         Expand the reach of your image processing software
       </div>
-      <div className="text-light">
+      <div className={`text-light`}>
         <p>
           <i>ChRIS</i> is an <strong>open source platform</strong> for medical
           analytics in the cloud, democratizing the development and usage of
@@ -22,20 +21,11 @@ const WelcomeDevelopers = () => (
           researchers and clinicians. <strong>Join us!</strong>
         </p>
       </div>
-      <Link to="/quickstart" className="btn callToAction-btn btn-primary">
+      <Link to="/quickstart" className={`btn ${styles['callToAction-btn']} btn-primary`}>
         Sign Up
       </Link>
     </div>
   </React.Fragment>
-=======
-import React from 'react';
-import styles from './WelcomeDevelopers.module.css';
-
-const WelcomeDevelopers = () => (
-  <div className={`${styles['welcome-developers']} row`}>
-    <div className={styles['welcome-developers-header']}>Developers Call To Action.</div>
-  </div>
->>>>>>> added CSS modules-1
 );
 
 export default WelcomeDevelopers;

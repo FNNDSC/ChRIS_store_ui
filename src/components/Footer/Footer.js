@@ -1,7 +1,6 @@
 import React from "react";
 import "./Footer.css";
 import chrisLogo from "../../assets/img/chris_logo-white.png";
-
 const Footer = () => (
   <div className="footer">
     <div className="footer-row">

@@ -11,7 +11,7 @@ import {
 } from "patternfly-react";
 import { CardTitle, CardBody, Card, DropdownItem, Dropdown, KebabToggle, GridItem, Grid, Form } from "@patternfly/react-core";
 import Button from "../../../Button";
-import "./DashPluginCardView.css";
+import styles from "./DashPluginCardView.module.css";
 import BrainImg from "../../../../assets/img/empty-brain-xs.png";
 import PluginPointer from "../../../../assets/img/brainy_welcome-pointer.png";
 import RelativeDate from "../../../RelativeDate/RelativeDate";
@@ -21,16 +21,16 @@ const DashGitHubEmptyState = () => (
   <Col xs={12}>
     <Card>
       <CardTitle>My Plugins</CardTitle>
-      <CardBody className="card-body-empty">
-        <h1 className="card-body-header-text">
+      <CardBody className={styles['card-body-empty']}>
+        <h1 className={styles['card-body-header-text']}>
           You have no plugins in the ChRIS store
         </h1>
-        <h2 className="card-body-subhead">Lets fix that!</h2>
-        <div className="card-body-content-parent">
+        <h2 className={styles['card-body-subhead']}>Lets fix that!</h2>
+        <div className={styles['card-body-content-parent']}>
           <div>
             <img src={PluginPointer} alt="Click Add Plugin" />
           </div>
-          <div className="card-body-content-child-right">
+          <div className={styles['card-body-content-child-right']}>
             <p>
               Create a new listing for your plugin in the ChRIS store by
               clicking &#34;Add Plugin&#34; below.
@@ -171,7 +171,7 @@ class DashPluginCardView extends Component {
     const addNewPlugin = (
       <GridItem key="addNewPlugin">
         <Card>
-          <CardBody className="card-view-add-plugin">
+          <CardBody className={styles['card-view-add-plugin']}>
             <div>
               <img width="77" height="61" src={BrainImg} alt="Add new plugin" />
             </div>
@@ -194,17 +194,17 @@ class DashPluginCardView extends Component {
         return (
           <GridItem  key={plugin.name}>
             <Card>
-              <CardTitle className="card-view-title">
+              <CardTitle className={styles['card-view-title']}>
                 <div>
                   <Link to={`/plugin/${plugin.id}`} href={`/plugin/${plugin.id}`}>
                     {plugin.name}
                   </Link>
-                  <div className="card-view-tag-title">
+                  <div className={styles['card-view-tag-title']}>
                     <FieldLevelHelp content={<div>{plugin.description}</div>} />
                   </div>
                 </div>
                 <Dropdown
-                  className="card-view-kebob"
+                  className={styles['card-view-kebob']}
                   onSelect={(event) => this.onSelect(event, plugin)}
                   toggle={<KebabToggle onToggle={(value) => this.toggle(value, id)} id={`kebab-${plugin.id}`}/>}
                   isOpen={this.state.isOpen[id]}
@@ -217,20 +217,20 @@ class DashPluginCardView extends Component {
                 
               </CardTitle>
               <CardBody>
-                <div className="card-view-app-type">{applicationType}</div>
+                <div className={styles['card-view-app-type']}>{applicationType}</div>
                 <div>
-                  <div className="card-view-plugin-tag">
+                  <div className={styles['card-view-plugin-tag']}>
                     {`Version ${plugin.version}`}
                   </div>
                 </div>
                 <div>
-                  <div className="card-view-plugin-tag">
+                  <div className={styles['card-view-plugin-tag']}>
                     {creationDate.isValid() &&
                       `Created ${creationDate.format()}`}
                   </div>
                 </div>
                 <div>
-                  <div className="card-view-plugin-tag">
+                  <div className={styles['card-view-plugin-tag']}>
                     {`${plugin.license} license`}
                   </div>
                 </div>
@@ -245,8 +245,8 @@ class DashPluginCardView extends Component {
       <DashGitHubEmptyState />
     ) : (
       <React.Fragment>
-        <div className="card-view-row">
-          <Grid sm={12} md={4} lg={4} x12={4} hasGutter className="card-view-grid">
+        <div className={styles['card-view-row']}>
+          <Grid sm={12} md={4} lg={4} x12={4} hasGutter className={styles['card-view-grid']}>
           {pluginCardBody}
           </Grid>
           <MessageDialog

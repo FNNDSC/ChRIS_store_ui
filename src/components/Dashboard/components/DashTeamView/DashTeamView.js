@@ -18,23 +18,23 @@ import {
 } from "patternfly-react";
 import { CardTitle, CardBody, Card, CardFooter, Grid, GridItem, CardActions } from "@patternfly/react-core";
 import BrainyTeammatesPointer from "../../../../assets/img/brainy_teammates-pointer.png";
-import "./DashTeamView.css";
+import styles from "./DashTeamView.module.css";
 
 const DashTeamEmptyState = () => (
-  <div className="card-body-content-parent">
+  <div className={styles['card-body-content-parent']}>
     <div>
-      <span className="pficon pficon-info" id="no-plugin-info-icon" />
+      <span className={`pficon pficon-info`} id={styles['no-plugin-info-icon']} />
     </div>
-    <div className="dash-text-div">
-      <span className="github-plugin-noplugin-title github-team-noplugin-title">
+    <div className={styles['dash-text-div']}>
+      <span className={`${styles['github-plugin-noplugin-title']} ${styles['github-team-noplugin-title']}`}>
         Teammates Panel
       </span>
-      <p className="github-plugin-noplugin-text">
+      <p className={styles['github-plugin-noplugin-text']}>
         In this area, you will be able to add and manage teammates to help you
         with each plugin.
       </p>
     </div>
-    <div className="card-body-content-child-right">
+    <div className={styles['card-body-content-child-right']}>
       <img src={BrainyTeammatesPointer} alt="Click Add Plugin" />
     </div>
   </div>
@@ -168,7 +168,7 @@ class DashTeamView extends Component {
                   </Table.Button>
                 </Table.Actions>,
                 <Table.Actions key="1">
-                  <Table.DropdownKebab id="myKebab" pullRight>
+                  <Table.DropdownKebab id={styles['myKebab']} pullRight>
                     <MenuItem>Action</MenuItem>
                     <MenuItem>Another Action</MenuItem>
                     <MenuItem>Something else here</MenuItem>

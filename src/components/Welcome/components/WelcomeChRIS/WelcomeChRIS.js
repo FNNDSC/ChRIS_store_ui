@@ -45,12 +45,8 @@ const WelcomeChRIS = () => (
       <div>
         <Button
           variant="secondary"
-<<<<<<< HEAD
-          className="welcome-chris-btn welcome-chris-more-btn"
-          onClick={()=>{window.open('https://www.chrisproject.org')}}
-=======
           className={`${styles['welcome-chris-btn']} ${styles['welcome-chris-more-btn']}`}
->>>>>>> added CSS modules-1
+          onClick={()=>{window.open('https://www.chrisproject.org')}}
         >
           Learn more
         </Button>
