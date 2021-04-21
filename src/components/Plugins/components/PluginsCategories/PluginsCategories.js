@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 
 import './PluginsCategories.css';
 
-const PluginsCategories = props => (
+const PluginsCategories = ({categories, ...props}) => (
   <div className="plugins-categories">
     <div className="plugins-categories-header">Categories</div>
     <div>
       {
-        props.categories.map(category => (
-          <div key={category.name} className="plugins-category">
-            <div className="plugins-category-name">{category.name}</div>
-            <div className="plugins-category-length">{category.length}</div>
+        categories.map(( {name, length}) => (
+          <div key={name} className="plugins-category">
+            <div className="plugins-category-name">{name}</div>
+            <div className="plugins-category-length">{length}</div>
           </div>
         ))
       }
