@@ -40,7 +40,6 @@
     "react-dom": "^16.8.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "rst2mdown": "^0.1.0",
     "rxjs": "^6.3.3",
     "sirv-cli": "^1.0.8",
     "sortabular": "^1.6.0",

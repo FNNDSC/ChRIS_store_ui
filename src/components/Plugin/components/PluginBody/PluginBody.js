@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import marked from 'marked';
-import rst2mdown from 'rst2mdown';
 import {
   Grid, Nav, NavItem, TabContainer, TabContent, TabPane,
 } from 'patternfly-react';
@@ -23,23 +22,21 @@ const PluginBody = ({ pluginData }) => {
   )
 
   const fetchReadme = useCallback(async (repo) => {
-    const rurl = await fetch((
+    const url = await fetch((
       await (
         await fetch(`https://api.github.com/repos/${repo}/community/profile`)
-      ).json()).files.readme.url)
+      ).json()
+    ).files.readme.url)
 
-    const downloadUrl = (await rurl.json()).download_url
-    const readmeType = getReadmeFileType(downloadUrl)
-    const file = await fetch(downloadUrl)
+    const file = await fetch((await url.json()).download_url)
+    const type = getReadmeFileType(file)
 
-    if (readmeType === 'md') 
+    if (type === 'md') 
       setReadme(marked(await file.text()))
-    else if (readmeType === 'rst')
-      setReadme(marked(rst2mdown(await file.text()))) // less than ideal rendering for rst
-    else if (readmeType === 'html' || readmeType === 'htm')
+    else if (type === 'html' || type === 'htm')
       setReadme(await file.text())
     else 
-      throw TypeError('Unknown README file type:', readmeType)
+      throw TypeError('Unknown README file type:', type)
   }, [])
 
   const fetchRepoData = useCallback(async (repo) => {
