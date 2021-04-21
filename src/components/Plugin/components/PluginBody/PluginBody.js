@@ -14,29 +14,21 @@ const PluginBody = ({ pluginData }) => {
   const [readme, setReadme] = useState();
   const [repoData, setRepoData] = useState();
 
-  const getReadmeFileType = (url) => (
-    url
-      .split('').reverse().join('')   // Reverse the URL
-      .split('.').shift()             // Get first segment before '.'
-      .split('').reverse().join('')   // Reverse again to get extension
-  )
-
   const fetchReadme = useCallback(async (repo) => {
-    const url = await fetch((
-      await (
-        await fetch(`https://api.github.com/repos/${repo}/community/profile`)
-      ).json()
-    ).files.readme.url)
+    const url = await ((
+      await fetch((
+        await (
+          await fetch(`https://api.github.com/repos/${repo}/community/profile`)
+      ).json()).files.readme.url)
+    ).json()).download_url
 
-    const file = await fetch((await url.json()).download_url)
-    const type = getReadmeFileType(file)
+    const file = await fetch(url)
+    const type = url.split('.').reverse().shift()
 
-    if (type === 'md') 
+    if (type === 'md' || type === 'rst') 
       setReadme(marked(await file.text()))
-    else if (type === 'html' || type === 'htm')
+    else
       setReadme(await file.text())
-    else 
-      throw TypeError('Unknown README file type:', type)
   }, [])
 
   const fetchRepoData = useCallback(async (repo) => {
@@ -104,12 +96,6 @@ const PluginBody = ({ pluginData }) => {
                                   {pluginData.public_repo}
                                 </a>
                               </div>
-                              {/* <div className="plugin-body-detail-section">
-                                <h4>Documentation</h4>
-                                <a className="pf-c-button pf-m-link" href="readthedocs.com/freesurfer">
-                                  readthedocs.com/freesurfer
-                                </a>
-                              </div> */}
                               <div className="plugin-body-detail-section">
                                 <h4>Contributors</h4>
                                 <a href={pluginData.authorURL}
@@ -122,7 +108,7 @@ const PluginBody = ({ pluginData }) => {
                                 <div className="plugin-body-contributors-all">
                                   <br/>
                                   <a className="pf-m-link" href={`${pluginData.public_repo}/graphs/contributors`}>
-                                    View all contributors...
+                                    View all contributors
                                   </a>
                                 </div>
                               </div>
