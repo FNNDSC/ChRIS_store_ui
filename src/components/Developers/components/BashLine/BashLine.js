@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CopyToClipboard from '../CopyToClipboard/CopyToClipboard';
-import './BashLine.css';
+import styles from './BashLine.module.css';
 
 class BashLine extends Component {
   constructor() {
@@ -11,8 +11,8 @@ class BashLine extends Component {
 
   render() {
     return (
-      <div className="bash-line-container" {...this.props}>
-        <div className="bash-line-command">
+      <div className={styles['bash-line-container']} {...this.props}>
+        <div className={styles['bash-line-command']}>
           {`$ ${this.props.command}`}
         </div>
         <CopyToClipboard clipboardText={this.props.command} />

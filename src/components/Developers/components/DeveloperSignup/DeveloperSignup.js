@@ -9,7 +9,7 @@ import Button from '../../../Button';
 import _ from 'lodash';
 import StoreClient from '@fnndsc/chrisstoreapi';
 import { validate } from 'email-validator';
-import './DeveloperSignup.css';
+import styles from './DeveloperSignup.module.css';
 import ChrisStore from '../../../../store/ChrisStore';
 import FormInput from '../../../FormInput';
 

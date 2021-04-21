@@ -1,21 +1,21 @@
 import React from 'react';
-import './Instructions.css';
+import styles from './Instructions.module.css';
 import BashLine from '../BashLine/BashLine';
 
 const Instructions = () => (
-  <div className="instructions">
-    <div className="row no-flex">
-      <h1 className="instructions-header">
+  <div className={styles['instructions']}>
+    <div className={`row no-flex`}>
+      <h1 className={styles['instructions-header']}>
         Get Started - 4 Simple Steps{' '}
-        <a className="instructions-source" href="http://bit.ly/2KghHdY">[source]</a>
+        <a className={styles['instructions-source']} href="http://bit.ly/2KghHdY">[source]</a>
       </h1>
-      <div className="instructions-steps">
-        <div className="instructions-step">
-          <div className="instructions-number">
+      <div className={styles['instructions-steps']}>
+        <div className={styles['instructions-step']}>
+          <div className={styles['instructions-number']}>
             Step 1
             <sub>Setting up the environment</sub>
           </div>
-          <div className="instructions-body">
+          <div className={styles['instructions-body']}>
             <h3>
               Create a <strong>Python3</strong> virtual environment for
               your plugin apps and activate it.
@@ -53,12 +53,12 @@ const Instructions = () => (
             </h3>
           </div>
         </div>
-        <div className="instructions-step">
-          <div className="instructions-number">
+        <div className={styles['instructions-step']}>
+          <div className={styles['instructions-number']}>
             Step 2
             <sub>Creating a git repository</sub>
           </div>
-          <div className="instructions-body">
+          <div className={styles['instructions-body']}>
             <h3>
               Create a new repository on{' '}
               <a href="https://github.com">https://github.com</a>
@@ -80,12 +80,12 @@ const Instructions = () => (
             <BashLine command="git init" />
           </div>
         </div>
-        <div className="instructions-step">
-          <div className="instructions-number">
+        <div className={styles['instructions-step']}>
+          <div className={styles['instructions-number']}>
             Step 3
             <sub>Push to git repository</sub>
           </div>
-          <div className="instructions-body">
+          <div className={styles['instructions-body']}>
             <h3>
               Add and commit the files in the local repository:
             </h3>
@@ -106,12 +106,12 @@ const Instructions = () => (
             <BashLine command="git push origin master" />
           </div>
         </div>
-        <div className="instructions-step">
-          <div className="instructions-number">
+        <div className={styles['instructions-step']}>
+          <div className={styles['instructions-number']}>
             Step 4
             <sub>Add to Docker Hub</sub>
           </div>
-          <div className="instructions-body">
+          <div className={styles['instructions-body']}>
             <h3>
               Create a new automated build and repository on your{' '}
               <a href="https://dockr.ly/2K2pnRF">Docker Hub</a> account.
@@ -145,12 +145,12 @@ const Instructions = () => (
             </h3>
           </div>
         </div>
-        <div className="instructions-step">
-          <div className="instructions-number">
+        <div className={styles['instructions-step']}>
+          <div className={styles['instructions-number']}>
             Conclusion
             <sub>Extra resources</sub>
           </div>
-          <div className="instructions-body">
+          <div className={styles['instructions-body']}>
             <h3>
               Once you{"'"}ve developed and properly tested your plugin app
               consult the <a href="http://bit.ly/2ltTJ0w">wiki</a> to learn how to register it to

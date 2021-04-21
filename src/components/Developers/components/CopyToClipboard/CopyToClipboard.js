@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Clipboard from 'react-clipboard.js';
 import { Icon, OverlayTrigger, Tooltip } from 'patternfly-react';
-import './CopyToClipboard.css';
+import styles from './CopyToClipboard.module.css';
 
 class CopyToClipboard extends Component {
   constructor(props) {
@@ -24,14 +24,14 @@ class CopyToClipboard extends Component {
         onClick={this.showTooltip}
         overlay={(
           <Tooltip
-            id="copiedTooltip"
+            id={styles['copiedTooltip']}
           >
             <strong>Copied!</strong>
           </Tooltip>
         )}
       >
         <Clipboard
-          className="copy-to-clipboard-btn btn btn-large"
+          className={`${styles['copy-to-clipboard-btn']} btn btn-large`}
           data-clipboard-text={this.props.clipboardText}
         >
           <Icon name="copy" />
