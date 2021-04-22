@@ -9,6 +9,8 @@ import './Plugins.css';
 import LoadingContainer from '../LoadingContainer/LoadingContainer';
 import LoadingContent from '../LoadingContainer/components/LoadingContent/LoadingContent';
 import ChrisStore from '../../store/ChrisStore';
+import HttpApiCallError from '../../errors/HttpApiCallError';
+import Notification from '../Notification';
 
 
 // ==============================
@@ -25,6 +27,7 @@ export class Plugins extends Component {
 
     this.mounted = false;
     this.state = {
+      errors: null,
       pluginList: null,
       starsByPlugin: {},
       categories: [
@@ -52,14 +55,20 @@ export class Plugins extends Component {
 
   componentDidMount() {
     this.fetchPlugins().catch((err) => {
-      console.error(err);
+      this.showNotifications(new HttpApiCallError(err));
     });
 
     if (this.isLoggedIn()) {
       this.fetchPluginStars();
     }
   }
-
+  componentDidUpdate(prevProps){
+    if(prevProps.location.search !== this.props.location.search) {
+      this.fetchPlugins().catch((err) => {
+        console.error(err);
+      });
+    }
+  }
   componentWillUnmount() {
     this.mounted = false;
   }
@@ -76,7 +85,13 @@ export class Plugins extends Component {
   removePluginStar(pluginId) {
     this.setPluginStar(pluginId, undefined);
   }
-
+  
+  showNotifications = (error) => {
+    console.log(error.message)
+    this.setState({
+      errors: error.message,
+    })
+  }
   async favPlugin(plugin) {
     // Early state change for instant visual feedback
     this.setPluginStar(plugin.id, {});
@@ -86,7 +101,7 @@ export class Plugins extends Component {
       this.setPluginStar(plugin.id, star.data);
     } catch (err) {
       this.removePluginStar(plugin.id);
-      console.error(err);
+      this.showNotifications(new HttpApiCallError(err));
     }
   }
 
@@ -101,14 +116,16 @@ export class Plugins extends Component {
       await star.delete();
     } catch (err) {
       this.setPluginStar(plugin.id, previousStarState);
-      console.error(err);
+      this.showNotifications(new HttpApiCallError(err));
     }
   }
 
   fetchPlugins() {
+    const { location: { search } } = this.props;
     const searchParams = {
       limit: 20,
       offset: 0,
+      name_title_category: search.split('?')[1] || '',
     };
 
     return new Promise(async (resolve, reject) => {
@@ -118,11 +135,10 @@ export class Plugins extends Component {
         plugins = await this.client.getPlugins(searchParams);
 
         if (this.mounted) {
-          this.setState((prevState) => {
-            const prevPluginList = prevState.pluginList ? prevState.pluginList : [];
-            const nextPluginList = prevPluginList.concat(plugins.data);
-            return { pluginList: nextPluginList };
-          });
+          this.setState((prevState) => ({
+            ...prevState,
+            pluginList: plugins.data,
+          }));
         }
       } catch (e) {
         return reject(e);
@@ -133,22 +149,25 @@ export class Plugins extends Component {
   }
 
   async fetchPluginStars() {
-    const stars = await this.client.getPluginStars();
+    
+    try{
+      const stars = await this.client.getPluginStars();
+      const starsByPlugin = {};
+      stars.data.forEach((star) => {
+        const pluginId = star.meta_id;
+        starsByPlugin[pluginId] = star;
+      });
+      this.setState({ starsByPlugin });
 
-    const starsByPlugin = {};
-    stars.data.forEach((star) => {
-      const pluginId = star.meta_id;
-      starsByPlugin[pluginId] = star;
-    });
-
-    this.setState({ starsByPlugin });
+    }catch(error){
+      this.showNotifications(new HttpApiCallError(error));
+    }
   }
 
   handlePluginFavorited(plugin) {
     if (this.isLoggedIn()) {
       return this.isFavorite(plugin) ? this.unfavPlugin(plugin) : this.favPlugin(plugin);
     }
-
     return Promise.resolve();
   }
 
@@ -210,6 +229,15 @@ export class Plugins extends Component {
 
     return (
       <div className="plugins-container">
+        {this.state.errors && (
+          <Notification 
+            title={this.state.errors} 
+            position='top-right' 
+            variant='danger' 
+            closeable
+            onClose={()=>this.setState({errors:null})} 
+          />
+        )}
         <div className="plugins-stats">
           <div className="row plugins-stats-row">
             {pluginsFound}

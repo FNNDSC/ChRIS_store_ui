@@ -9,6 +9,7 @@ const ButtonComponent = ({
   loading,
   toRoute,
   children,
+  type,
   ...otherProps
 }) => {
   const history = useHistory();
@@ -17,8 +18,9 @@ const ButtonComponent = ({
       <Button
         isLoading={loading}
         variant={variant}
-        onClick={toRoute ? history.push(toRoute) : onClick}
+        onClick={toRoute ? () => history.push(toRoute) : onClick}
         className="other-button"
+        type={type}
       >
         {children}
       </Button>
