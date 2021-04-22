@@ -21,31 +21,34 @@ const PluginBody = ({ pluginData }) => {
         ).json()).files.readme.url)
       ).json()).download_url
 
-    const file = await fetch(url)
+    const file = await (await fetch(url)).text()
     const type = url.split('.').reverse().shift()
 
-    if (type === 'md' || type === 'rst') 
-      setReadme(marked(await file.text()))
-    else
-      setReadme(await file.text())
+    return { file, type }
   }, [])
 
   const fetchRepoData = useCallback(async (repo) => {
     try {
       const data = await fetch(`https://api.github.com/repos/${repo}`)
-      setRepoData(await data.json())
-      fetchReadme(repo)
+      return await data.json()
     } catch (error) {
       console.error(error)
       throw Error(error)
     }
-  }, [fetchReadme])
+  }, [])
 
   useEffect(() => {
     const expectRepoName = pluginData.public_repo.split('github.com/')[1];
     if (expectRepoName)
       try {
-        fetchRepoData(expectRepoName)
+        const data = fetchRepoData(expectRepoName)
+        setRepoData(data)
+
+        const { file, type } = fetchReadme(expectRepoName)
+        if (type === 'md' || type === 'rst') 
+          setReadme(marked(file))
+        else
+          setReadme(file)
       } catch (error) {
         console.error(error)
       }
@@ -53,7 +56,7 @@ const PluginBody = ({ pluginData }) => {
       return () => {
         setRepoData(undefined)
       }
-  }, [fetchRepoData, pluginData.public_repo])
+  }, [fetchReadme, fetchRepoData, pluginData.public_repo])
 
   return (
     <div className="plugin-body">
