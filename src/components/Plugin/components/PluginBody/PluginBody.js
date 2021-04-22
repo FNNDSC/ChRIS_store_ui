@@ -12,14 +12,14 @@ import Notification from '../../../Notification';
 import HttpApiCallError from '../../../../errors/HttpApiCallError';
 
 const PluginBody = ({ pluginData }) => {
-  const [readme, setReadme] = useState();
   const [repoData, setRepoData] = useState();
+  const [readme, setReadme] = useState();
+  const setReadmeHTML = $ => setReadme(sanitize($))
 
   const [errors, setErrors] = useState([]);
   const showNotifications = useCallback((error) => {
     setErrors([ ...errors, error.message ])
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [errors])
 
   const fetchReadme = useCallback(async (repo) => {
     const profile = await (await fetch(`https://api.github.com/repos/${repo}/community/profile`)).json()
@@ -44,9 +44,9 @@ const PluginBody = ({ pluginData }) => {
 
         const { file, type } = await fetchReadme(expectRepoName)
         if (type === 'md' || type === 'rst') 
-          setReadme(marked(file))
+          setReadmeHTML(marked(file))
         else
-          setReadme(file)
+          setReadmeHTML(file)
       } catch (error) {
         showNotifications(new HttpApiCallError(error))
       }
@@ -55,7 +55,8 @@ const PluginBody = ({ pluginData }) => {
     const expectRepoName = pluginData.public_repo.split('github.com/')[1];
     if (expectRepoName)
       fetchRepo()
-  }, [fetchReadme, fetchRepoData, showNotifications, pluginData.public_repo])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fetchReadme, fetchRepoData, pluginData.public_repo])
 
   return (
     <React.Fragment>
@@ -100,7 +101,7 @@ const PluginBody = ({ pluginData }) => {
                                 <div className="plugin-body-readme">
                                   README
                                 </div>
-                                { readme ? <div dangerouslySetInnerHTML={{ __html: sanitize(readme) }}></div> : null }
+                                { readme ? <div dangerouslySetInnerHTML={{ __html: readme }}></div> : null }
                               </div>
                               <div className="plugin-body-side-col">
                                 <div className="plugin-body-copy-url">
