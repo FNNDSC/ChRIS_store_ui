@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Grid, Nav, NavItem, TabContainer, TabContent, TabPane } from 'patternfly-react';
 import PropTypes from 'prop-types';
 import marked from 'marked';
+import { sanitize } from 'dompurify';
 
 import './PluginBody.css';
 import { CopyURLButton } from '../../../general/CopyURLButton';
@@ -82,7 +83,7 @@ const PluginBody = ({ pluginData }) => {
                               <div className="plugin-body-readme">
                                 README
                               </div>
-                              { readme ? <div dangerouslySetInnerHTML={{ __html: readme }}></div> : null }
+                              { readme ? <div dangerouslySetInnerHTML={{ __html: sanitize(readme) }}></div> : null }
                             </div>
                             <div className="plugin-body-side-col">
                               <div className="plugin-body-copy-url">

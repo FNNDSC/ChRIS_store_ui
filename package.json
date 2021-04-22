@@ -26,6 +26,7 @@
     "@patternfly/react-icons": "^4.7.16",
     "classnames": "^2.2.6",
     "core-js": "^2.5.7",
+    "dompurify": "^2.2.7",
     "email-validator": "^2.0.4",
     "lodash": "^4.17.19",
     "marked": "^2.0.3",
