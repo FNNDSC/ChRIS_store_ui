@@ -30,7 +30,7 @@ export class Plugin extends Component {
       pluginData,
       loading: true,
       star: undefined,
-      errors: null,
+      errors: [],
     };
 
     const storeURL = process.env.REACT_APP_STORE_URL;
@@ -47,15 +47,13 @@ export class Plugin extends Component {
 
   async componentDidMount() {
     let pluginData;
-    try {
-      if (!this.state.pluginData) {
-        pluginData = await this.fetchPluginData();
-      } else {
-        pluginData = this.state.pluginData;
-      }
-    } catch(errors) {
-      this.showNotifications(new HttpApiCallError(errors));
+    
+    if (!this.state.pluginData) {
+      pluginData = await this.fetchPluginData();
+    } else {
+      ({ pluginData } = this.state);
     }
+
     if (this.isLoggedIn()) {
       this.fetchStarDataByPluginName(pluginData.name);
     }
@@ -64,11 +62,23 @@ export class Plugin extends Component {
   componentWillUnmount() {
     this.mounted = false;
   }
+
   showNotifications = (error) => {
+    let { errors } = this.state;
+    errors = [ ...errors, error.message ]
     this.setState({
-      erros: error.message,
+      errors
     })
   }
+  
+  isFavorite() {
+    return this.state.star !== undefined;
+  }
+
+  isLoggedIn() {
+    return this.props.store ? this.props.store.get('isLoggedIn') : false;
+  }
+
   onStarClicked() {
     if (this.isLoggedIn()) {
       return this.isFavorite() ? this.unfavPlugin() : this.favPlugin();
@@ -84,8 +94,8 @@ export class Plugin extends Component {
     try {
       const star = await this.client.createPluginStar({ plugin_name: name });
       this.setState({ star: star.data });
-    } catch (err) {
-      this.showNotifications(new HttpApiCallError(err));
+    } catch (error) {
+      this.showNotifications(new HttpApiCallError(error));
       this.setState({ star: undefined });
     }
   }
@@ -99,9 +109,9 @@ export class Plugin extends Component {
     try {
       const star = await this.client.getPluginStar(previousStarState.id);
       await star.delete();
-    } catch (err) {
+    } catch (error) {
       this.setState({ star: previousStarState });
-      this.showNotifications(new HttpApiCallError(err));
+      this.showNotifications(new HttpApiCallError(error));
     }
   }
 
@@ -114,7 +124,7 @@ export class Plugin extends Component {
       pluginData = plugin.data;
       pluginData.url = plugin.url;
     } catch (e) {
-      return Promise.reject(e);
+      this.showNotifications(new HttpApiCallError(e));
     }
 
     if (this.mounted) {
@@ -127,29 +137,20 @@ export class Plugin extends Component {
     const storeURL = process.env.REACT_APP_STORE_URL;
     const auth = { token: this.props.store.get('authToken') };
     let stars = [];
-    try{
+    try {
       if (auth) {
         const client = new Client(storeURL, auth);
         const response = await client.getPluginStars({ plugin_name: pluginName });
         stars = response.data;
       }
   
-      if (stars.length > 0) {
+      if (stars.length > 0)
         this.setState({ star: stars[0] });
-      }
-      else {
+      else
         throw new Error('Unable to fetch Plugin stars');
-      }
-    }catch(errors){
-      this.showNotifications(new HttpApiCallError(errors));
+    } catch(error) {
+      this.showNotifications(new HttpApiCallError(error));
     }
-  }
-  isFavorite() {
-    return this.state.star !== undefined;
-  }
-
-  isLoggedIn() {
-    return this.props.store ? this.props.store.get('isLoggedIn') : false;
   }
 
   renderStar() {
@@ -262,17 +263,23 @@ export class Plugin extends Component {
 
     return (
       <React.Fragment>
-        {this.state.errors && (
-          <Notification
-            title={this.state.errors}
-            position='top-right'
-            variant='danger'
-            closeable
-            onClose={()=>this.setState({errors:null})}
-          />
-        )}
+        {
+          this.state.errors.map((message, index) => (
+            <Notification
+              title={message}
+              position='top-right'
+              variant='danger'
+              closeable
+              onClose={() => {
+                let { errors } = this.state;
+                errors.splice(index)
+                this.setState({ errors })
+              }}
+            />
+          ))
+        }
         <div className={`plugin ${this.props.className}`}>
-        {container}
+          {container}
         </div>
       </React.Fragment>
       
