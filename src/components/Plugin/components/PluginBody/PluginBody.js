@@ -18,56 +18,44 @@ const PluginBody = ({ pluginData }) => {
   const [errors, setErrors] = useState([]);
   const showNotifications = useCallback((error) => {
     setErrors([ ...errors, error.message ])
-  }, [errors])
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const fetchReadme = useCallback(async (repo) => {
-    try {
-      const url = (await 
-        (await fetch((
-          await (
-            await fetch(`https://api.github.com/repos/${repo}/community/profile`)
-          ).json()).files.readme.url)
-        ).json()).download_url
-  
-      const file = await (await fetch(url)).text()
-      const type = url.split('.').reverse().shift()
-  
-      return { file, type }
-    } catch (error) {
-      showNotifications(new HttpApiCallError(error))
-    }
-  }, [showNotifications])
+    const profile = await (await fetch(`https://api.github.com/repos/${repo}/community/profile`)).json()
+    const url = await (await fetch(profile.files.readme.url)).json()
 
+    const file = await (await fetch(url.download_url)).text()
+    const type = url.download_url.split('.').reverse().shift()
+
+    return { file, type }
+  }, [])
 
   const fetchRepoData = useCallback(async (repo) => {
-    try {
-      const data = await fetch(`https://api.github.com/repos/${repo}`)
-      return await data.json()
-    } catch (error) {
-      showNotifications(new HttpApiCallError(error))
-    }
-  }, [showNotifications])
-
+    const data = await fetch(`https://api.github.com/repos/${repo}`)
+    return await data.json()
+  }, [])
 
   useEffect(() => {
-    const expectRepoName = pluginData.public_repo.split('github.com/')[1];
-    if (expectRepoName) {
-      const data = fetchRepoData(expectRepoName)
-      setRepoData(data)
+    async function fetchRepo() {
+      try {
+        const data = await fetchRepoData(expectRepoName)
+        setRepoData(data)
 
-      const { file, type } = fetchReadme(expectRepoName)
-      if (type === 'md' || type === 'rst') 
-        setReadme(marked(file))
-      else
-        setReadme(file)
-    } 
-    else
-      return () => {
-        setRepoData(undefined)
-        setReadme(undefined)
+        const { file, type } = await fetchReadme(expectRepoName)
+        if (type === 'md' || type === 'rst') 
+          setReadme(marked(file))
+        else
+          setReadme(file)
+      } catch (error) {
+        showNotifications(new HttpApiCallError(error))
       }
-  }, [fetchReadme, fetchRepoData, pluginData.public_repo])
+    }
+
+    const expectRepoName = pluginData.public_repo.split('github.com/')[1];
+    if (expectRepoName)
+      fetchRepo()
+  }, [fetchReadme, fetchRepoData, showNotifications, pluginData.public_repo])
 
   return (
     <React.Fragment>
