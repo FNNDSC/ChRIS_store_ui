@@ -16,7 +16,7 @@ import { validate } from 'email-validator';
 import './DeveloperSignup.css';
 import ChrisStore from '../../../../store/ChrisStore';
 
-/* inspired by http://bit.ly/2KycT4G */
+/* inspired by https://github.com/Modernizr/Modernizr/blob/v3/feature-detects/touchevents.js */
 const isTouchDevice = () => {
   if (('ontouchstart') in window || (window.DocumentTouch && document instanceof window.DocumentTouch)) {
     return true;
