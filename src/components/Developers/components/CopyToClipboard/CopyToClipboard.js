@@ -24,7 +24,7 @@ class CopyToClipboard extends Component {
         onClick={this.showTooltip}
         overlay={(
           <Tooltip
-            id={styles['copiedTooltip']}
+            className={styles['copiedTooltip']}
           >
             <strong>Copied!</strong>
           </Tooltip>

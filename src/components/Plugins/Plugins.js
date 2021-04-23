@@ -307,7 +307,7 @@ export class Plugins extends Component {
         <div className={styles['plugins-stats']}>
           <div className={`row ${styles['plugins-stats-row']}`}>
             {pluginsFound}
-            <DropdownButton id="sort-by-dropdown" title="Sort By" pullRight>
+            <DropdownButton className={styles['sort-by-dropdown']} title="Sort By" pullRight>
               <MenuItem eventKey="1">Name</MenuItem>
             </DropdownButton>
           </div>

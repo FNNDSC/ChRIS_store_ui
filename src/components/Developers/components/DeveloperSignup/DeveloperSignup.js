@@ -240,7 +240,7 @@ export class DeveloperSignup extends Component {
             Create Account
           </Button>
         )}
-        {loading && <span className="developer-signup-creating">Creating Account</span>}
+        {loading && <span className={styles['developer-signup-creating']}>Creating Account</span>}
       </Form>);
   }
 }

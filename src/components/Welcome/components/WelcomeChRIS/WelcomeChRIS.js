@@ -1,6 +1,5 @@
 import React from 'react';
-import Button from '../../../Button';
-
+import { Button } from 'patternfly-react';
 import styles from './WelcomeChRIS.module.css';
 import chrisBanner from '../../../../assets/img/chris_logo-ribbon.png';
 
@@ -45,6 +44,11 @@ const WelcomeChRIS = () => (
       <div>
         <Button
           variant="secondary"
+<<<<<<< HEAD
+=======
+          bsStyle="default"
+          bsSize="large"
+>>>>>>> Changed id to classname
           className={`${styles['welcome-chris-btn']} ${styles['welcome-chris-more-btn']}`}
           onClick={()=>{window.open('https://www.chrisproject.org')}}
         >
@@ -53,7 +57,8 @@ const WelcomeChRIS = () => (
       </div>
       <div>
         <Button
-          variant="secondary"
+          bsStyle="default"
+          bsSize="large"
           className={styles['welcome-chris-btn']}
         >
           Don{"'"}t have access to ChRIS?

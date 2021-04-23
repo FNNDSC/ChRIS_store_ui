@@ -70,8 +70,8 @@ const Search = (props) => {
   const [showAutoComplete, setShowAutoComplete] = useState(false);
   return (
     <Fragment>
-      <div id={styles['search']}>
-        <div id={styles['ws-global-search-wrapper']}>
+      <div className={styles['search']}>
+        <div className={styles['ws-global-search-wrapper']}>
           <SearchIcon
             className={styles['global-search-icon']}
             onClick={() => {

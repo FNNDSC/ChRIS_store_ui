@@ -30,7 +30,7 @@ const WelcomeCTA = () => (
         <WelcomeFeature name="RhoANA" img={rhoanaLogo} />
         <WelcomeFeature name="Slicer" img={slicerLogo} />
       </div>
-      <div className="welcome-scroll-caret">
+      <div className={styles['welcome-scroll-caret']}>
         <AngleDownIcon/>
       </div>
     </div>
