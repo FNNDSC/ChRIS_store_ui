@@ -10,7 +10,9 @@
 .plugin-tab {
   display: flex;
 }
-
+.plugin-tab .pf-c-tabs__link {
+  outline: none;
+}
 .plugin-tab>.active {
   display: flex !important;
   flex: 1;
@@ -44,9 +46,9 @@
   padding-right: .5em;
 }
 
-.plugin-body-main-col { flex: 5; }
+.plugin-body-main-col { flex: 5; padding: 20px 0; }
 
-.plugin-body-side-col { flex: 2; }
+.plugin-body-side-col { flex: 2; padding: 20px 0; }
 
 .plugin-body-side-col > div {
   margin-bottom: 60px;

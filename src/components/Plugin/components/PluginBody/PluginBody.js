@@ -25,11 +25,11 @@ const PluginBody = ({ pluginData }) => {
                   <Tabs
                     activeKey={activeTabKey}
                     onSelect={handleTabClick}
-                    className="nav nav-tabs nav-tabs-pf plugin-body-nav-tabs"
                   >
                     <Tab
                       eventKey={1}
                       title={<TabTitleText>Overview</TabTitleText>}
+                      className="plugin-tab"
                     >
                       <div className="plugin-body-main-col">
                         <div className="plugin-body-readme">README.rst</div>
@@ -212,12 +212,14 @@ const PluginBody = ({ pluginData }) => {
                     <Tab
                       eventKey={2}
                       title={<TabTitleText>Parameters</TabTitleText>}
+                      className="plugin-tab"
                     >
                       Parameters
                     </Tab>
                     <Tab
                       eventKey={3}
                       title={<TabTitleText>Versions</TabTitleText>}
+                      className="plugin-tab"
                     >
                       Versions
                     </Tab>
