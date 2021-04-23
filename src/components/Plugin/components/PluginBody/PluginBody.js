@@ -32,6 +32,7 @@ const PluginBody = ({ pluginData }) => (
                     </Nav>
                     <TabContent animation className="plugin-tab">
                       <TabPane eventKey={1}>
+                      <div className="plugin-body-combined-cols">
                         <div className="plugin-body-main-col">
                           <div className="plugin-body-readme">
                             README.rst
@@ -137,12 +138,9 @@ const PluginBody = ({ pluginData }) => (
                         </div>
                           <div className="plugin-body-public-repo">
                             <h4>Public Repo:</h4>
-                            <Link
-                              href={pluginData.public_repo}
-                              to={pluginData.public_repo}
-                            >
+                            <a href={pluginData.public_repo}>
                               {pluginData.public_repo}
-                            </Link>
+                            </a>
                           </div>
                           <div className="plugin-body-documentation">
                             <h4>Documentation:</h4>
@@ -184,6 +182,7 @@ const PluginBody = ({ pluginData }) => (
                             7 July 2020
                           </div>
                         </div>
+                      </div>
                       </TabPane>
                       <TabPane eventKey={2}>Parameters content</TabPane>
                       <TabPane eventKey={3}>Versions content</TabPane>

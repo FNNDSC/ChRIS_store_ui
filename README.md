@@ -4,7 +4,7 @@ UI for the ChRIS Store.
 
 ![Homepage](../assets/home.png?raw=true)
 
-![License][license-badge]
+[![MIT License][license-badge]](LICENSE)
 ![Last Commit][last-commit-badge]
 [![Stars][stars-badge]][repo-link]
 [![Forks][forks-badge]][repo-link]
@@ -125,11 +125,6 @@ Interested in contributing? https://chrisproject.org/join-us
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details
 
 [repo-link]: https://github.com/FNNDSC/ChRIS_store_ui
 [airbnb-style]: https://github.com/airbnb/javascript

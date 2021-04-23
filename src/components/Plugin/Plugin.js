@@ -194,8 +194,8 @@ export class Plugin extends Component {
       container = (
         <div className="plugin-container">
           <div className="plugin-header">
-            <Grid>
-              <Grid.Row>
+            <Grid >
+              <Grid.Row className="plugin-header-content">
                 <Grid.Col sm={12}>
                   <Grid.Col sm={1}>
                     <img
@@ -204,7 +204,7 @@ export class Plugin extends Component {
                       alt="Plugin icon"
                     />
                   </Grid.Col>
-                  <Grid.Col sm={6}>
+                  <Grid.Col sm={3}>
                     <div className="plugin-category">
                       Visualization
                     </div>

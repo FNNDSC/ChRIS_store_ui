@@ -505,10 +505,39 @@ describe('CreatePlugin', () => {
 
   const defaultFormState = {
     name: 'Mock Plugin',
-    image: 'dock/image',
+    image: 'dock/image:1.0.1',
     repo: 'https://repository.com',
   };
+  it('should call handleError if image name ends with :latest', async () => {
+    const { spy, mockedWrapper } = createMockedWrapper('handleError');
+    const formState = {
+      name: 'Mock Plugin',
+      image: 'dock/image:latest',
+      repo: 'https://repository.com',
+    };
+    mockedWrapper.setState({
+      ...formState,
+    });
+    await mockedWrapper.instance().handleSubmit();
+    expect(spy).toHaveBeenCalledWith(<span>The <code>:latest</code> tag is discouraged.</span>);
+  });
 
+  it('should call handleError if no docker tag is provided', async () => {
+    const { spy, mockedWrapper } = createMockedWrapper('handleError');
+    const formState = {
+      name: 'Mock Plugin',
+      image: 'dock/image',
+      repo: 'https://repository.com',
+    };
+    mockedWrapper.setState({
+      ...formState,
+    });
+    await mockedWrapper.instance().handleSubmit();
+    const description = 'Please tag your Docker image by version.';
+    const tagExample = `docker tag ${formState.image.split(':')[0]} ${formState.image.split(':')[0]}:1.0.1`; //TODO 
+    const pushExample = `docker push ${formState.image.split(':')[0]}:1.0.1`;
+    expect(spy).toHaveBeenCalledWith(<div>{description} <p><b>Example:</b><br/>{tagExample}<br/>{pushExample}</p></div> )
+  })
   it('should call handleError if all fields are filled but invalid JSON is received', async () => {
     window.sessionStorage.setItem('AUTH_TOKEN', 'testToken');
 
