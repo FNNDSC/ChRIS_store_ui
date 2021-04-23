@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {
-  Card, CardBody, Alert,
-  Form, FormGroup, FormControl,
+  Card, CardBody
 } from 'patternfly-react';
 import Button from '../Button';
 import StoreClient from '@fnndsc/chrisstoreapi';
@@ -11,7 +10,9 @@ import './SignIn.css';
 import chrisLogo from '../../assets/img/chris_logo-white.png';
 import ChrisStore from '../../store/ChrisStore';
 import FormInput from '../FormInput';
-import { Form } from '@patternfly/react-core';
+import PasswordValue from '../PasswordValue';
+import { Form, Alert, AlertActionCloseButton } from '@patternfly/react-core';
+import {EyeIcon, EyeSlashIcon} from '@patternfly/react-icons';
 
 export class SignIn extends Component {
   constructor(props) {
@@ -104,16 +105,15 @@ export class SignIn extends Component {
     return (
       <div className="signin login-pf-page">
         <div className="signin-container">
-          {
+        {
             error && (
               <div className="signin-error-container">
                 <Alert
                   className="signin-error"
-                  type="error"
-                  onDismiss={this.hideError}
-                >
-                  {error}
-                </Alert>
+                  variant="danger"
+                  title={error}
+                  actionClose={<AlertActionCloseButton onClose={this.hideError} />}
+                />
               </div>
             )
           }
@@ -146,15 +146,18 @@ export class SignIn extends Component {
                   autoComplete="username"
                   className="signin-username-form-group"
                 />
-                <FormInput
+                <PasswordValue
+                  style={{width:"23.3rem"}}
                   placeholder="Password"
                   fieldName="password"
                   value={password}
-                  inputType="password"
+                  inputType={this.state.hidden ? "password" : "text"}
                   id="password"
                   onChange={(val) => this.handleChange(val, 'password')}
                   autoComplete="current-password"
                   className="signin-password-form-group"
+                  toggleShow={this.toggleShow}
+                  hidden={this.state.hidden ? <EyeIcon /> : <EyeSlashIcon />}
                 />
                 <Button
                   className="signin-login-btn"

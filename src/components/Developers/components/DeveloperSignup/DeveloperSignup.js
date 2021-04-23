@@ -3,17 +3,8 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Form,
-<<<<<<< HEAD
   Spinner,
 } from '@patternfly/react-core';
-=======
-  FormGroup,
-  ControlLabel,
-  FormControl,
-  HelpBlock,
-  Spinner,
-} from 'patternfly-react';
->>>>>>> Show/Hide password functionality added
 import Button from '../../../Button';
 import _ from 'lodash';
 import StoreClient from '@fnndsc/chrisstoreapi';
@@ -21,6 +12,8 @@ import { validate } from 'email-validator';
 import './DeveloperSignup.css';
 import ChrisStore from '../../../../store/ChrisStore';
 import FormInput from '../../../FormInput';
+import PasswordValue from '../../../PasswordValue';
+import {EyeIcon, EyeSlashIcon} from '@patternfly/react-icons';
 
 /* inspired by https://github.com/Modernizr/Modernizr/blob/v3/feature-detects/touchevents.js */
 const isTouchDevice = () => {
@@ -193,7 +186,6 @@ export class DeveloperSignup extends Component {
     return (
       <Form onSubmit={this.handleSubmit} noValidate>
         <p>{loading ? 'Creating' : 'Create'} a ChRIS Developer account:</p>
-<<<<<<< HEAD
         <FormInput
           formLabel="Username"
           fieldId="username"
@@ -221,31 +213,37 @@ export class DeveloperSignup extends Component {
           disableControls={disableControls}
           error={error}
         />
-        <FormInput
+        <PasswordValue
+          style={{width:"19rem"}}
           formLabel="Password"
           fieldId="password"
           validationState={error.controls.includes('password') ? 'error' : 'default'}
           helperText="Enter your password"
-          inputType="password"
+          inputType={this.state.hidden ? "password" : "text"}
           id="password"
           fieldName="password"
           value={this.state.password}
           onChange={(val) => this.handleChange(val, 'password')}
           disableControls={disableControls}
           error={error}
+          toggleShow={this.toggleShow}
+          hidden={this.state.hidden ? <EyeIcon /> : <EyeSlashIcon />}
         />
-        <FormInput
+        <PasswordValue
+          style={{width:"19rem"}}
           formLabel="Password Conformation"
           fieldId="password-confirm"
           validationState={error.controls.includes('confirmation') ? 'error' : 'default'}
           helperText="Confirm your password"
-          inputType="password"
+          inputType={this.state.hidden ? "password" : "text"}
           id="password"
           fieldName="passwordConfirm"
           value={this.state.passwordConfirm}
           onChange={(val) => this.handleChange(val, 'passwordConfirm')}
           disableControls={disableControls}
           error={error}
+          toggleShow={this.toggleShow}
+          hidden={this.state.hidden ? <EyeIcon /> : <EyeSlashIcon />}
         />
         {loading ? <Spinner size="md"/> : (
           <Button 
@@ -255,99 +253,7 @@ export class DeveloperSignup extends Component {
           >
 
 
-=======
-        <FormGroup
-          controlId="username"
-          validationState={error.controls.includes('username') ? 'error' : null}
-        >
-          <ControlLabel>
-            Username
-          </ControlLabel>
-          <FormControl
-            type="text"
-            autoComplete="off"
-            autoFocus={!isTouchDevice()}
-            onChange={this.handleChange}
-            name="username"
-            disabled={disableControls}
-          />
-          <HelpBlock>
-            { error.controls.includes('username') ? error.message : 'Enter your username' }
-          </HelpBlock>
-        </FormGroup>
-        <FormGroup
-          controlId="email"
-          validationState={error.controls.includes('email') ? 'error' : null}
-        >
-          <ControlLabel>
-            Email
-          </ControlLabel>
-          <FormControl
-            type="email"
-            autoComplete="off"
-            onChange={this.handleChange}
-            name="email"
-            disabled={disableControls}
-          />
-          <HelpBlock>
-            { error.controls.includes('email') ? error.message : 'Enter your email' }
-          </HelpBlock>
-        </FormGroup>
-        <FormGroup
-          controlId="password"
-          validationState={error.controls.includes('password') ? 'error' : null}
-        >
-          <ControlLabel>
-            Password
-          </ControlLabel>
-          <FormControl
-            style={{display:"inline"}}
-            type={this.state.hidden ? "password" : "text"}
-            autoComplete="new-password"
-            onChange={this.handleChange}
-            name="password"
-            disabled={disableControls}
-          />
-          <span 
-            style={{marginLeft:"-30px"}} 
-            onClick={this.toggleShow}>
-            {this.state.hidden ? <EyeIcon /> : <EyeSlashIcon />}
-          </span>
-          <HelpBlock>
-            { error.controls.includes('password') ? error.message : 'Enter your password' }
-          </HelpBlock>
-        </FormGroup>
-        <FormGroup
-          controlId="password-confirm"
-          validationState={error.controls.includes('confirmation') ? 'error' : null}
-        >
-          <ControlLabel>
-            Password Confirmation
-          </ControlLabel>
-          <FormControl
-            style={{display:"inline"}}
-            type={this.state.hidden ? "password" : "text"}
-            autoComplete="new-password"
-            onChange={this.handleChange}
-            name="passwordConfirm"
-            disabled={disableControls}
-          />
-          <span 
-            style={{marginLeft:"-30px"}} 
-            onClick={this.toggleShow}>
-            {this.state.hidden ? <EyeIcon /> : <EyeSlashIcon />}
-          </span>
-          <HelpBlock>
-            { error.controls.includes('confirmation') ? error.message : 'Confirm your password' }
-          </HelpBlock>
-        </FormGroup>
-        <Spinner loading={loading} size="md" inline>
-          {
-            <Button 
-              variant="primary"
-              type="submit" 
-              loading={disableControls}>
->>>>>>> Show/Hide password functionality added
+
             Create Account
           </Button>
         )}
