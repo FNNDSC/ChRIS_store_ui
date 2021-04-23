@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Icon } from 'patternfly-react';
+import { Grid, GridItem } from '@patternfly/react-core';
+import { StarIcon, ClockIcon } from '@patternfly/react-icons';
 import PropTypes from 'prop-types';
 import Client from '@fnndsc/chrisstoreapi';
+
 import LoadingPlugin from './components/LoadingPlugin/LoadingPlugin';
 import PluginBody from './components/PluginBody/PluginBody';
 import RelativeDate from '../RelativeDate/RelativeDate';
 import ChrisStore from '../../store/ChrisStore';
 import PluginImg from '../../assets/img/brainy-pointer.png';
 import NotFound from '../NotFound/NotFound';
-
-import './Plugin.css';
 import Notification from '../Notification';
 import HttpApiCallError from '../../errors/HttpApiCallError';
+
+import './Plugin.css';
 
 const removeEmail = (author) => {
   if (author) return author.replace(/( ?\(.*\))/g, '');
@@ -164,7 +166,7 @@ export class Plugin extends Component {
       className = 'plugin-star-disabled';
       name = 'star-o';
     }
-    return <Icon name={name} className={className} onClick={this.onStarClicked} />;
+    return <StarIcon name={name} className={className} onClick={this.onStarClicked} />;
   }
 
   render() {
@@ -202,54 +204,45 @@ export class Plugin extends Component {
       container = (
         <div className="plugin-container">
           <div className="plugin-header">
-            <Grid>
-              <Grid.Row>
-                <Grid.Col sm={12}>
-                  <Grid.Col sm={2}>
-                    <img
-                      className="plugin-icon"
-                      src={PluginImg}
-                      alt="Plugin icon"
-                    />
-                  </Grid.Col>
-                  <Grid.Col sm={10}>
-                    <div className="plugin-category">
-                      Visualization
-                    </div>
-                    <div className="plugin-name">
-                      <Link
-                        href={pluginURL || '/'}
-                        to={pluginURL || '/'}
-                        className="plugin-name"
-                      >
-                        {data.name}
-                      </Link>
-                      {this.renderStar()}
-                    </div>
-                    <div className="plugin-description">
-                      {data.description}
-                    </div>
-                    <div className="plugin-stats">
-                      <Icon name="star" size="lg" />
-                      {' '}
-                      10k+
-                      {modificationDate.isValid()
-                        && (
-                        <span className="plugin-modified">
-                          <Icon name="clock-o" size="lg" />
-                          {`Last modified ${modificationDate.format()}`}
-                        </span>
-                        )}
-                      {/* temp text */}
-                      <span className="plugin-modified">
-                        <Icon name="clock-o" size="lg" />
-                        {' '}
-                        Last modified 1 hour ago
-                      </span>
-                    </div>
-                  </Grid.Col>
-                </Grid.Col>
-              </Grid.Row>
+            <Grid hasGutter>
+              <GridItem md={2} sm={12}>
+                <img
+                  className="plugin-icon"
+                  src={PluginImg}
+                  alt="Plugin icon"
+                />
+              </GridItem>
+              <GridItem sm={10}>
+                <div className="plugin-category">
+                  Visualization
+                </div>
+                <div className="plugin-name">
+                  <Link
+                    href={pluginURL || '/'}
+                    to={pluginURL || '/'}
+                    className="plugin-name"
+                  >
+                    {data.name}
+                  </Link>
+                  {this.renderStar()}
+                </div>
+                <div className="plugin-description">
+                  {data.description}
+                </div>
+                <div className="plugin-stats">
+                  <StarIcon name="star" size="lg" /> 10k+
+                  {modificationDate.isValid()
+                    && (
+                    <span className="plugin-modified">
+                      <ClockIcon name="clock-o" size="lg" /> Last modified {modificationDate.format()}
+                    </span>
+                    )}
+                  {/* temp text */}
+                  <span className="plugin-modified">
+                    <ClockIcon name="clock-o" size="lg" /> Last modified 1 hour ago
+                  </span>
+                </div>
+              </GridItem>
             </Grid>
           </div>
           <PluginBody pluginData={data} />
