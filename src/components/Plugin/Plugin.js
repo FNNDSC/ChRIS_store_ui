@@ -11,6 +11,7 @@ import RelativeDate from '../RelativeDate/RelativeDate';
 import ChrisStore from '../../store/ChrisStore';
 import PluginImg from '../../assets/img/brainy-pointer.png';
 import NotFound from '../NotFound/NotFound';
+import styles from './Plugin.module.css';
 import Notification from '../Notification';
 import HttpApiCallError from '../../errors/HttpApiCallError';
 import styles from './Plugin.module.css';

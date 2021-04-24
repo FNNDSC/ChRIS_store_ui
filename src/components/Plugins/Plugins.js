@@ -13,7 +13,6 @@ import ChrisStore from '../../store/ChrisStore';
 import HttpApiCallError from '../../errors/HttpApiCallError';
 import Notification from '../Notification';
 
-
 const CATEGORIES = ['FreeSurfer', 'MRI', 'Segmentation', 'copy'];
 
 /**
