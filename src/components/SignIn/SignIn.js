@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {
-  Card, CardBody, Alert,
+  Card, CardBody
 } from 'patternfly-react';
 import Button from '../Button';
 import StoreClient from '@fnndsc/chrisstoreapi';
@@ -10,7 +10,7 @@ import './SignIn.css';
 import chrisLogo from '../../assets/img/chris_logo-white.png';
 import ChrisStore from '../../store/ChrisStore';
 import FormInput from '../FormInput';
-import { Form } from '@patternfly/react-core';
+import { Form, Alert, AlertActionCloseButton } from '@patternfly/react-core';
 
 export class SignIn extends Component {
   constructor(props) {
@@ -102,11 +102,10 @@ export class SignIn extends Component {
               <div className="signin-error-container">
                 <Alert
                   className="signin-error"
-                  type="error"
-                  onDismiss={this.hideError}
-                >
-                  {error}
-                </Alert>
+                  variant="danger"
+                  title={error}
+                  actionClose={<AlertActionCloseButton onClose={this.hideError} />}
+                />
               </div>
             )
           }

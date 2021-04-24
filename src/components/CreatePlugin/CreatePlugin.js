@@ -3,13 +3,14 @@ import Client from '@fnndsc/chrisstoreapi';
 import { Link } from 'react-router-dom';
 import {
   Form, FormGroup, ControlLabel, FormControl, HelpBlock,
-  Col, Icon, Card, Alert, CardBody, HintBlock,
+  Col, Icon, Card, CardBody, HintBlock,
 } from 'patternfly-react';
 import Button from '../Button';
 import classNames from 'classnames';
 import './CreatePlugin.css';
 
 import { Plugin } from '../Plugin/Plugin';
+import { Alert, AlertActionCloseButton } from '@patternfly/react-core';
 
 const generateFormGroup = (id, label, help, value, handleChange) => (
   <FormGroup controlId={id} key={id}>
@@ -345,13 +346,12 @@ class CreatePlugin extends Component {
             formError && (
               <div className="createplugin-message-container error">
                 <div className="row">
-                  <Alert
-                    className="createplugin-message"
-                    type="error"
-                    onDismiss={this.hideMessage}
-                  >
-                    {formError}
-                  </Alert>
+                <Alert
+                  className="createplugin-message"
+                  variant="danger"
+                  title={formError}
+                  actionClose={<AlertActionCloseButton onClose={this.hideMessage} />}
+                />
                 </div>
               </div>
             )
@@ -362,9 +362,9 @@ class CreatePlugin extends Component {
                 <div className="row">
                   <Alert
                     className="createplugin-message"
-                    type="success"
+                    variant="success"
+                    title="Plugin was successfully created!"
                   >
-                    {'Plugin was successfully created! '}
                     <Link
                       className="createplugin-success-message-link"
                       to={`/plugin/${pluginId}`}
