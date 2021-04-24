@@ -21,19 +21,17 @@
 
 .plugin-header {
   /* display */
-  padding-top: 26px;
-  padding-bottom: 26px;
-
-  /* border */
-  border-bottom: 1px solid var(--pf-black-400, #bbb);
+  padding: 1em;
+  max-width: 1200px;
+  margin: 1em auto;
 }
 
 .plugin-icon {
   display: block;
   width: 5em;
   height: 5em;
-  margin: 0 auto;
-  margin-right: 3em;
+  margin: auto;
+  /* margin-right: 3em; */
 }
 
 .plugin-category {
@@ -116,9 +114,6 @@
 }
 
 .plugin-stats {
-  /* display */
-  margin-left: 1em;
-
   /* color */
   color: var(--pf-black-400, #bbb);
 }

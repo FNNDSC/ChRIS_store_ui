@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardBody, Icon } from 'patternfly-react';
+import { Card, CardBody } from '@patternfly/react-core';
+import { StarIcon as Icon } from '@patternfly/react-icons';
 import { Link } from 'react-router-dom';
 import RelativeDate from '../../../RelativeDate/RelativeDate';
 import './PluginItem.css';
@@ -10,7 +11,7 @@ const dateIsValid = date => new RelativeDate(date).isValid();
 const formatDate = date => new RelativeDate(date).format();
 
 
-class Plugin extends Component {
+class PluginItem extends Component {
   renderStarButton() {
     let name;
     let className;
@@ -83,4 +84,4 @@ Plugin.defaultProps = {
   isFavorite: false,
 };
 
-export default Plugin;
+export default PluginItem;

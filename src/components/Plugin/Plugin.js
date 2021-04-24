@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Icon } from 'patternfly-react';
+import { Grid, GridItem } from '@patternfly/react-core';
+import { StarIcon, ClockIcon } from '@patternfly/react-icons';
 import PropTypes from 'prop-types';
 import Client from '@fnndsc/chrisstoreapi';
+
 import LoadingPlugin from './components/LoadingPlugin/LoadingPlugin';
 import PluginBody from './components/PluginBody/PluginBody';
 import RelativeDate from '../RelativeDate/RelativeDate';
 import ChrisStore from '../../store/ChrisStore';
 import PluginImg from '../../assets/img/brainy-pointer.png';
-import './Plugin.css';
+import NotFound from '../NotFound/NotFound';
 import Notification from '../Notification';
 import HttpApiCallError from '../../errors/HttpApiCallError';
+
+import './Plugin.css';
 
 const removeEmail = (author) => {
   if (author) return author.replace(/( ?\(.*\))/g, '');
@@ -26,8 +30,9 @@ export class Plugin extends Component {
     const { pluginData } = props;
     this.state = {
       pluginData,
+      loading: true,
       star: undefined,
-      errors: null,
+      errors: [],
     };
 
     const storeURL = process.env.REACT_APP_STORE_URL;
@@ -44,15 +49,13 @@ export class Plugin extends Component {
 
   async componentDidMount() {
     let pluginData;
-    try{
-      if (!this.state.pluginData) {
-        pluginData = await this.fetchPluginData();
-      } else {
-        pluginData = this.state.pluginData;
-      }
-    }catch(errors){
-      this.showNotifications(new HttpApiCallError(errors));
+    
+    if (!this.state.pluginData) {
+      pluginData = await this.fetchPluginData();
+    } else {
+      ({ pluginData } = this.state);
     }
+
     if (this.isLoggedIn()) {
       this.fetchStarDataByPluginName(pluginData.name);
     }
@@ -61,11 +64,23 @@ export class Plugin extends Component {
   componentWillUnmount() {
     this.mounted = false;
   }
+
   showNotifications = (error) => {
+    let { errors } = this.state;
+    errors = [ ...errors, error.message ]
     this.setState({
-      erros: error.message,
+      errors
     })
   }
+  
+  isFavorite() {
+    return this.state.star !== undefined;
+  }
+
+  isLoggedIn() {
+    return this.props.store ? this.props.store.get('isLoggedIn') : false;
+  }
+
   onStarClicked() {
     if (this.isLoggedIn()) {
       return this.isFavorite() ? this.unfavPlugin() : this.favPlugin();
@@ -81,8 +96,8 @@ export class Plugin extends Component {
     try {
       const star = await this.client.createPluginStar({ plugin_name: name });
       this.setState({ star: star.data });
-    } catch (err) {
-      this.showNotifications(new HttpApiCallError(err));
+    } catch (error) {
+      this.showNotifications(new HttpApiCallError(error));
       this.setState({ star: undefined });
     }
   }
@@ -96,59 +111,48 @@ export class Plugin extends Component {
     try {
       const star = await this.client.getPluginStar(previousStarState.id);
       await star.delete();
-    } catch (err) {
+    } catch (error) {
       this.setState({ star: previousStarState });
-      this.showNotifications(new HttpApiCallError(err));
+      this.showNotifications(new HttpApiCallError(error));
     }
   }
 
-  fetchPluginData() {
+  async fetchPluginData() {
     const { plugin: pluginId } = this.props.match.params;
 
     let pluginData;
-    return new Promise(async (resolve, reject) => {
-      try {
-        const plugin = await this.client.getPlugin(parseInt(pluginId, 10));
-        pluginData = plugin.data;
-        pluginData.url = plugin.url;
-      } catch (e) {
-        return reject(e);
-      }
+    try {
+      const plugin = await this.client.getPlugin(parseInt(pluginId, 10));
+      pluginData = plugin.data;
+      pluginData.url = plugin.url;
+    } catch (e) {
+      this.showNotifications(new HttpApiCallError(e));
+    }
 
-      if (this.mounted) {
-        this.setState({ pluginData });
-      }
-      return resolve(pluginData);
-    });
+    if (this.mounted) {
+      this.setState({ pluginData, loading: false });
+    }
+    return pluginData;
   }
 
   async fetchStarDataByPluginName(pluginName) {
     const storeURL = process.env.REACT_APP_STORE_URL;
     const auth = { token: this.props.store.get('authToken') };
     let stars = [];
-    try{
+    try {
       if (auth) {
         const client = new Client(storeURL, auth);
         const response = await client.getPluginStars({ plugin_name: pluginName });
         stars = response.data;
       }
   
-      if (stars.length > 0) {
+      if (stars.length > 0)
         this.setState({ star: stars[0] });
-      }
-      else {
+      else
         throw new Error('Unable to fetch Plugin stars');
-      }
-    }catch(errors){
-      this.showNotifications(new HttpApiCallError(errors));
+    } catch(error) {
+      this.showNotifications(new HttpApiCallError(error));
     }
-  }
-  isFavorite() {
-    return this.state.star !== undefined;
-  }
-
-  isLoggedIn() {
-    return this.props.store ? this.props.store.get('isLoggedIn') : false;
   }
 
   renderStar() {
@@ -162,10 +166,13 @@ export class Plugin extends Component {
       className = 'plugin-star-disabled';
       name = 'star-o';
     }
-    return <Icon name={name} className={className} onClick={this.onStarClicked} />;
+    return <StarIcon name={name} className={className} onClick={this.onStarClicked} />;
   }
 
   render() {
+    if (!this.state.loading && !this.state.pluginData)
+      return <NotFound/>
+
     let plugin;
     let pluginURL;
     let authorURL;
@@ -197,54 +204,45 @@ export class Plugin extends Component {
       container = (
         <div className="plugin-container">
           <div className="plugin-header">
-            <Grid>
-              <Grid.Row>
-                <Grid.Col sm={12}>
-                  <Grid.Col sm={1}>
-                    <img
-                      className="plugin-icon"
-                      src={PluginImg}
-                      alt="Plugin icon"
-                    />
-                  </Grid.Col>
-                  <Grid.Col sm={6}>
-                    <div className="plugin-category">
-                      Visualization
-                    </div>
-                    <div className="plugin-name">
-                      <Link
-                        href={pluginURL || '/'}
-                        to={pluginURL || '/'}
-                        className="plugin-name"
-                      >
-                        {data.name}
-                      </Link>
-                      {this.renderStar()}
-                    </div>
-                    <div className="plugin-description">
-                      {data.description}
-                    </div>
-                  </Grid.Col>
-                  <Grid.Col sm={4} className="plugin-stats">
-                    <Icon name="star" size="lg" />
-                    {' '}
-                    10k+
-                    {modificationDate.isValid()
-                      && (
-                      <span className="plugin-modified">
-                        <Icon name="clock-o" size="lg" />
-                        {`Last modified ${modificationDate.format()}`}
-                      </span>
-                      )}
-                    {/* temp text */}
+            <Grid hasGutter>
+              <GridItem md={2} sm={12}>
+                <img
+                  className="plugin-icon"
+                  src={PluginImg}
+                  alt="Plugin icon"
+                />
+              </GridItem>
+              <GridItem sm={10}>
+                <div className="plugin-category">
+                  Visualization
+                </div>
+                <div className="plugin-name">
+                  <Link
+                    href={pluginURL || '/'}
+                    to={pluginURL || '/'}
+                    className="plugin-name"
+                  >
+                    {data.name}
+                  </Link>
+                  {this.renderStar()}
+                </div>
+                <div className="plugin-description">
+                  {data.description}
+                </div>
+                <div className="plugin-stats">
+                  <StarIcon name="star" size="lg" /> 10k+
+                  {modificationDate.isValid()
+                    && (
                     <span className="plugin-modified">
-                      <Icon name="clock-o" size="lg" />
-                      {' '}
-                      Last modified 1 hour ago
+                      <ClockIcon name="clock-o" size="lg" /> Last modified {modificationDate.format()}
                     </span>
-                  </Grid.Col>
-                </Grid.Col>
-              </Grid.Row>
+                    )}
+                  {/* temp text */}
+                  <span className="plugin-modified">
+                    <ClockIcon name="clock-o" size="lg" /> Last modified 1 hour ago
+                  </span>
+                </div>
+              </GridItem>
             </Grid>
           </div>
           <PluginBody pluginData={data} />
@@ -258,17 +256,23 @@ export class Plugin extends Component {
 
     return (
       <React.Fragment>
-        {this.state.errors && (
-          <Notification
-            title={this.state.errors}
-            position='top-right'
-            variant='danger'
-            closeable
-            onClose={()=>this.setState({errors:null})}
-          />
-        )}
+        {
+          this.state.errors.map((message, index) => (
+            <Notification
+              title={message}
+              position='top-right'
+              variant='danger'
+              closeable
+              onClose={() => {
+                let { errors } = this.state;
+                errors.splice(index)
+                this.setState({ errors })
+              }}
+            />
+          ))
+        }
         <div className={`plugin ${this.props.className}`}>
-        {container}
+          {container}
         </div>
       </React.Fragment>
       
