@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button } from 'patternfly-react';
+import Button from '../../../Button';
+
 import styles from './WelcomeChRIS.module.css';
 import chrisBanner from '../../../../assets/img/chris_logo-ribbon.png';
 
@@ -33,7 +34,7 @@ const WelcomeChRIS = () => (
             allow="autoplay; encrypted-media"
             allowFullScreen
           />
-          <p className={styles['welcome-chris-video-desc']}>
+          <p className="welcome-chris-video-desc">
             {'"'}Creating ChRIS{'"'} is an upcoming video series by Red Hat films that
             focuses on the ChRIS project - its purpose, development, milestones.
           </p>
@@ -42,13 +43,8 @@ const WelcomeChRIS = () => (
     </div>
     <div className={`row ${styles['welcome-chris-btn-row']}`}>
       <div>
-        <Button
+      <Button
           variant="secondary"
-<<<<<<< HEAD
-=======
-          bsStyle="default"
-          bsSize="large"
->>>>>>> Changed id to classname
           className={`${styles['welcome-chris-btn']} ${styles['welcome-chris-more-btn']}`}
           onClick={()=>{window.open('https://www.chrisproject.org')}}
         >
@@ -57,8 +53,7 @@ const WelcomeChRIS = () => (
       </div>
       <div>
         <Button
-          bsStyle="default"
-          bsSize="large"
+          variant="secondary"
           className={styles['welcome-chris-btn']}
         >
           Don{"'"}t have access to ChRIS?

@@ -372,10 +372,10 @@ class CreatePlugin extends Component {
           </div>
           {
             formError && (
-              <div className="createplugin-message-container error">
-                <div className="row">
+              <div className={`${styles['createplugin-message-container']} error`}>
+                <div className={`row`}>
                 <Alert
-                  className="createplugin-message"
+                  className={styles['createplugin-message']}
                   variant="danger"
                   title={formError}
                   actionClose={<AlertActionCloseButton onClose={this.hideMessage} />}
@@ -389,7 +389,7 @@ class CreatePlugin extends Component {
               <div className={`${styles['createplugin-message-container']} success`}>
                 <div className={`row`}>
                   <Alert
-                    className="createplugin-message"
+                    className={styles['createplugin-message']}
                     variant="success"
                     title="Plugin was successfully created!"
                   >

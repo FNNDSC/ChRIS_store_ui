@@ -14,7 +14,6 @@ import NotFound from '../NotFound/NotFound';
 import styles from './Plugin.module.css';
 import Notification from '../Notification';
 import HttpApiCallError from '../../errors/HttpApiCallError';
-import styles from './Plugin.module.css';
 
 const removeEmail = (author) => {
   if (author) return author.replace(/( ?\(.*\))/g, '');
