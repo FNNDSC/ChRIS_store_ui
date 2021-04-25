@@ -35,7 +35,6 @@ export class Plugins extends Component {
       errors: null,
       starsByPlugin: {},
       selectedCategory: null,
-      sarchQuery: null,
       categories: categories
     };
   }
