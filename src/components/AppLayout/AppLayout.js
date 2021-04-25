@@ -19,14 +19,14 @@ const PageSkipToContent = (
 
 const AppLayout = ({ store, children }) => {
   const [searchKey, setSearchKey] = useState('');
-  
+
   const [autoCompleteData, setAutoCompleteData] = useState(null);
   const auth = { token: store.get("authToken") };
-  
+
   const history = useHistory();
   const storeURL = process.env.REACT_APP_STORE_URL;
   const client = new Client(storeURL, auth);
-  
+
   const debounceSearch = useCallback(debounce(function(value) {onSearch(value)}, 250),[])
 
   const onSearch = async (value, MODE='AUTO') => {
@@ -37,16 +37,10 @@ const AppLayout = ({ store, children }) => {
     };
     try {
       if(MODE === 'ENTER') {
-        if(history.location.pathname !== '/plugins')
-          history.push({
-            pathname: '/plugins',
-            search: value,
-          });
-          else 
-            history.push({
-              search: value,
-            });
-          
+        history.push({
+          pathname: '/plugins',
+          search: `q=${value}`
+        });
       } else if(MODE === 'AUTO') {
         const searchResults = await client.getPlugins(body);
         setAutoCompleteData(searchResults.data);
@@ -64,7 +58,7 @@ const AppLayout = ({ store, children }) => {
       onChange={(value) => {
         setSearchKey(value);
         if(value.length >= 3)
-        debounceSearch(value); 
+        debounceSearch(value);
       }}
       onBlur={() => {
         setSearchKey('')
