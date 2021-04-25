@@ -41,6 +41,9 @@
 
   /* other */
   cursor: pointer;
+} 
+.plugins-category:last-of-type {
+  padding-bottom: 1em;
 }
 
 .plugins-category-name { flex: 1; }

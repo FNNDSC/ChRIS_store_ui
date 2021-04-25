@@ -213,7 +213,6 @@ class CreatePlugin extends Component {
          * We can provide specific feedback based on the plugin's JSON description,
          * if it is uploaded.
          */
-
         const tag = inputImage.split(':')[0];
         return this.handleError(
           <div>

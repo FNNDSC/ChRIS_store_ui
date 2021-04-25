@@ -120,6 +120,8 @@ Consult the Wiki [here](https://github.com/FNNDSC/ChRIS_store_ui/wiki).
 
 ## Learn More
 
+Interested in contributing? https://chrisproject.org/join-us
+
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
