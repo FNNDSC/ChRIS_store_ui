@@ -32,7 +32,7 @@ export class Plugins extends Component {
     CATEGORIES.forEach((name) => categories.set(name, 0));
 
     this.state = {
-      errors: null,
+      errorMsg: null,
       starsByPlugin: {},
       selectedCategory: null,
       categories: categories
@@ -88,7 +88,7 @@ export class Plugins extends Component {
   showNotifications = (error) => {
     console.error(error);
     this.setState({
-      errors: error.message,
+      errorMsg: error.message,
     })
   }
 
@@ -295,13 +295,13 @@ export class Plugins extends Component {
 
     return (
       <div className="plugins-container">
-        {this.state.errors && (
+        {this.state.errorMsg && (
           <Notification
-            title={this.state.errors}
+            title={this.state.errorMsg}
             position='top-right'
             variant='danger'
             closeable
-            onClose={()=>this.setState({errors:null})}
+            onClose={()=>this.setState({ errorMsg: null })}
           />
         )}
         <div className="plugins-stats">
