@@ -4,6 +4,7 @@ export class GithubAPIRepoError extends Error {
 
   /**
    * Create a new Github repo fetch error
+   * @param repo Name of repository
    * @param response Fetch API response
    */
   constructor(repo, response) {
@@ -20,6 +21,7 @@ export class GithubAPIRepoError extends Error {
 export class GithubAPIProfileError extends GithubAPIRepoError {
   /**
    * Create a new Github community profile fetch error
+   * @param repo Name of repository
    * @param response Fetch API response
    */
   constructor(repo, response) {
@@ -31,6 +33,7 @@ export class GithubAPIProfileError extends GithubAPIRepoError {
 export class GithubAPIReadmeError extends GithubAPIRepoError {
   /**
    * Create a new Github README fetch error
+   * @param repo Name of repository
    * @param response Fetch API response
    */
   constructor(repo, response) {
