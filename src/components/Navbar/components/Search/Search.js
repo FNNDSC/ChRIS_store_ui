@@ -75,7 +75,7 @@ const Search = (props) => {
               <li
                 key={id}
                 data-id={item.id}
-                onMouseDown={(e) => {onSearch(value, 'ENTER')}}
+                onMouseDown={(e) => {onSearch(item.name, 'ENTER')}}
               >
                 {item.name}
               </li>
