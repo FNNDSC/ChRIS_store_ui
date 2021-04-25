@@ -93,11 +93,7 @@ const Search = (props) => {
                 key={id}
                 className={id === cursorState ? 'active' : ''}
                 data-id={item.id}
-                onMouseDown={(e) => {
-                  history.push({
-                  pathname: '/plugins',
-                  search: item.name,
-                })}}
+                onMouseDown={(e) => {onSearch(item.name, 'ENTER')}}
               >
                 {item.name}
               </li>
