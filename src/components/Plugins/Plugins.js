@@ -168,7 +168,6 @@ export class Plugins extends Component {
     // count the frequency of plugins which belong to categories
     for (const { category } of plugins.data) {
       // TODO make category counting case insensitive
-      console.log(category);
       const currentCount = categories.get(category);
       if (currentCount !== undefined) {
         categories.set(category, currentCount + 1);
