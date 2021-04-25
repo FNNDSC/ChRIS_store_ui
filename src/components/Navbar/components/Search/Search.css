@@ -73,6 +73,11 @@
   padding: 5px 10px;
   font-weight: 500;
 }
+.active {
+  background: #e6e6e6;
+  cursor: pointer;
+  color: #3da1da;
+}
 .ws-global-search-autocomplete li:hover {
   background: #e6e6e6;
   cursor: pointer;
