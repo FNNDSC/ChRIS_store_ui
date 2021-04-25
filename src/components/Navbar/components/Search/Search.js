@@ -30,25 +30,43 @@ const Search = (props) => {
     placeholder,
     onBlur,
     autoCompleteData,
-    history,
   } = props;
   const searchRef = React.useRef(null);
   const downKeyPress = useKeyPress('ArrowDown');
   const upArrowPress = useKeyPress('ArrowUp');
+  const enterKeyPress = useKeyPress('Enter');
+
   const [cursorState, setCursorState] = useState(0);
-  console.log(cursorState);
+
+  useEffect(() => {
+    if (autoCompleteData && autoCompleteData.length && enterKeyPress) {
+      onSearch(autoCompleteData[cursorState].name, 'ENTER');
+      onBlur();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cursorState, enterKeyPress]);
+
   useEffect(() => {
     if (autoCompleteData && autoCompleteData.length && downKeyPress) {
       setCursorState(prevCursorState => prevCursorState < autoCompleteData.length - 1 ? prevCursorState + 1 : prevCursorState);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[downKeyPress]);
+
   useEffect(() => {
     if (autoCompleteData && autoCompleteData.length && upArrowPress) {
       setCursorState(prevCursorState => prevCursorState > 0 ? prevCursorState - 1 : prevCursorState)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [upArrowPress])
+  }, [upArrowPress]);
+
+  useEffect(() => {
+    if(autoCompleteData && autoCompleteData.length){
+      setShowAutoComplete(true);
+    }
+    setCursorState(0);
+  }, [autoCompleteData]);
+
   const [showAutoComplete, setShowAutoComplete] = useState(false);
   return (
     <Fragment>
@@ -70,12 +88,9 @@ const Search = (props) => {
             onChange={onChange}
             autoComplete="off"
             onKeyDown={(e) => {
-              if (e.key === 'Enter' && value.length >= 3){
+              if (e.key === 'Enter' && value.length >= 3 && !autoCompleteData.length){
                 onSearch(value, 'ENTER');
                 setShowAutoComplete(false);
-              }
-              else {
-                setShowAutoComplete(true);
               }
             }}
             onBlur={onBlur}
