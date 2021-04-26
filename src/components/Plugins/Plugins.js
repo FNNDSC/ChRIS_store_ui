@@ -43,7 +43,7 @@ const Plugins = ({ store, ...props }) => {
     if (isLoggedIn()) {
       fetchPluginStars();
     }
-  }, [fetchPluginStars, fetchPlugins, isLoggedIn]);
+  }, []);
 
   const setPluginStar = (pluginId, star) => {
     setStarsByPlugin({
