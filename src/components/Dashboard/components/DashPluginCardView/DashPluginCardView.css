@@ -51,7 +51,7 @@
         #393f44 325px);
     min-height: 375px;
     color: white;
-    margin: 20px -20px 0 !important;
+    /* margin: 20px -20px 0 !important; */
 }
 
 .card-body-header-text {

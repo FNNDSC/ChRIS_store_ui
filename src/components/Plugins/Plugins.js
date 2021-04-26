@@ -14,67 +14,55 @@ import Notification from '../Notification';
 
 import './Plugins.css';
 
+const CATEGORIES = ['FreeSurfer', 'MRI', 'Segmentation', 'copy'];
 
-// ==============================
-// ------ PLUGINS COMPONENT -----
-// ==============================
-
+/**
+ * A page showing a list of ChRIS plugins, according to the search
+ * specified in the URI's query string.
+ */
 export class Plugins extends Component {
   constructor(props) {
     super(props);
 
     const storeURL = process.env.REACT_APP_STORE_URL;
-    const auth = { token: props.store.get('authToken') };
+    const auth = { token: props.store.get("authToken") };
     this.client = new Client(storeURL, auth);
 
-    this.mounted = false;
+    const categories = new Map();
+    CATEGORIES.forEach((name) => categories.set(name, 0));
+
     this.state = {
-      errors: null,
-      pluginList: null,
+      errorMsg: null,
       starsByPlugin: {},
-      categories: [
-        {
-          name: 'Visualization',
-          length: 3,
-        },
-        {
-          name: 'Modeling',
-          length: 11,
-        },
-        {
-          name: 'Statistical Operation',
-          length: 7,
-        },
-      ],
+      selectedCategory: null,
+      categories: categories
     };
-
-    this.fetchPlugins = this.fetchPlugins.bind(this);
   }
 
-  componentWillMount() {
-    this.mounted = true;
+  /**
+   * Search for plugin data from the backend.
+   */
+  async componentDidMount() {
+    await this.refreshPluginList();
   }
 
-  componentDidMount() {
-    this.fetchPlugins().catch((err) => {
-      this.showNotifications(new HttpApiCallError(err));
-    });
-
-    if (this.isLoggedIn()) {
-      this.fetchPluginStars();
+  /**
+   * Re-fetch the list of plugins if the input was changed
+   * in the NarBar's search bar.
+   */
+  async componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location) {
+      await this.refreshPluginList();
     }
   }
-  componentDidUpdate(prevProps){
-    if(prevProps.location.search !== this.props.location.search) {
-      this.fetchPlugins().catch((err) => {
-        console.error(err);
-      });
-    }
-  }
-  componentWillUnmount() {
-    this.mounted = false;
-  }
 
+  /**
+   * Add a star next to the plugin visually.
+   * (Does not necessarily send to the backend that the plugin is a favorite).
+   *
+   * @param pluginId
+   * @param star
+   */
   setPluginStar(pluginId, star) {
     this.setState({
       starsByPlugin: {
@@ -84,22 +72,41 @@ export class Plugins extends Component {
     });
   }
 
+  /**
+   * Remove a star from next to the plugin visually.
+   * (Does not necessarily send to the backend that the plugin was unfavorited.)
+   * @param pluginId
+   */
   removePluginStar(pluginId) {
     this.setPluginStar(pluginId, undefined);
   }
-  
+
+  /**
+   * Show a notification for some network error.
+   * @param error error message
+   */
   showNotifications = (error) => {
-    console.log(error.message)
+    console.error(error);
     this.setState({
-      errors: error.message,
+      errorMsg: error.message,
     })
   }
+
+  /**
+   * Mark a plugin as a favorite by showing a star next to it and
+   * notifying the backend of this change.
+   *
+   * @param plugin
+   * @return {Promise<void>}
+   */
   async favPlugin(plugin) {
     // Early state change for instant visual feedback
     this.setPluginStar(plugin.id, {});
 
     try {
-      const star = await this.client.createPluginStar({ plugin_name: plugin.name });
+      const star = await this.client.createPluginStar({
+        plugin_name: plugin.name,
+      });
       this.setPluginStar(plugin.id, star.data);
     } catch (err) {
       this.removePluginStar(plugin.id);
@@ -107,6 +114,12 @@ export class Plugins extends Component {
     }
   }
 
+  /**
+   * Unfavorite a plugin by removing its star and notifying the backend.
+   *
+   * @param plugin
+   * @return {Promise<void>}
+   */
   async unfavPlugin(plugin) {
     const previousStarState = { ...this.state.starsByPlugin[plugin.id] };
 
@@ -122,55 +135,84 @@ export class Plugins extends Component {
     }
   }
 
-  fetchPlugins() {
-    const { location: { search } } = this.props;
+  /**
+   * 1. Fetch the list of plugins based on the search query.
+   * 2. Accumulate information about categories.
+   * 3. Call setState
+   * 4. If user is logged in, get information about their favorite plugins.
+   */
+  refreshPluginList = async () => {
+    const params = new URLSearchParams(window.location.search)
+    const name = params.get('q');
     const searchParams = {
       limit: 20,
       offset: 0,
-      name_title_category: search.split('?')[1] || '',
+      name_title_category: name,
     };
 
-    return new Promise(async (resolve, reject) => {
-      let plugins;
-      try {
-        // add plugins to pluginList as they are received
-        plugins = await this.client.getPlugins(searchParams);
+    let plugins;
 
-        if (this.mounted) {
-          this.setState((prevState) => ({
-            ...prevState,
-            pluginList: plugins.data,
-          }));
-        }
-      } catch (e) {
-        return reject(e);
-      }
-
-      return resolve(plugins.data);
-    });
-  }
-
-  async fetchPluginStars() {
-    
-    try{
-      const stars = await this.client.getPluginStars();
-      const starsByPlugin = {};
-      stars.data.forEach((star) => {
-        const pluginId = star.meta_id;
-        starsByPlugin[pluginId] = star;
-      });
-      this.setState({ starsByPlugin });
-
-    }catch(error){
+    try {
+      plugins = await this.client.getPlugins(searchParams);
+    } catch(error) {
       this.showNotifications(new HttpApiCallError(error));
+      return;
     }
+
+    // reset category counts
+    const categories = this.state.categories;
+    for (const name of categories.keys()) {
+      categories.set(name, 0);
+    }
+
+    // count the frequency of plugins which belong to categories
+    for (const { category } of plugins.data) {
+      // TODO make category counting case insensitive
+      const currentCount = categories.get(category);
+      if (currentCount !== undefined) {
+        categories.set(category, currentCount + 1);
+      }
+    }
+
+    // plugin list and category list are available always, even if not logged in
+    const nextState = {
+      pluginList: plugins.data,
+      categories: categories
+    };
+
+    if (this.isLoggedIn()) {
+      try{
+        const stars = await this.client.getPluginStars();
+        const starsByPlugin = {};
+        stars.data.forEach((star) => {
+          const pluginId = star.meta_id;
+          starsByPlugin[pluginId] = star;
+        });
+        nextState.starsByPlugin = starsByPlugin;
+      } catch(error) {
+        this.showNotifications(new HttpApiCallError(error));
+      }
+    }
+
+    // finally update the state once with pluginList, categories, and maybe starsByPlugin
+    this.setState(nextState);
   }
 
-  handlePluginFavorited(plugin) {
+  /**
+   * Favorite the plugin if it is not a favorite, or remove from favorites if already a favorite.
+   *
+   * @param plugin
+   * @return {Promise<void>}
+   */
+  togglePluginFavorited(plugin) {
     if (this.isLoggedIn()) {
-      return this.isFavorite(plugin) ? this.unfavPlugin(plugin) : this.favPlugin(plugin);
+      if (this.isFavorite(plugin)) {
+        this.unfavPlugin(plugin);
+      }
+      else {
+        this.favPlugin(plugin);
+      }
     }
-    return Promise.resolve();
   }
 
   isFavorite(plugin) {
@@ -178,38 +220,60 @@ export class Plugins extends Component {
   }
 
   isLoggedIn() {
-    return this.props.store ? this.props.store.get('isLoggedIn') : false;
+    return this.props.store ? this.props.store.get("isLoggedIn") : false;
+  }
+
+  /**
+   * Show only plugins which are part of this category.
+   *
+   * @param name name of category
+   */
+  handleCategorySelect = (name) => {
+    this.setState({selectedCategory: name});
   }
 
   render() {
-    const { pluginList, categories } = this.state;
+    const { pluginList, categories, selectedCategory } = this.state;
+
+    // convert map into the data structure expected by <PluginsCategories />
+    const categoryEntries = Array.from(categories.entries(), ([name, count]) => ({
+      name: name, length: count
+    }));
 
     // Remove email from author
-    const removeEmail = author => author.replace(/( ?\(.*\))/g, '');
+    const removeEmail = (author) => author.replace(/( ?\(.*\))/g, "");
 
     let pluginsFound;
     let pluginListBody;
 
     // Render the pluginList if the plugins have been fetched
     if (pluginList) {
-      pluginListBody = pluginList.map(plugin => (
-        <PluginItem
-          title={plugin.title}
-          id={plugin.id}
-          name={plugin.name}
-          author={removeEmail(plugin.authors)}
-          creationDate={plugin.creation_date}
-          key={`${plugin.name}-${plugin.id}`}
-          isLoggedIn={this.isLoggedIn()}
-          isFavorite={this.isFavorite(plugin)}
-          onStarClicked={async () => this.handlePluginFavorited(plugin)}
-        />
+      pluginListBody = pluginList
+        .filter((plugin) => {
+          if (selectedCategory) {
+            return plugin.category === selectedCategory;
+          }
+          return true;
+        })
+        .map((plugin) => (
+          <PluginItem
+            title={plugin.title}
+            id={plugin.id}
+            name={plugin.name}
+            author={removeEmail(plugin.authors)}
+            creationDate={plugin.creation_date}
+            key={`${plugin.name}-${plugin.id}`}
+            isLoggedIn={this.isLoggedIn()}
+            isFavorite={this.isFavorite(plugin)}
+            onStarClicked={() => this.togglePluginFavorited(plugin)}
+          />
       ));
 
       pluginsFound = (
         <span className="plugins-found">{pluginList.length} plugins found</span>
       );
-    } else {
+    }
+    else {
       // Or else show the loading placeholders
       pluginsFound = (
         <LoadingContainer>
@@ -231,38 +295,33 @@ export class Plugins extends Component {
 
     return (
       <div className="plugins-container">
-        {this.state.errors && (
-          <Notification 
-            title={this.state.errors} 
-            position='top-right' 
-            variant='danger' 
+        {this.state.errorMsg && (
+          <Notification
+            title={this.state.errorMsg}
+            position='top-right'
+            variant='danger'
             closeable
-            onClose={()=>this.setState({errors:null})} 
+            onClose={()=>this.setState({ errorMsg: null })}
           />
         )}
         <div className="plugins-stats">
           <div className="row plugins-stats-row">
             {pluginsFound}
-            <DropdownButton
-              id="sort-by-dropdown"
-              title="Sort By"
-              pullRight
-            >
+            <DropdownButton id="sort-by-dropdown" title="Sort By" pullRight>
               <MenuItem eventKey="1">Name</MenuItem>
             </DropdownButton>
           </div>
         </div>
         <div className="row plugins-row">
-          <PluginsCategories categories={categories} />
-          <div className="plugins-list">
-            {pluginListBody}
-          </div>
+          <PluginsCategories categories={categoryEntries}
+            onSelect={this.handleCategorySelect}
+          />
+          <div className="plugins-list">{pluginListBody}</div>
         </div>
       </div>
     );
   }
 }
-
 
 Plugins.propTypes = {
   store: PropTypes.objectOf(PropTypes.object).isRequired,

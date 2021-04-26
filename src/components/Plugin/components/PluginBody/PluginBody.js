@@ -10,6 +10,7 @@ import './PluginBody.css';
 import { CopyURLButton } from '../../../general/CopyURLButton';
 import Notification from '../../../Notification';
 import HttpApiCallError from '../../../../errors/HttpApiCallError';
+import { GithubAPIRepoError,GithubAPIProfileError, GithubAPIReadmeError } from '../../../../errors/GithubError';
 
 
 const removeEmail = (author) => author.replace(/( ?<.*>)/g, '');
@@ -28,17 +29,23 @@ const PluginBody = ({ pluginData }) => {
   }, [errors])
 
   const fetchReadme = useCallback(async (repo) => {
-    const profile = await (await fetch(`https://api.github.com/repos/${repo}/community/profile`)).json()
-    const url = await (await fetch(profile.files.readme.url)).json()
+    const profile =  await fetch(`https://api.github.com/repos/${repo}/community/profile`)
+    if (!profile.ok) throw new GithubAPIProfileError(repo, profile)
 
-    const file = await (await fetch(url.download_url)).text()
-    const type = url.download_url.split('.').reverse().shift()
+    const url = await fetch((await profile.json()).files.readme.url)
+    if (!url.ok) throw new GithubAPIReadmeError(repo, url)
+
+    const { download_url } = (await url.json())
+    const file = await (await fetch(download_url)).text()
+    const type = download_url.split('.').reverse().shift()
 
     return { file, type }
   }, [])
 
   const fetchRepoData = useCallback(async (repo) => {
     const data = await fetch(`https://api.github.com/repos/${repo}`)
+    if (!data.ok) throw new GithubAPIRepoError(repo, data)
+
     return await data.json()
   }, [])
 
