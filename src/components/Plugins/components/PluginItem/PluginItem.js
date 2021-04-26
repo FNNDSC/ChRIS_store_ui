@@ -21,7 +21,6 @@ const Plugin = ({
   creationDate,
   ...props
 }) => {
-  
   const renderStarButton = () => {
     let className;
 
@@ -34,32 +33,34 @@ const Plugin = ({
   };
 
   return (
-    <Card className="plugin-item-card">
-      <CardBody className="plugin-item-card-body">
-        <div>
-          <div className="row no-flex">
-            <div className="plugin-item-name">
-              <Link href={`/plugin/${id}`} to={`/plugin/${id}`}>
-                {name}
-              </Link>
-              {renderStarButton()}
-            </div>
-            <div className="plugin-item-title">{title}</div>
-            <div className="plugin-item-creation">
-              <Link
-                href={`/author/${author}`}
-                to={`/author/${author}`}
-                className="plugin-item-author"
-              >
-                {author}
-              </Link>
-              {dateIsValid(creationDate) &&
-                ` created ${formatDate(creationDate)}`}
+    <div {...props}>
+      <Card className="plugin-item-card">
+        <CardBody className="plugin-item-card-body">
+          <div>
+            <div className="row no-flex">
+              <div className="plugin-item-name">
+                <Link href={`/plugin/${id}`} to={`/plugin/${id}`}>
+                  {name}
+                </Link>
+                {renderStarButton()}
+              </div>
+              <div className="plugin-item-title">{title}</div>
+              <div className="plugin-item-creation">
+                <Link
+                  href={`/author/${author}`}
+                  to={`/author/${author}`}
+                  className="plugin-item-author"
+                >
+                  {author}
+                </Link>
+                {dateIsValid(creationDate) &&
+                  ` created ${formatDate(creationDate)}`}
+              </div>
             </div>
           </div>
-        </div>
-      </CardBody>
-    </Card>
+        </CardBody>
+      </Card>
+    </div>
   );
 };
 
