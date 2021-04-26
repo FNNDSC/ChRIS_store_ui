@@ -35,6 +35,43 @@ const Plugins = ({ store, ...props }) => {
   const auth = { token: store.get("authToken") };
   const client = new Client(storeURL, auth);
 
+  const fetchPlugins = useCallback(() => {
+    const searchParams = {
+      limit: 20,
+      offset: 0,
+    };
+
+    return new Promise(async (resolve, reject) => {
+      let plugins;
+      try {
+        // add plugins to pluginList as they are received
+        plugins = await client.getPlugins(searchParams);
+        setPluginList(()=>plugins.data)
+        
+      } catch (e) {
+        return reject(e);
+      }
+
+      return resolve(plugins.data);
+    });
+  },[client]);
+
+  const fetchPluginStars = useCallback (async () => {
+    const stars = await client.getPluginStars();
+
+    const starsByPlugin = {};
+    stars.data.forEach((star) => {
+      const pluginId = star.meta_id;
+      starsByPlugin[pluginId] = star;
+    });
+
+    setStarsByPlugin({ starsByPlugin });
+  },[client]);
+
+  const isLoggedIn = useCallback(() => {
+    return store ? store.get("isLoggedIn") : false;
+  },[store]);
+
   useEffect(() => {
     fetchPlugins().catch((err) => {
       console.error(err);
@@ -43,7 +80,7 @@ const Plugins = ({ store, ...props }) => {
     if (isLoggedIn()) {
       fetchPluginStars();
     }
-  }, []);
+  }, [fetchPluginStars, fetchPlugins, isLoggedIn]);
 
   const setPluginStar = (pluginId, star) => {
     setStarsByPlugin({
@@ -86,39 +123,6 @@ const Plugins = ({ store, ...props }) => {
     }
   };
 
-  const fetchPlugins = () => {
-    const searchParams = {
-      limit: 20,
-      offset: 0,
-    };
-
-    return new Promise(async (resolve, reject) => {
-      let plugins;
-      try {
-        // add plugins to pluginList as they are received
-        plugins = await client.getPlugins(searchParams);
-        setPluginList(()=>plugins.data)
-        
-      } catch (e) {
-        return reject(e);
-      }
-
-      return resolve(plugins.data);
-    });
-  };
-
-  const fetchPluginStars = async () => {
-    const stars = await client.getPluginStars();
-
-    const starsByPlugin = {};
-    stars.data.forEach((star) => {
-      const pluginId = star.meta_id;
-      starsByPlugin[pluginId] = star;
-    });
-
-    setStarsByPlugin({ starsByPlugin });
-  };
-
   const handlePluginFavorited = (plugin) => {
     if (isLoggedIn()) {
       return isFavorite(plugin) ? unfavPlugin(plugin) : favPlugin(plugin);
@@ -130,10 +134,6 @@ const Plugins = ({ store, ...props }) => {
   const isFavorite = (plugin) => {
     return starsByPlugin[plugin.id] !== undefined;
   };
-
-  const isLoggedIn = useCallback(() => {
-    return store ? store.get("isLoggedIn") : false;
-  });
 
   // Remove email from author
   const removeEmail = (author) => author.replace(/( ?\(.*\))/g, "");
