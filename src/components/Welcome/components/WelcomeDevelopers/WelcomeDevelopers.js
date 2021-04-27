@@ -1,6 +1,5 @@
-import React from "react";
-import styles from "./WelcomeDevelopers.module.css";
-import { Link } from "react-router-dom";
+import React from 'react';
+import styles from './WelcomeDevelopers.module.css';
 
 const WelcomeDevelopers = () => (
   <React.Fragment>

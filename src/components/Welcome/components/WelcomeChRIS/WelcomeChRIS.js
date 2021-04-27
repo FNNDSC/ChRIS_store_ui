@@ -34,7 +34,7 @@ const WelcomeChRIS = () => (
             allow="autoplay; encrypted-media"
             allowFullScreen
           />
-          <p className="welcome-chris-video-desc">
+          <p className={styles['welcome-chris-video-desc']}>
             {'"'}Creating ChRIS{'"'} is an upcoming video series by Red Hat films that
             focuses on the ChRIS project - its purpose, development, milestones.
           </p>
@@ -46,7 +46,6 @@ const WelcomeChRIS = () => (
       <Button
           variant="secondary"
           className={`${styles['welcome-chris-btn']} ${styles['welcome-chris-more-btn']}`}
-          onClick={()=>{window.open('https://www.chrisproject.org')}}
         >
           Learn more
         </Button>

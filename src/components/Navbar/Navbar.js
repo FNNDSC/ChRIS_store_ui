@@ -10,7 +10,7 @@ import {
 } from '@patternfly/react-core';
 import Button from '../Button';
 import { NavLink } from 'react-router-dom';
-import styles from './Navbar.module.css';
+import './Navbar.css';
 import LogoImg from '../../assets/img/chris-plugin-store_logo.png';
 import ChrisStore from '../../store/ChrisStore';
 
@@ -69,7 +69,7 @@ const LoginButton = ({ store }) => (
   <NavLink to="/signin">
     <Button
       variant="primary"
-      className={styles['login-button']}
+      className="login-button"
     >
       {store.get('isLoggedIn') ? 'Sign Out' : 'Sign In'}
     </Button>
@@ -77,7 +77,7 @@ const LoginButton = ({ store }) => (
 );
 const StatefulLoginButton = ChrisStore.withStore(LoginButton);
 
-const Logo = (<Brand className={styles['logo']} alt="ChRIS Plugin Store" src={LogoImg}/>);
+const Logo = (<Brand className="logo" alt="ChRIS Plugin Store" src={LogoImg}/>);
 
 const Navbar = ({ searchComponent }) => {
   const HeaderTools = (
