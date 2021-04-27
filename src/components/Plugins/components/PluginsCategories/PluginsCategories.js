@@ -14,6 +14,13 @@ const PluginsCategories = ({ categories, ...props }) => (
             <div className="plugins-category-length">{length}</div>
           </div>
         ))}
+        <div
+          onClick={() => {
+            props.onSelect(null);
+          }}
+        >
+          <div style={{ color: "#aaa", cursor: "pointer" }}>Clear</div>
+        </div>
       </div>
     </div>
   </div>
@@ -26,6 +33,7 @@ PluginsCategories.propTypes = {
       length: PropTypes.number.isRequired,
     })
   ).isRequired,
+  onSelect: PropTypes.func,
 };
 
 export default PluginsCategories;

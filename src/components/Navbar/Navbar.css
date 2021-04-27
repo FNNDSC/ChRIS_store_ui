@@ -314,6 +314,12 @@ header > .navbar-dropdown {
     margin-left: 0;
   }
 }
+
+@media (max-width: 767px) {
+  .pf-c-page__header-tools-item #search {
+    display: none;
+  }
+}
 @media (max-width: 480px){
   .login-button .other-button{
       width:70px;

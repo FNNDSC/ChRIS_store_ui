@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Search.css';
 import SearchIcon from '@patternfly/react-icons/dist/esm/icons/search-icon';
 import TimesIcon from '@patternfly/react-icons/dist/esm/icons/times-icon';
 
 import { Button, TextInput } from '@patternfly/react-core';
+import { Fragment } from 'react';
 
 /*
  * (C) 2020 Red Hat, MIT License
@@ -20,38 +21,70 @@ import { Button, TextInput } from '@patternfly/react-core';
  * if screen size is too small.
  */
 const Search = (props) => {
-  const { value, onClear, onSearch, onChange, placeholder } = props;
+  const {
+    value,
+    onClear,
+    onSearch,
+    onChange,
+    placeholder,
+    onBlur,
+    autoCompleteData,
+    history,
+  } = props;
   const searchRef = React.useRef(null);
+  const [showAutoComplete, setShowAutoComplete] = useState(false);
   return (
-    <div id="search">
-      <div id="ws-global-search-wrapper" >
-        <SearchIcon
-          className="global-search-icon"
-          onClick={()=>{searchRef.current.focus()}}
-        />
-          <TextInput
-            id="ws-global-search"
-            ref={searchRef} 
-            value={value}
-            name="q" 
-            placeholder={placeholder}
-            onChange={onChange}
-            onKeyDown={(e) => {
-              if(e.key === 'Enter' && value.length >= 3 ) onSearch();
+    <Fragment>
+      <div id="search">
+        <div id="ws-global-search-wrapper">
+          <SearchIcon
+            className="global-search-icon"
+            onClick={() => {
+              searchRef.current.focus();
             }}
           />
+          <TextInput
+            id="ws-global-search"
+            ref={searchRef}
+            type="search"
+            value={value}
+            name="q"
+            placeholder={placeholder}
+            onChange={onChange}
+            autoComplete="off"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && value.length >= 3){
+                onSearch(value, 'ENTER');
+                setShowAutoComplete(false);
+              }
+              else {
+                setShowAutoComplete(true);
+              }
+            }}
+            onBlur={onBlur}
+          />
+        </div>
+        {value.length > 0 && (
+          <Button variant="plain" className="ws-clear-search" onClick={onClear}>
+            <TimesIcon />
+          </Button>
+        )}
+        {showAutoComplete && autoCompleteData && autoCompleteData.length > 0 && (
+          <ul  className="ws-global-search-autocomplete">
+            {autoCompleteData.map((item, id) => (
+              <li
+                key={id}
+                data-id={item.id}
+                onMouseDown={(e) => {onSearch(item.name, 'ENTER')}}
+              >
+                {item.name}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
-      {value.length > 0 && (
-        <Button
-          variant="plain"
-          className="ws-clear-search"
-          onClick={onClear}
-        >
-          <TimesIcon />
-        </Button>
-      )}
-    </div>
-  )
-}
+    </Fragment>
+  );
+};
 
 export default Search;

@@ -9,6 +9,14 @@ UI for the ChRIS Store.
 [![Stars][stars-badge]][repo-link]
 [![Forks][forks-badge]][repo-link]
 
+## Quickstart
+
+First, get the [ChRIS store backend](https://github.com/FNNDSC/ChRIS_store)
+running. Assuming the backend is on `http://localhost:8010/api/v1/`:
+
+```shell
+docker run --rm -d --name chris_store_ui -p 3000:3000 -e REACT_APP_STORE_URL=http://localhost:8010/api/v1/ fnndsc/chris_store_ui:latest
+```
 
 ## Preconditions
 
@@ -119,6 +127,8 @@ Consult the Wiki [here](https://github.com/FNNDSC/ChRIS_store_ui/wiki).
 
 
 ## Learn More
+
+Interested in contributing? https://chrisproject.org/join-us
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 

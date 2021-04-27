@@ -80,4 +80,4 @@ Plugin.defaultProps = {
   isFavorite: false,
 };
 
-export default Plugin;
+export default PluginItem;

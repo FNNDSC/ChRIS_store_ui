@@ -5,109 +5,140 @@ import { DropdownButton, MenuItem } from "react-bootstrap";
 import PluginItem from "./components/PluginItem/PluginItem";
 import LoadingPluginItem from "./components/LoadingPluginItem/LoadingPluginItem";
 import PluginsCategories from "./components/PluginsCategories/PluginsCategories";
-import "./Plugins.css";
 import LoadingContainer from "../LoadingContainer/LoadingContainer";
 import LoadingContent from "../LoadingContainer/components/LoadingContent/LoadingContent";
 import ChrisStore from "../../store/ChrisStore";
+import HttpApiCallError from "../../errors/HttpApiCallError";
+import Notification from "../Notification";
+import "./Plugins.css";
 
-// ==============================
-// ------ PLUGINS COMPONENT -----
-// ==============================
+const CATEGORIES = ["FreeSurfer", "MRI", "Segmentation", "copy"];
+const storeURL = process.env.REACT_APP_STORE_URL;
 
-const Plugins = ({ store, ...props }) => {
-  const [pluginList, setPluginList] = useState(null);
-  const [starsByPlugin, setStarsByPlugin] = useState({});
-  const [categories, setCategories] = useState([
-    {
-      name: "Visualization",
-      length: 3,
-    },
-    {
-      name: "Modeling",
-      length: 11,
-    },
-    {
-      name: "Statistical Operation",
-      length: 7,
-    },
-  ]);
-  const storeURL = process.env.REACT_APP_STORE_URL;
-  const auth = { token: store.get("authToken") };
+const Plugins = (props) => {
+  const auth = { token: props.store.get("authToken") };
+  // const categories = new Map()
+
   const client = new Client(storeURL, auth);
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [starsByPlugin, setStarsByPlugin] = useState({});
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [categories, setCategories] = useState(new Map());
+  const [pluginList, setPluginList] = useState([]);
 
-  const fetchPlugins = useCallback(() => {
+  CATEGORIES.forEach((name) => categories.set(name, 0));
+
+  const isLoggedIn = () => {
+    return props.store ? props.store.get("isLoggedIn") : false;
+  };
+
+  /**
+   * 1. Fetch the list of plugins based on the search query.
+   * 2. Accumulate information about categories.
+   * 3. Call setState
+   * 4. If user is logged in, get information about their favorite plugins.
+   */
+  const refreshPluginList = async () => {
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("q");
     const searchParams = {
       limit: 20,
       offset: 0,
+      name_title_category: name,
     };
 
-    return new Promise(async (resolve, reject) => {
-      let plugins;
-      try {
-        // add plugins to pluginList as they are received
-        plugins = await client.getPlugins(searchParams);
-        setPluginList(()=>plugins.data)
-        
-      } catch (e) {
-        return reject(e);
+    let plugins;
+    try {
+      plugins = await client.getPlugins(searchParams);
+    } catch (error) {
+      showNotifications(new HttpApiCallError(error));
+      return;
+    }
+
+    // reset category counts
+    // const categories = categories;
+    for (const name of categories.keys()) {
+      categories.set(name, 0);
+    }
+
+    // count the frequency of plugins which belongs to categories
+    for (const { category } of plugins.data) {
+      // TODO make category counting case insensitive
+      const currentCount = categories.get(category);
+      if (currentCount !== undefined) {
+        categories.set(category, currentCount + 1);
       }
+    }
 
-      return resolve(plugins.data);
-    });
-  },[client]);
-
-  const fetchPluginStars = useCallback (async () => {
-    const stars = await client.getPluginStars();
-
-    const starsByPlugin = {};
-    stars.data.forEach((star) => {
-      const pluginId = star.meta_id;
-      starsByPlugin[pluginId] = star;
-    });
-
-    setStarsByPlugin({ starsByPlugin });
-  },[client]);
-
-  const isLoggedIn = useCallback(() => {
-    return store ? store.get("isLoggedIn") : false;
-  },[store]);
-
-  useEffect(() => {
-    fetchPlugins().catch((err) => {
-      console.error(err);
-    });
+    setPluginList(plugins.data);
 
     if (isLoggedIn()) {
-      fetchPluginStars();
+      try {
+        const stars = await client.getPluginStars();
+        const starsByPlugin = {};
+        stars.data.forEach((star) => {
+          const pluginId = star.meta_id;
+          starsByPlugin[pluginId] = star;
+        });
+        setStarsByPlugin(starsByPlugin);
+      } catch (error) {
+        showNotifications(new HttpApiCallError(error));
+      }
     }
-  }, [fetchPluginStars, fetchPlugins, isLoggedIn]);
-
-  const setPluginStar = (pluginId, star) => {
-    setStarsByPlugin({
-      starsByPlugin: {
-        ...starsByPlugin,
-        [pluginId]: star,
-      },
-    });
   };
 
+  useEffect(() => {
+    refreshPluginList();
+  }, [props.location]);
+
+  /**
+   * Add a star next to the plugin visually.
+   * (Does not necessarily send to the backend that the plugin is a favorite).
+   *
+   * @param pluginId
+   * @param star
+   */
+  const setPluginStar = (pluginId, star) => {
+    setStarsByPlugin({ ...starsByPlugin, [pluginId]: star });
+  };
+
+  /**
+   * Remove a star from next to the plugin visually.
+   * (Does not necessarily send to the backend that the plugin was unfavorited.)
+   * @param pluginId
+   */
   const removePluginStar = (pluginId) => {
     setPluginStar(pluginId, undefined);
   };
 
+  /**
+   * Mark a plugin as a favorite by showing a star next to it and
+   * notifying the backend of this change.
+   *
+   * @param plugin
+   * @return {Promise<void>}
+   */
   const favPlugin = async (plugin) => {
     // Early state change for instant visual feedback
     setPluginStar(plugin.id, {});
 
     try {
-      const star = await client.createPluginStar({ plugin_name: plugin.name });
+      const star = await client.createPluginStar({
+        plugin_name: plugin.name,
+      });
       setPluginStar(plugin.id, star.data);
     } catch (err) {
       removePluginStar(plugin.id);
-      console.error(err);
+      showNotifications(new HttpApiCallError(err));
     }
   };
 
+  /**
+   * Unfavorite a plugin by removing its star and notifying the backend.
+   *
+   * @param plugin
+   * @return {Promise<void>}
+   */
   const unfavPlugin = async (plugin) => {
     const previousStarState = { ...starsByPlugin[plugin.id] };
 
@@ -119,34 +150,72 @@ const Plugins = ({ store, ...props }) => {
       await star.delete();
     } catch (err) {
       setPluginStar(plugin.id, previousStarState);
-      console.error(err);
+      showNotifications(new HttpApiCallError(err));
     }
   };
 
-  const handlePluginFavorited = (plugin) => {
+  /**
+   * Favorite the plugin if it is not a favorite, or remove from favorites if already a favorite.
+   *
+   * @param plugin
+   * @return {Promise<void>}
+   */
+  const togglePluginFavorited = (plugin) => {
     if (isLoggedIn()) {
-      return isFavorite(plugin) ? unfavPlugin(plugin) : favPlugin(plugin);
+      if (isFavorite()) {
+        unfavPlugin(plugin);
+      } else {
+        favPlugin(plugin);
+      }
     }
-
-    return Promise.resolve();
   };
 
   const isFavorite = (plugin) => {
     return starsByPlugin[plugin.id] !== undefined;
   };
 
-  // Remove email from author
+  /**
+   * Show only plugins which are part of this category.
+   *
+   * @param name name of category
+   */
+  const handleCategorySelect = (name) => {
+    setSelectedCategory(name);
+  };
+
+  // convert map into the data structure expected by <PluginsCategories />
+  const categoryEntries = Array.from(categories.entries(), ([name, count]) => ({
+    name,
+    length: count,
+  }));
+
+  /**
+   * Show a notification for some network error.
+   * @param error error message
+   */
+  const showNotifications = (error) => {
+    console.error(error);
+    setErrorMsg(error.message);
+  };
+
   const removeEmail = (author) => author.replace(/( ?\(.*\))/g, "");
-  
+
   return (
-    <div {...props} className="plugins-container">
+    <div className="plugins-container">
+      {errorMsg && (
+        <Notification
+          title={errorMsg}
+          position="top-right"
+          variant="danger"
+          closeable
+          onClose={() => setErrorMsg({ errorMsg: null })}
+        />
+      )}
       <div className="plugins-stats">
         <div className="row plugins-stats-row">
           {/* Plugins Found */}
-          {pluginList ? (
-            <span className="plugins-found">
-              {pluginList.length} plugins found
-            </span>
+          {pluginList.length ? (
+            <span className="plugins-found">{pluginList.length} plugins found</span>
           ) : (
             <LoadingContainer>
               <LoadingContent
@@ -164,26 +233,34 @@ const Plugins = ({ store, ...props }) => {
         </div>
       </div>
       <div className="row plugins-row">
-        {/* Plugin List */}
-        <PluginsCategories categories={categories} />
+        <PluginsCategories
+          categories={categoryEntries}
+          onSelect={handleCategorySelect}
+        />
         <div className="plugins-list">
+          {/* Plugin List Body*/}
           {pluginList
-            ? pluginList.map((plugin) => (
-                <PluginItem
-                  title={plugin.title}
-                  id={plugin.id}
-                  name={plugin.name}
-                  author={removeEmail(plugin.authors)}
-                  creationDate={plugin.creation_date}
-                  key={`${plugin.name}-${plugin.id}`}
-                  isLoggedIn={isLoggedIn()}
-                  isFavorite={isFavorite(plugin)}
-                  onStarClicked={async () => handlePluginFavorited(plugin)}
-                />
-              ))
-            : new Array(6).fill().map((e, i) => (
-                <LoadingPluginItem key={i} />
-              ))}
+            ? pluginList
+                .filter((plugin) => {
+                  if (selectedCategory) {
+                    return plugin.category === selectedCategory;
+                  }
+                  return true;
+                })
+                .map((plugin) => (
+                  <PluginItem
+                    title={plugin.title}
+                    id={plugin.id}
+                    name={plugin.name}
+                    author={removeEmail(plugin.authors)}
+                    creationDate={plugin.creation_date}
+                    key={`${plugin.name}-${plugin.id}`}
+                    isLoggedIn={isLoggedIn()}
+                    isFavorite={isFavorite(plugin)}
+                    onStarClicked={() => togglePluginFavorited(plugin)}
+                  />
+                ))
+            : new Array(6).fill().map((e, i) => <LoadingPluginItem key={i} />)}
         </div>
       </div>
     </div>

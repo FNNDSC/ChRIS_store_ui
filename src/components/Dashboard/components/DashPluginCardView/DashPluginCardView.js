@@ -179,7 +179,7 @@ class DashPluginCardView extends Component {
     if (plugins) {
       pluginCardBody = plugins.map((plugin) => {
         const creationDate = new RelativeDate(plugin.creation_date);
-        const applicationType = new DashApplicationType(plugin.type);
+        const applicationType = DashApplicationType(plugin.type);
         return (
           <Col xs={12} sm={6} md={4} key={plugin.name}>
             <Card>

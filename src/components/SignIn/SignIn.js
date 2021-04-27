@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
-  Card, CardBody, Alert,
-  Form, FormGroup, FormControl,
+  Card, CardBody
 } from 'patternfly-react';
 import Button from '../Button';
 import StoreClient from '@fnndsc/chrisstoreapi';
 import './SignIn.css';
 import chrisLogo from '../../assets/img/chris_logo-white.png';
 import ChrisStore from '../../store/ChrisStore';
+import FormInput from '../FormInput';
+import { Form, Alert, AlertActionCloseButton } from '@patternfly/react-core';
 
 export class SignIn extends Component {
   constructor(props) {
@@ -49,8 +50,8 @@ export class SignIn extends Component {
     this.mounted = false;
   }
 
-  handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
+  handleChange(value, name) {
+    this.setState({ [name]: value });
   }
 
   async handleSubmit(event) {
@@ -101,11 +102,10 @@ export class SignIn extends Component {
               <div className="signin-error-container">
                 <Alert
                   className="signin-error"
-                  type="error"
-                  onDismiss={this.hideError}
-                >
-                  {error}
-                </Alert>
+                  variant="danger"
+                  title={error}
+                  actionClose={<AlertActionCloseButton onClose={this.hideError} />}
+                />
               </div>
             )
           }
@@ -128,26 +128,26 @@ export class SignIn extends Component {
             </header>
             <CardBody>
               <Form className="signin-form" >
-                <FormGroup className="signin-username-form-group" bsSize="large">
-                  <FormControl
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    value={username}
-                    onChange={this.handleChange}
-                    autoComplete="username"
-                  />
-                </FormGroup>
-                <FormGroup className="signin-password-form-group" bsSize="large">
-                  <FormControl
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={this.handleChange}
-                    autoComplete="current-password"
-                  />
-                </FormGroup>
+                <FormInput
+                  placeholder="Username"
+                  fieldName="username"
+                  id="username"
+                  inputType="text"
+                  value={username}
+                  onChange={(val) => this.handleChange(val, 'username')}
+                  autoComplete="username"
+                  className="signin-username-form-group"
+                />
+                <FormInput
+                  placeholder="Password"
+                  fieldName="password"
+                  value={password}
+                  inputType="password"
+                  id="password"
+                  onChange={(val) => this.handleChange(val, 'password')}
+                  autoComplete="current-password"
+                  className="signin-password-form-group"
+                />
                 <Button
                   className="signin-login-btn"
                   variant="primary"
