@@ -8,7 +8,7 @@ const PluginsCategories = ({ categories, ...props }) => (
     <div className="plugins-categories">
       <div className="plugins-categories-header">Categories</div>
       <div>
-        {categories.map(({ name, length }) => (
+        {categories?.map(({ name, length }) => (
           <div key={name} className="plugins-category">
             <div className="plugins-category-name">{name}</div>
             <div className="plugins-category-length">{length}</div>

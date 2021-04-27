@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect} from "react";
 import PropTypes from "prop-types";
 import Client from "@fnndsc/chrisstoreapi";
 import { DropdownButton, MenuItem } from "react-bootstrap";
@@ -89,7 +89,7 @@ const Plugins = (props) => {
 
   useEffect(() => {
     refreshPluginList();
-  }, [props.location]);
+  }, [props.location, refreshPluginList]);
 
   /**
    * Add a star next to the plugin visually.

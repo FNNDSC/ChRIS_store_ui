@@ -10,7 +10,7 @@ const dateIsValid = (date) => new RelativeDate(date).isValid();
 
 const formatDate = (date) => new RelativeDate(date).format();
 
-const Plugin = ({
+const PluginItem = ({
   isLoggedIn,
   isFavorite,
   onStarClicked,
@@ -64,7 +64,7 @@ const Plugin = ({
   );
 };
 
-Plugin.propTypes = {
+PluginItem.propTypes = {
   title: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
@@ -75,7 +75,7 @@ Plugin.propTypes = {
   onStarClicked: PropTypes.func.isRequired,
 };
 
-Plugin.defaultProps = {
+PluginItem.defaultProps = {
   isLoggedIn: false,
   isFavorite: false,
 };
