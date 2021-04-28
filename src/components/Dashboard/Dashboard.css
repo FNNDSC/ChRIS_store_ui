@@ -23,6 +23,8 @@
     display: flex;
     flex-direction: column;
     flex: 3;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
 .dashboard-right-column {

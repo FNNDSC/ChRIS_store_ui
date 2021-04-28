@@ -49,7 +49,7 @@ export class Plugin extends Component {
 
   async componentDidMount() {
     let pluginData;
-    
+
     if (!this.state.pluginData) {
       pluginData = await this.fetchPluginData();
     } else {
@@ -72,7 +72,7 @@ export class Plugin extends Component {
       errors
     })
   }
-  
+
   isFavorite() {
     return this.state.star !== undefined;
   }
@@ -145,7 +145,7 @@ export class Plugin extends Component {
         const response = await client.getPluginStars({ plugin_name: pluginName });
         stars = response.data;
       }
-  
+
       if (stars.length > 0)
         this.setState({ star: stars[0] });
       else
@@ -275,7 +275,7 @@ export class Plugin extends Component {
           {container}
         </div>
       </React.Fragment>
-      
+
     );
   }
 }

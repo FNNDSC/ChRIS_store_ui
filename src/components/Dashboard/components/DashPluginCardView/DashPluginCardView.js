@@ -6,24 +6,16 @@ import {
   Col,
   EmptyStateAction,
   EmptyStateInfo,
-  Form,
-  FormGroup,
-  ControlLabel,
-  FormControl,
-  Grid,
-  HelpBlock,
-  CardHeading,
-  DropdownKebab,
-  MenuItem,
   FieldLevelHelp,
   MessageDialog
 } from "patternfly-react";
-import { CardTitle, CardBody, Card } from "@patternfly/react-core";
+import { CardTitle, CardBody, Card, DropdownItem, Dropdown, KebabToggle, GridItem, Grid, Form } from "@patternfly/react-core";
 import Button from "../../../Button";
 import "./DashPluginCardView.css";
 import BrainImg from "../../../../assets/img/empty-brain-xs.png";
 import PluginPointer from "../../../../assets/img/brainy_welcome-pointer.png";
 import RelativeDate from "../../../RelativeDate/RelativeDate";
+import FormInput from "../../../FormInput";
 
 const DashGitHubEmptyState = () => (
   <Col xs={12}>
@@ -77,7 +69,8 @@ class DashPluginCardView extends Component {
       showEditConfirmation: false,
       pluginToDelete: null,
       pluginToEdit: null,
-      publicRepo: ""
+      publicRepo: "",
+      isOpen: [],
     };
 
     const methods = [
@@ -123,10 +116,25 @@ class DashPluginCardView extends Component {
       pluginToEdit: plugin
     });
   }
-  handlePublicRepo(event) {
-    this.setState({ publicRepo: event.target.value });
+  handlePublicRepo(value) {
+    this.setState({ publicRepo: value });
   }
-
+  toggle = (value, id) => {
+    const pluginLength = this.props.plugins.length;
+    let isOpen = new Array(pluginLength);
+    isOpen[id] = value;
+    this.setState({
+      isOpen: [...isOpen],
+    });
+  }
+  onSelect = (event, plugin) => {
+    const actionType = event.target.innerText;
+    if (actionType.includes('Edit')) {
+      this.showEditModal(plugin);
+    } else if (actionType.includes('Delete')) {
+      this.showDeleteModal(plugin);
+    }
+  }
   render() {
     let pluginCardBody;
     const { plugins } = this.props;
@@ -145,27 +153,23 @@ class DashPluginCardView extends Component {
       </p>
     );
     const secondaryEditContent = pluginToEdit ? (
-      <Grid>
-        <Form horizontal>
-          <FormGroup controlId="name" disabled={false}>
-            <Col componentClass={ControlLabel} sm={2}>
-              Public Repo
-            </Col>
-            <Col sm={4}>
-              <FormControl
-                type="text"
-                defaultValue={pluginToEdit.public_repo}
-                onChange={this.handlePublicRepo}
-                name="publicRepo"
-              />
-              <HelpBlock>Enter the public repo URL for your plugin</HelpBlock>
-            </Col>
-          </FormGroup>
-        </Form>
+      <Grid sm={12} md={12} x12={12} lg={12} className="edit-grid">
+        <GridItem>
+          <Form isHorizontal>
+            <FormInput
+              formLabel="Public Repo"
+              inputType="text"
+              defaultValue={pluginToEdit.public_repo}
+              onChange={(value) => this.handlePublicRepo(value)}
+              fieldName="publicRepo"
+              helperText="Enter the public repo URL for your plugin"
+            />
+          </Form>
+        </GridItem>
       </Grid>
     ) : null;
     const addNewPlugin = (
-      <Col xs={12} sm={6} md={4} key="addNewPlugin">
+      <GridItem key="addNewPlugin">
         <Card>
           <CardBody className="card-view-add-plugin">
             <div>
@@ -181,34 +185,35 @@ class DashPluginCardView extends Component {
             </EmptyStateAction>
           </CardBody>
         </Card>
-      </Col>
+      </GridItem>
     );
     if (plugins) {
-      pluginCardBody = plugins.map(plugin => {
+      pluginCardBody = plugins.map((plugin, id) => {
         const creationDate = new RelativeDate(plugin.creation_date);
         const applicationType = DashApplicationType(plugin.type);
         return (
-          <Col xs={12} sm={6} md={4} key={plugin.name}>
+          <GridItem  key={plugin.name}>
             <Card>
-              <CardTitle>
-                <DropdownKebab
-                  id="myKebab"
-                  pullRight
-                  className="card-view-kebob"
-                >
-                  <MenuItem eventKey={plugin} onSelect={this.showEditModal}>
-                    Edit
-                  </MenuItem>
-                  <MenuItem eventKey={plugin} onSelect={this.showDeleteModal}>
-                    Delete
-                  </MenuItem>
-                </DropdownKebab>
-                <Link to={`/plugin/${plugin.id}`} href={`/plugin/${plugin.id}`}>
-                  {plugin.name}
-                </Link>
-                <div className="card-view-tag-title">
-                  <FieldLevelHelp content={<div>{plugin.description}</div>} />
+              <CardTitle className="card-view-title">
+                <div>
+                  <Link to={`/plugin/${plugin.id}`} href={`/plugin/${plugin.id}`}>
+                    {plugin.name}
+                  </Link>
+                  <div className="card-view-tag-title">
+                    <FieldLevelHelp content={<div>{plugin.description}</div>} />
+                  </div>
                 </div>
+                <Dropdown
+                  className="card-view-kebob"
+                  onSelect={(event) => this.onSelect(event, plugin)}
+                  toggle={<KebabToggle onToggle={(value) => this.toggle(value, id)} id={`kebab-${plugin.id}`}/>}
+                  isOpen={this.state.isOpen[id]}
+                  isPlain
+                  dropdownItems={[
+                    <DropdownItem key={`edit-${plugin.id}`} id="edit" className="kebab-item">Edit</DropdownItem>,
+                    <DropdownItem key={`delete-${plugin.id}`} id="delete" className="kebab-item">Delete</DropdownItem>
+                  ]}
+                />
               </CardTitle>
               <CardBody>
                 <div className="card-view-app-type">{applicationType}</div>
@@ -230,7 +235,7 @@ class DashPluginCardView extends Component {
                 </div>
               </CardBody>
             </Card>
-          </Col>
+          </GridItem>
         );
       });
       pluginCardBody.push(addNewPlugin);
@@ -240,7 +245,9 @@ class DashPluginCardView extends Component {
     ) : (
       <React.Fragment>
         <div className="card-view-row">
+          <Grid sm={12} md={4} lg={4} x12={4} hasGutter className="card-view-grid">
           {pluginCardBody}
+          </Grid>
           <MessageDialog
             show={showDeleteConfirmation}
             onHide={this.secondaryDeleteAction}
