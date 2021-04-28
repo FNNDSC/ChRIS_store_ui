@@ -22,7 +22,7 @@ export class CopyURLButton extends Component {
       return (
         <div className="dropdown">
             <Dropdown id="dropdown-custom-1" rootCloseEvent="click">
-                <Dropdown.Toggle bsStyle="primary" bsSize="large">
+                <Dropdown.Toggle bsStyle="primary" bsSize="large" className="pf-c-button pf-m-primary">
                     <Icon name="download" className="margin-right-sm" />
                     Install to ChRIS
                 </Dropdown.Toggle>
