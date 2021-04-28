@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Spinner } from "patternfly-react";
+import { CardGrid, Spinner } from "patternfly-react";
 import PropTypes from "prop-types";
 import Button from "../Button";
 import Client from "@fnndsc/chrisstoreapi";
@@ -10,7 +10,7 @@ import DashGitHubView from "./components/DashGitHubView/DashGitHubView";
 import ChrisStore from "../../store/ChrisStore";
 import Notification from "../Notification";
 import HttpApiCallError from "../../errors/HttpApiCallError";
-import { Grid, GridItem } from "@patternfly/react-core";
+// import { Grid, GridItem } from "@patternfly/react-core";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -134,29 +134,23 @@ class Dashboard extends Component {
           </div>
         </div>
         <div className="cards-pf dashboard-body">
-          <Grid className="container">
+          <CardGrid>
             <div className="dashboard-row">
               <Spinner size="lg" loading={loading}>
                 <div className="dashboard-left-column">
-                  <Grid hasGutter>
-                    <GridItem >
                       <DashPluginCardView
                         plugins={pluginList}
                         onDelete={this.deletePlugin}
                         onEdit={this.editPlugin}
                       />
-                    </GridItem>
-                    <GridItem>
                       <DashTeamView plugins={pluginList} />
-                    </GridItem>
-                  </Grid>
                 </div>
                 <div className="dashboard-right-column">
                   <DashGitHubView plugins={pluginList} />
                 </div>
               </Spinner>
             </div>
-          </Grid>
+          </CardGrid>
         </div>
       </React.Fragment>
     );

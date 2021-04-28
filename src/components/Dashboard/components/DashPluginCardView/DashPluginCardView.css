@@ -92,6 +92,9 @@
 .card-view-title .pf-c-dropdown .pf-m-plain{
     outline: none;
 }
+.card-view-title .pf-c-dropdown .pf-m-plain:hover{
+    color: #0088ce;
+}
 .card-view-kebob .pf-c-dropdown__menu {
     list-style-type: none;
 }
