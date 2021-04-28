@@ -27,6 +27,8 @@ import './DashPluginCardView.css';
 import BrainImg from '../../../../assets/img/empty-brain-xs.png';
 import PluginPointer from '../../../../assets/img/brainy_welcome-pointer.png';
 import RelativeDate from '../../../RelativeDate/RelativeDate';
+import { EmbedReadMe  } from '../../../general/CopyURLButton';
+import ReadmeBadge from '../../../../assets/img/darkbadge.png';
 
 const DashGitHubEmptyState = () => (
   <Col xs={12}>
@@ -226,6 +228,10 @@ class DashPluginCardView extends Component {
                     {`${plugin.license} license`}
                   </div>
                 </div>
+                <div className="plugin-body-copy-url">
+                       
+                        <EmbedReadMe  text={`[![Chris Plugin](https://raw.githubusercontent.com/FNNDSC/cookiecutter-chrisapp/master/doc/assets/badge/dark-shiny.png)](https://chrisstore.co/plugin/${plugin.id})`} />
+                        </div>
               </CardBody>
             </Card>
           </Col>
