@@ -41,4 +41,26 @@
 .dashboard-body {
     margin-top: -20px;
 }
-
+.container{
+    margin-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+@media (min-width: 1200px){
+    .container{
+        width: 1180px;
+    }
+    
+}
+@media (min-width: 992px){
+    .container{
+        width: 980px;
+    }
+}
+@media (min-width: 768px){
+    .container{
+        width: 760px;
+    }
+}
