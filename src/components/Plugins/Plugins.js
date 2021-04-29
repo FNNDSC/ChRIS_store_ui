@@ -17,16 +17,16 @@ const storeURL = process.env.REACT_APP_STORE_URL;
 
 const Plugins = (props) => {
   const auth = { token: props.store.get("authToken") };
-  // const categories = new Map()
+  const Categories = new Map()
+  CATEGORIES.forEach((name) => Categories.set(name, 0));
 
   const client = new Client(storeURL, auth);
   const [errorMsg, setErrorMsg] = useState(null);
   const [starsByPlugin, setStarsByPlugin] = useState({});
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [categories, setCategories] = useState(new Map());
+  const [categories, setCategories] = useState(Categories);
   const [pluginList, setPluginList] = useState([]);
 
-  CATEGORIES.forEach((name) => categories.set(name, 0));
 
   const isLoggedIn = () => {
     return props.store ? props.store.get("isLoggedIn") : false;
@@ -56,7 +56,6 @@ const Plugins = (props) => {
     }
 
     // reset category counts
-    // const categories = categories;
     for (const name of categories.keys()) {
       categories.set(name, 0);
     }
@@ -70,6 +69,7 @@ const Plugins = (props) => {
       }
     }
 
+    setCategories(categories)
     setPluginList(plugins.data);
 
     if (isLoggedIn()) {
@@ -89,7 +89,7 @@ const Plugins = (props) => {
 
   useEffect(() => {
     refreshPluginList();
-  }, [props.location, refreshPluginList]);
+  }, [props.location]);
 
   /**
    * Add a star next to the plugin visually.
