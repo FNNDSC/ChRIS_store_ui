@@ -14,6 +14,7 @@ import ChrisStore from "../../store/ChrisStore";
 // ------ PLUGINS COMPONENT -----
 // ==============================
 
+const CATEGORIES = ["FreeSurfer", "MRI", "Segmentation", "copy"];
 export class Plugins extends Component {
   constructor(props) {
     super(props);
@@ -23,17 +24,15 @@ export class Plugins extends Component {
     this.client = new Client(storeURL, auth);
 
     this.mounted = false;
+    const categories = new Map();
+    CATEGORIES.forEach((name) => categories.set(name, 0));
+
     this.state = {
-      sortFunc: (a, b) => new Date(a.creation_date) + new Date(b.creation_date),
+      sortFunc: (a, b) => new Date(b.creation_date) - new Date(a.creation_date),
       pluginList: null,
       starsByPlugin: {},
-      categories: [
-        { name: "Visualization", length: 0 },
-        { name: "Modeling", length: 0 },
-        { name: "Statistical Operation", length: 0 },
-        { name: "FreeSurfer", length: 0 },
-        { name: "MRI Processing", length: 0 },
-      ],
+      selectedCategory: null,
+      categories: categories,
     };
   }
 
@@ -41,21 +40,10 @@ export class Plugins extends Component {
     this.mounted = true;
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     try {
-      const plugins = await this.fetchPlugins();
-      /**
-       * Accumulate counts of categories from fetched plugins
-       */
-      let { categories } = this.state;
-      for (const [index, { name, length }] of categories.entries()) {
-        categories[index].length = plugins.reduce(
-          (count, current) => (name === current.category ? ++count : count),
-          length
-        );
-      }
+      this.fetchPlugins();
 
-      this.setState({ categories });
     } catch (err) {
       console.error(err);
     }
@@ -112,7 +100,7 @@ export class Plugins extends Component {
     }
   }
 
-  fetchPlugins = () => {
+  fetchPlugins = async () => {
     const params = new URLSearchParams(window.location.search);
     const name = params.get("q"); //get value searched from the URL
     const searchParams = {
@@ -121,26 +109,36 @@ export class Plugins extends Component {
       name_title_category: name,
     };
 
-    return new Promise(async (resolve, reject) => {
-      let plugins;
-      try {
-        // add plugins to pluginList as they are received
-        plugins = await this.client.getPlugins(searchParams);
-        if (this.mounted) {
-          this.setState((prevState) => {
-            // const prevPluginList = prevState.pluginList
-            //   ? prevState.pluginList
-            //   : [];
-            // const nextPluginList = prevPluginList.concat(plugins.data);
-            return { pluginList: plugins.data };
-          });
-        }
-      } catch (e) {
-        return reject(e);
-      }
+    let plugins;
+    try {
+      // add plugins to pluginList as they are received
+      plugins = await this.client.getPlugins(searchParams);
+      this.setState({ pluginList: plugins.data });
+    } catch (e) {
+      console.error(e);
+      return;
+    }
 
-      return resolve(plugins.data);
-    });
+    /**
+     * Accumulate counts of categories from fetched plugins
+     */
+
+    const { categories } = this.state;
+
+    for (const name of categories.keys()) {
+      categories.set(name, 0);
+    }
+
+    // count the frequency of plugins which belong to categories
+    for (const { category } of plugins.data) {
+      // TODO make category counting case insensitive
+      const currentCount = categories.get(category);
+      if (currentCount !== undefined) {
+        categories.set(category, currentCount + 1);
+      }
+    }
+
+    this.setState({categories: categories})
   };
 
   async fetchPluginStars() {
@@ -187,7 +185,15 @@ export class Plugins extends Component {
   }
 
   render() {
-    const { pluginList, categories, sortFunc } = this.state;
+    const { pluginList, categories, selectedCategory, sortFunc } = this.state;
+
+    const categoryEntries = Array.from(
+      categories.entries(),
+      ([name, count]) => ({
+        name: name,
+        length: count,
+      })
+    );
 
     // Remove email from author
     const removeEmail = (author) => author.replace(/( ?\(.*\))/g, "");
@@ -198,19 +204,26 @@ export class Plugins extends Component {
     // Render the pluginList if the plugins have been fetched
     if (pluginList) {
       const sorted = pluginList.sort(sortFunc);
-      pluginListBody = sorted.map((plugin) => (
-        <PluginItem
-          title={plugin.title}
-          id={plugin.id}
-          name={plugin.name}
-          author={removeEmail(plugin.authors)}
-          creationDate={plugin.creation_date}
-          key={`${plugin.name}-${plugin.id}`}
-          isLoggedIn={this.isLoggedIn()}
-          isFavorite={this.isFavorite(plugin)}
-          onStarClicked={async () => this.handlePluginFavorited(plugin)}
-        />
-      ));
+      pluginListBody = sorted
+        .filter((plugin) => {
+          if (selectedCategory) {
+            return plugin.category === selectedCategory;
+          }
+          return true;
+        })
+        .map((plugin) => (
+          <PluginItem
+            title={plugin.title}
+            id={plugin.id}
+            name={plugin.name}
+            author={removeEmail(plugin.authors)}
+            creationDate={plugin.creation_date}
+            key={`${plugin.name}-${plugin.id}`}
+            isLoggedIn={this.isLoggedIn()}
+            isFavorite={this.isFavorite(plugin)}
+            onStarClicked={async () => this.handlePluginFavorited(plugin)}
+          />
+        ));
 
       pluginsFound = (
         <span className="plugins-found">{pluginList.length} plugins found</span>
@@ -239,7 +252,6 @@ export class Plugins extends Component {
       <div className="plugins-container">
         <div className="plugins-stats">
           <div className="row plugins-stats-row">
-            {/* number of plugins found related to the search  */}
             {pluginsFound}
             <DropdownButton id="sort-by-dropdown" title="Sort By" pullRight>
               <MenuItem
@@ -278,7 +290,7 @@ export class Plugins extends Component {
         </div>
         <div className="row plugins-row">
           <PluginsCategories
-            categories={categories}
+            categories={categoryEntries}
             onSelect={this.handleCategorySelect}
           />
           <div className="plugins-list">{pluginListBody}</div>
