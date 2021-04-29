@@ -10,7 +10,6 @@ import DashGitHubView from "./components/DashGitHubView/DashGitHubView";
 import ChrisStore from "../../store/ChrisStore";
 import Notification from "../Notification";
 import HttpApiCallError from "../../errors/HttpApiCallError";
-// import { Grid, GridItem } from "@patternfly/react-core";
 
 class Dashboard extends Component {
   constructor(props) {

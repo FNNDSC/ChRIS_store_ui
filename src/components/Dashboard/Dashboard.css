@@ -40,14 +40,6 @@
 
 .dashboard-body {
     margin-top: -20px;
-    /* width: 1110px; */
-}
-.dashboard-container{
-    /* margin: 0 auto;
-    margin-top: 20px;
-    padding-left: 20px;
-    padding-right: 20px; */
-    
 }
 @media (min-width: 1200px){
     .dashboard-container{
