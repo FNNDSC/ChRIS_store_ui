@@ -3,14 +3,14 @@ import Client from '@fnndsc/chrisstoreapi';
 import { Link } from 'react-router-dom';
 import {
   Form, FormGroup, ControlLabel, FormControl, HelpBlock,
-  Col, Icon, Card, CardBody, HintBlock
+  Col, Icon, HintBlock,
 } from 'patternfly-react';
 import Button from '../Button';
 import classNames from 'classnames';
 import './CreatePlugin.css';
 
 import { Plugin } from '../Plugin/Plugin';
-import { Alert, AlertActionCloseButton, CodeBlock, CodeBlockCode } from '@patternfly/react-core';
+import { Alert, AlertActionCloseButton, Card, CardBody, CodeBlock, CodeBlockCode } from '@patternfly/react-core';
 
 const generateFormGroup = (id, label, help, value, handleChange) => (
   <FormGroup controlId={id} key={id}>

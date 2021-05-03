@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import {
-  Card, CardBody
-} from 'patternfly-react';
 import Button from '../Button';
 import StoreClient from '@fnndsc/chrisstoreapi';
 import './SignIn.css';
 import chrisLogo from '../../assets/img/chris_logo-white.png';
 import ChrisStore from '../../store/ChrisStore';
 import FormInput from '../FormInput';
-import { Form, Alert, AlertActionCloseButton } from '@patternfly/react-core';
+import { Form, Alert, AlertActionCloseButton, CardTitle, Card, CardBody } from '@patternfly/react-core';
 
 export class SignIn extends Component {
   constructor(props) {
@@ -123,9 +120,9 @@ export class SignIn extends Component {
             </Link>
           </div>
           <Card className="signin-card">
-            <header className="login-pf-page-header">
+            <CardTitle className="login-pf-page-header">
               <h1>Login to your account</h1>
-            </header>
+            </CardTitle>
             <CardBody>
               <Form className="signin-form" >
                 <FormInput
