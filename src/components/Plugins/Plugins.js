@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Client from '@fnndsc/chrisstoreapi';
-import { DropdownButton, MenuItem } from 'react-bootstrap';
+import { DropdownButton, Dropdown } from 'react-bootstrap';
 
 import PluginItem from './components/PluginItem/PluginItem';
 import LoadingPluginItem from './components/LoadingPluginItem/LoadingPluginItem';
@@ -307,8 +307,8 @@ export class Plugins extends Component {
         <div className="plugins-stats">
           <div className="row plugins-stats-row">
             {pluginsFound}
-            <DropdownButton id="sort-by-dropdown" title="Sort By" pullRight>
-              <MenuItem eventKey="1">Name</MenuItem>
+            <DropdownButton className="sort-by-dropdown btn-group" title="Sort By" menuAlign="right">
+              <Dropdown.Item eventKey="1">Name</Dropdown.Item>
             </DropdownButton>
           </div>
         </div>

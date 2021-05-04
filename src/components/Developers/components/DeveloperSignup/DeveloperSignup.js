@@ -1,249 +1,218 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import {
-  Form,
-  Spinner,
-} from '@patternfly/react-core';
-import Button from '../../../Button';
-import _ from 'lodash';
-import StoreClient from '@fnndsc/chrisstoreapi';
-import { validate } from 'email-validator';
-import './DeveloperSignup.css';
-import ChrisStore from '../../../../store/ChrisStore';
-import FormInput from '../../../FormInput';
+import StoreClient from "@fnndsc/chrisstoreapi";
+import { Form, Spinner } from "@patternfly/react-core";
+import { validate } from "email-validator";
+import _ from "lodash";
+import PropTypes from "prop-types";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import ChrisStore from "../../../../store/ChrisStore";
+import Button from "../../../Button";
+import FormInput from "../../../FormInput";
+import "./DeveloperSignup.css";
 
 /* inspired by https://github.com/Modernizr/Modernizr/blob/v3/feature-detects/touchevents.js */
 const isTouchDevice = () => {
-  if (('ontouchstart') in window || (window.DocumentTouch && document instanceof window.DocumentTouch)) {
+  if (
+    "ontouchstart" in window ||
+    (window.DocumentTouch && document instanceof window.DocumentTouch)
+  ) {
     return true;
   }
 
   if (window.matchMedia) {
-    const prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
-    const query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
+    const prefixes = " -webkit- -moz- -o- -ms- ".split(" ");
+    const query = ["(", prefixes.join("touch-enabled),("), "heartz", ")"].join(
+      ""
+    );
     return window.matchMedia(query).matches;
   }
 
   return false;
 };
 
-export class DeveloperSignup extends Component {
-  constructor(props) {
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.state = {
-      loading: false,
-      error: {
-        message: '',
-        controls: '',
-      },
-      username: '',
-      email:'',
-      password: '',
-      passwordConfirm: '',
-    };
-  }
+const DeveloperSignup = ({ store, ...props }) => {
+  let history = useHistory();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState({ message: "", controls: "" });
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
 
-  handleChange(value, name) {
-    this.setState({ [name]: value });
-  }
-
-  handleSubmit(event) {
-    const {
-      username, email, password, passwordConfirm,
-    } = this.state;
-    const { store } = this.props;
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     if (!username) {
-      return this.setState({
-        error: {
-          message: 'Username is required',
-          controls: ['username'],
-        },
+      return setError({
+        message: "A valid Email is required",
+        controls: ["email"],
       });
     }
 
     if (!email || !validate(email)) {
-      return this.setState({
-        error: {
-          message: 'A valid Email is required',
-          controls: ['email'],
-        },
+      return setError({
+        message: "A valid Email is required",
+        controls: ["email"],
+      });
+    }
+    if (password.length < 8) {
+      return setError({
+        message: "Password should be atleast 8 characters",
+        controls: ["password"],
       });
     }
 
     if (!password) {
-      return this.setState({
-        error: {
-          message: 'Password is required',
-          controls: ['password'],
-        },
+      return setError({
+        message: "Password is required",
+        controls: ["password"],
       });
     }
 
     if (!passwordConfirm) {
-      return this.setState({
-        error: {
-          message: 'Confirmation is required',
-          controls: ['confirmation'],
-        },
+      return setError({
+        message: "Confirmation is required",
+        controls: ["confirmation"],
       });
     }
 
     if (password !== passwordConfirm) {
-      return this.setState({
-        error: {
-          message: 'Password and confirmation do not match',
-          controls: ['password', 'confirmation'],
-        },
+      return setError({
+        message: "Password and confirmation do not match",
+        controls: ["password", "confirmation"],
       });
     }
 
-    this.setState({
-      loading: true,
-      error: {
-        message: '',
-        controls: '',
-      },
-    }, () => store.set('userName')(username));
+    setLoading(true);
+    setError({
+      message: "",
+      controls: "",
+    });
+    store.set("userName")(username);
 
-    return this.handleStoreLogin();
-  }
+    return handleStoreLogin();
+  };
 
-  handleStoreLogin() {
-    const { username, email, password } = this.state;
-    const { store } = this.props;
+  const handleStoreLogin = async () => {
     const storeURL = process.env.REACT_APP_STORE_URL;
     const usersURL = `${storeURL}users/`;
     const authURL = `${storeURL}auth-token/`;
-    let authToken;
+    let authToken = null;
 
-    return new Promise(async (resolve, reject) => {
-      try {
-        await StoreClient.createUser(usersURL, username, password, email);
-      } catch (e) {
-        if (_.has(e, 'response')) {
-          if (_.has(e, 'response.data.username')) {
-            this.setState({
-              loading: false,
-              error: {
-                message: 'This username is already registered.',
-                controls: ['username'],
-              },
-            });
-          } else {
-            this.setState({
-              loading: false,
-              error: {
-                message: 'This email is already registered.',
-                controls: ['email'],
-              },
-            });
-          }
+    try {
+      await StoreClient.createUser(usersURL, username, password, email);
+    } catch (e) {
+      if (_.has(e, "response")) {
+        if (_.has(e, "response.data.username")) {
+          setLoading(false);
+          setError({
+            message: "This username is already registered.",
+            controls: ["username"],
+          });
         } else {
-          this.setState({
-            loading: false,
+          setLoading(false);
+          setError({
+            message: "This email is already registered.",
+            controls: ["email"],
           });
         }
-        return resolve(e);
+      } else {
+        setLoading(false);
       }
-      try {
-        authToken = await StoreClient.getAuthToken(authURL, username, password);
-      } catch (e) {
-        return reject(e);
-      }
-      return this.setState({
-        toDashboard: true,
-      }, () => {
-        store.set('authToken')(authToken);
-        return resolve(authToken);
-      });
-    });
-  }
-
-  render() {
-    const {
-      error,
-      loading,
-      toDashboard,
-    } = this.state;
-
-    if (toDashboard) {
-      return <Redirect to="/dashboard" />;
+      return console.error(e);
     }
-    const disableControls = loading;
-    return (
-      <Form onSubmit={this.handleSubmit} noValidate>
-        <p>{loading ? 'Creating' : 'Create'} a ChRIS Developer account:</p>
-        <FormInput
-          formLabel="Username"
-          fieldId="username"
-          validationState={error.controls.includes('username') ? 'error' : 'default'}
-          helperText="Enter your username"
-          inputType="text"
-          id="username"
-          fieldName="username"
-          value={this.state.username}
-          autofocus={!isTouchDevice}
-          onChange={(val) => this.handleChange(val, 'username')}
-          disableControls={disableControls}
-          error={error}
-        />
-        <FormInput
-          formLabel="Email"
-          fieldId="email"
-          validationState={error.controls.includes('email') ? 'error' : 'default'}
-          helperText="Enter you email"
-          inputType="email"
-          id="email"
-          fieldName="email"
-          value={this.state.email}
-          onChange={(val) => this.handleChange(val, 'email')}
-          disableControls={disableControls}
-          error={error}
-        />
-        <FormInput
-          formLabel="Password"
-          fieldId="password"
-          validationState={error.controls.includes('password') ? 'error' : 'default'}
-          helperText="Enter your password"
-          inputType="password"
-          id="password"
-          fieldName="password"
-          value={this.state.password}
-          onChange={(val) => this.handleChange(val, 'password')}
-          disableControls={disableControls}
-          error={error}
-        />
-        <FormInput
-          formLabel="Password Conformation"
-          fieldId="password-confirm"
-          validationState={error.controls.includes('confirmation') ? 'error' : 'default'}
-          helperText="Confirm your password"
-          inputType="password"
-          id="password"
-          fieldName="passwordConfirm"
-          value={this.state.passwordConfirm}
-          onChange={(val) => this.handleChange(val, 'passwordConfirm')}
-          disableControls={disableControls}
-          error={error}
-        />
-        {loading ? <Spinner size="md"/> : (
-          <Button 
-            variant="primary"
-            type="submit" 
-            loading={disableControls}
-          >
-            Create Account
-          </Button>
-        )}
-        {loading && <span className="developer-signup-creating">Creating Account</span>}
-      </Form>);
-  }
-}
+
+    try {
+      authToken = await StoreClient.getAuthToken(authURL, username, password);
+      store.set("authToken")(authToken)
+      history.push('/dashboard')
+    } catch (e) {
+      return console.error(e);
+    }
+
+  };
+
+  const disableControls = loading;
+
+  return (
+    <Form onSubmit={handleSubmit} noValidate>
+      <p>{loading ? "Creating" : "Create"} a ChRIS Developer account:</p>
+      <FormInput
+        formLabel="Username"
+        fieldId="username"
+        validationState={
+          error.controls.includes("username") ? "error" : "default"
+        }
+        helperText="Enter your username"
+        inputType="text"
+        id="username"
+        fieldName="username"
+        value={username}
+        autofocus={!isTouchDevice}
+        onChange={(val) => setUsername(val)}
+        disableControls={disableControls}
+        error={error}
+      />
+
+      <FormInput
+        formLabel="Email"
+        fieldId="email"
+        validationState={error.controls.includes("email") ? "error" : "default"}
+        helperText="Enter you email"
+        inputType="email"
+        id="email"
+        fieldName="email"
+        value={email}
+        onChange={(val) => setEmail(val)}
+        disableControls={disableControls}
+        error={error}
+      />
+
+      <FormInput
+        formLabel="Password"
+        fieldId="password"
+        validationState={
+          error.controls.includes("password") ? "error" : "default"
+        }
+        helperText="Enter your password"
+        inputType="password"
+        id="password"
+        fieldName="password"
+        value={password}
+        onChange={(val) => setPassword(val)}
+        disableControls={disableControls}
+        error={error}
+      />
+
+      <FormInput
+        formLabel="Password Conformation"
+        fieldId="password-confirm"
+        validationState={
+          error.controls.includes("confirmation") ? "error" : "default"
+        }
+        helperText="Confirm your password"
+        inputType="password"
+        id="passwordConfirm"
+        fieldName="passwordConfirm"
+        value={passwordConfirm}
+        onChange={(val) => setPasswordConfirm(val)}
+        disableControls={disableControls}
+        error={error}
+      />
+
+      {loading ? (
+        <Spinner size="md" />
+      ) : (
+        <Button variant="primary" type="submit" loading={disableControls}>
+          Create Account
+        </Button>
+      )}
+      {loading && (
+        <span className="developer-signup-creating">Creating Account</span>
+      )}
+    </Form>
+  );
+};
 
 export default ChrisStore.withStore(DeveloperSignup);
 

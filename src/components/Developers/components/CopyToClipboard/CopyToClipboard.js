@@ -1,46 +1,29 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Clipboard from 'react-clipboard.js';
-import { Icon, OverlayTrigger, Tooltip } from 'patternfly-react';
-import './CopyToClipboard.css';
+import React from "react";
+import PropTypes from "prop-types";
+import Clipboard from "react-clipboard.js";
+import { Tooltip } from "@patternfly/react-core";
+import { CopyIcon } from "@patternfly/react-icons";
+import "./CopyToClipboard.css";
 
-class CopyToClipboard extends Component {
-  constructor(props) {
-    super(props);
-    this.overlayTrigger = React.createRef();
-    this.showTooltip = this.showTooltip.bind(this);
-  }
+const CopyToClipboard = (props) => {
 
-  showTooltip() {
-    this.overlayTrigger.current.show();
-    setTimeout(() => { this.overlayTrigger.current.hide(); }, 600);
-  }
-
-  render() {
-    return (
-      <OverlayTrigger
-        placement="bottom"
-        ref={this.overlayTrigger}
-        onClick={this.showTooltip}
-        overlay={(
-          <Tooltip
-            id="copiedTooltip"
-          >
-            <strong>Copied!</strong>
-          </Tooltip>
-        )}
+  return (
+    
+    <Tooltip
+      trigger="click"
+      id="copiedTooltip"
+      position="bottom"
+      content={<strong>Copied!</strong>}
+    >
+      <Clipboard
+        className="copy-to-clipboard-btn btn btn-large"
+        data-clipboard-text={props.clipboardText}
       >
-        <Clipboard
-          className="copy-to-clipboard-btn btn btn-large"
-          data-clipboard-text={this.props.clipboardText}
-        >
-          <Icon name="copy" />
-        </Clipboard>
-      </OverlayTrigger>
-    );
-  }
-}
-
+        <CopyIcon name="copy" />
+      </Clipboard>
+    </Tooltip>
+  );
+};
 CopyToClipboard.propTypes = { clipboardText: PropTypes.string.isRequired };
 
 export default CopyToClipboard;

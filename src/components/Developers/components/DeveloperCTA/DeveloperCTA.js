@@ -1,11 +1,11 @@
 import React from 'react';
-import { Card, CardBody } from 'patternfly-react';
+import { Card, CardBody } from '@patternfly/react-core';
 import PropTypes from 'prop-types';
 import './DeveloperCTA.css';
 import ConnectedDeveloperSignup from '../DeveloperSignup/DeveloperSignup';
 import ChrisStore from '../../../../store/ChrisStore';
 
-export const DeveloperCTA = ({ store }) => (
+const DeveloperCTA = ({ store }) => (
   <div className="developer-cta">
     <div className="row developer-cta-container">
       <div className="developer-cta-overview">
