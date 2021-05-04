@@ -9,7 +9,7 @@ import {
   FieldLevelHelp,
   MessageDialog
 } from "patternfly-react";
-import { CardTitle, CardBody, Card, DropdownItem, Dropdown, KebabToggle, GridItem, Grid, Form, Divider, CardHeader, CardActions } from "@patternfly/react-core";
+import { CardTitle, CardBody, Card, DropdownItem, Dropdown, KebabToggle, GridItem, Grid, Form } from "@patternfly/react-core";
 import Button from "../../../Button";
 import "./DashPluginCardView.css";
 import BrainImg from "../../../../assets/img/empty-brain-xs.png";

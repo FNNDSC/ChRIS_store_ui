@@ -4,7 +4,6 @@ import isEmpty from 'lodash/isEmpty';
 import {
   ListView,
   Col,
-  CardHeading,
 } from 'patternfly-react';
 import {Card, CardTitle, CardBody} from '@patternfly/react-core';
 import './DashGitHubView.css';
