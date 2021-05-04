@@ -33,7 +33,7 @@ const Footer = () => (
           </div>
            <div className="footer-link">
             <a href="https://github.com/FNNDSC/ChRIS_store_ui">
-              Contribute to ChRIS Store
+              Contribute
             </a>
           </div>
           <div className="footer-link">
