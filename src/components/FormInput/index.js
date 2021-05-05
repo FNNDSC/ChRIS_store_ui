@@ -18,6 +18,7 @@ const FormInput = (props) => {
     children,
     placeholder,
     className,
+    defaultValue,
   } = props;
   return (
     <FormGroup
@@ -46,6 +47,7 @@ const FormInput = (props) => {
           onChange={onChange}
           isDisabled={disableControls}
           placeholder={placeholder}
+          defaultValue={defaultValue}
         />
       )
     }
