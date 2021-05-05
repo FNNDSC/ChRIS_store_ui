@@ -230,7 +230,7 @@ export class Plugin extends Component {
                   {data.description}
                 </div>
                 <div className="plugin-stats">
-                  <StarIcon name="star" size="lg" /> 10k+
+                  <StarIcon name="star" size="lg" />  {data.stars}
                   {modificationDate.isValid()
                     && (
                     <span className="plugin-modified">
