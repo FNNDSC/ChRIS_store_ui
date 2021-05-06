@@ -168,7 +168,7 @@ class DashTeamView extends Component {
                   </Table.Button>
                 </Table.Actions>,
                 <Table.Actions key="1">
-                  <Table.DropdownKebab className={styles['myKebab']} pullRight>
+                  <Table.DropdownKebab pullRight>
                     <MenuItem>Action</MenuItem>
                     <MenuItem>Another Action</MenuItem>
                     <MenuItem>Something else here</MenuItem>
