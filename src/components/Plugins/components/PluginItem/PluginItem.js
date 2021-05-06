@@ -14,10 +14,10 @@ const PluginItem = ({
   isLoggedIn,
   isFavorite,
   onStarClicked,
-  id,
+  pluginId,
   name,
   author,
-  title,
+  pluginTitle,
   creationDate,
   ...props
 }) => {
@@ -39,12 +39,12 @@ const PluginItem = ({
           <div>
             <div className="row no-flex">
               <div className="plugin-item-name">
-                <Link href={`/plugin/${id}`} to={`/plugin/${id}`}>
+                <Link href={`/plugin/${pluginId}`} to={`/plugin/${pluginId}`}>
                   {name}
                 </Link>
                 {renderStarButton()}
               </div>
-              <div className="plugin-item-title">{title}</div>
+              <div className="plugin-item-title">{pluginTitle}</div>
               <div className="plugin-item-creation">
                 <Link
                   href={`/author/${author}`}
@@ -65,8 +65,8 @@ const PluginItem = ({
 };
 
 PluginItem.propTypes = {
-  title: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
+  pluginTitle: PropTypes.string.isRequired,
+  pluginId: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   creationDate: PropTypes.string.isRequired,

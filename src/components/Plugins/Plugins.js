@@ -1,7 +1,7 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Client from "@fnndsc/chrisstoreapi";
-import { DropdownButton, MenuItem } from "react-bootstrap";
+import { DropdownButton, Dropdown } from "react-bootstrap";
 import PluginItem from "./components/PluginItem/PluginItem";
 import LoadingPluginItem from "./components/LoadingPluginItem/LoadingPluginItem";
 import PluginsCategories from "./components/PluginsCategories/PluginsCategories";
@@ -15,9 +15,9 @@ import "./Plugins.css";
 const CATEGORIES = ["FreeSurfer", "MRI", "Segmentation", "copy"];
 const storeURL = process.env.REACT_APP_STORE_URL;
 
-const Plugins = (props) => {
-  const auth = { token: props.store.get("authToken") };
-  const Categories = new Map()
+const Plugins = ({ location, store, ...props }) => {
+  const auth = { token: store.get("authToken") };
+  const Categories = new Map();
   CATEGORIES.forEach((name) => Categories.set(name, 0));
 
   const client = new Client(storeURL, auth);
@@ -27,9 +27,8 @@ const Plugins = (props) => {
   const [categories, setCategories] = useState(Categories);
   const [pluginList, setPluginList] = useState([]);
 
-
   const isLoggedIn = () => {
-    return props.store ? props.store.get("isLoggedIn") : false;
+    return store ? store.get("isLoggedIn") : false;
   };
 
   /**
@@ -69,7 +68,7 @@ const Plugins = (props) => {
       }
     }
 
-    setCategories(categories)
+    setCategories(categories);
     setPluginList(plugins.data);
 
     if (isLoggedIn()) {
@@ -89,7 +88,7 @@ const Plugins = (props) => {
 
   useEffect(() => {
     refreshPluginList();
-  }, [props.location]);
+  }, [location]);
 
   /**
    * Add a star next to the plugin visually.
@@ -201,66 +200,76 @@ const Plugins = (props) => {
   const removeEmail = (author) => author.replace(/( ?\(.*\))/g, "");
 
   return (
-    <div className="plugins-container">
-      {errorMsg && (
-        <Notification
-          title={errorMsg}
-          position="top-right"
-          variant="danger"
-          closeable
-          onClose={() => setErrorMsg({ errorMsg: null })}
-        />
-      )}
-      <div className="plugins-stats">
-        <div className="row plugins-stats-row">
-          {/* Plugins Found */}
-          {pluginList.length ? (
-            <span className="plugins-found">{pluginList.length} plugins found</span>
-          ) : (
-            <LoadingContainer>
-              <LoadingContent
-                width="135px"
-                height="30px"
-                left="1em"
-                top="1.5em"
-                bottom="1.5em"
-              />
-            </LoadingContainer>
-          )}
-          <DropdownButton id="sort-by-dropdown" title="Sort By" pullRight>
-            <MenuItem eventKey="1">Name</MenuItem>
-          </DropdownButton>
+    <div {...props}>
+      <div className="plugins-container">
+        {errorMsg && (
+          <Notification
+            title={errorMsg}
+            position="top-right"
+            variant="danger"
+            closeable
+            onClose={() => setErrorMsg({ errorMsg: null })}
+          />
+        )}
+        <div className="plugins-stats">
+          <div className="row plugins-stats-row">
+            {/* Plugins Found */}
+            {pluginList.length ? (
+              <span className="plugins-found">
+                {pluginList.length} plugins found
+              </span>
+            ) : (
+              <LoadingContainer>
+                <LoadingContent
+                  width="135px"
+                  height="30px"
+                  left="1em"
+                  top="1.5em"
+                  bottom="1.5em"
+                />
+              </LoadingContainer>
+            )}
+            <DropdownButton
+              className="sort-by-dropdown btn-group"
+              title="Sort By"
+              menuAlign="right"
+            >
+              <Dropdown.Item eventKey="1">Name</Dropdown.Item>
+            </DropdownButton>
+          </div>
         </div>
-      </div>
-      <div className="row plugins-row">
-        <PluginsCategories
-          categories={categoryEntries}
-          onSelect={handleCategorySelect}
-        />
-        <div className="plugins-list">
-          {/* Plugin List Body*/}
-          {pluginList
-            ? pluginList
-                .filter((plugin) => {
-                  if (selectedCategory) {
-                    return plugin.category === selectedCategory;
-                  }
-                  return true;
-                })
-                .map((plugin) => (
-                  <PluginItem
-                    title={plugin.title}
-                    id={plugin.id}
-                    name={plugin.name}
-                    author={removeEmail(plugin.authors)}
-                    creationDate={plugin.creation_date}
-                    key={`${plugin.name}-${plugin.id}`}
-                    isLoggedIn={isLoggedIn()}
-                    isFavorite={isFavorite(plugin)}
-                    onStarClicked={() => togglePluginFavorited(plugin)}
-                  />
-                ))
-            : new Array(6).fill().map((e, i) => <LoadingPluginItem key={i} />)}
+        <div className="row plugins-row">
+          <PluginsCategories
+            categories={categoryEntries}
+            onSelect={handleCategorySelect}
+          />
+          <div className="plugins-list">
+            {/* Plugin List Body*/}
+            {pluginList
+              ? pluginList
+                  .filter((plugin) => {
+                    if (selectedCategory) {
+                      return plugin.category === selectedCategory;
+                    }
+                    return true;
+                  })
+                  .map((plugin) => (
+                    <PluginItem
+                      pluginTitle={plugin.title}
+                      pluginId={plugin.id}
+                      name={plugin.name}
+                      author={removeEmail(plugin.authors)}
+                      creationDate={plugin.creation_date}
+                      key={`${plugin.name}-${plugin.id}`}
+                      isLoggedIn={isLoggedIn()}
+                      isFavorite={isFavorite(plugin)}
+                      onStarClicked={() => togglePluginFavorited(plugin)}
+                    />
+                  ))
+              : new Array(6)
+                  .fill()
+                  .map((e, i) => <LoadingPluginItem key={i} />)}
+          </div>
         </div>
       </div>
     </div>
