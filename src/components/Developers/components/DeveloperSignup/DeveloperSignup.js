@@ -132,8 +132,6 @@ const DeveloperSignup = ({ store, ...props }) => {
 
   };
 
-  const disableControls = loading;
-
   return (
     <Form onSubmit={handleSubmit} noValidate>
       <p>{loading ? "Creating" : "Create"} a ChRIS Developer account:</p>
@@ -150,7 +148,6 @@ const DeveloperSignup = ({ store, ...props }) => {
         value={username}
         autofocus={!isTouchDevice}
         onChange={(val) => setUsername(val)}
-        disableControls={disableControls}
         error={error}
       />
 
@@ -164,7 +161,6 @@ const DeveloperSignup = ({ store, ...props }) => {
         fieldName="email"
         value={email}
         onChange={(val) => setEmail(val)}
-        disableControls={disableControls}
         error={error}
       />
 
@@ -180,7 +176,6 @@ const DeveloperSignup = ({ store, ...props }) => {
         fieldName="password"
         value={password}
         onChange={(val) => setPassword(val)}
-        disableControls={disableControls}
         error={error}
       />
 
@@ -196,14 +191,13 @@ const DeveloperSignup = ({ store, ...props }) => {
         fieldName="passwordConfirm"
         value={passwordConfirm}
         onChange={(val) => setPasswordConfirm(val)}
-        disableControls={disableControls}
         error={error}
       />
 
       {loading ? (
         <Spinner size="md" />
       ) : (
-        <Button variant="primary" type="submit" loading={disableControls}>
+        <Button variant="primary" type="submit">
           Create Account
         </Button>
       )}

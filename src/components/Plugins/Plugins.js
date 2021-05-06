@@ -1,20 +1,24 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Client from '@fnndsc/chrisstoreapi';
-import { DropdownButton, Dropdown } from 'react-bootstrap';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Client from "@fnndsc/chrisstoreapi";
+import {
+  Dropdown,
+  DropdownToggle,
+  DropdownItem,
+  DropdownPosition,
+} from "@patternfly/react-core";
+import { CaretDownIcon } from "@patternfly/react-icons";
+import PluginItem from "./components/PluginItem/PluginItem";
+import LoadingPluginItem from "./components/LoadingPluginItem/LoadingPluginItem";
+import PluginsCategories from "./components/PluginsCategories/PluginsCategories";
+import LoadingContainer from "../LoadingContainer/LoadingContainer";
+import LoadingContent from "../LoadingContainer/components/LoadingContent/LoadingContent";
+import ChrisStore from "../../store/ChrisStore";
+import HttpApiCallError from "../../errors/HttpApiCallError";
+import Notification from "../Notification";
+import "./Plugins.css";
 
-import PluginItem from './components/PluginItem/PluginItem';
-import LoadingPluginItem from './components/LoadingPluginItem/LoadingPluginItem';
-import PluginsCategories from './components/PluginsCategories/PluginsCategories';
-import LoadingContainer from '../LoadingContainer/LoadingContainer';
-import LoadingContent from '../LoadingContainer/components/LoadingContent/LoadingContent';
-import ChrisStore from '../../store/ChrisStore';
-import HttpApiCallError from '../../errors/HttpApiCallError';
-import Notification from '../Notification';
-
-import './Plugins.css';
-
-const CATEGORIES = ['FreeSurfer', 'MRI', 'Segmentation', 'copy'];
+const CATEGORIES = ["FreeSurfer", "MRI", "Segmentation", "copy"];
 
 /**
  * A page showing a list of ChRIS plugins, according to the search
@@ -32,10 +36,22 @@ export class Plugins extends Component {
     CATEGORIES.forEach((name) => categories.set(name, 0));
 
     this.state = {
+      isOpen: false,
       errorMsg: null,
       starsByPlugin: {},
       selectedCategory: null,
-      categories: categories
+      categories: categories,
+    };
+
+    this.onToggle = (isOpen) => {
+      this.setState({
+        isOpen,
+      });
+    };
+    this.onSelect = (event) => {
+      this.setState({
+        isOpen: !this.state.isOpen,
+      });
     };
   }
 
@@ -89,8 +105,8 @@ export class Plugins extends Component {
     console.error(error);
     this.setState({
       errorMsg: error.message,
-    })
-  }
+    });
+  };
 
   /**
    * Mark a plugin as a favorite by showing a star next to it and
@@ -142,8 +158,8 @@ export class Plugins extends Component {
    * 4. If user is logged in, get information about their favorite plugins.
    */
   refreshPluginList = async () => {
-    const params = new URLSearchParams(window.location.search)
-    const name = params.get('q');
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("q");
     const searchParams = {
       limit: 20,
       offset: 0,
@@ -177,11 +193,11 @@ export class Plugins extends Component {
     // plugin list and category list are available always, even if not logged in
     const nextState = {
       pluginList: plugins.data,
-      categories: categories
+      categories: categories,
     };
 
     if (this.isLoggedIn()) {
-      try{
+      try {
         const stars = await this.client.getPluginStars();
         const starsByPlugin = {};
         stars.data.forEach((star) => {
@@ -189,14 +205,14 @@ export class Plugins extends Component {
           starsByPlugin[pluginId] = star;
         });
         nextState.starsByPlugin = starsByPlugin;
-      } catch(error) {
+      } catch (error) {
         this.showNotifications(new HttpApiCallError(error));
       }
     }
 
     // finally update the state once with pluginList, categories, and maybe starsByPlugin
     this.setState(nextState);
-  }
+  };
 
   /**
    * Favorite the plugin if it is not a favorite, or remove from favorites if already a favorite.
@@ -208,8 +224,7 @@ export class Plugins extends Component {
     if (this.isLoggedIn()) {
       if (this.isFavorite(plugin)) {
         this.unfavPlugin(plugin);
-      }
-      else {
+      } else {
         this.favPlugin(plugin);
       }
     }
@@ -229,16 +244,20 @@ export class Plugins extends Component {
    * @param name name of category
    */
   handleCategorySelect = (name) => {
-    this.setState({selectedCategory: name});
-  }
+    this.setState({ selectedCategory: name });
+  };
 
   render() {
-    const { pluginList, categories, selectedCategory } = this.state;
+    const { pluginList, categories, selectedCategory, isOpen } = this.state;
 
     // convert map into the data structure expected by <PluginsCategories />
-    const categoryEntries = Array.from(categories.entries(), ([name, count]) => ({
-      name: name, length: count
-    }));
+    const categoryEntries = Array.from(
+      categories.entries(),
+      ([name, count]) => ({
+        name: name,
+        length: count,
+      })
+    );
 
     // Remove email from author
     const removeEmail = (author) => author.replace(/( ?\(.*\))/g, "");
@@ -267,13 +286,12 @@ export class Plugins extends Component {
             isFavorite={this.isFavorite(plugin)}
             onStarClicked={() => this.togglePluginFavorited(plugin)}
           />
-      ));
+        ));
 
       pluginsFound = (
         <span className="plugins-found">{pluginList.length} plugins found</span>
       );
-    }
-    else {
+    } else {
       // Or else show the loading placeholders
       pluginsFound = (
         <LoadingContainer>
@@ -293,27 +311,48 @@ export class Plugins extends Component {
       ));
     }
 
+    const dropdownItems = [
+      <DropdownItem key="name" component="button" id="sort-by-dropdown-item">
+        Name
+      </DropdownItem>,
+    ];
+
     return (
       <div className="plugins-container">
         {this.state.errorMsg && (
           <Notification
             title={this.state.errorMsg}
-            position='top-right'
-            variant='danger'
+            position="top-right"
+            variant="danger"
             closeable
-            onClose={()=>this.setState({ errorMsg: null })}
+            onClose={() => this.setState({ errorMsg: null })}
           />
         )}
         <div className="plugins-stats">
           <div className="row plugins-stats-row">
             {pluginsFound}
-            <DropdownButton className="sort-by-dropdown btn-group" title="Sort By" menuAlign="right">
-              <Dropdown.Item eventKey="1">Name</Dropdown.Item>
-            </DropdownButton>
+            <Dropdown
+              id="sort-by-dropdown"
+              onSelect={this.onSelect}
+              position={DropdownPosition.right}
+              toggle={
+                <DropdownToggle
+                  onToggle={this.onToggle}
+                  toggleIndicator={CaretDownIcon}
+                  isPrimary
+                  id="toggle-id-4"
+                >
+                  Sort By
+                </DropdownToggle>
+              }
+              isOpen={isOpen}
+              dropdownItems={dropdownItems}
+            />
           </div>
         </div>
         <div className="row plugins-row">
-          <PluginsCategories categories={categoryEntries}
+          <PluginsCategories
+            categories={categoryEntries}
             onSelect={this.handleCategorySelect}
           />
           <div className="plugins-list">{pluginListBody}</div>

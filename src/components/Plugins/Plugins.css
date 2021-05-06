@@ -29,6 +29,16 @@
   font-weight: 600;
 }
 
+#sort-by-dropdown{
+  margin: 1.35em 1em ;
+  position: absolute ;
+  right: 0 ;
+}
+
+#sort-by-dropdown-item{
+  list-style: none !important;
+}
+
 .dropdown.btn-group {
   /* display */
   height: 26px; 
