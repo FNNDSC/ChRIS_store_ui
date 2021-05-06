@@ -6,14 +6,14 @@ import {
   Col,
 } from 'patternfly-react';
 import {Card, CardTitle, CardBody} from '@patternfly/react-core';
-import './DashGitHubView.css';
+import styles from './DashGitHubView.module.css';
 import BrainyPointer from '../../../../assets/img/brainy-pointer.png';
 
 const DashGitHubEmptyState = () => (
   <div>
-    <span className="pficon pficon-info" id="no-plugin-info-icon" />
-    <span className="github-plugin-noplugin-title">Revisions Panel</span>
-    <p className="github-plugin-noplugin-text">The most recent 10 changes to your plugins will appear here.</p>
+    <span className={`pficon pficon-info`} id={styles['no-plugin-info-icon']} />
+    <span className={styles['github-plugin-noplugin-title']}>Revisions Panel</span>
+    <p className={styles['github-plugin-noplugin-text']}>The most recent 10 changes to your plugins will appear here.</p>
     <div>
       <img src={BrainyPointer} alt="Click Add Plugin" />
     </div>
@@ -36,11 +36,11 @@ class DashGitHubView extends Component {
             <CardTitle>
               Revisions to My Plugins
             </CardTitle>
-          <CardBody className="github-card-body">
+          <CardBody className={styles['github-card-body']}>
             { showEmptyState ?
               <DashGitHubEmptyState />
               :
-              <ListView className="github-description" />
+              <ListView className={styles['github-description']} />
             }
           </CardBody>
         </Card>

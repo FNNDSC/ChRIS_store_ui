@@ -3,7 +3,7 @@
  * https://github.com/patternfly/patternfly-org/blob/d6e1950b764b55b612709dfe8e84e6e636116d23/packages/theme-patternfly-org/layouts/sideNavLayout/sideNavLayout.css#L27-L72
  */
 
-#search {
+.search {
   position: relative;
   display: flex;
   height: max-content;
@@ -14,7 +14,7 @@
 
 
 /* Search */
-#ws-global-search-wrapper {
+.ws-global-search-wrapper {
   /* For icon */
   position: relative;
 }
@@ -39,7 +39,7 @@
   outline: none;
   margin-top: 2px;
 }
-#ws-global-search-wrapper > .global-search-icon {
+.ws-global-search-wrapper > .global-search-icon {
   position: absolute;
   top: 10px;
   left: 4px;
@@ -73,11 +73,6 @@
   padding: 5px 10px;
   font-weight: 500;
 }
-.active {
-  background: #e6e6e6;
-  cursor: pointer;
-  color: #3da1da;
-}
 .ws-global-search-autocomplete li:hover {
   background: #e6e6e6;
   cursor: pointer;
@@ -89,7 +84,7 @@
     height: 40px;
     width: auto;
   }
-  #ws-global-search-wrapper {
+  .ws-global-search-wrapper {
     width: auto
   }
   #ws-global-search{
