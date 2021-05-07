@@ -11,10 +11,9 @@ import RelativeDate from '../RelativeDate/RelativeDate';
 import ChrisStore from '../../store/ChrisStore';
 import PluginImg from '../../assets/img/brainy-pointer.png';
 import NotFound from '../NotFound/NotFound';
+import styles from './Plugin.module.css';
 import Notification from '../Notification';
 import HttpApiCallError from '../../errors/HttpApiCallError';
-
-import './Plugin.css';
 
 const removeEmail = (author) => {
   if (author) return author.replace(/( ?\(.*\))/g, '');
@@ -202,43 +201,43 @@ export class Plugin extends Component {
       if (!authorURL) authorURL = `/author/${author}`;
 
       container = (
-        <div className="plugin-container">
-          <div className="plugin-header">
+        <div className={styles['plugin-container']}>
+          <div className={styles['plugin-header']}>
             <Grid hasGutter>
               <GridItem md={2} sm={12}>
                 <img
-                  className="plugin-icon"
+                  className={styles['plugin-icon']}
                   src={PluginImg}
                   alt="Plugin icon"
                 />
               </GridItem>
               <GridItem sm={10}>
-                <div className="plugin-category">
+                <div className={styles['plugin-category']}>
                   Visualization
                 </div>
-                <div className="plugin-name">
+                <div className={styles['plugin-name']}>
                   <Link
                     href={pluginURL || '/'}
                     to={pluginURL || '/'}
-                    className="plugin-name"
+                    className={styles['plugin-name']}
                   >
                     {data.name}
                   </Link>
                   {this.renderStar()}
                 </div>
-                <div className="plugin-description">
+                <div className={styles['plugin-description']}>
                   {data.description}
                 </div>
-                <div className="plugin-stats">
-                  <StarIcon name="star" size="lg" /> 10k+
+                <div className={styles['plugin-stats']}>
+                  <StarIcon name="star" size="lg" />  {data.stars}
                   {modificationDate.isValid()
                     && (
-                    <span className="plugin-modified">
+                    <span className={styles['plugin-modified']}>
                       <ClockIcon name="clock-o" size="lg" /> Last modified {modificationDate.format()}
                     </span>
                     )}
                   {/* temp text */}
-                  <span className="plugin-modified">
+                  <span className={styles['plugin-modified']}>
                     <ClockIcon name="clock-o" size="lg" /> Last modified 1 hour ago
                   </span>
                 </div>
