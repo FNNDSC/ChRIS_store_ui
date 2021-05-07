@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Clipboard from "react-clipboard.js";
 import { Tooltip } from "@patternfly/react-core";
 import { CopyIcon } from "@patternfly/react-icons";
-import "./CopyToClipboard.css";
+import styles from './CopyToClipboard.module.css';
 
 const CopyToClipboard = (props) => {
 
@@ -11,12 +11,12 @@ const CopyToClipboard = (props) => {
     
     <Tooltip
       trigger="click"
-      id="copiedTooltip"
+      className={styles['copiedTooltip']}
       position="bottom"
       content={<strong>Copied!</strong>}
     >
       <Clipboard
-        className="copy-to-clipboard-btn btn btn-large"
+        className={`${styles['copy-to-clipboard-btn']} btn btn-large`}
         data-clipboard-text={props.clipboardText}
       >
         <CopyIcon name="copy" />

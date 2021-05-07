@@ -51,7 +51,6 @@
         #393f44 325px);
     min-height: 375px;
     color: white;
-    margin: 20px -20px 0 !important;
 }
 
 .card-body-header-text {
@@ -77,6 +76,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
+    gap: 10px;
 }
 
 .card-view-add-plugin {
@@ -84,11 +84,30 @@
     padding: 33px !important;
 }
 
-.card-view-kebob {
-    margin-top: -20px !important;
-    padding: 5px;
+.card-view-title .pf-c-dropdown {
+    padding: 0;
+    margin-left: 20px;
+    
+}
+.card-view-title .pf-c-dropdown .pf-m-plain{
+    outline: none;
+}
+.card-view-title .pf-c-dropdown .pf-m-plain:hover{
+    color: #0088ce;
+}
+.card-view-kebob .pf-c-dropdown__menu {
+    list-style-type: none;
 }
 
+.card-view-title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px !important;
+}
+.card-view-grid{
+    margin: 0 auto;
+}
 .card-view-kebob .dropdown-menu {
     margin-right: 5px;
     min-width: 100px;

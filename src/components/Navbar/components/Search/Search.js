@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './Search.css';
+import styles from './Search.module.css';
 import SearchIcon from '@patternfly/react-icons/dist/esm/icons/search-icon';
 import TimesIcon from '@patternfly/react-icons/dist/esm/icons/times-icon';
 
@@ -70,16 +70,16 @@ const Search = (props) => {
   const [showAutoComplete, setShowAutoComplete] = useState(false);
   return (
     <Fragment>
-      <div id="search">
-        <div id="ws-global-search-wrapper">
+      <div className={styles['search']}>
+        <div className={styles['ws-global-search-wrapper']}>
           <SearchIcon
-            className="global-search-icon"
+            className={styles['global-search-icon']}
             onClick={() => {
               searchRef.current.focus();
             }}
           />
           <TextInput
-            id="ws-global-search"
+            id={styles['ws-global-search']}
             ref={searchRef}
             type="search"
             value={value}
@@ -97,12 +97,12 @@ const Search = (props) => {
           />
         </div>
         {value.length > 0 && (
-          <Button variant="plain" className="ws-clear-search" onClick={onClear}>
+          <Button variant="plain" className={styles['ws-clear-search']} onClick={onClear}>
             <TimesIcon />
           </Button>
         )}
         {showAutoComplete && autoCompleteData && autoCompleteData.length > 0 && (
-          <ul  className="ws-global-search-autocomplete">
+          <ul  className={styles['ws-global-search-autocomplete']}>
             {autoCompleteData.map((item, id) => (
               <li
                 key={id}

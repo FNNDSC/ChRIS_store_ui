@@ -1,18 +1,18 @@
 import React from 'react';
 import { Card, CardBody } from '@patternfly/react-core';
 import PropTypes from 'prop-types';
-import './DeveloperCTA.css';
+import styles from './DeveloperCTA.module.css';
 import ConnectedDeveloperSignup from '../DeveloperSignup/DeveloperSignup';
 import ChrisStore from '../../../../store/ChrisStore';
 
 const DeveloperCTA = ({ store }) => (
-  <div className="developer-cta">
-    <div className="row developer-cta-container">
-      <div className="developer-cta-overview">
-        <div className="developer-cta-header">
+<div className={styles['developer-cta']}>
+    <div className={`row ${styles['developer-cta-container']}`}>
+      <div className={styles['developer-cta-overview']}>
+        <div className={styles['developer-cta-header']}>
           Expand the reach of your image processing software
         </div>
-        <div className="developer-cta-desc">
+        <div className={styles['developer-cta-desc']}>
           <p>
           ChRIS is an <strong>open source platform</strong> for medical
           analytics in the cloud, democratizing the development of image
@@ -34,7 +34,7 @@ const DeveloperCTA = ({ store }) => (
         store.get('isLoggedIn') ?
           null
           :
-          <div className="developer-cta-form">
+          <div className={styles['developer-cta-form']}>
             <Card>
               <CardBody>
                 <ConnectedDeveloperSignup />

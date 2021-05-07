@@ -3,14 +3,16 @@ import Client from '@fnndsc/chrisstoreapi';
 import { Link } from 'react-router-dom';
 import {
   Form, FormGroup, ControlLabel, FormControl, HelpBlock,
-  Col, Icon, Card, CardBody, HintBlock
+  Col, Icon
 } from 'patternfly-react';
 import Button from '../Button';
 import classNames from 'classnames';
-import './CreatePlugin.css';
+import styles from './CreatePlugin.module.css';
 
 import { Plugin } from '../Plugin/Plugin';
-import { Alert, AlertActionCloseButton, CodeBlock, CodeBlockCode } from '@patternfly/react-core';
+import { Alert, AlertActionCloseButton, Card, CardBody, CodeBlock, CodeBlockCode } from '@patternfly/react-core';
+import HintBlock from '../Hintblock';
+import { createPluginHint } from './constant';
 
 const generateFormGroup = (id, label, help, value, handleChange) => (
   <FormGroup controlId={id} key={id}>
@@ -348,17 +350,17 @@ class CreatePlugin extends Component {
     });
 
     return (
-      <div className="createplugin">
-        <section className="createplugin-form-section">
-          <div className="createplugin-header">
-            <div className="row">
-              <div className="createplugin-header-container">
-                <div className="createplugin-display-1">
+      <div className={styles['createplugin']}>
+        <section className={styles['createplugin-form-section']}>
+          <div className={styles['createplugin-header']}>
+            <div className={`row`}>
+              <div className={styles['createplugin-header-container']}>
+                <div className={styles['createplugin-display-1']}>
                   Add Plugin Details
                 </div>
-                <div className="createplugin-create-btn-container">
+                <div className={styles['createplugin-create-btn-container']}>
                   <Button
-                    className="createplugin-create-btn"
+                    className={styles['createplugin-create-btn']}
                     variant="primary"
                     onClick={this.handleSubmit}
                   >
@@ -370,10 +372,10 @@ class CreatePlugin extends Component {
           </div>
           {
             formError && (
-              <div className="createplugin-message-container error">
-                <div className="row">
+              <div className={`${styles['createplugin-message-container']} error`}>
+                <div className={`row`}>
                 <Alert
-                  className="createplugin-message"
+                  className={styles['createplugin-message']}
                   variant="danger"
                   title={formError}
                   actionClose={<AlertActionCloseButton onClose={this.hideMessage} />}
@@ -384,15 +386,15 @@ class CreatePlugin extends Component {
           }
           {
             success && (
-              <div className="createplugin-message-container success">
-                <div className="row">
+              <div className={`${styles['createplugin-message-container']} success`}>
+                <div className={`row`}>
                   <Alert
-                    className="createplugin-message"
+                    className={styles['createplugin-message']}
                     variant="success"
                     title="Plugin was successfully created!"
                   >
                     <Link
-                      className="createplugin-success-message-link"
+                      className={styles['createplugin-success-message-link']}
                       to={`/plugin/${pluginId}`}
                       href={`/plugin/${pluginId}`}
                     >
@@ -404,28 +406,24 @@ class CreatePlugin extends Component {
               </div>
             )
           }
-          <Form className="createplugin-form" horizontal>
-            <div className="row">
-              <div className="createplugin-col">
-                <Card className="createplugin-info">
+          <Form className={styles['createplugin-form']} horizontal>
+            <div className={`row`}>
+              <div className={styles['createplugin-col']}>
+                <Card className={styles['createplugin-info']}>
                   <CardBody>
-                    <HintBlock
-                      title=""
-                      body="Plugins should already exist and have their own public source repo
-                      and existing docker image. Adding a plugin to the store simply adds
-                      the location of your plugin, as well as some metadata, to the store,
-                      allowing other users easy access to it."
+                    <HintBlock 
+                      hintBody= {createPluginHint}
                     />
                   </CardBody>
                 </Card>
-                <div className="createplugin-form-fields">
+                <div className={styles['createplugin-form-fields']}>
                   {formGroups}
                 </div>
               </div>
-              <div className="createplugin-col">
-                <FormGroup className="createplugin-form-upload" controlId="file">
+              <div className={styles['createplugin-col']}>
+                <FormGroup className={styles['createplugin-form-upload']} controlId="file">
                   <FormControl
-                    className="createplugin-upload"
+                    className={styles['createplugin-upload']}
                     type="file"
                     accept=".json"
                     onChange={this.handleFile}
@@ -438,9 +436,9 @@ class CreatePlugin extends Component {
                     onDragEnd={this.handleDrag}
                     onDrop={this.handleDrag}
                   >
-                    <div className="createplugin-upload-body">
+                    <div className={styles['createplugin-upload-body']}>
                       <Icon
-                        className="createplugin-upload-icon"
+                        className={styles['createplugin-upload-icon']}
                         type="fa"
                         name={iconName}
                       />
@@ -452,10 +450,10 @@ class CreatePlugin extends Component {
             </div>
           </Form>
         </section>
-        <section className="createplugin-preview-section">
-          <div className="row">
-            <Card className="createplugin-preview-container">
-              <Plugin className="createplugin-preview-plugin" pluginData={pluginData} />
+        <section className={styles['createplugin-preview-section']}>
+          <div className={`row`}>
+            <Card className={styles['createplugin-preview-container']}>
+              <Plugin className={styles['createplugin-preview-plugin']} pluginData={pluginData} />
             </Card>
           </div>
         </section>

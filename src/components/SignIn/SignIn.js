@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import {
-  Card, CardBody
-} from 'patternfly-react';
 import Button from '../Button';
 import StoreClient from '@fnndsc/chrisstoreapi';
-import './SignIn.css';
+import styles from './SignIn.module.css';
 import chrisLogo from '../../assets/img/chris_logo-white.png';
 import ChrisStore from '../../store/ChrisStore';
 import FormInput from '../FormInput';
-import { Form, Alert, AlertActionCloseButton } from '@patternfly/react-core';
+import { Form, Alert, AlertActionCloseButton, CardTitle, Card, CardBody } from '@patternfly/react-core';
 
 export class SignIn extends Component {
   constructor(props) {
@@ -95,13 +92,13 @@ export class SignIn extends Component {
     } = this.state;
 
     return (
-      <div className="signin login-pf-page">
-        <div className="signin-container">
+      <div className={`${styles['signin']} login-pf-page`}>
+        <div className={styles['signin-container']}>
           {
             error && (
-              <div className="signin-error-container">
+              <div className={styles['signin-error-container']}>
                 <Alert
-                  className="signin-error"
+                  className={styles['signin-error']}
                   variant="danger"
                   title={error}
                   actionClose={<AlertActionCloseButton onClose={this.hideError} />}
@@ -109,25 +106,25 @@ export class SignIn extends Component {
               </div>
             )
           }
-          <div className="signin-logo-container">
+          <div className={styles['signin-logo-container']}>
             <Link
-              className="signin-logo-link"
+              className={styles['signin-logo-link']}
               href="/"
               to="/"
             >
               <img
-                className="signin-logo"
+                className={styles['signin-logo']}
                 src={chrisLogo}
                 alt=""
               />
             </Link>
           </div>
-          <Card className="signin-card">
-            <header className="login-pf-page-header">
+          <Card className={styles['signin-card']}>
+            <CardTitle className={styles['login-pf-page-header']}>
               <h1>Login to your account</h1>
-            </header>
+            </CardTitle>
             <CardBody>
-              <Form className="signin-form" >
+              <Form className={styles['signin-form']} >
                 <FormInput
                   placeholder="Username"
                   fieldName="username"
@@ -136,7 +133,7 @@ export class SignIn extends Component {
                   value={username}
                   onChange={(val) => this.handleChange(val, 'username')}
                   autoComplete="username"
-                  className="signin-username-form-group"
+                  className={styles['signin-username-form-group']}
                 />
                 <FormInput
                   placeholder="Password"
@@ -146,16 +143,18 @@ export class SignIn extends Component {
                   id="password"
                   onChange={(val) => this.handleChange(val, 'password')}
                   autoComplete="current-password"
-                  className="signin-password-form-group"
+                  className={styles['signin-password-form-group']}
                 />
                 <Button
-                  className="signin-login-btn"
-                  variant="primary"
-                  loading={loading}
-                  onClick={this.handleSubmit}>
+                  className={styles['signin-login-btn']}
+                  bsStyle="primary"
+                  bsSize="large"
+                  type="submit"
+                  disabled={loading}
+                >
                   Log In
                 </Button>
-                <p className="login-pf-signup">
+                <p className={`login-pf-signup`}>
                   Need an account?
                   <Link to="/quickstart" href="/quickstart">
                     Signup

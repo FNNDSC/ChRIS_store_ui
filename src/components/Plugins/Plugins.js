@@ -16,7 +16,7 @@ import LoadingContent from "../LoadingContainer/components/LoadingContent/Loadin
 import ChrisStore from "../../store/ChrisStore";
 import HttpApiCallError from "../../errors/HttpApiCallError";
 import Notification from "../Notification";
-import "./Plugins.css";
+import styles from './Plugins.module.css';
 
 const CATEGORIES = ["FreeSurfer", "MRI", "Segmentation", "copy"];
 
@@ -289,7 +289,7 @@ export class Plugins extends Component {
         ));
 
       pluginsFound = (
-        <span className="plugins-found">{pluginList.length} plugins found</span>
+        <span className={styles['plugins-found']}>{pluginList.length} plugins found</span>
       );
     } else {
       // Or else show the loading placeholders
@@ -312,13 +312,13 @@ export class Plugins extends Component {
     }
 
     const dropdownItems = [
-      <DropdownItem key="name" component="button" id="sort-by-dropdown-item">
+      <DropdownItem key="name" component="button">
         Name
       </DropdownItem>,
     ];
 
     return (
-      <div className="plugins-container">
+      <div className={styles['plugins-container']}>
         {this.state.errorMsg && (
           <Notification
             title={this.state.errorMsg}
@@ -328,11 +328,11 @@ export class Plugins extends Component {
             onClose={() => this.setState({ errorMsg: null })}
           />
         )}
-        <div className="plugins-stats">
-          <div className="row plugins-stats-row">
+        <div className={styles['plugins-stats']}>
+          <div className={`row ${styles['plugins-stats-row']}`}>
             {pluginsFound}
             <Dropdown
-              id="sort-by-dropdown"
+            className={styles['sort-by-dropdown']}
               onSelect={this.onSelect}
               position={DropdownPosition.right}
               toggle={
@@ -350,12 +350,12 @@ export class Plugins extends Component {
             />
           </div>
         </div>
-        <div className="row plugins-row">
+        <div className={`row ${styles['plugins-row']}`}>
           <PluginsCategories
             categories={categoryEntries}
             onSelect={this.handleCategorySelect}
           />
-          <div className="plugins-list">{pluginListBody}</div>
+          <div className={styles['plugins-list']}>{pluginListBody}</div>
         </div>
       </div>
     );

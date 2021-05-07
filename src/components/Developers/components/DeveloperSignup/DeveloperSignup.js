@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import ChrisStore from "../../../../store/ChrisStore";
 import Button from "../../../Button";
 import FormInput from "../../../FormInput";
-import "./DeveloperSignup.css";
+import styles from './DeveloperSignup.module.css';
 
 /* inspired by https://github.com/Modernizr/Modernizr/blob/v3/feature-detects/touchevents.js */
 const isTouchDevice = () => {
@@ -180,7 +180,7 @@ const DeveloperSignup = ({ store, ...props }) => {
       />
 
       <FormInput
-        formLabel="Password Conformation"
+        formLabel="Password Confirmation"
         fieldId="password-confirm"
         validationState={
           error.controls.includes("confirmation") ? "error" : "default"
@@ -202,7 +202,7 @@ const DeveloperSignup = ({ store, ...props }) => {
         </Button>
       )}
       {loading && (
-        <span className="developer-signup-creating">Creating Account</span>
+        <span className={styles['developer-signup-creating']}>Creating Account</span>
       )}
     </Form>
   );
