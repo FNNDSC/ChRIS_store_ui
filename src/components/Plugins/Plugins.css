@@ -35,10 +35,6 @@
   right: 0 ;
 }
 
-#sort-by-dropdown-item{
-  list-style: none !important;
-}
-
 .dropdown.btn-group {
   /* display */
   height: 26px; 
