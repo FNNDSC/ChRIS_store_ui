@@ -9,7 +9,7 @@ import {
   PageHeaderToolsItem,
 } from '@patternfly/react-core';
 import Button from '../Button';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import './Navbar.css';
 import LogoImg from '../../assets/img/chris-plugin-store_logo.png';
 import ChrisStore from '../../store/ChrisStore';
@@ -34,6 +34,7 @@ const navLinks = [
  * Conditionally renders a list of links into a <Nav>.
  */
 const Navigation = ({ store }) => {
+  const location = useLocation()
   const shouldShowLink = (linkInfo) => {
     if (!linkInfo.cond) {
       return true;
@@ -50,7 +51,7 @@ const Navigation = ({ store }) => {
               <NavItem
                 key={link.to}
                 itemId={link.to}
-                isActive={window && window.location.pathname === link.to}>
+                isActive={location.pathname === link.to}>
                 <NavLink to={link.to} activeClassName="pf-m-current">
                   {link.label}
                 </NavLink>
