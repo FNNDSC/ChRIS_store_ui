@@ -24,11 +24,11 @@ const WelcomeCTA = () => (
         Apps available in the ChRIS store include:
       </div>
       <div className={`row ${styles['welcome-cta-featured-container']}`}>
-        <WelcomeFeature name="Fastsurfer" img={freesurferLogo} url='https://next.chrisstore.co/plugin/44'/>
-        <WelcomeFeature name="Infant-FreeSurfer" img={infantLogo} url='https://next.chrisstore.co/plugin/78'/>
-        <WelcomeFeature name="IRTK reconstruction" img={biomediaLogo} url='https://next.chrisstore.co/plugin/85'/>
-        <WelcomeFeature name="N4 Bias Field Correction" img={antLogo} url='https://next.chrisstore.co/plugin/77'/>
-        <WelcomeFeature name="Civet" img={civetLogo} url='https://next.chrisstore.co/plugin/2'/>
+        <WelcomeFeature name="Fastsurfer" img={freesurferLogo} url='https://chrisstore.co/plugin/44'/>
+        <WelcomeFeature name="Infant-FreeSurfer" img={infantLogo} url='https://chrisstore.co/plugin/78'/>
+        <WelcomeFeature name="IRTK reconstruction" img={biomediaLogo} url='https://chrisstore.co/plugin/85'/>
+        <WelcomeFeature name="N4 Bias Field Correction" img={antLogo} url='https://chrisstore.co/plugin/77'/>
+        <WelcomeFeature name="Civet" img={civetLogo} url='https://chrisstore.co/plugin/2'/>
       </div>
       <div className={styles['welcome-scroll-caret']}>
         <AngleDownIcon/>
