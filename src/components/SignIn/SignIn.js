@@ -147,10 +147,9 @@ export class SignIn extends Component {
                 />
                 <Button
                   className={styles['signin-login-btn']}
-                  bsStyle="primary"
-                  bsSize="large"
-                  type="submit"
-                  disabled={loading}
+                  variant="primary"
+                  loading={loading}
+                  onClick={this.handleSubmit}
                 >
                   Log In
                 </Button>

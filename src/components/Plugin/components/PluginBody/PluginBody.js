@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import marked from 'marked';
 import { sanitize } from 'dompurify';
 
-import './PluginBody.css';
+import styles from './PluginBody.module.css';
 import CopyURLButton  from '../../../general/CopyURLButton';
 import Notification from '../../../Notification';
 import HttpApiCallError from '../../../../errors/HttpApiCallError';
@@ -85,59 +85,59 @@ const PluginBody = ({ pluginData }) => {
         ))
       }
 
-      <div className="plugin-body">
-        <div className="container-fluid container-cards-pf">
-          <div className="row row-cards-pf">
-            <div className="card-pf">
+      <div className={styles['plugin-body']}>
+        <div className={`container-fluid container-cards-pf`}>
+          <div className={`row row-cards-pf`}>
+            <div className={`card-pf`}>
               <Tabs activeKey={activeTab} onSelect={handleTabClick}>
                 <Tab eventKey={1} title={<TabTitleText>Overview</TabTitleText>}>
-                  <Grid hasGutter className="plugin-body-main">
+                  <Grid hasGutter className={styles['plugin-body-main']}>
                     <GridItem md={8} sm={12}>
-                      <div className="plugin-body-main-col">
+                      <div className={styles['plugin-body-main-col']}>
                         <div style={{ color: "gray" }}>README</div>
                         { readme ? <div dangerouslySetInnerHTML={{ __html: readme }}></div> : null }
                       </div>
                     </GridItem>
                     <GridItem md={4} sm={12}>
-                      <div className="plugin-body-side-col">
-                        <div className="plugin-body-copy-url">
-                          <CopyURLButton className="pf-c-button pf-m-primary" text={pluginData.url} />
+                      <div className={styles['plugin-body-side-col']}>
+                        <div className={styles['plugin-body-copy-url']}>
+                          <CopyURLButton className={`pf-c-button pf-m-primary`} text={pluginData.url} />
                         </div>
-                        <div className="plugin-body-detail-section">
+                        <div className={styles['plugin-body-detail-section']}>
                           <h4>Repository</h4>
                           <a href={pluginData.public_repo}>
                             {pluginData.public_repo}
                           </a>
                         </div>
-                        <div className="plugin-body-detail-section">
+                        <div className={styles['plugin-body-detail-section']}>
                           <h4>Contributors</h4>
                           <a href={pluginData.authorURL}
-                            className="pf-m-link" type="button">
-                            <span className="pf-c-button__icon pf-m-start">
-                              <i className="fas fa-user" aria-hidden="true"></i>
+                            className={`pf-m-link`} type="button">
+                            <span className={`pf-c-button__icon pf-m-start`}>
+                              <i className={`fas fa-user`} aria-hidden="true"></i>
                             </span>{' '}
                             {removeEmail(pluginData.authors)}
                           </a>
-                          <div className="plugin-body-contributors-all">
+                          <div className={styles['plugin-body-contributors-all']}>
                             <br/>
-                            <a className="pf-m-link" href={`${pluginData.public_repo}/graphs/contributors`}>
+                            <a className={`pf-m-link`} href={`${pluginData.public_repo}/graphs/contributors`}>
                               View all contributors
                             </a>
                           </div>
                         </div>
-                        <div className="plugin-body-detail-section">
+                        <div className={styles['plugin-body-detail-section']}>
                           <h4>Plugin ID</h4>
                           {pluginData.id}
                         </div>
-                        <div className="plugin-body-detail-section">
+                        <div className={styles['plugin-body-detail-section']}>
                           <h4>License</h4>
                           { repoData ? repoData.license.name : pluginData.license }
                         </div>
-                        <div className="plugin-body-detail-section">
+                        <div className={styles['plugin-body-detail-section']}>
                           <h4>Content Type</h4>
                           {pluginData.type}
                         </div>
-                        <div className="plugin-body-detail-section">
+                        <div className={styles['plugin-body-detail-section']}>
                           <h4>Date added</h4>
                           {(new Date(pluginData.creation_date)).toDateString()}
                         </div>
@@ -147,13 +147,13 @@ const PluginBody = ({ pluginData }) => {
                 </Tab>
 
                 <Tab eventKey={2} title={<TabTitleText>Parameters</TabTitleText>}>
-                  <Grid hasGutter className="plugin-body-main">
+                  <Grid hasGutter className={styles['plugin-body-main']}>
                     <GridItem sm={12}>Parameters content</GridItem>
                   </Grid>
                 </Tab>
 
                 <Tab eventKey={3} title={<TabTitleText>Versions</TabTitleText>}>
-                  <Grid hasGutter className="plugin-body-main">
+                  <Grid hasGutter className={styles['plugin-body-main']}>
                     <GridItem sm={12}>Versions content</GridItem>
                   </Grid>
                 </Tab>

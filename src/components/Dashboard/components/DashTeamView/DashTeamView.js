@@ -16,7 +16,7 @@ import {
   Col,
   Icon
 } from "patternfly-react";
-import { CardTitle, CardBody, Card, CardFooter, Grid, GridItem, CardActions } from "@patternfly/react-core";
+import { CardTitle, CardBody, Card, CardFooter, CardActions } from "@patternfly/react-core";
 import BrainyTeammatesPointer from "../../../../assets/img/brainy_teammates-pointer.png";
 import styles from "./DashTeamView.module.css";
 
@@ -198,11 +198,10 @@ class DashTeamView extends Component {
     })(rows);
 
     return (
-      <Grid sm={12}>
-        <GridItem>
+      <Col sm={12}>
         <Card>
           <CardTitle>Teammates</CardTitle>
-          <CardBody>
+          <CardBody className={styles['github-card-body']}>
             {showEmptyState ? (
               <DashTeamEmptyState />
             ) : (
@@ -236,7 +235,7 @@ class DashTeamView extends Component {
           </CardBody>
           {!showEmptyState && (
             <CardFooter
-              className="card-footer"
+              className={styles['card-footer']}
             >
               <CardActions>
                 <Icon type="pf" name="add-circle-o" />
@@ -246,8 +245,7 @@ class DashTeamView extends Component {
             </CardFooter>
           )}
         </Card>
-        </GridItem>
-      </Grid>
+        </Col>
     );
   }
 }

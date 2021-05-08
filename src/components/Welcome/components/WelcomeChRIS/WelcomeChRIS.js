@@ -46,6 +46,7 @@ const WelcomeChRIS = () => (
       <Button
           variant="secondary"
           className={`${styles['welcome-chris-btn']} ${styles['welcome-chris-more-btn']}`}
+          onClick={()=>{window.open('https://www.chrisproject.org')}}
         >
           Learn more
         </Button>

@@ -49,13 +49,13 @@ const DashApplicationType = type => {
   if (type === "ds") {
     return (
       <React.Fragment>
-        <span className="fa fa-database" /> Data System
+        <span className={`fa fa-database`} /> Data System
       </React.Fragment>
     );
   }
   return (
     <React.Fragment>
-      <span className="fa fa-file" /> File System
+      <span className={`fa fa-file`} /> File System
     </React.Fragment>
   );
 };

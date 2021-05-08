@@ -57,3 +57,31 @@
         width: 760px;
     }
 }
+
+.plugins-stats {
+    /* color */
+    background: #f5f5f5;
+    background: var(--pf-black-150);
+  
+    /* border */
+    border-bottom-color: #bbbbbb;
+    border-bottom: 1px solid var(--pf-black-400);
+  }
+  
+  .plugins-stats-row {
+    /* display */
+    display: flex;
+  
+    /* position */
+    position: relative;
+  }
+
+.dropdown.btn-group {
+  /* display */
+  height: 26px;
+  margin: 1.65em 1em 1.65em;
+
+  /* position */
+  position: absolute;
+  right: 0;
+}

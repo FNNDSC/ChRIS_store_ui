@@ -1,5 +1,5 @@
 .github-team-noplugin-title {
-    padding-left: 5px;
+    padding-left: 2px;
 }
 
 .dash-text-div {
@@ -8,4 +8,60 @@
 
 .card-footer{
     color: #0088ce;
+}
+
+.github-description,
+.list-view-pf-description {
+    width: 70%;
+}
+
+#no-plugin-info-icon {
+    color: #0088ce;
+    font-size: xx-large;
+    padding: 6px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.github-plugin-noplugin-title {
+    font-weight: bold;
+    font-size: medium;
+    padding-left: 5px;
+}
+
+.github-plugin-noplugin-text {
+    padding-top: 10px;
+    padding-left: 5px;
+    font-size: 1em;
+}
+
+@media (min-width: 1px) {
+    .card-body-content-parent {
+        flex-wrap: wrap;
+    }
+}
+@media (min-width: 598px) {
+    .card-body-content-parent {
+        flex-wrap: wrap;
+    }
+}
+@media (min-width: 768px) {
+    .card-body-content-parent {
+        flex-wrap: wrap;
+    }
+}
+@media (min-width: 992px) {
+    .card-body-content-parent {
+        flex-wrap: nowrap;
+    }
+}
+
+@media (min-width: 1200px) {
+    .card-body-content-parent {
+        flex-wrap: nowrap;
+    }
+}
+
+.card-body-content-parent {
+    display: flex;
 }

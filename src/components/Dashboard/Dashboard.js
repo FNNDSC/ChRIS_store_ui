@@ -122,10 +122,10 @@ class Dashboard extends Component {
             onClose={() => this.setState({ error: null })}
           />
         )}
-        <div className="plugins-stats">
-          <div className="row plugins-stats-row">
-            <div className="title-bar">{`Dashboard for ${userName}`}</div>
-            <div className="dropdown btn-group">
+        <div className={styles['plugins-stats']}>
+          <div className={`row ${styles['plugins-stats-row']}`}>
+            <div className={styles['title-bar']}>{`Dashboard for ${userName}`}</div>
+            <div className={`${styles['dropdown']} ${styles['btn-group']}`}>
               <Button variant="primary" toRoute="/create">
                 Add Plugin
               </Button>
