@@ -5,8 +5,8 @@ import styles from './DeveloperCTA.module.css';
 import ConnectedDeveloperSignup from '../DeveloperSignup/DeveloperSignup';
 import ChrisStore from '../../../../store/ChrisStore';
 
-export const DeveloperCTA = ({ store }) => (
-  <div className={styles['developer-cta']}>
+const DeveloperCTA = ({ store }) => (
+<div className={styles['developer-cta']}>
     <div className={`row ${styles['developer-cta-container']}`}>
       <div className={styles['developer-cta-overview']}>
         <div className={styles['developer-cta-header']}>

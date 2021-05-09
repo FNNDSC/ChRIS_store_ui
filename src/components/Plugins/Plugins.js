@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Client from "@fnndsc/chrisstoreapi";
-import { DropdownButton, Dropdown } from "react-bootstrap";
+import {
+  Dropdown,
+  DropdownToggle,
+  DropdownItem,
+  DropdownPosition,
+} from "@patternfly/react-core";
+import { CaretDownIcon } from "@patternfly/react-icons";
 import PluginItem from "./components/PluginItem/PluginItem";
 import LoadingPluginItem from "./components/LoadingPluginItem/LoadingPluginItem";
 import PluginsCategories from "./components/PluginsCategories/PluginsCategories";
@@ -26,6 +32,15 @@ const Plugins = ({ location, store, ...props }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [categories, setCategories] = useState(Categories);
   const [pluginList, setPluginList] = useState([]);
+  const [isOpen, setIsOpen] = useState(false)
+
+  const onToggle = (isOpen) => {
+    setIsOpen(isOpen)
+  }
+
+  const onSelect = (event) => {
+    setIsOpen(!isOpen)
+  }
 
   const isLoggedIn = () => {
     return store ? store.get("isLoggedIn") : false;
@@ -70,6 +85,7 @@ const Plugins = ({ location, store, ...props }) => {
 
     setCategories(categories);
     setPluginList(plugins.data);
+
 
     if (isLoggedIn()) {
       try {
@@ -199,8 +215,14 @@ const Plugins = ({ location, store, ...props }) => {
 
   const removeEmail = (author) => author.replace(/( ?\(.*\))/g, "");
 
-  return (
-    <div {...props}>
+    const dropdownItems = [
+      <DropdownItem key="name" component="button">
+        Name
+      </DropdownItem>,
+    ];
+
+    return (
+      <div {...props}>
       <div className={styles['plugins-container']}>
         {errorMsg && (
           <Notification
@@ -214,7 +236,7 @@ const Plugins = ({ location, store, ...props }) => {
         <div className={styles['plugins-stats']}>
         <div className={`row ${styles['plugins-stats-row']}`}>
             {/* Plugins Found */}
-            {pluginList.length ? (
+            {pluginList ? (
               <span className={styles['plugins-found']}>
                 {pluginList.length} plugins found
               </span>
@@ -229,13 +251,23 @@ const Plugins = ({ location, store, ...props }) => {
                 />
               </LoadingContainer>
             )}
-            <DropdownButton
-              className={`${styles['sort-by-dropdown']} btn-group`}
-              title="Sort By"
-              menuAlign="right"
-            >
-              <Dropdown.Item eventKey="1">Name</Dropdown.Item>
-            </DropdownButton>
+            <Dropdown
+            className={`${styles['sort-by-dropdown']} btn-group`}
+              onSelect={onSelect}
+              position={DropdownPosition.right}
+              toggle={
+                <DropdownToggle
+                  onToggle={onToggle}
+                  toggleIndicator={CaretDownIcon}
+                  isPrimary
+                  id="toggle-id-4"
+                >
+                  Sort By
+                </DropdownToggle>
+              }
+              isOpen={isOpen}
+              dropdownItems={dropdownItems}
+            />
           </div>
         </div>
         <div className={`row ${styles['plugins-row']}`}>
