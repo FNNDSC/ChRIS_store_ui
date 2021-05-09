@@ -4,7 +4,7 @@ import "./welcomeCategories.css";
 import WelcomeCategory from "../WelcomeCategory/WelcomeCategory";
 
 const WelcomeCategories = () => {
-
+const categories = sampleCategories ;
 
   return (
     <div className="welcome-categories">
@@ -12,7 +12,7 @@ const WelcomeCategories = () => {
         Browse our catalog of tools ready to deploy to ChRIS
       </div>
       <div className="welcome-categories-container">
-        {sampleCategories.map((category) => (
+        {categories.map((category) => (
           <WelcomeCategory category={category} key={category.name} />
         ))}
       </div>
