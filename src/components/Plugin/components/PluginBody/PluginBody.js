@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-indent-props */
-/* eslint-disable react/jsx-indent */
 import React, { useState, useEffect, useCallback } from 'react';
 import { Grid, GridItem, Tabs, Tab, TabTitleText } from '@patternfly/react-core';
 import PropTypes from 'prop-types';
@@ -7,7 +5,7 @@ import marked from 'marked';
 import { sanitize } from 'dompurify';
 
 import './PluginBody.css';
-import { CopyURLButton } from '../../../general/CopyURLButton';
+import CopyURLButton  from '../../../general/CopyURLButton';
 import Notification from '../../../Notification';
 import HttpApiCallError from '../../../../errors/HttpApiCallError';
 import { GithubAPIRepoError,GithubAPIProfileError, GithubAPIReadmeError } from '../../../../errors/GithubError';

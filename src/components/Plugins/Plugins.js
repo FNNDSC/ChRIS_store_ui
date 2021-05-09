@@ -10,7 +10,7 @@ import LoadingContent from "../LoadingContainer/components/LoadingContent/Loadin
 import ChrisStore from "../../store/ChrisStore";
 import HttpApiCallError from "../../errors/HttpApiCallError";
 import Notification from "../Notification";
-import "./Plugins.css";
+import styles from './Plugins.module.css';
 
 const CATEGORIES = ["FreeSurfer", "MRI", "Segmentation", "copy"];
 const storeURL = process.env.REACT_APP_STORE_URL;
@@ -201,7 +201,7 @@ const Plugins = ({ location, store, ...props }) => {
 
   return (
     <div {...props}>
-      <div className="plugins-container">
+      <div className={styles['plugins-container']}>
         {errorMsg && (
           <Notification
             title={errorMsg}
@@ -211,11 +211,11 @@ const Plugins = ({ location, store, ...props }) => {
             onClose={() => setErrorMsg({ errorMsg: null })}
           />
         )}
-        <div className="plugins-stats">
-          <div className="row plugins-stats-row">
+        <div className={styles['plugins-stats']}>
+        <div className={`row ${styles['plugins-stats-row']}`}>
             {/* Plugins Found */}
             {pluginList.length ? (
-              <span className="plugins-found">
+              <span className={styles['plugins-found']}>
                 {pluginList.length} plugins found
               </span>
             ) : (
@@ -230,7 +230,7 @@ const Plugins = ({ location, store, ...props }) => {
               </LoadingContainer>
             )}
             <DropdownButton
-              className="sort-by-dropdown btn-group"
+              className={`${styles['sort-by-dropdown']} btn-group`}
               title="Sort By"
               menuAlign="right"
             >
@@ -238,12 +238,12 @@ const Plugins = ({ location, store, ...props }) => {
             </DropdownButton>
           </div>
         </div>
-        <div className="row plugins-row">
+        <div className={`row ${styles['plugins-row']}`}>
           <PluginsCategories
             categories={categoryEntries}
             onSelect={handleCategorySelect}
           />
-          <div className="plugins-list">
+          <div className={styles['plugins-list']}>
             {/* Plugin List Body*/}
             {pluginList
               ? pluginList

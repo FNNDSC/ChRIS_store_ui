@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, CardTitle, CardBody, CardFooter } from "@patternfly/react-core";
-import Button from "../../../Button";
 import PropTypes from "prop-types";
+import Button from "../../../Button";
 import "./WelcomeCategory.css";
 
 const WelcomeCategory = ({ category, ...props }) => (

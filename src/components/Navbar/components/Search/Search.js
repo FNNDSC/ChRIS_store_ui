@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import './Search.css';
+import React, { useEffect, useState } from 'react';
+import styles from './Search.module.css';
 import SearchIcon from '@patternfly/react-icons/dist/esm/icons/search-icon';
 import TimesIcon from '@patternfly/react-icons/dist/esm/icons/times-icon';
 
 import { Button, TextInput } from '@patternfly/react-core';
 import { Fragment } from 'react';
+import { useKeyPress } from '../../../../hooks/useKeyPressHook';
 
 /*
  * (C) 2020 Red Hat, MIT License
@@ -29,22 +30,56 @@ const Search = (props) => {
     placeholder,
     onBlur,
     autoCompleteData,
-    history,
   } = props;
   const searchRef = React.useRef(null);
+  const downKeyPress = useKeyPress('ArrowDown');
+  const upArrowPress = useKeyPress('ArrowUp');
+  const enterKeyPress = useKeyPress('Enter');
+
+  const [cursorState, setCursorState] = useState(0);
+
+  useEffect(() => {
+    if (autoCompleteData && autoCompleteData.length && enterKeyPress) {
+      onSearch(autoCompleteData[cursorState].name, 'ENTER');
+      onBlur();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cursorState, enterKeyPress]);
+
+  useEffect(() => {
+    if (autoCompleteData && autoCompleteData.length && downKeyPress) {
+      setCursorState(prevCursorState => prevCursorState < autoCompleteData.length - 1 ? prevCursorState + 1 : prevCursorState);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[downKeyPress]);
+
+  useEffect(() => {
+    if (autoCompleteData && autoCompleteData.length && upArrowPress) {
+      setCursorState(prevCursorState => prevCursorState > 0 ? prevCursorState - 1 : prevCursorState)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [upArrowPress]);
+
+  useEffect(() => {
+    if(autoCompleteData && autoCompleteData.length){
+      setShowAutoComplete(true);
+    }
+    setCursorState(0);
+  }, [autoCompleteData]);
+
   const [showAutoComplete, setShowAutoComplete] = useState(false);
   return (
     <Fragment>
-      <div id="search">
-        <div id="ws-global-search-wrapper">
+      <div className={styles['search']}>
+        <div className={styles['ws-global-search-wrapper']}>
           <SearchIcon
-            className="global-search-icon"
+            className={styles['global-search-icon']}
             onClick={() => {
               searchRef.current.focus();
             }}
           />
           <TextInput
-            id="ws-global-search"
+            id={styles['ws-global-search']}
             ref={searchRef}
             type="search"
             value={value}
@@ -53,27 +88,25 @@ const Search = (props) => {
             onChange={onChange}
             autoComplete="off"
             onKeyDown={(e) => {
-              if (e.key === 'Enter' && value.length >= 3){
+              if (e.key === 'Enter' && value.length >= 3 && !autoCompleteData.length){
                 onSearch(value, 'ENTER');
                 setShowAutoComplete(false);
-              }
-              else {
-                setShowAutoComplete(true);
               }
             }}
             onBlur={onBlur}
           />
         </div>
         {value.length > 0 && (
-          <Button variant="plain" className="ws-clear-search" onClick={onClear}>
+          <Button variant="plain" className={styles['ws-clear-search']} onClick={onClear}>
             <TimesIcon />
           </Button>
         )}
         {showAutoComplete && autoCompleteData && autoCompleteData.length > 0 && (
-          <ul  className="ws-global-search-autocomplete">
+          <ul  className={styles['ws-global-search-autocomplete']}>
             {autoCompleteData.map((item, id) => (
               <li
                 key={id}
+                className={id === cursorState ? 'active' : ''}
                 data-id={item.id}
                 onMouseDown={(e) => {onSearch(item.name, 'ENTER')}}
               >

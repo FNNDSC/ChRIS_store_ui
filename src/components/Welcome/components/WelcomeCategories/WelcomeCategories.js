@@ -4,7 +4,7 @@ import "./welcomeCategories.css";
 import WelcomeCategory from "../WelcomeCategory/WelcomeCategory";
 
 const WelcomeCategories = () => {
-  const [categories, setCategories] = useState(sampleCategories);
+  const [categories] = useState(sampleCategories);
 
   return (
     <div className="welcome-categories">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { AngleDownIcon } from '@patternfly/react-icons';
-import './WelcomeCTA.css';
+import styles from './WelcomeCTA.module.css';
 import WelcomeFeature from '../WelcomeFeature/WelcomeFeature';
 
 /* plugin images */
@@ -11,41 +11,41 @@ import rhoanaLogo from '../../../../assets/img/plugins/rhoana_90.png';
 import slicerLogo from '../../../../assets/img/plugins/slicer_90.png';
 
 const WelcomeCTA = () => (
-  <div className="welcome-cta">
-    <div className="welcome-cta-img">
-      <div className="row welcome-cta-header">
+  <div className={styles['welcome-cta']}>
+    <div className={styles['welcome-cta-img']}>
+      <div className={`row ${styles['welcome-cta-header']}`}>
         Accessible medical imaging using the latest
         research innovations, backed by cloud-based
         computing power.
       </div>
     </div>
-    <div className="welcome-cta-featured">
-      <div className="welcome-cta-featured-desc">
+    <div className={styles['welcome-cta-featured']}>
+      <div className={styles['welcome-cta-featured-desc']}>
         Apps available in the ChRIS store include:
       </div>
-      <div className="row welcome-cta-featured-container">
+      <div className={`row ${styles['welcome-cta-featured-container']}`}>
         <WelcomeFeature name="FreeSurfer" img={freesurferLogo} />
         <WelcomeFeature name="TensorFlow" img={tensorflowLogo} />
         <WelcomeFeature name="FMRIB Software Library" img={fslLogo} />
         <WelcomeFeature name="RhoANA" img={rhoanaLogo} />
         <WelcomeFeature name="Slicer" img={slicerLogo} />
       </div>
-      <div className="welcome-scroll-caret">
+      <div className={styles['welcome-scroll-caret']}>
         <AngleDownIcon/>
       </div>
     </div>
-    <div className="row no-flex">
-      <div className="welcome-user-cta">
-        <div className="welcome-user-cta-header">
+    <div className={`row ${styles['no-flex']}`}>
+      <div className={styles['welcome-user-cta']}>
+        <div className={styles['welcome-user-cta-header']}>
           Focus on your data. Not the tools.
         </div>
-        <div className="text-light">
+        <div className={`text-light`}>
           You need to run analyses on data, view the results,
           create visualizations, collaborate on your findings.
           Not build an infrastructure and become a software developer.
         </div>
         <br />
-        <div className="text-light">
+        <div className={`text-light`}>
           The ChRIS platform provides a common infrastructure to
           which you can deploy...
         </div>
