@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { CardGrid, Spinner } from "patternfly-react";
 import PropTypes from "prop-types";
 import Button from "../Button";
 import Client from "@fnndsc/chrisstoreapi";
@@ -10,6 +9,7 @@ import DashGitHubView from "./components/DashGitHubView/DashGitHubView";
 import ChrisStore from "../../store/ChrisStore";
 import Notification from "../Notification";
 import HttpApiCallError from "../../errors/HttpApiCallError";
+import { Spinner } from "@patternfly/react-core";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -133,23 +133,27 @@ class Dashboard extends Component {
           </div>
         </div>
         <div className={`cards-pf ${styles['dashboard-body']}`}>
-          <CardGrid>
+          <div className={`${styles['dashboard-container']}`}>
             <div className={styles['dashboard-row']}>
-              <Spinner size="lg" loading={loading}>
-                <div className={styles['dashboard-left-column']}>
+              {
+                loading?
+                <Spinner size="lg" loading={loading}/>:
+                  <React.Fragment>
+                    <div className={styles['dashboard-left-column']}>
                       <DashPluginCardView
                         plugins={pluginList}
                         onDelete={this.deletePlugin}
                         onEdit={this.editPlugin}
                       />
                       <DashTeamView plugins={pluginList} />
-                </div>
-                <div className={styles['dashboard-right-column']}>
-                  <DashGitHubView plugins={pluginList} />
-                </div>
-              </Spinner>
+                    </div>
+                    <div className={styles['dashboard-right-column']}>
+                      <DashGitHubView plugins={pluginList} />
+                    </div>
+                  </React.Fragment>
+              }
             </div>
-          </CardGrid>
+          </div>
         </div>
       </React.Fragment>
     );
