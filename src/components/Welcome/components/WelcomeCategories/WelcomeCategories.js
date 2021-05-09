@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import sampleCategories from "./sampleCategories";
 import "./welcomeCategories.css";
 import WelcomeCategory from "../WelcomeCategory/WelcomeCategory";
