@@ -9,6 +9,9 @@ import tensorflowLogo from '../../../../assets/img/plugins/tensorflow_90.png';
 import fslLogo from '../../../../assets/img/plugins/fsl_90.png';
 import rhoanaLogo from '../../../../assets/img/plugins/rhoana_90.png';
 import slicerLogo from '../../../../assets/img/plugins/slicer_90.png';
+import biomediaLogo from '../../../../assets/img/plugins/biomedia_90.png';
+import antLogo from '../../../../assets/img/plugins/ant_90.png';
+import civetLogo from '../../../../assets/img/plugins/civet_90.png';
 
 const WelcomeCTA = () => (
   <div className="welcome-cta">
@@ -24,11 +27,11 @@ const WelcomeCTA = () => (
         Apps available in the ChRIS store include:
       </div>
       <div className="row welcome-cta-featured-container">
-        <WelcomeFeature name="FreeSurfer" img={freesurferLogo} />
-        <WelcomeFeature name="TensorFlow" img={tensorflowLogo} />
-        <WelcomeFeature name="FMRIB Software Library" img={fslLogo} />
-        <WelcomeFeature name="RhoANA" img={rhoanaLogo} />
-        <WelcomeFeature name="Slicer" img={slicerLogo} />
+        <WelcomeFeature name="Fastsurfer" img={freesurferLogo} />
+        <WelcomeFeature name="Infant-FreeSurfer" img={freesurferLogo} />
+        <WelcomeFeature name="IRTK reconstruction" img={biomediaLogo} />
+        <WelcomeFeature name="N4 Bias Field Correction" img={antLogo} />
+        <WelcomeFeature name="Civet" img={civetLogo} />
       </div>
       <div className="welcome-scroll-caret">
         <AngleDownIcon/>
