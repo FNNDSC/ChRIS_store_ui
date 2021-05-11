@@ -4,11 +4,11 @@ import styles from "./WelcomeFeature.module.css";
 
 const WelcomeFeature = ({ img, name, url, ...props }) => (
   <div {...props}>
-    <div className={styles['welcome-feature']}>
+    <div className="welcome-feature">
       <a href={url}>
-        <img src={img} alt={name} className={styles['welcome-feature-img']} />
+        <img src={img} alt={name} className="welcome-feature-img" />
       </a>
-      <div className={styles['welcome-feature-text']}>{name}</div>
+      <div className="welcome-feature-text">{name}</div>
     </div>
   </div>
 );
