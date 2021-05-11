@@ -73,7 +73,7 @@
   padding: 5px 10px;
   font-weight: 500;
 }
-.active {
+.active-dropdown {
   background: #e6e6e6;
   cursor: pointer;
   color: #3da1da;
