@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import PropTypes from "prop-types";
 import Client from "@fnndsc/chrisstoreapi";
 import {
@@ -21,9 +21,9 @@ import styles from './Plugins.module.css';
 const CATEGORIES = ["FreeSurfer", "MRI", "Segmentation", "copy"];
 const storeURL = process.env.REACT_APP_STORE_URL;
 
-const Plugins = ({ location, store, ...props }) => {
-  const auth = { token: store.get("authToken") };
-  const Categories = new Map();
+const Plugins = (props) => {
+  const auth = { token: props.store.get("authToken") };
+  const Categories = new Map()
   CATEGORIES.forEach((name) => Categories.set(name, 0));
 
   const client = new Client(storeURL, auth);
@@ -42,8 +42,9 @@ const Plugins = ({ location, store, ...props }) => {
     setIsOpen(!isOpen)
   }
 
+
   const isLoggedIn = () => {
-    return store ? store.get("isLoggedIn") : false;
+    return props.store ? props.store.get("isLoggedIn") : false;
   };
 
   /**
@@ -83,7 +84,7 @@ const Plugins = ({ location, store, ...props }) => {
       }
     }
 
-    setCategories(categories);
+    setCategories(categories)
     setPluginList(plugins.data);
 
 
@@ -104,7 +105,7 @@ const Plugins = ({ location, store, ...props }) => {
 
   useEffect(() => {
     refreshPluginList();
-  }, [location]);
+  }, [props.location]);
 
   /**
    * Add a star next to the plugin visually.
