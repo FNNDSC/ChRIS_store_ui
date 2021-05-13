@@ -1,12 +1,12 @@
 import React from 'react';
 import LoadingContainer from '../../../LoadingContainer/LoadingContainer';
 import LoadingContent from '../../../LoadingContainer/components/LoadingContent/LoadingContent';
-import styles from './LoadingPlugin.module.css';
+import './LoadingPlugin.css';
 
 const LoadingPlugin = () => (
-  <LoadingContainer className={styles['loading-plugin-container']}>
-    <div className={styles['plugin-header']}>
-      <div className={`row no-flex`}>
+  <LoadingContainer className="loading-plugin-container">
+    <div className="plugin-header">
+      <div className="row no-flex">
         <LoadingContent
           width="8em"
           height="1.5em"
@@ -22,13 +22,13 @@ const LoadingPlugin = () => (
           top="0.8em"
         />
         <LoadingContent
-          className={styles['loading-plugin-tag']}
+          className="loading-plugin-tag"
           width="4em"
           height="1.5em"
           top="0.5em"
         />
         <LoadingContent
-          className={styles['loading-plugin-tag']}
+          className="loading-plugin-tag"
           width="14em"
           height="1.5em"
           top="1em"
@@ -36,9 +36,9 @@ const LoadingPlugin = () => (
         />
       </div>
     </div>
-    <div className={styles['plugin-body']}>
-      <div className={`row`}>
-        <div className={styles['plugin-body-main-col']}>
+    <div className="plugin-body">
+      <div className="row">
+        <div className="plugin-body-main-col">
           <LoadingContent
             type="white"
             width="100%"
@@ -51,7 +51,7 @@ const LoadingPlugin = () => (
             top="1em"
           />
         </div>
-        <div className={styles['plugin-body-side-col']}>
+        <div className="plugin-body-side-col">
           <LoadingContent
             type="white"
             width="100%"

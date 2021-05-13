@@ -16,7 +16,7 @@ import LoadingContent from "../LoadingContainer/components/LoadingContent/Loadin
 import ChrisStore from "../../store/ChrisStore";
 import HttpApiCallError from "../../errors/HttpApiCallError";
 import Notification from "../Notification";
-import styles from './Plugins.module.css';
+import './Plugins.css';
 
 const CATEGORIES = ["FreeSurfer", "MRI", "Segmentation", "copy"];
 const storeURL = process.env.REACT_APP_STORE_URL;
@@ -224,7 +224,7 @@ const Plugins = (props) => {
 
     return (
       <div {...props}>
-      <div className={styles['plugins-container']}>
+      <div className='plugins-container'>
         {errorMsg && (
           <Notification
             title={errorMsg}
@@ -234,11 +234,11 @@ const Plugins = (props) => {
             onClose={() => setErrorMsg({ errorMsg: null })}
           />
         )}
-        <div className={styles['plugins-stats']}>
-        <div className={`row ${styles['plugins-stats-row']}`}>
+        <div className='plugins-stats'>
+        <div className='row plugins-stats-row'>
             {/* Plugins Found */}
             {pluginList ? (
-              <span className={styles['plugins-found']}>
+              <span className='plugins-found'>
                 {pluginList.length} plugins found
               </span>
             ) : (
@@ -253,7 +253,7 @@ const Plugins = (props) => {
               </LoadingContainer>
             )}
             <Dropdown
-            className={`${styles['sort-by-dropdown']} btn-group`}
+            className='sort-by-dropdown btn-group'
               onSelect={onSelect}
               position={DropdownPosition.right}
               toggle={
@@ -271,12 +271,12 @@ const Plugins = (props) => {
             />
           </div>
         </div>
-        <div className={`row ${styles['plugins-row']}`}>
+        <div className='row plugins-row'>
           <PluginsCategories
             categories={categoryEntries}
             onSelect={handleCategorySelect}
           />
-          <div className={styles['plugins-list']}>
+          <div className='plugins-list'>
             {/* Plugin List Body*/}
             {pluginList
               ? pluginList

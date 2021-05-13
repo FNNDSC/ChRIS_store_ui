@@ -11,16 +11,16 @@ import antLogo from '../../../../assets/img/plugins/ant_90.png';
 import civetLogo from '../../../../assets/img/plugins/civet_90.png';
 
 const WelcomeCTA = () => (
-  <div className={styles['welcome-cta']}>
-    <div className={styles['welcome-cta-img']}>
-      <div className={`row ${styles['welcome-cta-header']}`}>
+  <div className="welcome-cta">
+    <div className="welcome-cta-img">
+      <div className="row welcome-cta-header">
         Accessible medical imaging using the latest
         research innovations, backed by cloud-based
         computing power.
       </div>
     </div>
-    <div className={styles['welcome-cta-featured']}>
-      <div className={styles['welcome-cta-featured-desc']}>
+    <div className="welcome-cta-featured">
+      <div className="welcome-cta-featured-desc">
         Apps available in the ChRIS store include:
       </div>
 
@@ -35,18 +35,18 @@ const WelcomeCTA = () => (
         <AngleDownIcon/>
       </div>
     </div>
-    <div className={`row ${styles['no-flex']}`}>
-      <div className={styles['welcome-user-cta']}>
-        <div className={styles['welcome-user-cta-header']}>
+    <div className="row no-flex">
+      <div className="welcome-user-cta">
+        <div className="welcome-user-cta-header">
           Focus on your data. Not the tools.
         </div>
-        <div className={`text-light`}>
+        <div className="text-light">
           You need to run analyses on data, view the results,
           create visualizations, collaborate on your findings.
           Not build an infrastructure and become a software developer.
         </div>
         <br />
-        <div className={`text-light`}>
+        <div className="text-light">
           The ChRIS platform provides a common infrastructure to
           which you can deploy...
         </div>

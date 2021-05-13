@@ -5,7 +5,7 @@ import React, { useCallback, useState } from 'react';
 import { Page, SkipToContent } from '@patternfly/react-core';
 import ConnectedNavbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
-import styles from './applayout.module.css'
+import  './applayout.css'
 import Search from '../Navbar/components/Search/Search';
 import { useHistory } from 'react-router-dom';
 import Client from "@fnndsc/chrisstoreapi";
@@ -73,7 +73,7 @@ const AppLayout = ({ store, children }) => {
       header={<ConnectedNavbar searchComponent={searchComponent} />}
       mainContainerId="primary-app-container"
       skipToContent={PageSkipToContent}
-      additionalGroupedContent={<div className={styles['searchbar']}>{searchComponent}</div>}
+      additionalGroupedContent={<div className='searchbar'>{searchComponent}</div>}
       >
       {children}
       <Footer />

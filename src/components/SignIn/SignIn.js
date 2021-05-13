@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Button from '../Button';
 import StoreClient from '@fnndsc/chrisstoreapi';
-import styles from './SignIn.module.css';
+import './SignIn.css';
 import chrisLogo from '../../assets/img/chris_logo-white.png';
 import ChrisStore from '../../store/ChrisStore';
 import FormInput from '../FormInput';
@@ -92,13 +92,13 @@ export class SignIn extends Component {
     } = this.state;
 
     return (
-      <div className={`${styles['signin']} login-pf-page`}>
-        <div className={styles['signin-container']}>
+      <div className="signin login-pf-page">
+        <div className="signin-container">
           {
             error && (
-              <div className={styles['signin-error-container']}>
+              <div className="signin-error-container">
                 <Alert
-                  className={styles['signin-error']}
+                  className="signin-error"
                   variant="danger"
                   title={error}
                   actionClose={<AlertActionCloseButton onClose={this.hideError} />}
@@ -106,25 +106,25 @@ export class SignIn extends Component {
               </div>
             )
           }
-          <div className={styles['signin-logo-container']}>
+          <div className="signin-logo-container">
             <Link
-              className={styles['signin-logo-link']}
+              className="signin-logo-link"
               href="/"
               to="/"
             >
               <img
-                className={styles['signin-logo']}
+                className="signin-logo"
                 src={chrisLogo}
                 alt=""
               />
             </Link>
           </div>
-          <Card className={styles['signin-card']}>
-            <CardTitle className={styles['login-pf-page-header']}>
+          <Card className="signin-card">
+            <CardTitle className="login-pf-page-header">
               <h1>Login to your account</h1>
             </CardTitle>
             <CardBody>
-              <Form className={styles['signin-form']} >
+              <Form className="signin-form" >
                 <FormInput
                   placeholder="Username"
                   fieldName="username"
@@ -133,7 +133,7 @@ export class SignIn extends Component {
                   value={username}
                   onChange={(val) => this.handleChange(val, 'username')}
                   autoComplete="username"
-                  className={styles['signin-username-form-group']}
+                  className="signin-username-form-group"
                 />
                 <FormInput
                   placeholder="Password"
@@ -143,18 +143,16 @@ export class SignIn extends Component {
                   id="password"
                   onChange={(val) => this.handleChange(val, 'password')}
                   autoComplete="current-password"
-                  className={styles['signin-password-form-group']}
+                  className="signin-password-form-group"
                 />
                 <Button
-                  className={styles['signin-login-btn']}
-                  bsStyle="primary"
-                  bsSize="large"
-                  type="submit"
-                  disabled={loading}
-                >
+                  className="signin-login-btn"
+                  variant="primary"
+                  loading={loading}
+                  onClick={this.handleSubmit}>
                   Log In
                 </Button>
-                <p className={`login-pf-signup`}>
+                <p className="login-pf-signup">
                   Need an account?
                   <Link to="/quickstart" href="/quickstart">
                     Signup
