@@ -1,0 +1,15 @@
+.loading-plugin-container {
+  /* display */
+  display: flex;
+  flex-direction: column;
+}
+
+.loading-plugin-container, .plugin-body {
+  /* flex */
+  flex: 1;
+}
+
+.loading-plugin-tag {
+  /* display */
+  display: inline-block;
+}

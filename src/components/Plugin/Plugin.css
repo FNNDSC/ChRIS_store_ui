@@ -1,0 +1,141 @@
+.plugin {
+  /* display */
+  min-height: calc(100vh - 66px);
+
+  /* font */
+  font-size: 1.2em;
+}
+
+.plugin, .plugin-container {
+  /* display */
+  display: flex;
+
+  /* flex */
+  flex-direction: column;
+}
+
+.plugin-container, .plugin-body {
+  /* flex */
+  flex: 1;
+}
+
+.plugin-header {
+  /* display */
+  padding: 1em;
+  max-width: 1200px;
+  margin: 1em auto;
+}
+
+.plugin-icon {
+  display: block;
+  width: 5em;
+  height: 5em;
+  margin: auto;
+  /* margin-right: 3em; */
+}
+
+.plugin-category {
+  /* font */
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.plugin-name {
+  /* color */
+  color: #39a5dc;
+  color: var(--pf-blue-300);
+
+  /* font */
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.plugin-name > .plugin-star {
+  /* display */
+  margin-left: .5em;
+
+  /* color */
+  color: var(--pf-black-400, #bbb);
+
+  /* font */
+  font-size: 22px;
+}
+
+.plugin-name > .plugin-star:hover {
+  /* color */
+  color: var(--pf-black-700, #bbb);
+
+  /* cursor */
+  cursor: pointer;
+}
+
+.plugin-name > .plugin-star-disabled {
+  /* display */
+  margin-left: .5em;
+
+  /* color */
+  color: var(--pf-black-400, #bbb);
+
+  /* font */
+  font-size: 22px;
+}
+
+.plugin-name > .plugin-star-favorite {
+  /* display */
+  margin-left: .5em;
+
+  /* color */
+  color: var(--pf-gold-300,#f4c145);
+
+  /* font */
+  font-size: 22px;
+}
+
+.plugin-name > .plugin-star-favorite:hover {
+  /* color */
+  color: var(--pf-gold-700, #3d2c00);
+
+  /* cursor */
+  cursor: pointer;
+}
+
+.plugin-name:focus, .plugin-name:hover {
+  /* color */
+  color: #0088ce;
+  color: var(--pf-blue-400);
+
+  /* font */
+  text-decoration: none;
+}
+
+.plugin-description {
+  /* color */
+  color: var(--pf-black-600, #72767b);
+}
+
+.plugin-stats {
+  /* color */
+  color: var(--pf-black-400, #bbb);
+}
+
+.plugin-stats .plugin-modified {
+  /* display */
+  padding-left: .5em;
+}
+
+.p-3 {
+    padding: 16px;
+}
+
+.menu-dropdown {
+    margin-top: 10px !important;
+    min-width: 400px !important;
+}
+
+.plugin-body-copy-url .dropdown.btn-group {
+    position: relative;
+    margin: 0;
+}
+.plugins-container {
+    min-height: calc(100vh - 473px);
+}

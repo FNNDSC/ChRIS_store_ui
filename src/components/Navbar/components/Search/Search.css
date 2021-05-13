@@ -1,0 +1,98 @@
+/*
+ * (C) 2020 Red Hat, MIT License
+ * https://github.com/patternfly/patternfly-org/blob/d6e1950b764b55b612709dfe8e84e6e636116d23/packages/theme-patternfly-org/layouts/sideNavLayout/sideNavLayout.css#L27-L72
+ */
+
+.search {
+  position: relative;
+  display: flex;
+  height: max-content;
+  justify-self: center;
+  align-self: center;
+  margin-left: 14px;
+}
+
+
+/* Search */
+.ws-global-search-wrapper {
+  /* For icon */
+  position: relative;
+}
+#ws-global-search {
+  background-color: transparent;
+  border: none;
+  /* For icon */
+  padding-left: 32px;
+  outline: none;
+  width: 250px;
+  margin-right: 20px;
+}
+#ws-global-search:focus {
+  border-bottom: 1px solid #3da1da;
+}
+.ws-hide-search-input .algolia-autocomplete,
+.ws-hide-search-input #ws-global-search {
+  display: none !important;
+}
+.ws-clear-search {
+  /* Search icon is taller than it is wide */
+  outline: none;
+  margin-top: 2px;
+}
+.ws-global-search-wrapper > .global-search-icon {
+  position: absolute;
+  top: 10px;
+  left: 4px;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+#ws-global-search {
+  color: #fff;
+}
+#ws-global-search:focus {
+  outline-offset: 2px;
+}
+.ws-global-search-autocomplete {
+  position: absolute;
+  top: 40px;
+  left: 10px;
+  z-index: 1000;
+  width: 250px;
+  height: 250px;
+  background: white;
+  color: black;
+  overflow: hidden;
+  -webkit-box-shadow: -9px 13px 12px -5px rgba(82, 82, 82, 0.55);
+  -moz-box-shadow: -9px 13px 12px -5px rgba(82, 82, 82, 0.55);
+  box-shadow: -9px 13px 12px -5px rgba(82, 82, 82, 0.55);
+  list-style-type: none;
+  padding: 0;
+}
+.ws-global-search-autocomplete li {
+  font-size: 1.5em;
+  padding: 5px 10px;
+  font-weight: 500;
+}
+.ws-global-search-autocomplete li:hover {
+  background: #e6e6e6;
+  cursor: pointer;
+  color: #3da1da;
+}
+/* TODO: PageHeaderTools on small viewports */
+@media (max-width: 670px) {
+  .pf-c-brand{
+    height: 40px;
+    width: auto;
+  }
+  .ws-global-search-wrapper {
+    width: auto
+  }
+  #ws-global-search{
+    width: 100%;
+    margin-right: 2px;
+  }
+  #ws-global-search::placeholder{
+    color: white;
+    font-size: 0.8em;
+  }
+}

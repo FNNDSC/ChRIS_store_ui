@@ -1,0 +1,130 @@
+.welcome-chris {
+  /* color */
+  background: #39a5dc;
+  background: var(--pf-blue-300);
+
+  /* display */
+  min-height: 400px;
+  padding: 2em;
+
+  /* position */
+  position: relative;
+}
+
+.welcome-chris .row > div {
+  /* display */
+  padding: 1em;
+
+  /* flex */
+  flex: 1;
+}
+
+.welcome-chris-text {
+  /* color */
+  color: #fafafa;
+  color: var(--pf-black-100);
+}
+
+.welcome-chris-text-container > div {
+  font-weight: 400;
+  font-size: 3em;
+}
+
+.welcome-chris-text-container > p { font-size: 1.3em; }
+
+.welcome-chris-video-column {
+  /* display */
+  display: flex;
+
+  /* flex */
+  flex-direction: column;
+  justify-content: center;
+}
+
+.welcome-chris-video {
+  /* display */
+  width: 100%;
+  height: 200px;
+}
+
+.welcome-chris-video-desc {
+  /* color */
+  color: #fafafa;
+  color: var(--pf-black-100);
+
+  /* display */
+  padding: 1em 1em 0 0;
+}
+
+.welcome-chris-btn {
+  /* display */
+  background: #fafafa !important;
+  display: block !important;
+  width: auto;
+}
+
+.welcome-chris-btn .other-btn {
+  width: auto;
+}
+
+.welcome-chris-banner { display: none; }
+
+/* ============================== */
+/* ---------- RESPONSIVE -------- */
+/* ============================== */
+
+@media (min-width: 420px) {
+  .welcome-chris-btn-row > div { display: inline-block; }
+
+  .welcome-chris-btn { width: max-content; }
+}
+
+@media (min-width: 480px)  {
+  .welcome-chris-video { height: 50vw; }
+}
+
+@media (min-width: 768px)  {
+  .welcome-chris-video {
+    /* display */
+    width: 45vw;
+    height: 25.3vw;
+  }
+
+  .welcome-chris-more-btn {
+    /* display */
+    width: 208.5px;
+
+    /* other */
+    float: right;
+  }
+
+  .welcome-chris > .row:first-child { flex-direction: row-reverse; }
+}
+
+@media (min-width: 1108px) {
+  .welcome-chris-video {
+    /* display */
+    width: 500px;
+    height: 281.25px;
+  }
+
+  .welcome-chris-text-container {
+    /* display */
+    padding: 0 2em 1.1em 2em;
+    width: 33vw;
+  }
+
+  .welcome-chris-banner {
+    /* display */
+    display: block;
+
+    /* position */
+    position: absolute;
+    top: 0;
+    right: 5em;
+  }
+}
+
+@media (min-width: 1267px) {
+  .welcome-chris-text-container { width: auto; }
+}
