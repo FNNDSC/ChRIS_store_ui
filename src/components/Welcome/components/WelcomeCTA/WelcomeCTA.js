@@ -31,7 +31,7 @@ const WelcomeCTA = () => (
         <WelcomeFeature name="N4 Bias Field Correction" img={antLogo} url='https://chrisstore.co/plugin/77'/>
         <WelcomeFeature name="Civet" img={civetLogo} url='https://chrisstore.co/plugin/2'/>
       </div>
-      <div className={styles['welcome-scroll-caret']}>
+      <div className='welcome-scroll-caret'>
         <AngleDownIcon/>
       </div>
     </div>

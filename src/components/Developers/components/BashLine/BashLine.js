@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import CopyToClipboard from "../CopyToClipboard/CopyToClipboard";
-import styles from './BashLine.module.css';
+import './BashLine.css';
 
 const BashLine = ({ command, ...props}) => {
   return (
-    <div className={styles['bash-line-container']} {...props}>
-      <div className={styles['bash-line-command']}>{`$ ${command}`}</div>
+    <div className='bash-line-container' {...props}>
+      <div className='bash-line-command'>{`$ ${command}`}</div>
       <CopyToClipboard clipboardText={command} />
     </div>
   );
