@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Search.css';
-import SearchIcon from '@patternfly/react-icons/dist/esm/icons/search-icon';
-import TimesIcon from '@patternfly/react-icons/dist/esm/icons/times-icon';
-
+import {SearchIcon, TimesIcon} from '@patternfly/react-icons';
 import { Button, TextInput } from '@patternfly/react-core';
 import { Fragment } from 'react';
 import { useKeyPress } from '../../../../hooks/useKeyPressHook';

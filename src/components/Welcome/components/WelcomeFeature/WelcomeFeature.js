@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styles from "./WelcomeFeature.module.css";
+import "./WelcomeFeature.css";
 
 const WelcomeFeature = ({ img, name, url, ...props }) => (
   <div {...props}>

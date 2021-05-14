@@ -3,7 +3,7 @@ import { CardGrid, Spinner } from "patternfly-react";
 import PropTypes from "prop-types";
 import Button from "../Button";
 import Client from "@fnndsc/chrisstoreapi";
-import styles from "./Dashboard.module.css";
+import "./Dashboard.css";
 import DashPluginCardView from "./components/DashPluginCardView/DashPluginCardView";
 import DashTeamView from "./components/DashTeamView/DashTeamView";
 import DashGitHubView from "./components/DashGitHubView/DashGitHubView";
@@ -132,11 +132,11 @@ class Dashboard extends Component {
             </div>
           </div>
         </div>
-        <div className={`cards-pf ${styles['dashboard-body']}`}>
+        <div className="cards-pf dashboard-body">
           <CardGrid>
-            <div className={styles['dashboard-row']}>
+            <div className="dashboard-row">
               <Spinner size="lg" loading={loading}>
-                <div className={styles['dashboard-left-column']}>
+                <div className="dashboard-left-column">
                       <DashPluginCardView
                         plugins={pluginList}
                         onDelete={this.deletePlugin}
@@ -144,7 +144,7 @@ class Dashboard extends Component {
                       />
                       <DashTeamView plugins={pluginList} />
                 </div>
-                <div className={styles['dashboard-right-column']}>
+                <div className="dashboard-right-column">
                   <DashGitHubView plugins={pluginList} />
                 </div>
               </Spinner>
