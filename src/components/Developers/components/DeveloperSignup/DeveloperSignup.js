@@ -15,21 +15,8 @@ import StoreClient from '@fnndsc/chrisstoreapi';
 import { validate } from 'email-validator';
 import './DeveloperSignup.css';
 import ChrisStore from '../../../../store/ChrisStore';
+import isTouchDevice from '/isTouchDevice';
 
-/* inspired by http://bit.ly/2KycT4G */
-const isTouchDevice = () => {
-  if (('ontouchstart') in window || (window.DocumentTouch && document instanceof window.DocumentTouch)) {
-    return true;
-  }
-
-  if (window.matchMedia) {
-    const prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
-    const query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
-    return window.matchMedia(query).matches;
-  }
-
-  return false;
-};
 
 export class DeveloperSignup extends Component {
   constructor(props) {
