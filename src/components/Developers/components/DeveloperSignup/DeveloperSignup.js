@@ -12,10 +12,7 @@ import {
 } from 'patternfly-react';
 import _ from 'lodash';
 import StoreClient from '@fnndsc/chrisstoreapi';
-import { validate } from 'email-validator';
-import './DeveloperSignup.css';
-import ChrisStore from '../../../../store/ChrisStore';
-import isTouchDevice from '/isTouchDevice';
+
 
 
 export class DeveloperSignup extends Component {
