@@ -7,7 +7,7 @@ const Instructions = () => (
     <div className="row no-flex">
       <h1 className="instructions-header">
         Get Started - 4 Simple Steps{' '}
-        <a className="instructions-source" href="http://bit.ly/2KghHdY">[source]</a>
+        <a className="instructions-source" href="https://github.com/FNNDSC/cookiecutter-chrisapp/wiki/Quickstart">[source]</a>
       </h1>
       <div className="instructions-steps">
         <div className="instructions-step">
@@ -33,7 +33,7 @@ const Instructions = () => (
               <ul>
                 <li>
                   <a
-                    href="http://bit.ly/2Iih52m"
+                    href="https://github.com/FNNDSC/cookiecutter-chrisapp/wiki/Quickstart"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -42,7 +42,7 @@ const Instructions = () => (
                 </li>
                 <li>
                   <a
-                    href="http://bit.ly/2KghHdY"
+                    href="https://github.com/FNNDSC/cookiecutter-chrisapp/wiki/Quickstart"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -138,9 +138,9 @@ const Instructions = () => (
             </h3>
             <h3>
               Look at this{' '}
-              <a href="http://bit.ly/2yzbRzF">simple <strong>fs</strong> plugin</a>
+              <a href="https://github.com/FNNDSC/cookiecutter-chrisapp/wiki/Quickstart">simple <strong>fs</strong> plugin</a>
               {' '}or this{' '}
-              <a href="http://bit.ly/2KbHosS">simple <strong>ds</strong> plugin</a>
+              <a href="https://github.com/FNNDSC/cookiecutter-chrisapp/wiki/Quickstart">simple <strong>ds</strong> plugin</a>
               {' '}for guidance on getting started with your ChRIS plugin.
             </h3>
           </div>
@@ -153,7 +153,7 @@ const Instructions = () => (
           <div className="instructions-body">
             <h3>
               Once you{"'"}ve developed and properly tested your plugin app
-              consult the <a href="http://bit.ly/2ltTJ0w">wiki</a> to learn how to register it to
+              consult the <a href="https://github.com/FNNDSC/cookiecutter-chrisapp/wiki/Quickstart">wiki</a> to learn how to register it to
               ChRIS.
             </h3>
           </div>
