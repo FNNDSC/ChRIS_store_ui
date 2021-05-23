@@ -104,7 +104,7 @@ const Search = (props) => {
             {autoCompleteData.map((item, id) => (
               <li
                 key={id}
-                className={id === cursorState ? 'active' : ''}
+                className={id === cursorState ? 'active-dropdown' : ''}
                 data-id={item.id}
                 onMouseDown={(e) => {onSearch(item.name, 'ENTER')}}
               >
