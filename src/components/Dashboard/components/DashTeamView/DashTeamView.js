@@ -13,7 +13,6 @@ import {
   Table,
   TABLE_SORT_DIRECTION,
   MenuItem,
-  Col,
   Icon
 } from "patternfly-react";
 import { CardTitle, CardBody, Card, CardFooter, Grid, GridItem, CardActions } from "@patternfly/react-core";

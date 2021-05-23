@@ -5,7 +5,10 @@ import ReactDOM from 'react-dom';
 import 'core-js/fn/array/includes';
 
 import './index.css';
+
+ /* REQUIRED Patternfly stylesheet */
 import '@patternfly/patternfly/patternfly.css';
+
 import App from './components/App/App';
 import registerServiceWorker from './registerServiceWorker';
 

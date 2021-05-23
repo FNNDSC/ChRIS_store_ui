@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import ChrisStore from "../../../../store/ChrisStore";
 import Button from "../../../Button";
 import FormInput from "../../../FormInput";
-import './DeveloperSignup.css';
+import "./DeveloperSignup.css";
 
 /* inspired by https://github.com/Modernizr/Modernizr/blob/v3/feature-detects/touchevents.js */
 const isTouchDevice = () => {
@@ -31,9 +31,9 @@ const isTouchDevice = () => {
 };
 
 const DeveloperSignup = ({ store, ...props }) => {
-  let history = useHistory();
+  const history = useHistory();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState({ message: "", controls: "" });
+  const [error, setError] = useState({ message: "", controls: [] });
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -44,8 +44,8 @@ const DeveloperSignup = ({ store, ...props }) => {
 
     if (!username) {
       return setError({
-        message: "A valid Email is required",
-        controls: ["email"],
+        message: "A valid Username is required",
+        controls: ["username"],
       });
     }
 
@@ -86,7 +86,7 @@ const DeveloperSignup = ({ store, ...props }) => {
     setLoading(true);
     setError({
       message: "",
-      controls: "",
+      controls: [],
     });
     store.set("userName")(username);
 
@@ -109,27 +109,37 @@ const DeveloperSignup = ({ store, ...props }) => {
             message: "This username is already registered.",
             controls: ["username"],
           });
-        } else {
+        }
+        if (_.has(e, "response.data.email")) {
           setLoading(false);
           setError({
             message: "This email is already registered.",
             controls: ["email"],
           });
+        } else {
+          setLoading(false);
+          setError({
+            message: "Network request failed",
+            controls: ["username", "email", "password"],
+          });
         }
       } else {
         setLoading(false);
+        setError({
+          message: "Network request failed",
+          controls: ["username", "email", "password"],
+        });
       }
       return console.error(e);
     }
 
     try {
       authToken = await StoreClient.getAuthToken(authURL, username, password);
-      store.set("authToken")(authToken)
-      history.push('/dashboard')
+      store.set("authToken")(authToken);
+      history.push("/dashboard");
     } catch (e) {
       return console.error(e);
     }
-
   };
 
   return (
@@ -202,7 +212,7 @@ const DeveloperSignup = ({ store, ...props }) => {
         </Button>
       )}
       {loading && (
-        <span className='developer-signup-creating'>Creating Account</span>
+        <span className="developer-signup-creating">Creating Account</span>
       )}
     </Form>
   );
