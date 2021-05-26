@@ -31,7 +31,7 @@
   padding: 2em 0;
 } #welcome-cta-header h1 {
   font-size: 4.5em;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.25;
   margin: 0.5em 0;
   color: white;
@@ -76,6 +76,7 @@
 @media (min-width: 768px)  {
   .welcome-cta-header {
     font-size: 2.5em;
+    padding: 4em 0;
   }
 
   .welcome-cta .welcome-cta-featured {
