@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { Grid, GridItem, Tabs, Tab, TabTitleText } from '@patternfly/react-core';
 import PropTypes from 'prop-types';
 import marked from 'marked';
@@ -11,11 +12,14 @@ import HttpApiCallError from '../../../../errors/HttpApiCallError';
 import { GithubAPIRepoError,GithubAPIProfileError, GithubAPIReadmeError } from '../../../../errors/GithubError';
 
 
-const removeEmail = (author) => author.replace(/( ?<.*>)/g, '');
+const removeEmail = (authors) => Array.isArray(authors) ? 
+  authors.map((author) => author.replace(/( ?\(.*\))/g, "")) 
+  : 
+  authors.replace(/( ?<.*>)/g, '');
 
 const PluginBody = ({ pluginData }) => {
   const [activeTab, setActiveTab] = useState(1);
-  const handleTabClick = (event, tabIndex) => setActiveTab(tabIndex);
+  const handleTabClick = (_, tabIndex) => setActiveTab(tabIndex);
 
   const [repoData, setRepoData] = useState();
   const [readme, setReadme] = useState();
@@ -69,6 +73,8 @@ const PluginBody = ({ pluginData }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchReadme, fetchRepoData, pluginData.public_repo])
 
+  const versionString = (v) => `Version ${v}` + (v === pluginData.version ? ' (This)' : '')
+
   return (
     <React.Fragment>
       {
@@ -94,6 +100,7 @@ const PluginBody = ({ pluginData }) => {
                   <Grid hasGutter className="plugin-body-main">
                     <GridItem md={8} sm={12}>
                       <div className="plugin-body-main-col">
+                        <h1>{pluginData.title}</h1>
                         <div style={{ color: "gray" }}>README</div>
                         { readme ? <div dangerouslySetInnerHTML={{ __html: readme }}></div> : null }
                       </div>
@@ -154,7 +161,34 @@ const PluginBody = ({ pluginData }) => {
 
                 <Tab eventKey={3} title={<TabTitleText>Versions</TabTitleText>}>
                   <Grid hasGutter className="plugin-body-main">
-                    <GridItem sm={12}>Versions content</GridItem>
+                    <GridItem sm={12}>
+                      {
+                        pluginData.versions !== undefined ? (
+                          <>
+                          <h2>Versions of this plugin</h2>
+                          {
+                            Object.keys(pluginData.versions).length > 1 ? 
+                              Object.keys(pluginData.versions).map((version) => (
+                                <div key={version}>
+                                  <Link
+                                    href={`/plugin/${pluginData.name}/${version}`}
+                                    to={`/plugin/${pluginData.name}/${version}`}
+                                  >
+                                    {versionString(version)}
+                                  </Link>
+                                </div>
+                              )) : (
+                              <div>
+                                {versionString(Object.keys(pluginData.versions).toString())}
+                              </div>
+                            )
+                          }
+                          </>
+                        ) : <div>
+                          <p>This is the only version of this plugin.</p>
+                        </div>
+                      }
+                    </GridItem>
                   </Grid>
                 </Tab>
               </Tabs>

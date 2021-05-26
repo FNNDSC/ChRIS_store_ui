@@ -1,5 +1,7 @@
 .not-found {
     text-align: center;
+    max-width: 50%;
+    margin: 5em auto;
 }
 .not-found img {
     width: 70%;

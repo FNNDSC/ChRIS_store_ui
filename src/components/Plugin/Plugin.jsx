@@ -230,17 +230,14 @@ export class Plugin extends Component {
                   {data.description}
                 </div>
                 <div className="plugin-stats">
-                  <StarIcon name="star" size="lg" />  {data.stars}
-                  {modificationDate.isValid()
-                    && (
-                    <span className="plugin-modified">
-                      <ClockIcon name="clock-o" size="lg" /> Last modified {modificationDate.format()}
-                    </span>
-                    )}
-                  {/* temp text */}
-                  <span className="plugin-modified">
-                    <ClockIcon name="clock-o" size="lg" /> Last modified 1 hour ago
-                  </span>
+                  <StarIcon name="star" size="lg" /> {data.stars}
+                  { 
+                    modificationDate.isValid() ?
+                      <span className="plugin-modified">
+                        <ClockIcon name="clock-o" size="lg" /> Last modified {modificationDate.format()}
+                      </span>
+                    : null
+                  }
                 </div>
               </GridItem>
             </Grid>

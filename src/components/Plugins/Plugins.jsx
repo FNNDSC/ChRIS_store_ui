@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Client from '@fnndsc/chrisstoreapi';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
+import { Grid, GridItem } from '@patternfly/react-core'
+import { Split, SplitItem } from '@patternfly/react-core';
 
+import ConnectedPlugin from '../Plugin/Plugin';
 import PluginItem from './components/PluginItem/PluginItem';
 import LoadingPluginItem from './components/LoadingPluginItem/LoadingPluginItem';
 import PluginsCategories from './components/PluginsCategories/PluginsCategories';
 import LoadingContainer from '../LoadingContainer/LoadingContainer';
 import LoadingContent from '../LoadingContainer/components/LoadingContent/LoadingContent';
+import NotFound from '../NotFound/NotFound';
+
 import ChrisStore from '../../store/ChrisStore';
 import HttpApiCallError from '../../errors/HttpApiCallError';
 import Notification from '../Notification';
@@ -32,6 +38,8 @@ export class Plugins extends Component {
     CATEGORIES.forEach((name) => categories.set(name, 0));
 
     this.state = {
+      loading: true,
+      pluginList: [],
       errorMsg: null,
       starsByPlugin: {},
       selectedCategory: null,
@@ -145,7 +153,7 @@ export class Plugins extends Component {
     const params = new URLSearchParams(window.location.search)
     const name = params.get('q');
     const searchParams = {
-      limit: 20,
+      limit: 10e3,
       offset: 0,
       name_title_category: name,
     };
@@ -176,6 +184,7 @@ export class Plugins extends Component {
 
     // plugin list and category list are available always, even if not logged in
     const nextState = {
+      loading: false,
       pluginList: plugins.data,
       categories: categories
     };
@@ -213,6 +222,9 @@ export class Plugins extends Component {
         this.favPlugin(plugin);
       }
     }
+    else {
+      this.showNotifications(new Error('You need to be logged in!'));
+    }
   }
 
   isFavorite(plugin) {
@@ -233,48 +245,85 @@ export class Plugins extends Component {
   }
 
   render() {
-    const { pluginList, categories, selectedCategory } = this.state;
+    // pluginList accumulate versions
+    const pluginVersions = new Map();
+    for (let plugin of this.state.pluginList) {
+      if (pluginVersions.has(plugin.name)) {
+        let existing = pluginVersions.get(plugin.name);
+        existing.versions[plugin.version] = plugin;
+        pluginVersions.set(plugin.name, existing);
+      } else {
+        pluginVersions.set(plugin.name, {
+          ...plugin,
+          versions: {
+            [plugin.version]: plugin
+          }
+        });
+      }
+    }
+    /**
+     * @todo accumulation
+     */
 
     // convert map into the data structure expected by <PluginsCategories />
+    const { categories, selectedCategory } = this.state;
     const categoryEntries = Array.from(categories.entries(), ([name, count]) => ({
       name: name, length: count
     }));
 
     // Remove email from author
-    const removeEmail = (author) => author.replace(/( ?\(.*\))/g, "");
+    const removeEmail = (authors) => Array.isArray(authors) ? 
+      authors.map((author) => author.replace(/( ?\(.*\))/g, "")) 
+      : 
+      authors.replace(/( ?<.*>)/g, '');
 
     let pluginsFound;
     let pluginListBody;
 
+    function filterMap(map, condition) {
+      let result = new Map();
+      for (let [k, v] of map)
+        if (condition(k,v))
+          result.set(k, v);
+          
+      return result;
+    }
+
     // Render the pluginList if the plugins have been fetched
-    if (pluginList) {
-      pluginListBody = pluginList
-        .filter((plugin) => {
-          if (selectedCategory) {
-            return plugin.category === selectedCategory;
-          }
+    if (!this.state.loading) {
+      pluginListBody = [...filterMap(pluginVersions, (_, { category }) => {
+          if (selectedCategory)
+            return category === selectedCategory;
           return true;
         })
-        .map((plugin) => (
-          <PluginItem
-            title={plugin.title}
-            id={plugin.id}
-            name={plugin.name}
-            author={removeEmail(plugin.authors)}
-            creationDate={plugin.creation_date}
-            key={`${plugin.name}-${plugin.id}`}
-            isLoggedIn={this.isLoggedIn()}
-            isFavorite={this.isFavorite(plugin)}
-            onStarClicked={() => this.togglePluginFavorited(plugin)}
-          />
+        .values()]
+        .map((plugin, index) => (
+          <GridItem lg={6} xs={12} key={`${plugin.name}-${index}`}>
+            <PluginItem
+              { ...plugin }
+              author={removeEmail(plugin.authors)}
+              isLoggedIn={this.isLoggedIn()}
+              isFavorite={this.isFavorite(plugin)}
+              onStarClicked={() => this.togglePluginFavorited(plugin)}
+            />
+          </GridItem>
       ));
 
       pluginsFound = (
-        <span className="plugins-found">{pluginList.length} plugins found</span>
+        <span style={{
+          fontSize: '1.5em',
+          fontWeight: '600',
+        }}>
+          {pluginListBody.length} plugins found
+        </span>
       );
     }
     else {
       // Or else show the loading placeholders
+      pluginListBody = new Array(6).fill().map((e, i) => (
+        <LoadingPluginItem key={i} />
+      ));
+      
       pluginsFound = (
         <LoadingContainer>
           <LoadingContent
@@ -286,39 +335,85 @@ export class Plugins extends Component {
           />
         </LoadingContainer>
       );
-
-      pluginListBody = new Array(6).fill().map((e, i) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <LoadingPluginItem key={i} />
-      ));
     }
 
     return (
-      <div className="plugins-container">
-        {this.state.errorMsg && (
-          <Notification
-            title={this.state.errorMsg}
-            position='top-right'
-            variant='danger'
-            closeable
-            onClose={()=>this.setState({ errorMsg: null })}
-          />
-        )}
-        <div className="plugins-stats">
-          <div className="row plugins-stats-row">
-            {pluginsFound}
-            <DropdownButton id="sort-by-dropdown" title="Sort By" pullRight>
-              <MenuItem eventKey="1">Name</MenuItem>
-            </DropdownButton>
+      <Switch>
+        <Route path="/plugin/:name" render={(routeProps)=>{
+          if (this.state.loading)
+            return <LoadingPluginItem />
+
+          const { name: query } = routeProps.match.params
+          if (pluginVersions.has(query))
+            return <ConnectedPlugin pluginData={pluginVersions.get(query)} />
+          else
+            return <NotFound/>
+        }} />
+
+        <Route path="/plugin/:name/:version" render={(routeProps)=>{
+          if (this.state.loading)
+            return <LoadingPluginItem />
+
+          const { name: query, version } = routeProps.match.params
+          if (pluginVersions.has(query)) {
+            let versionList = pluginVersions.get(query).versions
+            if (versionList.hasOwnProperty(version))
+              return <ConnectedPlugin pluginData={versionList[version]} />
+            else
+              return <NotFound/>
+          }
+          else
+            return <NotFound/>
+        }} />
+
+        <Route exact path="/plugins">
+          {this.state.errorMsg && (
+            <Notification
+              title={this.state.errorMsg}
+              position='top-right'
+              variant='danger'
+              closeable
+              onClose={()=>this.setState({ errorMsg: null })}
+            />
+          )}
+
+          <div className="plugins-container">
+            <article style={{ maxWidth: '1200px', margin: 'auto' }}>
+              <Grid className="plugins-row">
+                <GridItem xs={12}>
+                  <div style={{ padding: '2em' }}>
+                    <h1>ChRIS Plugins List</h1>
+                  </div>
+                </GridItem>
+
+                <GridItem lg={3} xs={12}>
+                  <PluginsCategories categories={categoryEntries}
+                    onSelect={this.handleCategorySelect}
+                  />
+                </GridItem>
+                
+                <GridItem lg={9} xs={12}>
+                  <Grid hasGutter className="plugins-list">
+                    <GridItem xs={12}>
+                      <Split>
+                        <SplitItem>{pluginsFound}</SplitItem>
+                        <SplitItem isFilled/>
+                        <SplitItem>
+                          <DropdownButton id="sort-by-dropdown" title="Sort By" pullRight>
+                            <MenuItem eventKey="1">Name</MenuItem>
+                          </DropdownButton>
+                        </SplitItem>
+                      </Split>
+                    </GridItem>
+
+                    {pluginListBody}
+                  </Grid>
+                </GridItem>
+              </Grid>
+            </article>
           </div>
-        </div>
-        <div className="row plugins-row">
-          <PluginsCategories categories={categoryEntries}
-            onSelect={this.handleCategorySelect}
-          />
-          <div className="plugins-list">{pluginListBody}</div>
-        </div>
-      </div>
+        </Route>
+      </Switch>
     );
   }
 }
