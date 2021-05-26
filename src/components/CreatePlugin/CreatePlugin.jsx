@@ -13,7 +13,6 @@ import './CreatePlugin.css';
 import { Plugin } from '../Plugin/Plugin';
 import { Alert, AlertActionCloseButton, Card, CardBody, CodeBlock, CodeBlockCode } from '@patternfly/react-core';
 import HintBlock from '../Hintblock';
-import { createPluginHint } from './constant';
 
 const formGroupsData = [
   {
@@ -32,6 +31,9 @@ const formGroupsData = [
     help: 'For people to see your code',
   },
 ];
+
+const createPluginHint = "Plugins should already exist and have their own public source repo and existing docker image. " +
+"Adding a plugin to the store simply adds the location of your plugin, as well as some metadata, to the store, allowing other users easy access to it."
 
 class CreatePlugin extends Component {
   constructor() {
