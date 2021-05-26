@@ -13,6 +13,7 @@ const ButtonComponent = ({
   ...otherProps
 }) => {
   const history = useHistory();
+  window.scrollTo(0, 0);
   return (
     <div  {...otherProps}>
       <Button

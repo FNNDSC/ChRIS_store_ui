@@ -36,13 +36,13 @@ export class DeveloperSignup extends Component {
     this.state = {
       loading: false,
       error: {
-        message: '',
-        controls: '',
+        message: String(),
+        controls: [],
       },
-      username: '',
-      email:'',
-      password: '',
-      passwordConfirm: '',
+      username: String(),
+      email: String(),
+      password: String(),
+      passwordConfirm: String(),
     };
   }
 
@@ -171,18 +171,17 @@ export class DeveloperSignup extends Component {
       toDashboard,
     } = this.state;
 
-    if (toDashboard) {
+    if (toDashboard)
       return <Redirect to="/dashboard" />;
-    }
+
     const disableControls = loading;
     return (
-      <Form onSubmit={this.handleSubmit} noValidate>
-        <p>{loading ? 'Creating' : 'Create'} a ChRIS Developer account:</p>
+      <Form noValidate id="developer-signup-form" onSubmit={this.handleSubmit}>
         <FormInput
           formLabel="Username"
           fieldId="username"
           validationState={error.controls.includes('username') ? 'error' : 'default'}
-          helperText="Enter your username"
+          placeholder="Enter your username"
           inputType="text"
           id="username"
           fieldName="username"
@@ -196,7 +195,7 @@ export class DeveloperSignup extends Component {
           formLabel="Email"
           fieldId="email"
           validationState={error.controls.includes('email') ? 'error' : 'default'}
-          helperText="Enter you email"
+          placeholder="Enter your email"
           inputType="email"
           id="email"
           fieldName="email"
@@ -209,7 +208,7 @@ export class DeveloperSignup extends Component {
           formLabel="Password"
           fieldId="password"
           validationState={error.controls.includes('password') ? 'error' : 'default'}
-          helperText="Enter your password"
+          placeholder="Enter a password"
           inputType="password"
           id="password"
           fieldName="password"
@@ -219,10 +218,10 @@ export class DeveloperSignup extends Component {
           error={error}
         />
         <FormInput
-          formLabel="Password Conformation"
+          formLabel="Password Confirmation"
           fieldId="password-confirm"
           validationState={error.controls.includes('confirmation') ? 'error' : 'default'}
-          helperText="Confirm your password"
+          placeholder="Re-type your password"
           inputType="password"
           id="password"
           fieldName="passwordConfirm"
@@ -231,17 +230,20 @@ export class DeveloperSignup extends Component {
           disableControls={disableControls}
           error={error}
         />
-        {loading ? <Spinner size="md"/> : (
-          <Button 
-            variant="primary"
-            type="submit" 
-            loading={disableControls}
-          >
-            Create Account
-          </Button>
-        )}
-        {loading && <span className="developer-signup-creating">Creating Account</span>}
-      </Form>);
+        <div style={{ padding: '1em 0' }}>
+          {loading ? <Spinner size="md"/> : (
+            <Button 
+              variant="primary"
+              type="submit" 
+              loading={disableControls}
+            >
+              Create Account
+            </Button>
+          )}
+          {loading && <span id="developer-signup-creating">Creating Account</span>}
+        </div>
+      </Form>
+    );
   }
 }
 

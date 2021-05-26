@@ -1,16 +1,28 @@
 .welcome-feature {
   /* display */
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   padding: 0.4em;
+  margin: auto;
+} .welcome-feature a {
+  width: fit-content;
+  margin: auto;
 }
 
 .welcome-feature-img {
   /* display */
-  width: 4em;
-  height: 4em;
-
+  width: 3em;
+  height: 3em;
   /* flex */
   flex-shrink: 0;
+  transition: all 0.25s ease;
+  /* filter: invert(); */
+  opacity: 0.9;
+} .welcome-feature-img:hover, 
+.welcome-feature-img:active {
+  /* width: 5.5em;
+  height: 5.5em; */
+  opacity: 1;
 }
 
 .welcome-feature-text {
@@ -19,12 +31,15 @@
   color: var(--pf-black-100);
 
   /* font */
-  font-size: 1.2em;
+  font-size: 0.8em;
   font-weight: 500;
   line-height: 2;
+  text-align: center;
 
   /* display */
   padding: 0.65em;
+  margin: auto;
+  width: fit-content;
 }
 
 /* ============================== */

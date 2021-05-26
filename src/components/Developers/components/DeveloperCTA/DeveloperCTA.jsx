@@ -1,49 +1,42 @@
 import React from 'react';
-import { Card, CardBody } from '@patternfly/react-core';
 import PropTypes from 'prop-types';
+
 import './DeveloperCTA.css';
+
+import { Card, CardBody, Grid, GridItem, Bullseye } from '@patternfly/react-core';
 import ConnectedDeveloperSignup from '../DeveloperSignup/DeveloperSignup';
 import ChrisStore from '../../../../store/ChrisStore';
 
 export const DeveloperCTA = ({ store }) => (
-  <div className="developer-cta">
-    <div className="row developer-cta-container">
-      <div className="developer-cta-overview">
-        <div className="developer-cta-header">
-          Expand the reach of your image processing software
-        </div>
-        <div className="developer-cta-desc">
-          <p>
-          ChRIS is an <strong>open source platform</strong> for medical
-          analytics in the cloud, democratizing the development of image
-          processing apps within an ecosystem following
-            <strong>
-              {' '}common standards, rather than disparate silos
-            </strong>.
-          </p>
-
-          <p>
-          A ChRIS Developer account enables you to submit your image
-          processing application as a containerized ChRIS plugin and
-          share it with the broader ChRIS community of researchers and
-          clinicians. <strong>Join us!</strong>
+  <Bullseye style={{ padding: '3em' }} id="developer-cta">
+    <Grid style={{ maxWidth: '1200px' }} hasGutter>
+      <GridItem lg={6} xs={12}>
+        <div id="developer-cta-header">
+          <h2>Expand the reach of your image processing software</h2>
+          <p style={{ fontSize: 'medium' }}>
+            A ChRIS Developer account enables you to submit your image
+            processing application as a containerized ChRIS plugin and
+            share it with the broader ChRIS community of researchers and
+            clinicians.
           </p>
         </div>
-      </div>
-      {
-        store.get('isLoggedIn') ?
-          null
-          :
-          <div className="developer-cta-form">
-            <Card>
-              <CardBody>
-                <ConnectedDeveloperSignup />
-              </CardBody>
-            </Card>
-          </div>
-      }
-    </div>
-  </div>
+      </GridItem>
+      <GridItem lg={1} xs={12}/>
+      <GridItem lg={5} xs={12}>
+        {
+          store.get('isLoggedIn') ? null :
+            <div id="developer-cta-form">
+              <Card>
+                <CardBody>
+                  <h2 style={{ margin: '0.25em 0 1.5em 0' }}><b>Create a ChRIS Developer Account</b></h2>
+                  <ConnectedDeveloperSignup />
+                </CardBody>
+              </Card>
+            </div>
+        }
+      </GridItem>
+    </Grid>
+  </Bullseye>
 );
 
 export default ChrisStore.withStore(DeveloperCTA);
