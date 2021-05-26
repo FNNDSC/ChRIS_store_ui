@@ -138,9 +138,9 @@ const Instructions = () => (
             </h3>
             <h3>
               Look at this{' '}
-              <a href="https://github.com/FNNDSC/cookiecutter-chrisapp/wiki/Quickstart">simple <strong>fs</strong> plugin</a>
+              <a href="https://github.com/FNNDSC/pl-simplefsapp">simple <strong>fs</strong> plugin</a>
               {' '}or this{' '}
-              <a href="https://github.com/FNNDSC/cookiecutter-chrisapp/wiki/Quickstart">simple <strong>ds</strong> plugin</a>
+              <a href="https://github.com/FNNDSC/pl-simpledsapp">simple <strong>ds</strong> plugin</a>
               {' '}for guidance on getting started with your ChRIS plugin.
             </h3>
           </div>
@@ -153,7 +153,7 @@ const Instructions = () => (
           <div className="instructions-body">
             <h3>
               Once you{"'"}ve developed and properly tested your plugin app
-              consult the <a href="https://github.com/FNNDSC/cookiecutter-chrisapp/wiki/Quickstart">wiki</a> to learn how to register it to
+              consult the <a href="https://github.com/FNNDSC/cookiecutter-chrisapp/wiki">wiki</a> to learn how to register it to
               ChRIS.
             </h3>
           </div>
