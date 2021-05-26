@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import sampleCategories from "./sampleCategories";
 import "./welcomeCategories.css";
 import WelcomeCategory from "../WelcomeCategory/WelcomeCategory";
 
 const WelcomeCategories = () => {
-  const [categories, setCategories] = useState(sampleCategories);
+const categories = sampleCategories ;
 
   return (
     <div className="welcome-categories">
