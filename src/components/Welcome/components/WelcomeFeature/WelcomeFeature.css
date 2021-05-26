@@ -1,5 +1,4 @@
 .welcome-feature {
-  /* display */
   display: flex;
   flex-direction: column;
   padding: 0.4em;
@@ -10,13 +9,12 @@
 }
 
 .welcome-feature-img {
-  /* display */
   width: 3em;
   height: 3em;
   /* flex */
   flex-shrink: 0;
   transition: all 0.25s ease;
-  /* filter: invert(); */
+  filter: grayscale() invert();
   opacity: 0.9;
 } .welcome-feature-img:hover, 
 .welcome-feature-img:active {
@@ -36,7 +34,6 @@
   line-height: 2;
   text-align: center;
 
-  /* display */
   padding: 0.65em;
   margin: auto;
   width: fit-content;
@@ -48,12 +45,10 @@
 
 @media (min-width: 480px) {
   .welcome-feature {
-    /* display */
     padding: 0.5em;
   }
 
   .welcome-feature-img {
-    /* display */
     width: 4.5em;
     height: 4.5em;
   }
@@ -67,15 +62,10 @@
 
 @media (min-width: 768px)  {
   .welcome-feature {
-    /* display */
-    padding: 1em;
-
-    /* flex */
     flex-direction: column;
   }
 
   .welcome-feature-img {
-    /* display */
     display: block;
     width: 5em;
     height: 5em;
@@ -84,7 +74,7 @@
 
   .welcome-feature-text {
     /* font */
-    font-size: 1em;
+    font-size: 0.8em;
     text-align: center;
     line-height: 1.3;
   }
