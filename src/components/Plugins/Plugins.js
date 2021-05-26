@@ -215,17 +215,6 @@ export class Plugins extends Component {
     }
   }
 
-  handleCategorySelect = async (category) => {
-    this.setState({ pluginList: null })
-    if (!category) return await this.fetchPlugins()
-
-    this.setState({ 
-      pluginList: (await this.client.getPlugins({
-        name_title_category: category
-      })).data 
-    })
-  }
-
   isFavorite(plugin) {
     return this.state.starsByPlugin[plugin.id] !== undefined;
   }
