@@ -31,6 +31,11 @@ const Footer = () => (
               Report an Issue
             </a>
           </div>
+           <div className="footer-link">
+            <a href="https://github.com/FNNDSC/ChRIS_store_ui">
+              Contribute
+            </a>
+          </div>
           <div className="footer-link">
             <a href="mailto:dev@babyMRI.org?subject=ChRIS Store Plugin Request">
               Request a plugin

@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect, Link } from 'react-router-dom';
-import {
-  Card, CardBody, Button, Alert,
-  Form, FormGroup, FormControl,
-} from 'patternfly-react';
+import { Link } from 'react-router-dom';
+import Button from '../Button';
 import StoreClient from '@fnndsc/chrisstoreapi';
 import './SignIn.css';
 import chrisLogo from '../../assets/img/chris_logo-white.png';
 import ChrisStore from '../../store/ChrisStore';
+import FormInput from '../FormInput';
+import { Form, Alert, AlertActionCloseButton, CardTitle, Card, CardBody } from '@patternfly/react-core';
 
 export class SignIn extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.mounted = false;
     this.state = {
@@ -33,39 +32,50 @@ export class SignIn extends Component {
     this.mounted = true;
   }
 
+  componentDidMount() {
+    // if the user attempts to see the login page when they are
+    // already logged in, we will log them out.
+    // TODO SECURITY idk if safe from CSRF
+    // TODO SECURITY send goodbye to backend to invalidate authToken
+    const { store } = this.props;
+    if (store.get('isLoggedIn')) {
+      store.set('authToken')('');
+    }
+  }
+
   componentWillUnmount() {
     this.mounted = false;
   }
 
-  handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
+  handleChange(value, name) {
+    this.setState({ [name]: value });
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     const authURL = process.env.REACT_APP_STORE_AUTH_URL;
     const { username, password } = this.state;
-    const { store } = this.props;
-
+    const { store, location, history } = this.props;
     this.setState({ loading: true });
-    const promise = StoreClient.getAuthToken(authURL, username, password)
-      .then((token) => {
-        store.set('userName')(username);
+    try{
+      const token = await StoreClient.getAuthToken(authURL, username, password);
+      store.set('userName')(username);
         store.set('authToken')(token);
         if (this.mounted) {
-          this.setState({ toDashboard: true });
+          this.setState({ loading: false });
+          if (location.state && location.state.from) {
+            history.replace(location.state.from);
+          }
+          else {
+            history.push('/dashboard');
+          }
         }
-      })
-      .catch(() => {
-        this.showError('Invalid username or password');
-      })
-      .then(() => {
+    } catch(error){
+      this.showError('Invalid username or password');
         if (this.mounted) {
           this.setState({ loading: false });
         }
-      });
-
+    }
     event.preventDefault();
-    return promise; // for tests
   }
 
   showError(message) {
@@ -78,12 +88,8 @@ export class SignIn extends Component {
 
   render() {
     const {
-      toDashboard, error, username, password, loading,
+      error, username, password, loading,
     } = this.state;
-
-    if (toDashboard) {
-      return <Redirect to="/dashboard" />;
-    }
 
     return (
       <div className="signin login-pf-page">
@@ -93,11 +99,10 @@ export class SignIn extends Component {
               <div className="signin-error-container">
                 <Alert
                   className="signin-error"
-                  type="error"
-                  onDismiss={this.hideError}
-                >
-                  {error}
-                </Alert>
+                  variant="danger"
+                  title={error}
+                  actionClose={<AlertActionCloseButton onClose={this.hideError} />}
+                />
               </div>
             )
           }
@@ -115,38 +120,36 @@ export class SignIn extends Component {
             </Link>
           </div>
           <Card className="signin-card">
-            <header className="login-pf-page-header">
+            <CardTitle className="login-pf-page-header">
               <h1>Login to your account</h1>
-            </header>
+            </CardTitle>
             <CardBody>
-              <Form className="signin-form" onSubmit={this.handleSubmit}>
-                <FormGroup className="signin-username-form-group" bsSize="large">
-                  <FormControl
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    value={username}
-                    onChange={this.handleChange}
-                    autoComplete="username"
-                  />
-                </FormGroup>
-                <FormGroup className="signin-password-form-group" bsSize="large">
-                  <FormControl
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={this.handleChange}
-                    autoComplete="current-password"
-                  />
-                </FormGroup>
+              <Form className="signin-form" >
+                <FormInput
+                  placeholder="Username"
+                  fieldName="username"
+                  id="username"
+                  inputType="text"
+                  value={username}
+                  onChange={(val) => this.handleChange(val, 'username')}
+                  autoComplete="username"
+                  className="signin-username-form-group"
+                />
+                <FormInput
+                  placeholder="Password"
+                  fieldName="password"
+                  value={password}
+                  inputType="password"
+                  id="password"
+                  onChange={(val) => this.handleChange(val, 'password')}
+                  autoComplete="current-password"
+                  className="signin-password-form-group"
+                />
                 <Button
                   className="signin-login-btn"
-                  bsStyle="primary"
-                  bsSize="large"
-                  type="submit"
-                  disabled={loading}
-                >
+                  variant="primary"
+                  loading={loading}
+                  onClick={this.handleSubmit}>
                   Log In
                 </Button>
                 <p className="login-pf-signup">
@@ -164,8 +167,8 @@ export class SignIn extends Component {
   }
 }
 
-export default ChrisStore.withStore(SignIn);
-
 SignIn.propTypes = {
   store: PropTypes.objectOf(PropTypes.object).isRequired,
 };
+
+export default ChrisStore.withStore(SignIn);

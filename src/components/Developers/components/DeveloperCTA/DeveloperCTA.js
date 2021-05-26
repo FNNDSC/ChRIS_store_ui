@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardBody } from 'patternfly-react';
+import { Card, CardBody } from '@patternfly/react-core';
 import PropTypes from 'prop-types';
 import './DeveloperCTA.css';
 import ConnectedDeveloperSignup from '../DeveloperSignup/DeveloperSignup';

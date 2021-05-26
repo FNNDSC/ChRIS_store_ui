@@ -1,41 +1,30 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import isEmpty from 'lodash/isEmpty';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import isEmpty from "lodash/isEmpty";
 import {
   Col,
-  CardTitle,
-  CardBody,
   EmptyStateAction,
   EmptyStateInfo,
-  Form,
-  FormGroup,
-  ControlLabel,
-  FormControl,
-  Button,
-  Card,
-  Grid,
-  HelpBlock,
-  CardHeading,
-  DropdownKebab,
-  MenuItem,
   FieldLevelHelp,
-  MessageDialog,
-} from 'patternfly-react';
-
-import './DashPluginCardView.css';
-import BrainImg from '../../../../assets/img/empty-brain-xs.png';
-import PluginPointer from '../../../../assets/img/brainy_welcome-pointer.png';
-import RelativeDate from '../../../RelativeDate/RelativeDate';
+  MessageDialog
+} from "patternfly-react";
+import { CardTitle, CardBody, Card, DropdownItem, Dropdown, KebabToggle, GridItem, Grid, Form } from "@patternfly/react-core";
+import Button from "../../../Button";
+import "./DashPluginCardView.css";
+import BrainImg from "../../../../assets/img/empty-brain-xs.png";
+import PluginPointer from "../../../../assets/img/brainy_welcome-pointer.png";
+import RelativeDate from "../../../RelativeDate/RelativeDate";
+import FormInput from "../../../FormInput";
 
 const DashGitHubEmptyState = () => (
   <Col xs={12}>
     <Card>
-      <CardTitle>
-        My Plugins
-      </CardTitle>
+      <CardTitle>My Plugins</CardTitle>
       <CardBody className="card-body-empty">
-        <h1 className="card-body-header-text">You have no plugins in the ChRIS store</h1>
+        <h1 className="card-body-header-text">
+          You have no plugins in the ChRIS store
+        </h1>
         <h2 className="card-body-subhead">Lets fix that!</h2>
         <div className="card-body-content-parent">
           <div>
@@ -43,23 +32,32 @@ const DashGitHubEmptyState = () => (
           </div>
           <div className="card-body-content-child-right">
             <p>
-              Create a new listing for your plugin in the ChRIS
-              store by clicking &#34;Add Plugin&#34; below.
+              Create a new listing for your plugin in the ChRIS store by
+              clicking &#34;Add Plugin&#34; below.
             </p>
-            <Button bsStyle="primary" bsSize="large" href="/create">
+            <Button variant="primary" toRoute="/create">
               Add Plugin
             </Button>
           </div>
         </div>
       </CardBody>
     </Card>
-  </Col>);
+  </Col>
+);
 
-const DashApplicationType = (type) => {
-  if (type === 'ds') {
-    return (<React.Fragment><span className="fa fa-database" /> Data System</React.Fragment>);
+const DashApplicationType = type => {
+  if (type === "ds") {
+    return (
+      <React.Fragment>
+        <span className="fa fa-database" /> Data System
+      </React.Fragment>
+    );
   }
-  return (<React.Fragment><span className="fa fa-file" /> File System</React.Fragment>);
+  return (
+    <React.Fragment>
+      <span className="fa fa-file" /> File System
+    </React.Fragment>
+  );
 };
 
 class DashPluginCardView extends Component {
@@ -71,14 +69,22 @@ class DashPluginCardView extends Component {
       showEditConfirmation: false,
       pluginToDelete: null,
       pluginToEdit: null,
-      publicRepo: '',
+      publicRepo: "",
+      isOpen: [],
     };
 
     const methods = [
-      'deletePlugin', 'secondaryDeleteAction', 'showDeleteModal',
-      'editPlugin', 'secondaryEditAction', 'showEditModal', 'handlePublicRepo',
+      "deletePlugin",
+      "secondaryDeleteAction",
+      "showDeleteModal",
+      "editPlugin",
+      "secondaryEditAction",
+      "showEditModal",
+      "handlePublicRepo"
     ];
-    methods.forEach((method) => { this[method] = this[method].bind(this); });
+    methods.forEach(method => {
+      this[method] = this[method].bind(this);
+    });
   }
   deletePlugin() {
     const { onDelete } = this.props;
@@ -92,7 +98,7 @@ class DashPluginCardView extends Component {
   showDeleteModal(plugin) {
     this.setState({
       showDeleteConfirmation: true,
-      pluginToDelete: plugin,
+      pluginToDelete: plugin
     });
   }
   editPlugin() {
@@ -107,53 +113,63 @@ class DashPluginCardView extends Component {
   showEditModal(plugin) {
     this.setState({
       showEditConfirmation: true,
-      pluginToEdit: plugin,
+      pluginToEdit: plugin
     });
   }
-  handlePublicRepo(event) {
-    this.setState({ publicRepo: event.target.value });
+  handlePublicRepo(value) {
+    this.setState({ publicRepo: value });
   }
-
-
+  toggle = (value, id) => {
+    const pluginLength = this.props.plugins.length;
+    let isOpen = new Array(pluginLength);
+    isOpen[id] = value;
+    this.setState({
+      isOpen: [...isOpen],
+    });
+  }
+  onSelect = (event, plugin) => {
+    const actionType = event.target.innerText;
+    if (actionType.includes('Edit')) {
+      this.showEditModal(plugin);
+    } else if (actionType.includes('Delete')) {
+      this.showDeleteModal(plugin);
+    }
+  }
   render() {
     let pluginCardBody;
     const { plugins } = this.props;
     const {
-      pluginToDelete, showDeleteConfirmation, pluginToEdit, showEditConfirmation,
+      pluginToDelete,
+      showDeleteConfirmation,
+      pluginToEdit,
+      showEditConfirmation
     } = this.state;
     const showEmptyState = isEmpty(plugins);
     const primaryDeleteContent = <p className="lead">Are you sure?</p>;
     const secondaryDeleteContent = (
       <p>
-        Plugin <b>{pluginToDelete ? pluginToDelete.name : null}</b> will be permanently deleted
-      </p>);
-    const secondaryEditContent = (
-      pluginToEdit ? (
-        <Grid>
-          <Form horizontal>
-            <FormGroup controlId="name" disabled={false}>
-              <Col componentClass={ControlLabel} sm={2}>
-                Public Repo
-              </Col>
-              <Col sm={4}>
-                <FormControl
-                  type="text"
-                  defaultValue={pluginToEdit.public_repo}
-                  onChange={this.handlePublicRepo}
-                  name="publicRepo"
-                />
-                <HelpBlock>
-                  Enter the public repo URL for your plugin
-                </HelpBlock>
-              </Col>
-            </FormGroup>
-          </Form>
-        </Grid>
-      )
-        : null
+        Plugin <b>{pluginToDelete ? pluginToDelete.name : null}</b> will be
+        permanently deleted
+      </p>
     );
+    const secondaryEditContent = pluginToEdit ? (
+      <Grid sm={12} md={12} x12={12} lg={12} className="edit-grid">
+        <GridItem>
+          <Form isHorizontal>
+            <FormInput
+              formLabel="Public Repo"
+              inputType="text"
+              defaultValue={pluginToEdit.public_repo}
+              onChange={(value) => this.handlePublicRepo(value)}
+              fieldName="publicRepo"
+              helperText="Enter the public repo URL for your plugin"
+            />
+          </Form>
+        </GridItem>
+      </Grid>
+    ) : null;
     const addNewPlugin = (
-      <Col xs={12} sm={6} md={4} key="addNewPlugin">
+      <GridItem key="addNewPlugin">
         <Card>
           <CardBody className="card-view-add-plugin">
             <div>
@@ -163,46 +179,45 @@ class DashPluginCardView extends Component {
               Click below to add a new ChRIS plugin
             </EmptyStateInfo>
             <EmptyStateAction>
-              <Button bsStyle="primary" bsSize="large" href="/create">
+              <Button variant="primary" toRoute="/create">
                 Add Plugin
               </Button>
             </EmptyStateAction>
           </CardBody>
         </Card>
-      </Col>);
+      </GridItem>
+    );
     if (plugins) {
-      pluginCardBody = plugins.map((plugin) => {
+      pluginCardBody = plugins.map((plugin, id) => {
         const creationDate = new RelativeDate(plugin.creation_date);
         const applicationType = DashApplicationType(plugin.type);
         return (
-          <Col xs={12} sm={6} md={4} key={plugin.name}>
+          <GridItem  key={plugin.name}>
             <Card>
-              <CardHeading>
-                <CardTitle>
-                  <DropdownKebab id="myKebab" pullRight className="card-view-kebob">
-                    <MenuItem eventKey={plugin} onSelect={this.showEditModal}>
-                      Edit
-                    </MenuItem>
-                    <MenuItem eventKey={plugin} onSelect={this.showDeleteModal}>
-                      Delete
-                    </MenuItem>
-                  </DropdownKebab>
-                  <Link
-                    to={`/plugin/${plugin.id}`}
-                    href={`/plugin/${plugin.id}`}
-                  >{plugin.name}
+              <CardTitle className="card-view-title">
+                <div>
+                  <Link to={`/plugin/${plugin.id}`} href={`/plugin/${plugin.id}`}>
+                    {plugin.name}
                   </Link>
                   <div className="card-view-tag-title">
-                    <FieldLevelHelp content={
-                      <div>{plugin.description}</div>}
-                    />
+                    <FieldLevelHelp content={<div>{plugin.description}</div>} />
                   </div>
-                </CardTitle>
-              </CardHeading>
-              <CardBody>
-                <div className="card-view-app-type">
-                  {applicationType}
                 </div>
+                <Dropdown
+                  className="card-view-kebob"
+                  onSelect={(event) => this.onSelect(event, plugin)}
+                  toggle={<KebabToggle onToggle={(value) => this.toggle(value, id)} id={`kebab-${plugin.id}`}/>}
+                  isOpen={this.state.isOpen[id]}
+                  isPlain
+                  dropdownItems={[
+                    <DropdownItem key={`edit-${plugin.id}`} id="edit" className="kebab-item">Edit</DropdownItem>,
+                    <DropdownItem key={`delete-${plugin.id}`} id="delete" className="kebab-item">Delete</DropdownItem>
+                  ]}
+                />
+                
+              </CardTitle>
+              <CardBody>
+                <div className="card-view-app-type">{applicationType}</div>
                 <div>
                   <div className="card-view-plugin-tag">
                     {`Version ${plugin.version}`}
@@ -211,8 +226,7 @@ class DashPluginCardView extends Component {
                 <div>
                   <div className="card-view-plugin-tag">
                     {creationDate.isValid() &&
-                    `Created ${creationDate.format()}`
-                    }
+                      `Created ${creationDate.format()}`}
                   </div>
                 </div>
                 <div>
@@ -222,46 +236,47 @@ class DashPluginCardView extends Component {
                 </div>
               </CardBody>
             </Card>
-          </Col>
+          </GridItem>
         );
       });
       pluginCardBody.push(addNewPlugin);
     }
-    return (
-      showEmptyState ?
-        <DashGitHubEmptyState />
-        :
-        <React.Fragment>
-          <div className="card-view-row">
-            {pluginCardBody}
-            <MessageDialog
-              show={showDeleteConfirmation}
-              onHide={this.secondaryDeleteAction}
-              primaryAction={this.deletePlugin}
-              secondaryAction={this.secondaryDeleteAction}
-              primaryActionButtonContent="Delete"
-              secondaryActionButtonContent="Cancel"
-              primaryActionButtonBsStyle="danger"
-              title="Plugin Delete Confirmation"
-              primaryContent={primaryDeleteContent}
-              secondaryContent={secondaryDeleteContent}
-              accessibleName="deleteConfirmationDialog"
-              accessibleDescription="deleteConfirmationDialogContent"
-            />
-            <MessageDialog
-              show={showEditConfirmation}
-              onHide={this.secondaryEditAction}
-              primaryAction={this.editPlugin}
-              secondaryAction={this.secondaryEditAction}
-              primaryActionButtonContent="Save"
-              secondaryActionButtonContent="Cancel"
-              title="Edit Plugin Details"
-              secondaryContent={secondaryEditContent}
-              accessibleName="editConfirmationDialog"
-              accessibleDescription="editConfirmationDialogContent"
-            />
-          </div>
-        </React.Fragment>
+    return showEmptyState ? (
+      <DashGitHubEmptyState />
+    ) : (
+      <React.Fragment>
+        <div className="card-view-row">
+          <Grid sm={12} md={4} lg={4} x12={4} hasGutter className="card-view-grid">
+          {pluginCardBody}
+          </Grid>
+          <MessageDialog
+            show={showDeleteConfirmation}
+            onHide={this.secondaryDeleteAction}
+            primaryAction={this.deletePlugin}
+            secondaryAction={this.secondaryDeleteAction}
+            primaryActionButtonContent="Delete"
+            secondaryActionButtonContent="Cancel"
+            primaryActionButtonBsStyle="danger"
+            title="Plugin Delete Confirmation"
+            primaryContent={primaryDeleteContent}
+            secondaryContent={secondaryDeleteContent}
+            accessibleName="deleteConfirmationDialog"
+            accessibleDescription="deleteConfirmationDialogContent"
+          />
+          <MessageDialog
+            show={showEditConfirmation}
+            onHide={this.secondaryEditAction}
+            primaryAction={this.editPlugin}
+            secondaryAction={this.secondaryEditAction}
+            primaryActionButtonContent="Save"
+            secondaryActionButtonContent="Cancel"
+            title="Edit Plugin Details"
+            secondaryContent={secondaryEditContent}
+            accessibleName="editConfirmationDialog"
+            accessibleDescription="editConfirmationDialogContent"
+          />
+        </div>
+      </React.Fragment>
     );
   }
 }
@@ -269,12 +284,11 @@ class DashPluginCardView extends Component {
 DashPluginCardView.propTypes = {
   plugins: PropTypes.arrayOf(PropTypes.object),
   onDelete: PropTypes.func.isRequired,
-  onEdit: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired
 };
 
 DashPluginCardView.defaultProps = {
-  plugins: [],
+  plugins: []
 };
-
 
 export default DashPluginCardView;

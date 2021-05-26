@@ -1,12 +1,15 @@
-import React, { Component } from 'react';
-import { Button, CardGrid, Spinner } from 'patternfly-react';
-import PropTypes from 'prop-types';
-import Client from '@fnndsc/chrisstoreapi';
-import './Dashboard.css';
-import DashPluginCardView from './components/DashPluginCardView/DashPluginCardView';
-import DashTeamView from './components/DashTeamView/DashTeamView';
-import DashGitHubView from './components/DashGitHubView/DashGitHubView';
-import ChrisStore from '../../store/ChrisStore';
+import React, { Component } from "react";
+import { CardGrid, Spinner } from "patternfly-react";
+import PropTypes from "prop-types";
+import Button from "../Button";
+import Client from "@fnndsc/chrisstoreapi";
+import "./Dashboard.css";
+import DashPluginCardView from "./components/DashPluginCardView/DashPluginCardView";
+import DashTeamView from "./components/DashTeamView/DashTeamView";
+import DashGitHubView from "./components/DashGitHubView/DashGitHubView";
+import ChrisStore from "../../store/ChrisStore";
+import Notification from "../Notification";
+import HttpApiCallError from "../../errors/HttpApiCallError";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -14,6 +17,7 @@ class Dashboard extends Component {
     this.state = {
       pluginList: null,
       loading: true,
+      error: null,
     };
     this.initialize = this.initialize.bind(this);
     this.deletePlugin = this.deletePlugin.bind(this);
@@ -22,46 +26,53 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.fetchPlugins().catch((err) => {
+      this.showNotifications(new HttpApiCallError(err));
       console.error(err);
     });
   }
-
+  showNotifications = (error) => {
+    this.setState({
+      error: error.message,
+    });
+  };
   fetchPlugins() {
     const { store } = this.props;
     const storeURL = process.env.REACT_APP_STORE_URL;
     const client = new Client(storeURL);
     const searchParams = {
-      owner_username: store.get('userName'),
+      owner_username: store.get("userName"),
       limit: 20,
       offset: 0,
     };
     this.setState({ loading: true, pluginList: null });
 
-    return client.getPlugins(searchParams)
-      .then((plugins) => {
-        this.setState((prevState) => {
-          const prevPluginList = prevState.pluginList ? prevState.pluginList : [];
-          const nextPluginList = prevPluginList.concat(plugins.data);
-          return { pluginList: nextPluginList, loading: false };
-        });
-        return plugins.data;
+    return client.getPlugins(searchParams).then((plugins) => {
+      this.setState((prevState) => {
+        const prevPluginList = prevState.pluginList ? prevState.pluginList : [];
+        const nextPluginList = prevPluginList.concat(plugins.data);
+        return { pluginList: nextPluginList, loading: false };
       });
+      return plugins.data;
+    });
   }
 
-  deletePlugin(pluginId) {
+  async deletePlugin(pluginId) {
     const { store } = this.props;
     const storeURL = process.env.REACT_APP_STORE_URL;
-    const auth = { token: store.get('authToken') };
+    const auth = { token: store.get("authToken") };
     const client = new Client(storeURL, auth);
 
     let response;
     try {
-      response = client.getPlugin(pluginId).then(plugin => plugin.delete());
-      response.then(() => {
+      response = await client.getPlugin(pluginId);
+      await response.delete();
+      if (response.data) {
         this.fetchPlugins();
-      });
+      } else {
+        throw new Error("Delete unsuccessful");
+      }
     } catch (e) {
-      return e;
+      this.showNotifications(new HttpApiCallError(e));
     }
     return response;
   }
@@ -69,18 +80,20 @@ class Dashboard extends Component {
   editPlugin(pluginId, publicRepo) {
     const { store } = this.props;
     const storeURL = process.env.REACT_APP_STORE_URL;
-    const auth = { token: store.get('authToken') };
+    const auth = { token: store.get("authToken") };
     const client = new Client(storeURL, auth);
 
     let response;
     try {
-      response = client.getPlugin(pluginId)
-        .then(plugin => plugin.getPluginMeta())
-        .then(plgMeta => plgMeta.put({ public_repo: publicRepo }));
+      response = client
+        .getPlugin(pluginId)
+        .then((plugin) => plugin.getPluginMeta())
+        .then((plgMeta) => plgMeta.put({ public_repo: publicRepo }));
       response.then(() => {
         this.fetchPlugins();
       });
     } catch (e) {
+      this.showNotifications(new HttpApiCallError(e));
       return e;
     }
     return response;
@@ -95,16 +108,25 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { pluginList, loading } = this.state;
+    const { pluginList, loading, error } = this.state;
     const { store } = this.props;
-    const userName = store.get('userName') || '';
+    const userName = store.get("userName") || "";
     return (
       <React.Fragment>
+        {error && (
+          <Notification
+            title={error}
+            position="top-right"
+            variant="danger"
+            closeable
+            onClose={() => this.setState({ error: null })}
+          />
+        )}
         <div className="plugins-stats">
           <div className="row plugins-stats-row">
             <div className="title-bar">{`Dashboard for ${userName}`}</div>
             <div className="dropdown btn-group">
-              <Button bsStyle="primary" bsSize="large" href="/create">
+              <Button variant="primary" toRoute="/create">
                 Add Plugin
               </Button>
             </div>
@@ -115,12 +137,12 @@ class Dashboard extends Component {
             <div className="dashboard-row">
               <Spinner size="lg" loading={loading}>
                 <div className="dashboard-left-column">
-                  <DashPluginCardView
-                    plugins={pluginList}
-                    onDelete={this.deletePlugin}
-                    onEdit={this.editPlugin}
-                  />
-                  <DashTeamView plugins={pluginList} />
+                      <DashPluginCardView
+                        plugins={pluginList}
+                        onDelete={this.deletePlugin}
+                        onEdit={this.editPlugin}
+                      />
+                      <DashTeamView plugins={pluginList} />
                 </div>
                 <div className="dashboard-right-column">
                   <DashGitHubView plugins={pluginList} />

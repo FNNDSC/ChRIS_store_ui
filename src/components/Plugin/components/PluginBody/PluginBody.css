@@ -1,75 +1,34 @@
 .plugin-body {
-  /* color */
-  background: #ededed;
-  background: var(--pf-black-200);
+  margin: 1em 0 5em 0;
+}
 
-  /* display */
-  padding: 1em;
+.plugin-body .plugin-body-main {
+  padding: 1em 0;
 }
 
 .plugin-tab {
   display: flex;
 }
-
-.plugin-body-combined-cols{
-  display: flex;
-  flex-direction: row;
-}
-
-.plugin-tab>.active {
+.plugin-tab > .active {
   display: flex !important;
   flex: 1;
   padding: 20px 0;
 }
 
-.plugin-body-readme {
-  /* color */
-  color: var(--pf-black-400, #bbb);
-}
-
-.plugin-body-title {
-  margin-top: 0;
-  font-weight: 600;
-}
-
-.plugin-body-content h2 {
-  margin-bottom: 5px;
-}
-
-.plugin-body-content hr {
-  margin-top: 0;
-}
-
 .plugin-body .card-pf {
   /* display */
-  margin: 0 0 20px;
+  margin: 0 1em;
+  padding: 1em 2em;
+  border-radius: 0.75em;
 }
 
-.plugin-body-contributors .fa {
-  padding-right: .5em;
+.plugin-body-side-col .plugin-body-detail-section {
+  margin-top: 1em;
+  border-bottom: 1px solid lightgray;
+  padding: 1em 0;
 }
-
-.plugin-body-main-col { flex: 5; }
-
-.plugin-body-side-col { flex: 2; }
-
-.plugin-body-side-col > div {
-  margin-bottom: 60px;
-}
-
-.plugin-body-side-col > div:last-child {
-  margin-bottom: 0;
-}
-
-.plugin-body-contributors-all {
-  margin-top: 40px;
-}
-
-@media (min-width: 768px) {
-  .plugin-body-main-col {
-    /* display */
-    padding-right: 1.2em;
-  }
+.plugin-body-detail-section h4 {
+  font-weight: bold;
 }
 
 @media (max-width: 768px){
