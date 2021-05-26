@@ -289,6 +289,15 @@ export class Plugins extends Component {
       : 
       authors.replace(/( ?<.*>)/g, '');
 
+    function filterMap(map, condition) {
+      let result = new Map();
+      for (let [k, v] of map)
+        if (condition(k,v))
+          result.set(k, v);
+          
+      return result;
+    }
+
     // Render the pluginList if the plugins have been fetched
     const PluginListBody = () => {
       if (!this.state.loading)
@@ -440,11 +449,11 @@ export class Plugins extends Component {
                     <PluginListBody />
 
                     <Split>
-                        <SplitItem isFilled/>
-                        <SplitItem>
-                          <PaginationControls />
-                        </SplitItem>
-                      </Split>
+                      <SplitItem isFilled/>
+                      <SplitItem>
+                        <PaginationControls />
+                      </SplitItem>
+                    </Split>
                   </Grid>
                 </GridItem>
               </Grid>
