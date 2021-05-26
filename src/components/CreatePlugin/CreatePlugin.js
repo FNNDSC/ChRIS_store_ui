@@ -1,38 +1,19 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 import Client from '@fnndsc/chrisstoreapi';
 import { Link } from 'react-router-dom';
-import {
-  Form, FormGroup, ControlLabel, FormControl, HelpBlock,
-  Col, Icon
-} from 'patternfly-react';
+import { Grid, GridItem } from '@patternfly/react-core';
+import { Form, FormGroup, TextInput, FileUpload, FormHelperText as HelpBlock } from '@patternfly/react-core';
+import { Label as ControlLabel } from '@patternfly/react-core';
+import { FileIcon, UploadIcon, ExclamationTriangleIcon } from '@patternfly/react-icons'
+
 import Button from '../Button';
-import classNames from 'classnames';
 import './CreatePlugin.css';
 
 import { Plugin } from '../Plugin/Plugin';
 import { Alert, AlertActionCloseButton, Card, CardBody, CodeBlock, CodeBlockCode } from '@patternfly/react-core';
 import HintBlock from '../Hintblock';
 import { createPluginHint } from './constant';
-
-const generateFormGroup = (id, label, help, value, handleChange) => (
-  <FormGroup controlId={id} key={id}>
-    <Col componentClass={ControlLabel} sm={3}>
-      {label}
-    </Col>
-    <Col sm={9}>
-      <FormControl
-        name={id}
-        type="text"
-        autoComplete="off"
-        onChange={handleChange}
-        value={value}
-      />
-      <HelpBlock>
-        {help}
-      </HelpBlock>
-    </Col>
-  </FormGroup>
-);
 
 const formGroupsData = [
   {
@@ -74,6 +55,34 @@ class CreatePlugin extends Component {
     methods.forEach((method) => { this[method] = this[method].bind(this); });
   }
 
+  generateFormGroup = (id, label, help, value, handleChange) => (
+    <FormGroup controlId={id} key={id}>
+      <Grid>
+        <GridItem xs={3}>
+          {label}
+        </GridItem>
+        <GridItem xs={9}>
+          <TextInput
+            name={id}
+            type="text"
+            autoComplete="off"
+            onChange={handleChange}
+            value={value}
+          />
+          <HelpBlock>
+            {help}
+          </HelpBlock>
+        </GridItem>
+      </Grid>
+      {/* <Col componentClass={ControlLabel} sm={3}>
+        
+      </Col> */}
+      {/* <Col sm={9}>
+        
+      </Col> */}
+    </FormGroup>
+  );
+
   setFileError(state) {
     this.setState((prevState) => {
       const nextState = {};
@@ -114,14 +123,13 @@ class CreatePlugin extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  handleFile(event) {
-    const { target: { files: [file] } } = event;
-    if (file && file.type === 'application/json') {
-      this.setState({ fileName: file.name });
-      this.readFile(file)
+  handleFile({ value, filename }) {
+    if (value && value.type === 'application/json') {
+      this.setState({ fileName: filename });
+      this.readFile(value)
         .then(() => this.setFileError(false))
         .catch(() => this.setFileError(true));
-    } else if (!file) {
+    } else if (!value) {
       this.setState({
         fileName: undefined,
         pluginRepresentation: {},
@@ -313,7 +321,7 @@ class CreatePlugin extends Component {
     // generate formGroups based on data
     const formGroups = formGroupsData.map((formGroup) => {
       const { id, label, help } = formGroup;
-      return generateFormGroup(id, label, help, state[id], this.handleChange);
+      return this.generateFormGroup(id, label, help, state[id], this.handleChange);
     });
 
     const pluginData = {
@@ -328,26 +336,6 @@ class CreatePlugin extends Component {
       description: '[DESCRIPTION]',
       ...pluginRepresentation,
     };
-
-    // change file icon based on state
-    let iconName;
-    let fileText;
-    if (fileError === true) {
-      iconName = 'exclamation-triangle';
-      fileText = 'Invalid JSON';
-    } else if (typeof fileName !== 'undefined') {
-      iconName = 'file';
-      fileText = fileName;
-    } else {
-      iconName = 'upload';
-      fileText = 'Upload Plugin Representation';
-    }
-
-    const labelClassNames = classNames('createplugin-upload-label', {
-      dragover: dragOver,
-      hasfile: fileName,
-      haserror: fileError,
-    });
 
     return (
       <div className="createplugin">
@@ -422,14 +410,18 @@ class CreatePlugin extends Component {
               </div>
               <div className="createplugin-col">
                 <FormGroup className="createplugin-form-upload" controlId="file">
-                  <FormControl
+                  <FileUpload
                     className="createplugin-upload"
                     type="file"
                     accept=".json"
                     onChange={this.handleFile}
                   />
                   <ControlLabel
-                    className={labelClassNames}
+                    className={classNames('createplugin-upload-label', {
+                      dragover: dragOver,
+                      hasfile: fileName,
+                      haserror: fileError,
+                    })}
                     onDragOver={this.handleDrag}
                     onDragEnter={this.handleDrag}
                     onDragLeave={this.handleDrag}
@@ -437,12 +429,17 @@ class CreatePlugin extends Component {
                     onDrop={this.handleDrag}
                   >
                     <div className="createplugin-upload-body">
-                      <Icon
-                        className="createplugin-upload-icon"
-                        type="fa"
-                        name={iconName}
-                      />
-                      {fileText}
+                      {
+                        fileError ? 
+                        <><ExclamationTriangleIcon className="createplugin-upload-icon"/> {"Invalid JSON"}</>
+                        : 
+                        (
+                          !fileName ? 
+                          <><UploadIcon className="createplugin-upload-icon"/> {"Upload Plugin Representation"}</>
+                          : 
+                          <><FileIcon className="createplugin-upload-icon"/> {fileName}</>
+                        )
+                      }
                     </div>
                   </ControlLabel>
                 </FormGroup>

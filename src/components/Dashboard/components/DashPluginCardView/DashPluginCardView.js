@@ -3,13 +3,15 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import isEmpty from "lodash/isEmpty";
 import {
-  Col,
   EmptyStateAction,
   EmptyStateInfo,
   FieldLevelHelp,
   MessageDialog
-} from "patternfly-react";
-import { CardTitle, CardBody, Card, DropdownItem, Dropdown, KebabToggle, GridItem, Grid, Form } from "@patternfly/react-core";
+} from "@patternfly/react-core";
+import { CardTitle, CardBody, Card } from "@patternfly/react-core";
+import { DropdownItem, Dropdown, KebabToggle } from "@patternfly/react-core";
+import { GridItem, Grid, Form } from "@patternfly/react-core";
+
 import Button from "../../../Button";
 import "./DashPluginCardView.css";
 import BrainImg from "../../../../assets/img/empty-brain-xs.png";
@@ -18,31 +20,29 @@ import RelativeDate from "../../../RelativeDate/RelativeDate";
 import FormInput from "../../../FormInput";
 
 const DashGitHubEmptyState = () => (
-  <Col xs={12}>
-    <Card>
-      <CardTitle>My Plugins</CardTitle>
-      <CardBody className="card-body-empty">
-        <h1 className="card-body-header-text">
-          You have no plugins in the ChRIS store
-        </h1>
-        <h2 className="card-body-subhead">Lets fix that!</h2>
-        <div className="card-body-content-parent">
-          <div>
-            <img src={PluginPointer} alt="Click Add Plugin" />
-          </div>
-          <div className="card-body-content-child-right">
-            <p>
-              Create a new listing for your plugin in the ChRIS store by
-              clicking &#34;Add Plugin&#34; below.
-            </p>
-            <Button variant="primary" toRoute="/create">
-              Add Plugin
-            </Button>
-          </div>
+  <Card>
+    <CardTitle>My Plugins</CardTitle>
+    <CardBody className="card-body-empty">
+      <h1 className="card-body-header-text">
+        You have no plugins in the ChRIS store
+      </h1>
+      <h2 className="card-body-subhead">Lets fix that!</h2>
+      <div className="card-body-content-parent">
+        <div>
+          <img src={PluginPointer} alt="Click Add Plugin" />
         </div>
-      </CardBody>
-    </Card>
-  </Col>
+        <div className="card-body-content-child-right">
+          <p>
+            Create a new listing for your plugin in the ChRIS store by
+            clicking &#34;Add Plugin&#34; below.
+          </p>
+          <Button variant="primary" toRoute="/create">
+            Add Plugin
+          </Button>
+        </div>
+      </div>
+    </CardBody>
+  </Card>
 );
 
 const DashApplicationType = type => {

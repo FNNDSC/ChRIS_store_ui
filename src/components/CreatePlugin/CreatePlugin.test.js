@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ControlLabel } from 'patternfly-react';
+import { Label as ControlLabel } from '@patternfly/react-core';
 import CreatePlugin from './CreatePlugin';
 
 import validPluginRepresentation from './samplePluginRepresentation';

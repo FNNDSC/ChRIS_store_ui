@@ -1,6 +1,3 @@
-// based on
-// https://github.com/patternfly/patternfly-react-seed/blob/2195cdb69c4a82b64b4cf6870a67750cc1896ef2/src/app/AppLayout/AppLayout.tsx
-
 import React, { useCallback, useState } from 'react';
 import { Page, SkipToContent } from '@patternfly/react-core';
 import ConnectedNavbar from '../Navbar/Navbar';

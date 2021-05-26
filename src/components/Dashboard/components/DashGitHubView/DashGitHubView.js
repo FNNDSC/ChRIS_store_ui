@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
-import {
-  ListView,
-  Col,
-} from 'patternfly-react';
-import {Card, CardTitle, CardBody} from '@patternfly/react-core';
+import { List } from '@patternfly/react-core';
+import { Card, CardTitle, CardBody } from '@patternfly/react-core';
+
 import './DashGitHubView.css';
 import BrainyPointer from '../../../../assets/img/brainy-pointer.png';
 
@@ -31,20 +29,18 @@ class DashGitHubView extends Component {
     const showEmptyState = isEmpty(plugins);
 
     return (
-      <Col sm={12}>
-        <Card>
-            <CardTitle>
-              Revisions to My Plugins
-            </CardTitle>
-          <CardBody className="github-card-body">
-            { showEmptyState ?
-              <DashGitHubEmptyState />
-              :
-              <ListView className="github-description" />
-            }
-          </CardBody>
-        </Card>
-      </Col>
+      <Card>
+        <CardTitle>
+          Revisions to My Plugins
+        </CardTitle>
+        <CardBody className="github-card-body">
+          { showEmptyState ?
+            <DashGitHubEmptyState />
+            :
+            <List className="github-description" />
+          }
+        </CardBody>
+      </Card>
     );
   }
 }
