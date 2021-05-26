@@ -22,7 +22,7 @@ const WelcomeCategory = ({ category, ...props }) => (
       </CardBody>
       <CardFooter>
         <Button variant="primary" className="btn-block">
-          View More ...
+          View More
         </Button>
       </CardFooter>
     </Card>
