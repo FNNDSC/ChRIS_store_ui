@@ -8,19 +8,21 @@ const WelcomeDevelopers = () => (
   <div id="welcome-developers">
     <div id="welcome-developers-header">
       <span className="tag">DEVELOPERS</span><br/>
-      <h1>Developers</h1>
+      <h1>Expand the Reach <br/> of your Image Processing Software</h1>
+      <p>
+        ChRIS is an democratizing the development and usage of image processing
+        <br/> software with an ecosystem following common standards.
+      </p>
     </div>
 
     <article style={{ maxWidth: '1000px' }}>
-      <Grid>
+      <Grid id="welcome-developers-body">
         <GridItem lg={6} xs={12}>
-          {/* <h2 style={{ fontWeight: '600' }}>
-            Expand the reach of your image processing software
-          </h2> */}
+          <img src="" alt="" />
         </GridItem>
         <GridItem lg={6} xs={12}>
           <h2 style={{ fontWeight: '600' }}>
-            Expand the reach of your image processing software
+            Open Source Software
           </h2>
           <div className="text-light">
             <p>
@@ -31,19 +33,46 @@ const WelcomeDevelopers = () => (
             </p>
           </div>
         </GridItem>
+        
+        <GridItem lg={6} xs={12} style={{ textAlign: 'right' }}>
+          <h2 style={{ fontWeight: '600' }}>
+            Open Source Software
+          </h2>
+          <div className="text-light">
+            <p>
+              <strong>ChRIS is an open source platform</strong> for medical
+              analytics in the cloud, democratizing the development and usage of
+              image processing software within an ecosystem following
+              <strong> common standards.</strong>
+            </p>
+          </div>
+        </GridItem>
+        <GridItem lg={6} xs={12}>
+          <img src="" alt="" />
+        </GridItem>
       </Grid>
     </article>
 
-    <div style={{ maxWidth: '600px', margin: 'auto' }}>
-      <p>
-        A developer account enables you to share your analysis
-        workflows as containerized software with the <i>ChRIS</i> community of
-        researchers and clinicians.
-      </p>
-      <Button toRoute='/quickstart'>
-        Sign Up
-      </Button>
-    </div>
+    <article>
+      <Grid hasGutter id="welcome-developers-signup">
+        <GridItem lg={8} lgOffset={2} xs={12}>
+          <div style={{ fontWeight: 'medium', margin: '1em auto' }}>
+            A developer account enables you to share your analysis
+            workflows as containerized software with the <b>ChRIS</b> community of
+            researchers and clinicians.
+          </div>
+        </GridItem>
+
+        <GridItem lg={6} lgOffset={3} xs={12}>
+          <Button toRoute='/quickstart'>
+            Sign Up
+          </Button>
+          <p style={{ fontSize: 'small', margin: '1em auto' }}>
+            By siging-up you agree to the terms and privacy policy.
+          </p>
+        </GridItem>
+      </Grid>
+    </article>
   </div>
 );
 

@@ -1,14 +1,12 @@
 .welcome-categories-container > div {
   margin-bottom: 20px;
-  min-width: 320.08px;
   flex: 1;
 }
 
 .welcome-category{
   /* border */
   border-top-color: #39a5dc;
-  border-top: 4px solid var(--pf-blue-300);
-  min-height: 679px;
+  border-top: 4px solid var(--pf-blue-400);
 }
 
 .welcome-category > .welcome-category-header {
@@ -21,9 +19,7 @@
 .welcome-category-item {
   /* display */
   display: flex;
-
-  /* padding */
-  padding: 0.4em 0;
+  margin: 1em auto;
 }
 
 .welcome-category-item-img {
@@ -39,8 +35,11 @@
   color: var(--pf-blue-300);
 
   /* font */
-  font-size: 1.5em;
+  font-size: 1em;
+  font-weight: 600;
   white-space: pre-wrap;
+  
+  margin: 0;
 }
 
 .welcome-category-item-desc {

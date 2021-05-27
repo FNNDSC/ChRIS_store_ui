@@ -7,13 +7,14 @@
   background: linear-gradient(135deg #4d5258, #393f44);
   background: linear-gradient(135deg, var(--pf-black-700), var(--pf-black-800)); */
   background: url('../../../../assets/img/banner_chris-users.png');
-  background: linear-gradient(transparent, var(--pf-blue-400) 96%, var(--pf-blue-500) 100%),
-    linear-gradient(transparent, #0b68b440, var(--pf-blue-500)), 
+  background: linear-gradient(transparent, var(--pf-blue-600) 96%, var(--pf-blue-500) 100%),
+    linear-gradient(transparent, #0b68b440, var(--pf-blue-300)), 
     url('../../../../assets/img/banner_chris-users.png');
 
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: left;
+  background-attachment: fixed;
   color: #fafafa;
   color: var(--pf-black-100);
 
@@ -26,17 +27,17 @@
 }
 
 #welcome-cta-header {
-  margin: 2em;
+  margin: 2em 0;
   text-align: center;
   padding: 2em 0;
 } #welcome-cta-header h1 {
-  font-size: 4.5em;
+  font-size: 5em;
   font-weight: 600;
   line-height: 1.25;
   margin: 0.5em 0;
   color: white;
 } #welcome-cta-header p {
-  font-size: 1.25em;
+  font-size: 1.5em;
   line-height: 1.25;
   max-width: 600px;
 }
@@ -80,6 +81,6 @@
   }
 
   .welcome-cta .welcome-cta-featured {
-    padding: 3em 3em 6em 3em;
+    padding: 3em 0 6em 0;
   }
 }

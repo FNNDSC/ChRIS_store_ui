@@ -6,12 +6,12 @@
 
 #welcome-user-cta {
   padding: 6em 0.5em 8em 0.5em;
-  text-align: center;
 }
 
 
 #welcome-user-cta-header {
   margin-bottom: 0.5em;
+  text-align: center;
 } #welcome-user-cta-header .tag {
   font-weight: 800;
   opacity: 0.6;

@@ -4,12 +4,17 @@ import "./welcomeCategories.css";
 import WelcomeCategory from "../WelcomeCategory/WelcomeCategory";
 
 const WelcomeCategories = () => {
-const categories = sampleCategories ;
+  const categories = sampleCategories ;
 
   return (
     <div className="welcome-categories">
       <div className="welcome-categories-header">
-        Browse our catalog of tools ready to deploy to ChRIS
+        <span className="tag">TOOLS</span><br/>
+        <h1>Browse our Catalog of <br/> Tools ready to Deploy to ChRIS</h1>
+        <p>
+          ChRIS is an democratizing the development and usage of image processing
+          <br/> software with an ecosystem following common standards.
+        </p>
       </div>
       <div className="welcome-categories-container">
         {categories.map((category) => (
