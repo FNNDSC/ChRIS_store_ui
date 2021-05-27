@@ -22,7 +22,7 @@ const WelcomeChRIS = () => (
     </div>
 
     <article style={{ maxWidth: '800px' }}>
-      <Grid>
+      <Grid className="welcome-chris-body">
         <GridItem xs={12}>
           <div style={{ display: 'flex', flexFlow: 'column' }}>
             <iframe
