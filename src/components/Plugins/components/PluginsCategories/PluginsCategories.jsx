@@ -9,13 +9,13 @@ const PluginsCategories = props => {
       <div className="plugins-categories-header">Categories</div>
       <div>
         {
-          props.categories.map(category => (
-            <div key={category.name} className="plugins-category"
+          props.categories.map(({name, length}) => (
+            <div key={name} className={`plugins-category ${name === props.selected ? 'selected' : ''}`}
               onClick={() => { 
-                props.onSelect(category.name);
+                props.onSelect(name);
               }}>
-              <div className="plugins-category-name">{category.name}</div>
-              <div className="plugins-category-length">{category.length}</div>
+              <div className="plugins-category-name">{name}</div>
+              <div className="plugins-category-length">{length}</div>
             </div>
           ))
         }
@@ -37,6 +37,7 @@ PluginsCategories.propTypes = {
     name: PropTypes.string.isRequired,
     length: PropTypes.number.isRequired,
   })).isRequired,
+  selected: PropTypes.string,
   onSelect: PropTypes.func
 };
 
