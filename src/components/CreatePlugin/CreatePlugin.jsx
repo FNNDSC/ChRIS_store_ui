@@ -121,8 +121,9 @@ class CreatePlugin extends Component {
     this.setState({ formError: null });
   }
 
-  handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
+  handleChange(value, event) {
+    event.persist();
+    this.setState({ [event.target.name]: value });
   }
 
   handleFile({ value, filename }) {
