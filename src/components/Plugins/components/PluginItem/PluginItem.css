@@ -26,7 +26,7 @@
   color: var(--pf-blue-400);
 
   /* font */
-  font-size: 1.5em;
+  font-size: 1.25em;
   font-weight: 600;
 }
 
@@ -105,6 +105,7 @@
   border-bottom: 1px solid var(--pf-black-300);
 
   /* font */
+  font-size: 1em;
   font-weight: 300;
 }
 
