@@ -25,6 +25,9 @@
 .welcome-category-item-img {
   width: 5em;
   height: 5em;
+  border-radius: 50%;
+  overflow: hidden;
+  filter: grayscale();
 }
 
 .welcome-category-item-body { padding-left: 2em; }
