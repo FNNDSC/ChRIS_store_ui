@@ -6,12 +6,11 @@ import { Grid, GridItem } from '@patternfly/react-core';
 import { Form, FormGroup, TextInput, FileUpload, FormHelperText as HelpBlock } from '@patternfly/react-core';
 import { Label as ControlLabel } from '@patternfly/react-core';
 import { FileIcon, UploadIcon, ExclamationTriangleIcon } from '@patternfly/react-icons'
+import { Alert, AlertActionCloseButton, Card, CardBody, CodeBlock, CodeBlockCode } from '@patternfly/react-core';
 
 import Button from '../Button';
 import './CreatePlugin.css';
 
-import { Plugin } from '../Plugin/Plugin';
-import { Alert, AlertActionCloseButton, Card, CardBody, CodeBlock, CodeBlockCode } from '@patternfly/react-core';
 import HintBlock from '../Hintblock';
 
 const formGroupsData = [
@@ -58,13 +57,14 @@ class CreatePlugin extends Component {
   }
 
   generateFormGroup = (id, label, help, value, handleChange) => (
-    <FormGroup controlId={id} key={id}>
+    <FormGroup key={id}>
       <Grid>
         <GridItem xs={3}>
           {label}
         </GridItem>
         <GridItem xs={9}>
           <TextInput
+            id={id}
             name={id}
             type="text"
             autoComplete="off"
@@ -312,33 +312,18 @@ class CreatePlugin extends Component {
   }
 
   render() {
-    const { state } = this;
-    const {
-      dragOver, fileName, name, image, repo,
-      pluginRepresentation, fileError, formError, success, newPlugin,
-    } = state;
+    const { dragOver, fileName, fileError, formError, success, newPlugin } = this.state;
+    
     let pluginId;
     if (newPlugin) {
       pluginId = newPlugin.id;
     }
+
     // generate formGroups based on data
     const formGroups = formGroupsData.map((formGroup) => {
       const { id, label, help } = formGroup;
-      return this.generateFormGroup(id, label, help, state[id], this.handleChange);
+      return this.generateFormGroup(id, label, help, this.state[id], this.handleChange);
     });
-
-    const pluginData = {
-      plugin: name.trim() ? name : '[PLUGIN NAME]',
-      pluginURL: '/create',
-      authorURL: '/create',
-      dock_image: image.trim() ? image : '[DOCKER IMAGE]',
-      public_repo: repo,
-      authors: '[AUTHOR]',
-      version: '[VERSION]',
-      title: '[TITLE]',
-      description: '[DESCRIPTION]',
-      ...pluginRepresentation,
-    };
 
     return (
       <div className="createplugin">
@@ -397,7 +382,7 @@ class CreatePlugin extends Component {
               </div>
             )
           }
-          <Form className="createplugin-form" horizontal>
+          <Form className="createplugin-form">
             <div className="row">
               <div className="createplugin-col">
                 <Card className="createplugin-info">
@@ -412,7 +397,7 @@ class CreatePlugin extends Component {
                 </div>
               </div>
               <div className="createplugin-col">
-                <FormGroup className="createplugin-form-upload" controlId="file">
+                <FormGroup className="createplugin-form-upload">
                   <FileUpload
                     className="createplugin-upload"
                     type="file"
@@ -449,13 +434,6 @@ class CreatePlugin extends Component {
               </div>
             </div>
           </Form>
-        </section>
-        <section className="createplugin-preview-section">
-          <div className="row">
-            <Card className="createplugin-preview-container">
-              <Plugin className="createplugin-preview-plugin" pluginData={pluginData} />
-            </Card>
-          </div>
         </section>
       </div>
     );
