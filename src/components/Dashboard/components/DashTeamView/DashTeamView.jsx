@@ -1,22 +1,14 @@
 import React, { Component } from "react";
 import isEmpty from "lodash/isEmpty";
-import orderBy from "lodash/orderBy";
 import PropTypes from "prop-types";
-import * as sort from "sortabular";
-import * as resolve from "table-resolver";
 import {
-  actionHeaderCellFormatter,
-  customHeaderFormattersDefinition,
-  defaultSortingOrder,
-  sortableHeaderCellFormatter,
-  tableCellFormatter,
-  Table,
-  TABLE_SORT_DIRECTION,
-  MenuItem,
-  Col,
-  Icon
-} from "patternfly-react";
-import { CardTitle, CardBody, Card, CardFooter, Grid, GridItem, CardActions } from "@patternfly/react-core";
+  Table, TableHeader, TableBody, sortable, SortByDirection, wrappable, cellWidth, headerCol, info
+} from '@patternfly/react-table';
+import { 
+  CardTitle, CardBody, Card, CardFooter, Grid, GridItem, CardActions, Button 
+} from "@patternfly/react-core";
+
+import { PlusCircleIcon } from '@patternfly/react-icons';
 import BrainyTeammatesPointer from "../../../../assets/img/brainy_teammates-pointer.png";
 import "./DashTeamView.css";
 
@@ -43,163 +35,62 @@ const DashTeamEmptyState = () => (
 class DashTeamView extends Component {
   constructor(props) {
     super(props);
-    // Point the transform to your sortingColumns. React state can work for this purpose
-    // but you can use a state manager as well.
-    const getSortingColumns = () => this.state.sortingColumns || {};
-
-    const sortableTransform = sort.sort({
-      getSortingColumns,
-      onSort: selectedColumn => {
-        this.setState({
-          sortingColumns: sort.byColumn({
-            sortingColumns: this.state.sortingColumns,
-            sortingOrder: defaultSortingOrder,
-            selectedColumn
-          })
-        });
-      },
-      // Use property or index dependening on the sortingColumns structure specified
-      strategy: sort.strategies.byProperty
-    });
-
-    const sortingFormatter = sort.header({
-      sortableTransform,
-      getSortingColumns,
-      strategy: sort.strategies.byProperty
-    });
-
-    // enables our custom header formatters extensions to reactabular
-    this.customHeaderFormatters = customHeaderFormattersDefinition;
-
     this.state = {
-      // Sort the first column in an ascending way by default.
-      sortingColumns: {
-        name: {
-          direction: TABLE_SORT_DIRECTION.ASC,
-          position: 0
-        }
-      },
+      rows: [],
       columns: [
-        {
-          property: "name",
-          header: {
-            label: "Name",
-            props: {
-              index: 0,
-              rowSpan: 1,
-              colSpan: 1,
-              sort: true
-            },
-            transforms: [sortableTransform],
-            formatters: [sortingFormatter],
-            customFormatters: [sortableHeaderCellFormatter]
-          },
-          cell: {
-            props: {
-              index: 0
-            },
-            formatters: [tableCellFormatter]
-          }
+        { 
+          title: 'Name', 
+          property: 'name',
+          transforms: [sortable, headerCol()] 
+        },
+        { 
+          title: 'Position Title', 
+          property: 'title',
+          transforms: [sortable] 
         },
         {
-          property: "title",
-          header: {
-            label: "Position Title",
-            props: {
-              index: 1,
-              rowSpan: 1,
-              colSpan: 1,
-              sort: true
-            },
-            transforms: [sortableTransform],
-            formatters: [sortingFormatter],
-            customFormatters: [sortableHeaderCellFormatter]
-          },
-          cell: {
-            props: {
-              index: 1
-            },
-            formatters: [tableCellFormatter]
-          }
-        },
-        {
-          property: "date_joined",
-          header: {
-            label: "Date Joined",
-            props: {
-              index: 2,
-              rowSpan: 1,
-              colSpan: 1,
-              sort: true
-            },
-            transforms: [sortableTransform],
-            formatters: [sortingFormatter],
-            customFormatters: [sortableHeaderCellFormatter]
-          },
-          cell: {
-            props: {
-              index: 2
-            },
-            formatters: [tableCellFormatter]
-          }
-        },
-        {
-          property: "actions",
-          header: {
-            label: "Actions",
-            props: {
-              index: 3,
-              rowSpan: 1,
-              colSpan: 2
-            },
-            formatters: [actionHeaderCellFormatter]
-          },
-          cell: {
-            props: {
-              index: 3
-            },
-            formatters: [
-              (value, { rowData }) => [
-                <Table.Actions key="0">
-                  <Table.Button
-                    onClick={() => console.log(`clicked ${rowData.name}`)}
-                  >
-                    Edit
-                  </Table.Button>
-                </Table.Actions>,
-                <Table.Actions key="1">
-                  <Table.DropdownKebab id="myKebab" pullRight>
-                    <MenuItem>Action</MenuItem>
-                    <MenuItem>Another Action</MenuItem>
-                    <MenuItem>Something else here</MenuItem>
-                    <MenuItem divider />
-                    <MenuItem>Separated link</MenuItem>
-                  </Table.DropdownKebab>
-                </Table.Actions>
-              ]
-            ]
-          }
+          title: 'Date Joined',
+          property: 'date_joined',
+          transforms: [
+            info({
+              tooltip: 'More information about teammates'
+            }),
+            sortable
+          ]
         }
       ],
-      rows: [{}]
+      sortBy: {}
     };
+
+    this.state.rows = props.plugins.map((plugin) => {
+      let row = []; 
+      for(const prop of this.state.columns.map(({property}) => property)) 
+        row.push(plugin[prop]); 
+      return row;
+    })
+
+    this.onSort = this.onSort.bind(this);
+  }
+
+  onSort(_event, index, direction) {
+    const sortedRows = this.state.rows.sort((a, b) => (a[index] < b[index] ? -1 : a[index] > b[index] ? 1 : 0));
+    this.setState({
+      sortBy: {
+        index,
+        direction
+      },
+      rows: direction === SortByDirection.asc ? sortedRows : sortedRows.reverse()
+    });
   }
 
   render() {
     const { plugins } = this.props;
-    const { rows, sortingColumns, columns } = this.state;
+    const { rows, columns, sortBy } = this.state;
     const showEmptyState = isEmpty(plugins);
 
-    const sortedRows = sort.sorter({
-      columns,
-      sortingColumns,
-      sort: orderBy,
-      strategy: sort.strategies.byProperty
-    })(rows);
-
     return (
-      <Grid sm={12}>
-        <GridItem>
+      <Grid>
+        <GridItem sm={12}>
         <Card>
           <CardTitle>Teammates</CardTitle>
           <CardBody>
@@ -207,30 +98,34 @@ class DashTeamView extends Component {
               <DashTeamEmptyState />
             ) : (
               <React.Fragment>
-                <Table.PfProvider
-                  hover
-                  dataTable
-                  columns={columns}
-                  components={{
-                    header: {
-                      cell: cellProps =>
-                        this.customHeaderFormatters({
-                          cellProps,
-                          columns,
-                          sortingColumns
-                        })
+                <Table aria-label="Sortable Table" 
+                  sortBy={sortBy} 
+                  onSort={this.onSort} 
+                  cells={columns} 
+                  rows={rows}
+                  actions={([
+                    {
+                      title: <a href="https://www.patternfly.org">Link action</a>
+                    },
+                    {
+                      title: 'Some action',
+                      onClick: (event, rowId, rowData, extra) => {
+                        console.log('clicked on Some action, on row: ', rowId)
+                      },
+                    },
+                    {
+                      title: 'Third action',
+                      onClick: (event, rowId, rowData, extra) => {
+                        console.log('clicked on Third action, on row: ', rowId)
+                      }
                     }
-                  }}
-                >
-                  <Table.Header headerRows={resolve.headerRows({ columns })} />
-                  <Table.Body
-                    rows={sortedRows}
-                    rowKey="id"
-                    onRow={() => ({
-                      role: "row"
-                    })}
-                  />
-                </Table.PfProvider>
+                  ])}
+                  areActionsDisabled={false}
+                  dropdownPosition="left"
+                  dropdownDirection="bottom">
+                    <TableHeader />
+                    <TableBody />
+                </Table>
               </React.Fragment>
             )}
           </CardBody>
@@ -239,8 +134,10 @@ class DashTeamView extends Component {
               className="card-footer"
             >
               <CardActions>
-                <Icon type="pf" name="add-circle-o" />
-                Add Teammate
+                <Button variant="secondary">
+                  <PlusCircleIcon type="pf" style={{ margin: '0 1em 0 0' }} />
+                  <span>Add Teammate</span>
+                </Button>
               </CardActions>
               
             </CardFooter>
@@ -251,6 +148,7 @@ class DashTeamView extends Component {
     );
   }
 }
+
 DashTeamView.propTypes = {
   plugins: PropTypes.arrayOf(PropTypes.object)
 };
