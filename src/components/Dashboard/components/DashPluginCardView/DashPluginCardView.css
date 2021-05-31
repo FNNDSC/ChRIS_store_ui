@@ -1,47 +1,3 @@
-@media (min-width: 1px) {
-    .card-body-content-parent {
-        flex-wrap: wrap;
-    }
-}
-@media (min-width: 598px) {
-    .card-body-content-parent {
-        flex-wrap: wrap;
-    }
-}
-@media (min-width: 768px) {
-    .card-pf-body .blank-slate-pf {
-        padding: 70px;
-        margin: -20px;
-    }
-    .card-body-content-parent {
-        flex-wrap: wrap;
-    }
-}
-@media (min-width: 992px) {
-    .card-pf-body .blank-slate-pf {
-        padding: 70px;
-        padding-bottom: 65px;
-        margin: -20px;
-    }
-    .card-body-content-parent {
-        flex-wrap: nowrap;
-    }
-}
-
-@media (min-width: 1200px) {
-    .card-pf-body .blank-slate-pf {
-        margin: -20px;
-    }
-    .card-body-content-parent {
-        flex-wrap: nowrap;
-    }
-}
-
-.card-pf-body .blank-slate-pf {
-    background-color: #fff;
-    border: none;
-}
-
 .card-body-empty {
     padding: 10px !important;
     background: linear-gradient(
@@ -84,20 +40,7 @@
     padding: 33px !important;
 }
 
-.card-view-title .pf-c-dropdown {
-    padding: 0;
-    margin-left: 20px;
-    
-}
-.card-view-title .pf-c-dropdown .pf-m-plain{
-    outline: none;
-}
-.card-view-title .pf-c-dropdown .pf-m-plain:hover{
-    color: #0088ce;
-}
-.card-view-kebob .pf-c-dropdown__menu {
-    list-style-type: none;
-}
+
 
 .card-view-title{
     display: flex;
@@ -120,8 +63,8 @@
 
     /* display */
     display: inline-block;
-    margin-right: 0.5em;
-    padding: 0 0.25em;
+    margin: 0 0.5em;
+    padding: 0 0.5em;
 
     /* border */
     border-color: #8b8d8f;
@@ -130,16 +73,23 @@
 
     /* font */
     font-weight: 600;
-    margin-bottom: 10px;
     font-size: 12px;
-}
-
-.card-view-tag-title {
-    display: inline-block;
-    margin-bottom: -10px;
 }
 
 .card-view-app-type {
     font-size: 14px;
-    padding: 0 3px 10px 3px;
+}
+
+.card-info-points {
+    margin: 0.5em 0;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: gray;
+}
+
+.pf-c-card__title {
+    font-size: larger;
+}
+.pf-c-dropdown__toggle {
+    padding-right: 0 !important;
 }

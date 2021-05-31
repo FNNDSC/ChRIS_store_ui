@@ -1,21 +1,23 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Button from "../Button";
 import Client from "@fnndsc/chrisstoreapi";
+import { Spinner, Grid, GridItem, Split, SplitItem } from "@patternfly/react-core";
+
 import "./Dashboard.css";
+
+import Button from "../Button";
 import DashPluginCardView from "./components/DashPluginCardView/DashPluginCardView";
 import DashTeamView from "./components/DashTeamView/DashTeamView";
 import DashGitHubView from "./components/DashGitHubView/DashGitHubView";
 import ChrisStore from "../../store/ChrisStore";
 import Notification from "../Notification";
 import HttpApiCallError from "../../errors/HttpApiCallError";
-import { Spinner } from "@patternfly/react-core";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pluginList: null,
+      pluginList: [],
       loading: true,
       error: null,
     };
@@ -30,28 +32,31 @@ class Dashboard extends Component {
       console.error(err);
     });
   }
-  showNotifications = (error) => {
+
+  initialize() {
     this.setState({
-      error: error.message,
+      arePluginsAvailable: !this.state.arePluginsAvailable,
     });
-  };
+  }
+  
   fetchPlugins() {
     const { store } = this.props;
     const storeURL = process.env.REACT_APP_STORE_URL;
     const client = new Client(storeURL);
     const searchParams = {
-      owner_username: store.get("userName"),
+      // owner_username: store.get("userName"),
       limit: 20,
       offset: 0,
     };
-    this.setState({ loading: true, pluginList: null });
 
-    return client.getPlugins(searchParams).then((plugins) => {
-      this.setState((prevState) => {
-        const prevPluginList = prevState.pluginList ? prevState.pluginList : [];
-        const nextPluginList = prevPluginList.concat(plugins.data);
-        return { pluginList: nextPluginList, loading: false };
+    return client.getPluginMetas(searchParams).then((plugins) => {
+      this.setState(({ pluginList }) => {
+        return { 
+          pluginList: pluginList.concat(plugins.data), 
+          loading: false 
+        };
       });
+
       return plugins.data;
     });
   }
@@ -98,19 +103,16 @@ class Dashboard extends Component {
     }
     return response;
   }
-
-  initialize() {
-    const { arePluginsAvailable } = this.state;
-
+  
+  showNotifications = (error) => {
     this.setState({
-      arePluginsAvailable: !arePluginsAvailable,
+      error: error.message,
     });
-  }
+  };
 
   render() {
     const { pluginList, loading, error } = this.state;
-    const { store } = this.props;
-    const userName = store.get("userName") || "";
+    
     return (
       <React.Fragment>
         {error && (
@@ -122,45 +124,56 @@ class Dashboard extends Component {
             onClose={() => this.setState({ error: null })}
           />
         )}
-        <div className="plugins-stats">
-          <div className="row plugins-stats-row">
-            <div className="title-bar">{`Dashboard for ${userName}`}</div>
-            <div className="dropdown btn-group">
+
+        <article id="dashboard-container">
+          <Split id="title-bar">
+            <SplitItem id="title-name">Dashboard</SplitItem>
+            <SplitItem isFilled />
+            <SplitItem id="title-actions-container">
               <Button variant="primary" toRoute="/create">
                 Add Plugin
               </Button>
-            </div>
-          </div>
-        </div>
-        <div className="cards-pf dashboard-body">
-          <div className="dashboard-container">
-          <div className="dashboard-row">
-            {loading ? (
-              <div className="dashboard-spinner">
-              <Spinner size="lg" loading={loading} />
+              <Button variant="secondary" toRoute="/">
+                Another
+              </Button>
+            </SplitItem>
+          </Split>
+
+          {
+            loading ? (
+              <div id="dashboard-spinner">
+                <Spinner size="xl" />
               </div>
             ) : (
-              <React.Fragment>
-                <div className="dashboard-left-column">
-                  <DashPluginCardView
-                    plugins={pluginList}
-                    onDelete={this.deletePlugin}
-                    onEdit={this.editPlugin}
-                  />
-                  <DashTeamView plugins={pluginList} />
-                </div>
-                <div className="dashboard-right-column">
+              <Grid hasGutter className="cards-pf" id="dashboard-body">
+                <GridItem lg={8} xs={12}>
+                  <Grid hasGutter>
+                    <GridItem xs={12}>
+                      <DashPluginCardView
+                        plugins={pluginList}
+                        onDelete={this.deletePlugin}
+                        onEdit={this.editPlugin}
+                      />
+                    </GridItem>
+
+                    <GridItem xs={12}>
+                      <DashTeamView plugins={pluginList} />
+                    </GridItem>
+                  </Grid>
+                </GridItem>
+
+                <GridItem lg={4} xs={12} id="dashboard-right-column">
                   <DashGitHubView plugins={pluginList} />
-                </div>
-              </React.Fragment>
-            )}
-          </div>
-        </div>
-        </div>
+                </GridItem>
+              </Grid>
+            )
+          }
+        </article>
       </React.Fragment>
     );
   }
 }
+
 Dashboard.propTypes = {
   store: PropTypes.objectOf(PropTypes.object),
 };
