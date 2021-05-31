@@ -14,21 +14,11 @@ import "./DashTeamView.css";
 
 const DashTeamEmptyState = () => (
   <div className="card-body-content-parent">
-    <div>
-      <span className="pficon pficon-info" id="no-plugin-info-icon" />
-    </div>
-    <div className="dash-text-div">
-      <span className="github-plugin-noplugin-title github-team-noplugin-title">
-        Teammates Panel
-      </span>
-      <p className="github-plugin-noplugin-text">
-        In this area, you will be able to add and manage teammates to help you
-        with each plugin.
-      </p>
-    </div>
-    <div className="card-body-content-child-right">
-      <img src={BrainyTeammatesPointer} alt="Click Add Plugin" />
-    </div>
+    <p>
+      In this area, you will be able to add and manage teammates to help you
+      with each plugin.
+    </p>
+    <img style={{ marginLeft: '2em' }} src={BrainyTeammatesPointer} alt="Click Add Plugin" />
   </div>
 );
 

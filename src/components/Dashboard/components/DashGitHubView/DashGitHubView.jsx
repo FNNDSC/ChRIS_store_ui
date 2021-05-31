@@ -9,13 +9,10 @@ import BrainyPointer from '../../../../assets/img/brainy-pointer.png';
 
 const DashGitHubEmptyState = () => (
   <div>
-    <span className="pficon pficon-info" id="no-plugin-info-icon" />
-    <span className="github-plugin-noplugin-title">Revisions Panel</span>
-    <p className="github-plugin-noplugin-text">The most recent 10 changes to your plugins will appear here.</p>
-    <div>
-      <img src={BrainyPointer} alt="Click Add Plugin" />
-    </div>
-  </div>);
+    <p>The most recent 10 changes to your plugins will appear here.</p>
+    <img src={BrainyPointer} alt="Click to Add Plugin" />
+  </div>
+);
 
 class DashGitHubView extends Component {
   constructor(props) {
@@ -31,7 +28,7 @@ class DashGitHubView extends Component {
     return (
       <Card>
         <CardTitle>
-          Revisions to My Plugins
+          Revisions
         </CardTitle>
         <CardBody className="github-card-body">
           { showEmptyState ?
@@ -44,6 +41,7 @@ class DashGitHubView extends Component {
     );
   }
 }
+
 DashGitHubView.propTypes = {
   plugins: PropTypes.arrayOf(PropTypes.object),
 };

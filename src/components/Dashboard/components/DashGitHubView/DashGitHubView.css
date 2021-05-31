@@ -29,8 +29,6 @@
     padding-left: 5px;
 }
 
-.github-plugin-noplugin-text {
-    padding-top: 10px;
-    padding-left: 5px;
-    font-size: 1.2em;
+.pf-c-card__title {
+    font-size: larger;
 }
