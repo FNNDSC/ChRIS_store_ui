@@ -109,7 +109,6 @@ class DashPluginCardView extends Component {
       pluginToDelete: plugin
     });
   }
-
   showEditModal(plugin) {
     this.setState({
       showEditConfirmation: true,
@@ -238,7 +237,7 @@ class DashPluginCardView extends Component {
         </Card>
       </GridItem>
     );
-
+    
     return showEmptyState ? (
       <DashGitHubEmptyState />
     ) : (
