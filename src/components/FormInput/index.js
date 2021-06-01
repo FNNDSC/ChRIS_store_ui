@@ -7,7 +7,8 @@ const FormInput = (props) => {
     fieldId,
     validationState,
     helperText,
-    error,
+    errorControls,
+    errorMessage,
     inputType,
     fieldName,
     id,
@@ -32,7 +33,7 @@ const FormInput = (props) => {
           {helperText}
         </FormHelperText> : null
       }
-      helperTextInvalid={error && error.controls.includes(fieldName) ? error.message: null}
+      helperTextInvalid={errorMessage && errorControls && errorControls.includes(fieldName) ? errorMessage: null}
     >
     {
       children ? children : (

@@ -9,6 +9,8 @@ import ChrisStore from "../../../../store/ChrisStore";
 import Button from "../../../Button";
 import FormInput from "../../../FormInput";
 import "./DeveloperSignup.css";
+import Notification from "../../../Notification";
+import HttpApiCallError from "../../../../errors/HttpApiCallError";
 
 /* inspired by https://github.com/Modernizr/Modernizr/blob/v3/feature-detects/touchevents.js */
 const isTouchDevice = () => {
@@ -33,61 +35,54 @@ const isTouchDevice = () => {
 const DeveloperSignup = ({ store, ...props }) => {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState({ message: "", controls: [] });
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errorControls, setErrorControls] = useState([]);
+  const [notifyErr, setNotifyErr] = useState(null);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
+  const showNotifications = (error) => {
+    setNotifyErr(error.message);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
     if (!username) {
-      return setError({
-        message: "A valid Username is required",
-        controls: ["username"],
-      });
+      setErrorControls(["username"]);
+      return setErrorMessage("A valid Username is required");
     }
 
     if (!email || !validate(email)) {
-      return setError({
-        message: "A valid Email is required",
-        controls: ["email"],
-      });
-    }
-    if (password.length < 8) {
-      return setError({
-        message: "Password should be atleast 8 characters",
-        controls: ["password"],
-      });
+      setErrorControls(["email"]);
+      return setErrorMessage("A valid Email is required");
     }
 
     if (!password) {
-      return setError({
-        message: "Password is required",
-        controls: ["password"],
-      });
+      setErrorControls(["password"]);
+      return setErrorMessage("Password is required");
     }
 
     if (!passwordConfirm) {
-      return setError({
-        message: "Confirmation is required",
-        controls: ["confirmation"],
-      });
+      setErrorControls(["confirmation"]);
+      return setErrorMessage("Confirmation is required");
+    }
+
+    if (password.length < 8) {
+      setErrorControls(["password"]);
+      return setErrorMessage("Password should be atleast 8 characters");
     }
 
     if (password !== passwordConfirm) {
-      return setError({
-        message: "Password and confirmation do not match",
-        controls: ["password", "confirmation"],
-      });
+      setErrorControls(["password", "confirmation"]);
+      return setErrorMessage("Password and confirmation do not match");
     }
 
     setLoading(true);
-    setError({
-      message: "",
-      controls: [],
-    });
+    setErrorMessage("");
+    setErrorControls([]);
     store.set("userName")(username);
 
     return handleStoreLogin();
@@ -105,30 +100,17 @@ const DeveloperSignup = ({ store, ...props }) => {
       if (_.has(e, "response")) {
         if (_.has(e, "response.data.username")) {
           setLoading(false);
-          setError({
-            message: "This username is already registered.",
-            controls: ["username"],
-          });
+          setErrorMessage("This username is already registered.");
+          setErrorControls(["username"]);
         }
         if (_.has(e, "response.data.email")) {
           setLoading(false);
-          setError({
-            message: "This email is already registered.",
-            controls: ["email"],
-          });
-        } else {
-          setLoading(false);
-          setError({
-            message: "Network request failed",
-            controls: ["username", "email", "password"],
-          });
+          setErrorMessage("This email is already registered.");
+          setErrorControls(["email"]);
         }
       } else {
         setLoading(false);
-        setError({
-          message: "Network request failed",
-          controls: ["username", "email", "password"],
-        });
+        showNotifications(new HttpApiCallError(e));
       }
       return console.error(e);
     }
@@ -138,83 +120,101 @@ const DeveloperSignup = ({ store, ...props }) => {
       store.set("authToken")(authToken);
       history.push("/dashboard");
     } catch (e) {
+      showNotifications(new HttpApiCallError(e));
       return console.error(e);
     }
   };
 
   return (
-    <Form onSubmit={handleSubmit} noValidate>
-      <p>{loading ? "Creating" : "Create"} a ChRIS Developer account:</p>
-      <FormInput
-        formLabel="Username"
-        fieldId="username"
-        validationState={
-          error.controls.includes("username") ? "error" : "default"
-        }
-        helperText="Enter your username"
-        inputType="text"
-        id="username"
-        fieldName="username"
-        value={username}
-        autofocus={!isTouchDevice}
-        onChange={(val) => setUsername(val)}
-        error={error}
-      />
-
-      <FormInput
-        formLabel="Email"
-        fieldId="email"
-        validationState={error.controls.includes("email") ? "error" : "default"}
-        helperText="Enter you email"
-        inputType="email"
-        id="email"
-        fieldName="email"
-        value={email}
-        onChange={(val) => setEmail(val)}
-        error={error}
-      />
-
-      <FormInput
-        formLabel="Password"
-        fieldId="password"
-        validationState={
-          error.controls.includes("password") ? "error" : "default"
-        }
-        helperText="Enter your password"
-        inputType="password"
-        id="password"
-        fieldName="password"
-        value={password}
-        onChange={(val) => setPassword(val)}
-        error={error}
-      />
-
-      <FormInput
-        formLabel="Password Confirmation"
-        fieldId="password-confirm"
-        validationState={
-          error.controls.includes("confirmation") ? "error" : "default"
-        }
-        helperText="Confirm your password"
-        inputType="password"
-        id="passwordConfirm"
-        fieldName="passwordConfirm"
-        value={passwordConfirm}
-        onChange={(val) => setPasswordConfirm(val)}
-        error={error}
-      />
-
-      {loading ? (
-        <Spinner size="md" />
-      ) : (
-        <Button variant="primary" type="submit">
-          Create Account
-        </Button>
+    <>
+      {notifyErr && (
+        <Notification
+          title={notifyErr}
+          position="top-right"
+          variant="danger"
+          closeable
+          onClose={() => setNotifyErr(null)}
+        />
       )}
-      {loading && (
-        <span className="developer-signup-creating">Creating Account</span>
-      )}
-    </Form>
+      <Form onSubmit={handleSubmit} noValidate>
+        <p>{loading ? "Creating" : "Create"} a ChRIS Developer account:</p>
+        <FormInput
+          formLabel="Username"
+          fieldId="username"
+          validationState={
+            errorControls.includes("username") ? "error" : "default"
+          }
+          helperText="Enter your username"
+          inputType="text"
+          id="username"
+          fieldName="username"
+          value={username}
+          autofocus={!isTouchDevice}
+          onChange={(val) => setUsername(val)}
+          errorControls={errorControls}
+          errorMessage={errorMessage}
+        />
+
+        <FormInput
+          formLabel="Email"
+          fieldId="email"
+          validationState={
+            errorControls.includes("email") ? "error" : "default"
+          }
+          helperText="Enter your email"
+          inputType="email"
+          id="email"
+          fieldName="email"
+          value={email}
+          onChange={(val) => setEmail(val)}
+          errorControls={errorControls}
+          errorMessage={errorMessage}
+        />
+
+        <FormInput
+          formLabel="Password"
+          fieldId="password"
+          validationState={
+            errorControls.includes("password") ? "error" : "default"
+          }
+          helperText="Enter your password"
+          inputType="password"
+          id="password"
+          fieldName="password"
+          value={password}
+          onChange={(val) => setPassword(val)}
+          errorControls={errorControls}
+          errorMessage={errorMessage}
+        />
+
+        <FormInput
+          formLabel="Password Confirmation"
+          fieldId="password-confirm"
+          validationState={
+            errorControls.includes("confirmation") ? "error" : "default"
+          }
+          helperText="Confirm your password"
+          inputType="password"
+          id="passwordConfirm"
+          fieldName="passwordConfirm"
+          value={passwordConfirm}
+          onChange={(val) => setPasswordConfirm(val)}
+          errorControls={errorControls}
+          errorMessage={errorMessage}
+        />
+
+        {loading ? (
+          <Spinner size="md" />
+        ) : (
+          <Button variant="primary" type="submit">
+            Create Account
+          </Button>
+        )}
+        {loading && (
+          <span className="developer-signup-creating">Creating Account</span>
+        )}
+      </Form>
+    </>
   );
 };
 
