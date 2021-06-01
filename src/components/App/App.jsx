@@ -6,10 +6,10 @@ import ChrisStore from '../../store/ChrisStore';
 import './App.css';
 
 // import the patternfly CSS globally
-import '../../../node_modules/patternfly/dist/css/patternfly.min.css';
-import '../../../node_modules/patternfly/dist/css/patternfly-additions.min.css';
-import '../../../node_modules/@patternfly/patternfly/patternfly-no-reset.css';
+import '../../../node_modules/@patternfly/patternfly/patternfly.min.css';
+import '../../../node_modules/@patternfly/patternfly/patternfly-base.css';
 import '../../../node_modules/@patternfly/patternfly/patternfly-addons.css';
+import '../../../node_modules/@patternfly/patternfly/patternfly-no-reset.css';
 
 /*
  * The router here serves pages which replace the entire document,
