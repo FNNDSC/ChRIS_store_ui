@@ -1,12 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './WelcomeFeature.css';
+import React from "react";
+import PropTypes from "prop-types";
+import "./WelcomeFeature.css";
 
-const WelcomeFeature = props => (
-  <div className="welcome-feature">
-    <img src={props.img} alt="" className="welcome-feature-img" />
-    <div className="welcome-feature-text">
-      {props.name}
+const WelcomeFeature = ({ img, name, url, ...props }) => (
+  <div {...props}>
+    <div className="welcome-feature">
+      <a href={url}>
+        <img src={img} alt={name} className="welcome-feature-img" />
+      </a>
+      <div className="welcome-feature-text">{name}</div>
     </div>
   </div>
 );

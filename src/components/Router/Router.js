@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import ConnectedNavbar from '../Navbar/Navbar';
-import Footer from '../Footer/Footer';
+import AppLayout from '../AppLayout/AppLayout';
 
 // pages
 import Welcome from '../Welcome/Welcome';
@@ -14,8 +13,7 @@ import Dashboard from '../Dashboard/Dashboard';
 import ProtectedRoute from './ProtectedRoute';
 
 const Router = () => (
-  <div>
-    <ConnectedNavbar />
+  <AppLayout>
     <Switch>
       <Route exact path="/" component={Welcome} />
       <Route path="/plugins" component={ConnectedPlugins} />
@@ -25,8 +23,7 @@ const Router = () => (
       <ProtectedRoute path="/dashboard" component={Dashboard} />
       <Route component={NotFound} />
     </Switch>
-    <Footer />
-  </div>
+  </AppLayout>
 );
 
 export default Router;

@@ -6,9 +6,12 @@ Dockerfile*
 LICENSE
 README.md
 
+# IDEs
+.vscode/
+.idea/
 
 # dev container stuff that might end up here bc of the dev environment
-node_modules
+node_modules/
 .config/
 .npm/
 .cache/

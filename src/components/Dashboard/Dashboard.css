@@ -19,10 +19,16 @@
     padding-top: 20px;
 }
 
+.dashboard-spinner{
+    margin: 0 auto;
+}
+
 .dashboard-left-column {
     display: flex;
     flex-direction: column;
     flex: 3;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
 .dashboard-right-column {
@@ -40,3 +46,22 @@
     margin-top: -20px;
 }
 
+.dashboard-container {
+    margin: 0 auto;
+    margin-top: 20px;
+}
+@media (min-width: 768px){
+    .dashboard-container{
+        width: 760px;
+    }
+}
+@media (min-width: 992px){
+    .dashboard-container{
+        width: 980px;
+    }
+}
+@media (min-width: 1200px){
+    .dashboard-container{
+        width: 1180px;
+    }
+}
