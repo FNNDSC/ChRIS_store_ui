@@ -132,19 +132,19 @@ class Dashboard extends Component {
             </div>
           </div>
         </div>
-        <div className={`cards-pf ${styles['dashboard-body']}`}>
+        <div className={`cards-pf ${styles["dashboard-body"]}`}>
           <CardGrid>
-            <div className={styles['dashboard-row']}>
+            <div className={styles["dashboard-row"]}>
               <Spinner size="lg" loading={loading}>
-                <div className={styles['dashboard-left-column']}>
-                      <DashPluginCardView
-                        plugins={pluginList}
-                        onDelete={this.deletePlugin}
-                        onEdit={this.editPlugin}
-                      />
-                      <DashTeamView plugins={pluginList} />
+                <div className={styles["dashboard-left-column"]}>
+                  <DashPluginCardView
+                    plugins={pluginList}
+                    onDelete={this.deletePlugin}
+                    onEdit={this.editPlugin}
+                  />
+                  <DashTeamView plugins={pluginList} />
                 </div>
-                <div className={styles['dashboard-right-column']}>
+                <div className={styles["dashboard-right-column"]}>
                   <DashGitHubView plugins={pluginList} />
                 </div>
               </Spinner>
