@@ -23,7 +23,6 @@ class Dashboard extends Component {
     this.deletePlugin = this.deletePlugin.bind(this);
     this.editPlugin = this.editPlugin.bind(this);
   }
-
   componentDidMount() {
     this.fetchPlugins().catch((err) => {
       this.showNotifications(new HttpApiCallError(err));
@@ -45,7 +44,6 @@ class Dashboard extends Component {
       offset: 0,
     };
     this.setState({ loading: true, pluginList: null });
-
     return client.getPlugins(searchParams).then((plugins) => {
       this.setState((prevState) => {
         const prevPluginList = prevState.pluginList ? prevState.pluginList : [];
@@ -55,13 +53,11 @@ class Dashboard extends Component {
       return plugins.data;
     });
   }
-
   async deletePlugin(pluginId) {
     const { store } = this.props;
     const storeURL = process.env.REACT_APP_STORE_URL;
     const auth = { token: store.get("authToken") };
     const client = new Client(storeURL, auth);
-
     let response;
     try {
       response = await client.getPlugin(pluginId);
@@ -76,13 +72,11 @@ class Dashboard extends Component {
     }
     return response;
   }
-
   editPlugin(pluginId, publicRepo) {
     const { store } = this.props;
     const storeURL = process.env.REACT_APP_STORE_URL;
     const auth = { token: store.get("authToken") };
     const client = new Client(storeURL, auth);
-
     let response;
     try {
       response = client
@@ -98,15 +92,12 @@ class Dashboard extends Component {
     }
     return response;
   }
-
   initialize() {
     const { arePluginsAvailable } = this.state;
-
     this.setState({
       arePluginsAvailable: !arePluginsAvailable,
     });
   }
-
   render() {
     const { pluginList, loading, error } = this.state;
     const { store } = this.props;
@@ -132,19 +123,19 @@ class Dashboard extends Component {
             </div>
           </div>
         </div>
-        <div className={`cards-pf ${styles["dashboard-body"]}`}>
+        <div className={`cards-pf ${styles['dashboard-body']}`}>
           <CardGrid>
-            <div className={styles["dashboard-row"]}>
+            <div className={styles['dashboard-row']}>
               <Spinner size="lg" loading={loading}>
-                <div className={styles["dashboard-left-column"]}>
-                  <DashPluginCardView
-                    plugins={pluginList}
-                    onDelete={this.deletePlugin}
-                    onEdit={this.editPlugin}
-                  />
-                  <DashTeamView plugins={pluginList} />
+                <div className={styles['dashboard-left-column']}>
+                      <DashPluginCardView
+                        plugins={pluginList}
+                        onDelete={this.deletePlugin}
+                        onEdit={this.editPlugin}
+                      />
+                      <DashTeamView plugins={pluginList} />
                 </div>
-                <div className={styles["dashboard-right-column"]}>
+                <div className={styles['dashboard-right-column']}>
                   <DashGitHubView plugins={pluginList} />
                 </div>
               </Spinner>
@@ -161,5 +152,4 @@ Dashboard.propTypes = {
 Dashboard.defaultProps = {
   store: {},
 };
-
 export default ChrisStore.withStore(Dashboard);
