@@ -372,11 +372,12 @@ export class Plugins extends Component {
           )}
 
           <div className="plugins-container">
-            <article style={{ maxWidth: '1200px', margin: 'auto' }}>
+            <article>
               <Grid className="plugins-row">
                 <GridItem xs={12}>
                   <div style={{ padding: '2em' }}>
-                    <h1>ChRIS Plugins</h1>
+                    <h1>Plugins</h1><br />
+                    <h2>ChRIS Store</h2><br />
                   </div>
                 </GridItem>
 
