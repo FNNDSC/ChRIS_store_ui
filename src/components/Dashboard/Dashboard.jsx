@@ -127,7 +127,9 @@ class Dashboard extends Component {
 
         <article id="dashboard-container">
           <Split id="title-bar">
-            <SplitItem id="title-name">Dashboard</SplitItem>
+            <SplitItem id="title-name">
+              <h2>Dashboard</h2>
+            </SplitItem>
             <SplitItem isFilled />
             <SplitItem id="title-actions-container">
               <Button variant="primary" toRoute="/create">
