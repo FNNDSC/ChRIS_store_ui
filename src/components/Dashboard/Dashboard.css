@@ -1,9 +1,6 @@
-#dashboard-container {
-    margin: auto;
-}
 @media (min-width: 768px) {
     #dashboard-container {
-        width: 1200px;
+        max-width: 1200px;
     }
 }
 
