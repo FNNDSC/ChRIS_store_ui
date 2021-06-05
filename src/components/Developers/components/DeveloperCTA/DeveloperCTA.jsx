@@ -8,7 +8,7 @@ import ConnectedDeveloperSignup from '../DeveloperSignup/DeveloperSignup';
 import ChrisStore from '../../../../store/ChrisStore';
 
 export const DeveloperCTA = ({ store }) => (
-  <section id="developer-cta">
+  <div id="developer-cta">
     <article>
       <Grid hasGutter>
         <GridItem lg={6} xs={12}>
@@ -38,7 +38,7 @@ export const DeveloperCTA = ({ store }) => (
         </GridItem>
       </Grid>
     </article>
-  </section>
+  </div>
 );
 
 export default ChrisStore.withStore(DeveloperCTA);
