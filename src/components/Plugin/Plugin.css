@@ -6,32 +6,10 @@
   font-size: 1.2em;
 }
 
-.plugin, .plugin-container {
-  /* display */
-  display: flex;
-
-  /* flex */
-  flex-direction: column;
-}
-
-.plugin-container, .plugin-body {
-  /* flex */
-  flex: 1;
-}
-
-.plugin-header {
-  /* display */
-  padding: 1em;
-  max-width: 1200px;
-  margin: 1em auto;
-}
-
 .plugin-icon {
   display: block;
-  width: 5em;
-  height: 5em;
+  height: 100%;
   margin: auto;
-  /* margin-right: 3em; */
 }
 
 .plugin-category {

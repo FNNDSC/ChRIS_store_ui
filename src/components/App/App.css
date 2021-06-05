@@ -53,16 +53,16 @@
 article {
   margin: auto;
   margin-bottom: 4em;
-  max-width: 1200px;
+  max-width: 1000px;
 }
 
 section { 
-  margin: auto;
+  margin: 2em auto;
 }
 
 /* Typography */
 h1, h2, h3 {
-  font-size: 3em !important;
+  font-size: 2.5em !important;
   margin-top: 0.25em !important;
   margin-bottom: 0.5em !important;
 }
