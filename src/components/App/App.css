@@ -58,13 +58,11 @@ article {
 
 section { 
   margin: auto;
-  margin: 4em 0;
 }
 
 /* Typography */
 h1, h2, h3 {
   font-size: 3em !important;
-  line-height: 0.85em !important;
   margin-top: 0.25em !important;
   margin-bottom: 0.5em !important;
 }

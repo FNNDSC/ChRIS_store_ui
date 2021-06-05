@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
 import Client from '@fnndsc/chrisstoreapi';
 import { Link } from 'react-router-dom';
 import { CardHeader, Grid, GridItem } from '@patternfly/react-core';
-import { Form, FormGroup, TextInput, FileUpload, FormHelperText } from '@patternfly/react-core';
-import { Label as ControlLabel, Alert, Card, CardBody, CodeBlock, CodeBlockCode } from '@patternfly/react-core';
+import { Form, FormGroup, TextInput, FileUpload, } from '@patternfly/react-core';
+import { Alert, Card, CardBody, CodeBlock, CodeBlockCode } from '@patternfly/react-core';
 import { FileIcon, UploadIcon, ExclamationTriangleIcon } from '@patternfly/react-icons'
 
 import Button from '../Button';
@@ -343,7 +342,15 @@ class CreatePlugin extends Component {
               </GridItem>
 
               <GridItem xs={12}>
-                <h3>Plugin Creation</h3>
+                <h3><b>Plugin Creation</b></h3>
+                <p style={{ fontSize: '1.25em' }}>
+                  Plugins should already exist and have their own public source repo and existing docker image.
+                  Adding a plugin to the store simply adds the location of your plugin, allowing other users to access it.
+                </p>
+              </GridItem>
+
+              <GridItem xs={12}>
+                <h3><b>About Plugins</b></h3>
                 <p style={{ fontSize: '1.25em' }}>
                   Plugins should already exist and have their own public source repo and existing docker image.
                   Adding a plugin to the store simply adds the location of your plugin, allowing other users to access it.
