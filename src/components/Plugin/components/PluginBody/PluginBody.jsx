@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, GridItem, Tabs, Tab, TabTitleText } from '@patternfly/react-core';
+import { Grid, GridItem, Tabs, Tab, TabTitleText, Card } from '@patternfly/react-core';
 import PropTypes from 'prop-types';
 import marked from 'marked';
 import { sanitize } from 'dompurify';
@@ -91,111 +91,105 @@ const PluginBody = ({ pluginData }) => {
         ))
       }
 
-      <div className="plugin-body">
-        <div className="container-fluid container-cards-pf">
-          <div className="row row-cards-pf">
-            <div className="card-pf">
-              <Tabs activeKey={activeTab} onSelect={handleTabClick}>
-                <Tab eventKey={1} title={<TabTitleText>Overview</TabTitleText>}>
-                  <Grid hasGutter className="plugin-body-main">
-                    <GridItem md={8} sm={12}>
-                      <div className="plugin-body-main-col">
-                        <h1>{pluginData.title}</h1>
-                        <div style={{ color: "gray" }}>README</div>
-                        { readme ? <div dangerouslySetInnerHTML={{ __html: readme }}></div> : null }
-                      </div>
-                    </GridItem>
-                    <GridItem md={4} sm={12}>
-                      <div className="plugin-body-side-col">
-                        <div className="plugin-body-copy-url">
-                          <CopyURLButton className="pf-c-button pf-m-primary" text={pluginData.url} />
-                        </div>
-                        <div className="plugin-body-detail-section">
-                          <h4>Repository</h4>
-                          <a href={pluginData.public_repo}>
-                            {pluginData.public_repo}
-                          </a>
-                        </div>
-                        <div className="plugin-body-detail-section">
-                          <h4>Contributors</h4>
-                          <a href={pluginData.authorURL}
-                            className="pf-m-link" type="button">
-                            <span className="pf-c-button__icon pf-m-start">
-                              <i className="fas fa-user" aria-hidden="true"></i>
-                            </span>{' '}
-                            {removeEmail(pluginData.authors)}
-                          </a>
-                          <div className="plugin-body-contributors-all">
-                            <br/>
-                            <a className="pf-m-link" href={`${pluginData.public_repo}/graphs/contributors`}>
-                              View all contributors
-                            </a>
-                          </div>
-                        </div>
-                        <div className="plugin-body-detail-section">
-                          <h4>Plugin ID</h4>
-                          {pluginData.id}
-                        </div>
-                        <div className="plugin-body-detail-section">
-                          <h4>License</h4>
-                          { repoData ? repoData.license.name : pluginData.license }
-                        </div>
-                        <div className="plugin-body-detail-section">
-                          <h4>Content Type</h4>
-                          {pluginData.type}
-                        </div>
-                        <div className="plugin-body-detail-section">
-                          <h4>Date added</h4>
-                          {(new Date(pluginData.creation_date)).toDateString()}
-                        </div>
-                      </div>
-                    </GridItem>
-                  </Grid>
-                </Tab>
+      <article>
+        <Card id="plugin-body">
+          <Tabs activeKey={activeTab} onSelect={handleTabClick}>
+            <Tab eventKey={1} title={<TabTitleText>Overview</TabTitleText>}>
+              <Grid hasGutter>
+                <GridItem md={8} sm={12}>
+                  <h1>{pluginData.title}</h1>
+                  <div style={{ color: "gray" }}>README</div>
+                  { readme ? <div dangerouslySetInnerHTML={{ __html: readme }}></div> : null }
+                </GridItem>
+                <GridItem md={4} sm={12}>
+                  <div className="plugin-body-side-col">
+                    <div className="plugin-body-detail-section">
+                      <h4>Install</h4>
+                      <p>Click to install this plugin to your ChRIS Server.</p>
+                      <br />
+                      <CopyURLButton text={pluginData.url} />
+                    </div>
+                    <div className="plugin-body-detail-section">
+                      <h4>Repository</h4>
+                      <a href={pluginData.public_repo}>
+                        {pluginData.public_repo}
+                      </a>
+                    </div>
+                    <div className="plugin-body-detail-section">
+                      <h4>Contributors</h4>
+                      <a href={pluginData.authorURL} className="pf-m-link" type="button">
+                        <span className="pf-c-button__icon pf-m-start">
+                          <i className="fas fa-user" aria-hidden="true"></i>
+                        </span>{' '}
+                        {removeEmail(pluginData.authors)}
+                      </a>
+                      <br/>
+                      <a className="pf-m-link" href={`${pluginData.public_repo}/graphs/contributors`}>
+                        View all contributors
+                      </a>
+                    </div>
+                    <div className="plugin-body-detail-section">
+                      <h4>Plugin ID</h4>
+                      {pluginData.id}
+                    </div>
+                    <div className="plugin-body-detail-section">
+                      <h4>License</h4>
+                      { repoData ? repoData.license.name : pluginData.license }
+                    </div>
+                    <div className="plugin-body-detail-section">
+                      <h4>Content Type</h4>
+                      {pluginData.type}
+                    </div>
+                    <div className="plugin-body-detail-section">
+                      <h4>Date added</h4>
+                      {(new Date(pluginData.creation_date)).toDateString()}
+                    </div>
+                  </div>
+                </GridItem>
+              </Grid>
+            </Tab>
 
-                <Tab eventKey={2} title={<TabTitleText>Parameters</TabTitleText>}>
-                  <Grid hasGutter className="plugin-body-main">
-                    <GridItem sm={12}>Parameters content</GridItem>
-                  </Grid>
-                </Tab>
+            <Tab eventKey={2} title={<TabTitleText>Parameters</TabTitleText>}>
+              <Grid hasGutter className="plugin-body-main">
+                <GridItem sm={12}>Parameters content</GridItem>
+              </Grid>
+            </Tab>
 
-                <Tab eventKey={3} title={<TabTitleText>Versions</TabTitleText>}>
-                  <Grid hasGutter className="plugin-body-main">
-                    <GridItem sm={12}>
+            <Tab eventKey={3} title={<TabTitleText>Versions</TabTitleText>}>
+              <Grid hasGutter className="plugin-body-main">
+                <GridItem sm={12}>
+                  {
+                    pluginData.versions !== undefined ? (
+                      <>
+                      <h2>Versions of this plugin</h2>
                       {
-                        pluginData.versions !== undefined ? (
-                          <>
-                          <h2>Versions of this plugin</h2>
-                          {
-                            Object.keys(pluginData.versions).length > 1 ? 
-                              Object.keys(pluginData.versions).map((version) => (
-                                <div key={version}>
-                                  <Link
-                                    href={`/plugin/${pluginData.name}/${version}`}
-                                    to={`/plugin/${pluginData.name}/${version}`}
-                                  >
-                                    {versionString(version)}
-                                  </Link>
-                                </div>
-                              )) : (
-                              <div>
-                                {versionString(Object.keys(pluginData.versions).toString())}
-                              </div>
-                            )
-                          }
-                          </>
-                        ) : <div>
-                          <p>This is the only version of this plugin.</p>
-                        </div>
+                        Object.keys(pluginData.versions).length > 1 ? 
+                          Object.keys(pluginData.versions).map((version) => (
+                            <div key={version}>
+                              <Link
+                                href={`/plugin/${pluginData.name}/${version}`}
+                                to={`/plugin/${pluginData.name}/${version}`}
+                              >
+                                {versionString(version)}
+                              </Link>
+                            </div>
+                          )) : (
+                          <div>
+                            {versionString(Object.keys(pluginData.versions).toString())}
+                          </div>
+                        )
                       }
-                    </GridItem>
-                  </Grid>
-                </Tab>
-              </Tabs>
-            </div>
-          </div>
-        </div>
-      </div>
+                      </>
+                    ) : <div>
+                      <p>This is the only version of this plugin.</p>
+                    </div>
+                  }
+                </GridItem>
+              </Grid>
+            </Tab>
+          </Tabs>
+        </Card>
+      </article>
     </React.Fragment>
   );
 }

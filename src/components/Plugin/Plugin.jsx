@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, GridItem } from '@patternfly/react-core';
+import { Grid, GridItem, Split, SplitItem } from '@patternfly/react-core';
 import { StarIcon, ClockIcon } from '@patternfly/react-icons';
 import PropTypes from 'prop-types';
 import Client from '@fnndsc/chrisstoreapi';
@@ -202,52 +202,56 @@ export class Plugin extends Component {
       if (!authorURL) authorURL = `/author/${author}`;
 
       container = (
-        <div className="plugin-container">
-          <div className="plugin-header">
-            <Grid hasGutter>
-              <GridItem md={2} sm={12}>
+        <article>
+          <section>
+            <Split>
+              <SplitItem style={{ marginRight: '2em' }}>
                 <img
                   className="plugin-icon"
                   src={PluginImg}
                   alt="Plugin icon"
                 />
-              </GridItem>
-              <GridItem sm={10}>
-                <div className="plugin-category">
-                  Visualization
-                </div>
-                <div className="plugin-name">
-                  <Link
-                    href={pluginURL || '/'}
-                    to={pluginURL || '/'}
-                    className="plugin-name"
-                  >
-                    {data.name}
-                  </Link>
-                  {this.renderStar()}
-                </div>
-                <div className="plugin-description">
-                  {data.description}
-                </div>
-                <div className="plugin-stats">
-                  <StarIcon name="star" size="lg" /> {data.stars}
-                  { 
-                    modificationDate.isValid() ?
-                      <span className="plugin-modified">
-                        <ClockIcon name="clock-o" size="lg" /> Last modified {modificationDate.format()}
-                      </span>
-                    : null
-                  }
-                </div>
-              </GridItem>
-            </Grid>
-          </div>
-          <PluginBody pluginData={data} />
-        </div>
+              </SplitItem>
+              <SplitItem isFilled>
+                <Grid>
+                  <GridItem className="plugin-category">{data.category}</GridItem>
+                  <GridItem className="plugin-name">
+                    <Link
+                      href={pluginURL || '/'}
+                      to={pluginURL || '/'}
+                      className="plugin-name"
+                    >
+                      {data.name}
+                    </Link>
+                    {this.renderStar()}
+                  </GridItem>
+
+                  <GridItem className="plugin-description">{data.description}</GridItem>
+                  <GridItem className="plugin-stats">
+                    <StarIcon name="star" size="lg" /> {data.stars}
+                    { 
+                      modificationDate.isValid() ?
+                        <span className="plugin-modified">
+                          <ClockIcon name="clock-o" size="lg" /> Last modified {modificationDate.format()}
+                        </span>
+                      : null
+                    }
+                  </GridItem>
+                </Grid>
+              </SplitItem>
+            </Split>
+          </section>
+
+          <section>
+            <PluginBody pluginData={data} />
+          </section>
+        </article>
       );
     } else {
       container = (
-        <LoadingPlugin />
+        <article>
+          <LoadingPlugin />
+        </article>
       );
     }
 
