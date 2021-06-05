@@ -19,6 +19,7 @@ const Router = () => (
       <Route path="/plugins" component={ConnectedPlugins} />
       <Route path="/plugin/:plugin" component={ConnectedPlugin} />
       <Route path="/quickstart" component={Developers} />
+      <Route path="/faq" component={Welcome}/>
       <ProtectedRoute path="/create" component={CreatePlugin} />
       <ProtectedRoute path="/dashboard" component={Dashboard} />
       <Route component={NotFound} />

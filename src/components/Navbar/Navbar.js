@@ -20,14 +20,18 @@ const navLinks = [
     to: '/plugins'
   },
   {
-    label: 'Quick Start',
+    label: 'Submit your Plugin',
     to: '/quickstart'
   },
+  // {
+  //   label: 'FAQ',
+  //   to: '/faq'
+  // },
   {
     label: 'Dashboard',
     to: '/dashboard',
     cond: (store) => store.get('isLoggedIn')
-  }
+  },
 ];
 
 /**
