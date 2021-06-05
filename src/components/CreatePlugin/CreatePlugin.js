@@ -3,12 +3,16 @@ import Client from '@fnndsc/chrisstoreapi';
 import { Link } from 'react-router-dom';
 import {
   Form, FormGroup, ControlLabel, FormControl, HelpBlock,
-  Col, Icon, Card, Button, Alert, CardBody, HintBlock,
+  Col, Icon
 } from 'patternfly-react';
+import Button from '../Button';
 import classNames from 'classnames';
 import './CreatePlugin.css';
 
 import { Plugin } from '../Plugin/Plugin';
+import { Alert, AlertActionCloseButton, Card, CardBody, CodeBlock, CodeBlockCode } from '@patternfly/react-core';
+import HintBlock from '../Hintblock';
+import { createPluginHint } from './constant';
 
 const generateFormGroup = (id, label, help, value, handleChange) => (
   <FormGroup controlId={id} key={id}>
@@ -188,7 +192,7 @@ class CreatePlugin extends Component {
 
     return true;
   }
-  
+
   async handleSubmit() {
     const {
       name: pluginName,
@@ -206,10 +210,26 @@ class CreatePlugin extends Component {
         return this.handleError(<span>The <code>:latest</code> tag is discouraged.</span>);
       }
       else if (!inputImage.includes(':')) {
-        const description = 'Please tag your Docker image by version.';
-        let tagExample = `docker tag ${inputImage.split(':')[0]} ${inputImage.split(':')[0]}:1.0.1`; //TODO 
-        let pushExample = `docker push ${inputImage.split(':')[0]}:1.0.1`; //TODO
-        return this.handleError(<div>{description} <p><b>Example:</b><br/>{tagExample}<br/>{pushExample}</p></div> );
+        /*
+         * TODO
+         * We can provide specific feedback based on the plugin's JSON description,
+         * if it is uploaded.
+         */
+        const tag = inputImage.split(':')[0];
+        return this.handleError(
+          <div>
+            <p>
+              Please tag your Docker image by version.<br />
+              Example:
+            </p>
+            <CodeBlock>
+              <CodeBlockCode>
+                docker tag {tag} {tag}:1.0.1<br />
+                docker push {tag}:1.0.1
+              </CodeBlockCode>
+            </CodeBlock>
+          </div>
+        );
       }
     }
     if (!(
@@ -341,8 +361,7 @@ class CreatePlugin extends Component {
                 <div className="createplugin-create-btn-container">
                   <Button
                     className="createplugin-create-btn"
-                    bsStyle="primary"
-                    bsSize="large"
+                    variant="primary"
                     onClick={this.handleSubmit}
                   >
                     Create
@@ -355,13 +374,12 @@ class CreatePlugin extends Component {
             formError && (
               <div className="createplugin-message-container error">
                 <div className="row">
-                  <Alert
-                    className="createplugin-message"
-                    type="error"
-                    onDismiss={this.hideMessage}
-                  > 
-                    {formError}
-                  </Alert>
+                <Alert
+                  className="createplugin-message"
+                  variant="danger"
+                  title={formError}
+                  actionClose={<AlertActionCloseButton onClose={this.hideMessage} />}
+                />
                 </div>
               </div>
             )
@@ -372,9 +390,9 @@ class CreatePlugin extends Component {
                 <div className="row">
                   <Alert
                     className="createplugin-message"
-                    type="success"
+                    variant="success"
+                    title="Plugin was successfully created!"
                   >
-                    {'Plugin was successfully created! '}
                     <Link
                       className="createplugin-success-message-link"
                       to={`/plugin/${pluginId}`}
@@ -393,12 +411,8 @@ class CreatePlugin extends Component {
               <div className="createplugin-col">
                 <Card className="createplugin-info">
                   <CardBody>
-                    <HintBlock
-                      title=""
-                      body="Plugins should already exist and have their own public source repo
-                      and existing docker image. Adding a plugin to the store simply adds
-                      the location of your plugin, as well as some metadata, to the store,
-                      allowing other users easy access to it."
+                    <HintBlock 
+                      hintBody= {createPluginHint}
                     />
                   </CardBody>
                 </Card>

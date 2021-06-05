@@ -1,7 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Plugins should render correctly 1`] = `
-ShallowWrapper {
-  "length": 1,
-}
-`;
+exports[`Plugins should render correctly 1`] = `ShallowWrapper {}`;

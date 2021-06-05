@@ -149,6 +149,7 @@
   .welcome-cta .welcome-cta-featured-container {
     /* display */
     width: auto;
+    text-align: center;
 
     /* flex */
     flex-direction: row;
