@@ -19,10 +19,6 @@
     padding-top: 20px;
 }
 
-.dashboard-spinner{
-    margin: 0 auto;
-}
-
 .dashboard-left-column {
     display: flex;
     flex-direction: column;
@@ -45,23 +41,19 @@
 .dashboard-body {
     margin-top: -20px;
 }
-
-.dashboard-container {
-    margin: 0 auto;
-    margin-top: 20px;
-}
-@media (min-width: 768px){
+@media (min-width: 1200px){
     .dashboard-container{
-        width: 760px;
+        width: 1180px;
     }
+    
 }
 @media (min-width: 992px){
     .dashboard-container{
         width: 980px;
     }
 }
-@media (min-width: 1200px){
+@media (min-width: 768px){
     .dashboard-container{
-        width: 1180px;
+        width: 760px;
     }
 }

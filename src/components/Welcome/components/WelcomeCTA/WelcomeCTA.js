@@ -23,7 +23,6 @@ const WelcomeCTA = () => (
       <div className="welcome-cta-featured-desc">
         Apps available in the ChRIS store include:
       </div>
-
       <div className="row welcome-cta-featured-container">
         <WelcomeFeature name="Fastsurfer" img={freesurferLogo} url='https://chrisstore.co/plugin/44'/>
         <WelcomeFeature name="Infant-FreeSurfer" img={infantLogo} url='https://chrisstore.co/plugin/78'/>

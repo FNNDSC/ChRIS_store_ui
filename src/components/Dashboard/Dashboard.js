@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { CardGrid, Spinner } from "patternfly-react";
 import PropTypes from "prop-types";
 import Button from "../Button";
 import Client from "@fnndsc/chrisstoreapi";
@@ -9,7 +10,6 @@ import DashGitHubView from "./components/DashGitHubView/DashGitHubView";
 import ChrisStore from "../../store/ChrisStore";
 import Notification from "../Notification";
 import HttpApiCallError from "../../errors/HttpApiCallError";
-import { Spinner } from "@patternfly/react-core";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -23,7 +23,6 @@ class Dashboard extends Component {
     this.deletePlugin = this.deletePlugin.bind(this);
     this.editPlugin = this.editPlugin.bind(this);
   }
-
   componentDidMount() {
     this.fetchPlugins().catch((err) => {
       this.showNotifications(new HttpApiCallError(err));
@@ -45,7 +44,6 @@ class Dashboard extends Component {
       offset: 0,
     };
     this.setState({ loading: true, pluginList: null });
-
     return client.getPlugins(searchParams).then((plugins) => {
       this.setState((prevState) => {
         const prevPluginList = prevState.pluginList ? prevState.pluginList : [];
@@ -55,13 +53,11 @@ class Dashboard extends Component {
       return plugins.data;
     });
   }
-
   async deletePlugin(pluginId) {
     const { store } = this.props;
     const storeURL = process.env.REACT_APP_STORE_URL;
     const auth = { token: store.get("authToken") };
     const client = new Client(storeURL, auth);
-
     let response;
     try {
       response = await client.getPlugin(pluginId);
@@ -76,13 +72,11 @@ class Dashboard extends Component {
     }
     return response;
   }
-
   editPlugin(pluginId, publicRepo) {
     const { store } = this.props;
     const storeURL = process.env.REACT_APP_STORE_URL;
     const auth = { token: store.get("authToken") };
     const client = new Client(storeURL, auth);
-
     let response;
     try {
       response = client
@@ -98,15 +92,12 @@ class Dashboard extends Component {
     }
     return response;
   }
-
   initialize() {
     const { arePluginsAvailable } = this.state;
-
     this.setState({
       arePluginsAvailable: !arePluginsAvailable,
     });
   }
-
   render() {
     const { pluginList, loading, error } = this.state;
     const { store } = this.props;
@@ -132,30 +123,24 @@ class Dashboard extends Component {
             </div>
           </div>
         </div>
-        <div className="cards-pf dashboard-body">
-          <div className="dashboard-container">
-          <div className="dashboard-row">
-            {loading ? (
-              <div className="dashboard-spinner">
-              <Spinner size="lg" loading={loading} />
-              </div>
-            ) : (
-              <React.Fragment>
-                <div className="dashboard-left-column">
-                  <DashPluginCardView
-                    plugins={pluginList}
-                    onDelete={this.deletePlugin}
-                    onEdit={this.editPlugin}
-                  />
-                  <DashTeamView plugins={pluginList} />
+        <div className='cards-pf dashboard-body'>
+          <CardGrid>
+            <div className='dashboard-row'>
+              <Spinner size="lg" loading={loading}>
+                <div className='dashboard-left-column'>
+                      <DashPluginCardView
+                        plugins={pluginList}
+                        onDelete={this.deletePlugin}
+                        onEdit={this.editPlugin}
+                      />
+                      <DashTeamView plugins={pluginList} />
                 </div>
-                <div className="dashboard-right-column">
+                <div className='dashboard-right-column'>
                   <DashGitHubView plugins={pluginList} />
                 </div>
-              </React.Fragment>
-            )}
-          </div>
-        </div>
+              </Spinner>
+            </div>
+          </CardGrid>
         </div>
       </React.Fragment>
     );
@@ -167,5 +152,4 @@ Dashboard.propTypes = {
 Dashboard.defaultProps = {
   store: {},
 };
-
 export default ChrisStore.withStore(Dashboard);
