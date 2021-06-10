@@ -1,5 +1,5 @@
-import { FormGroup, FormHelperText, TextInput } from '@patternfly/react-core';
-import React from 'react';
+import { FormGroup, FormHelperText, TextInput } from "@patternfly/react-core";
+import React from "react";
 
 const FormInput = (props) => {
   const {
@@ -20,7 +20,7 @@ const FormInput = (props) => {
     placeholder,
     className,
     defaultValue,
-  } = props;
+  } = props;  
   return (
     <FormGroup
       label={formLabel}
@@ -28,15 +28,17 @@ const FormInput = (props) => {
       validated={validationState}
       className={className}
       helperText={
-        helperText ? 
-        <FormHelperText isHidden={validationState === 'error'}>
-          {helperText}
-        </FormHelperText> : null
+        helperText ? (
+          <FormHelperText isHidden={validationState === "error"}>
+            {helperText}
+          </FormHelperText>
+        ) : null
       }
-      helperTextInvalid={errorMessage && errorControls && errorControls.includes(fieldName) ? errorMessage: null}
+      helperTextInvalid={errorControls && errorMessage ? errorMessage : null}
     >
-    {
-      children ? children : (
+      {children ? (
+        children
+      ) : (
         <TextInput
           validated={validationState}
           type={inputType}
@@ -50,11 +52,9 @@ const FormInput = (props) => {
           placeholder={placeholder}
           defaultValue={defaultValue}
         />
-      )
-    }
-    
+      )}
     </FormGroup>
-  )
+  );
 };
 
 export default FormInput;

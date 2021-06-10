@@ -3,7 +3,7 @@ import { Form, Spinner } from "@patternfly/react-core";
 import { validate } from "email-validator";
 import _ from "lodash";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import ChrisStore from "../../../../store/ChrisStore";
 import Button from "../../../Button";
@@ -36,12 +36,22 @@ const DeveloperSignup = ({ store, ...props }) => {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [errorControls, setErrorControls] = useState([]);
+  const [errorUsername, setErrorUsername] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+  const [errorPassword, setErrorPassword] = useState("");
+  const [errorPasswordConfirm, setErrorPasswordConfirm] = useState("");
   const [notifyErr, setNotifyErr] = useState(null);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+
+  useEffect(() => {
+    setErrorUsername("");
+    setErrorEmail("");
+    setErrorPassword("");
+    setErrorPasswordConfirm("");
+  }, [username, email, password, passwordConfirm]);
 
   const showNotifications = (error) => {
     setNotifyErr(error.message);
@@ -51,38 +61,38 @@ const DeveloperSignup = ({ store, ...props }) => {
     event.preventDefault();
 
     if (!username) {
-      setErrorControls(["username"]);
+      setErrorUsername("username");
       return setErrorMessage("A valid Username is required");
     }
 
     if (!email || !validate(email)) {
-      setErrorControls(["email"]);
+      setErrorEmail("email");
       return setErrorMessage("A valid Email is required");
     }
 
     if (!password) {
-      setErrorControls(["password"]);
+      setErrorPassword("password");
       return setErrorMessage("Password is required");
     }
 
     if (!passwordConfirm) {
-      setErrorControls(["confirmation"]);
+      setErrorPasswordConfirm("confirmation");
       return setErrorMessage("Confirmation is required");
     }
 
     if (password.length < 8) {
-      setErrorControls(["password"]);
+      setErrorPassword("password");
       return setErrorMessage("Password should be atleast 8 characters");
     }
 
     if (password !== passwordConfirm) {
-      setErrorControls(["password", "confirmation"]);
+      setErrorPassword("password");
+      setErrorPasswordConfirm("confirmation");
+
       return setErrorMessage("Password and confirmation do not match");
     }
 
     setLoading(true);
-    setErrorMessage("");
-    setErrorControls([]);
     store.set("userName")(username);
 
     return handleStoreLogin();
@@ -101,12 +111,12 @@ const DeveloperSignup = ({ store, ...props }) => {
         if (_.has(e, "response.data.username")) {
           setLoading(false);
           setErrorMessage("This username is already registered.");
-          setErrorControls(["username"]);
+          setErrorUsername(["username"]);
         }
         if (_.has(e, "response.data.email")) {
           setLoading(false);
           setErrorMessage("This email is already registered.");
-          setErrorControls(["email"]);
+          setErrorEmail(["email"]);
         }
       } else {
         setLoading(false);
@@ -142,7 +152,7 @@ const DeveloperSignup = ({ store, ...props }) => {
           formLabel="Username"
           fieldId="username"
           validationState={
-            errorControls.includes("username") ? "error" : "default"
+            errorUsername.includes("username") ? "error" : "default"
           }
           helperText="Enter your username"
           inputType="text"
@@ -151,23 +161,21 @@ const DeveloperSignup = ({ store, ...props }) => {
           value={username}
           autofocus={!isTouchDevice}
           onChange={(val) => setUsername(val)}
-          errorControls={errorControls}
+          errorControls={errorUsername}
           errorMessage={errorMessage}
         />
 
         <FormInput
           formLabel="Email"
           fieldId="email"
-          validationState={
-            errorControls.includes("email") ? "error" : "default"
-          }
+          validationState={errorEmail.includes("email") ? "error" : "default"}
           helperText="Enter your email"
           inputType="email"
           id="email"
           fieldName="email"
           value={email}
           onChange={(val) => setEmail(val)}
-          errorControls={errorControls}
+          errorControls={errorEmail}
           errorMessage={errorMessage}
         />
 
@@ -175,7 +183,7 @@ const DeveloperSignup = ({ store, ...props }) => {
           formLabel="Password"
           fieldId="password"
           validationState={
-            errorControls.includes("password") ? "error" : "default"
+            errorPassword.includes("password") ? "error" : "default"
           }
           helperText="Enter your password"
           inputType="password"
@@ -183,7 +191,7 @@ const DeveloperSignup = ({ store, ...props }) => {
           fieldName="password"
           value={password}
           onChange={(val) => setPassword(val)}
-          errorControls={errorControls}
+          errorControls={errorPassword}
           errorMessage={errorMessage}
         />
 
@@ -191,7 +199,7 @@ const DeveloperSignup = ({ store, ...props }) => {
           formLabel="Password Confirmation"
           fieldId="password-confirm"
           validationState={
-            errorControls.includes("confirmation") ? "error" : "default"
+            errorPasswordConfirm.includes("confirmation") ? "error" : "default"
           }
           helperText="Confirm your password"
           inputType="password"
@@ -199,7 +207,7 @@ const DeveloperSignup = ({ store, ...props }) => {
           fieldName="passwordConfirm"
           value={passwordConfirm}
           onChange={(val) => setPasswordConfirm(val)}
-          errorControls={errorControls}
+          errorControls={errorPasswordConfirm}
           errorMessage={errorMessage}
         />
 
