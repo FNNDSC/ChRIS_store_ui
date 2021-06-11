@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Client from "@fnndsc/chrisstoreapi";
 import {
@@ -16,14 +16,14 @@ import LoadingContent from "../LoadingContainer/components/LoadingContent/Loadin
 import ChrisStore from "../../store/ChrisStore";
 import HttpApiCallError from "../../errors/HttpApiCallError";
 import Notification from "../Notification";
-import './Plugins.css';
+import "./Plugins.css";
 
 const CATEGORIES = ["FreeSurfer", "MRI", "Segmentation", "copy"];
 const storeURL = process.env.REACT_APP_STORE_URL;
 
 const Plugins = (props) => {
   const auth = { token: props.store.get("authToken") };
-  const Categories = new Map()
+  const Categories = new Map();
   CATEGORIES.forEach((name) => Categories.set(name, 0));
 
   const client = new Client(storeURL, auth);
@@ -32,16 +32,15 @@ const Plugins = (props) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [categories, setCategories] = useState(Categories);
   const [pluginList, setPluginList] = useState([]);
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   const onToggle = (isOpen) => {
-    setIsOpen(isOpen)
-  }
+    setIsOpen(isOpen);
+  };
 
   const onSelect = (event) => {
-    setIsOpen(!isOpen)
-  }
-
+    setIsOpen(!isOpen);
+  };
 
   const isLoggedIn = () => {
     return props.store ? props.store.get("isLoggedIn") : false;
@@ -84,9 +83,8 @@ const Plugins = (props) => {
       }
     }
 
-    setCategories(categories)
+    setCategories(categories);
     setPluginList(plugins.data);
-
 
     if (isLoggedIn()) {
       try {
@@ -216,15 +214,39 @@ const Plugins = (props) => {
 
   const removeEmail = (author) => author.replace(/( ?\(.*\))/g, "");
 
-    const dropdownItems = [
-      <DropdownItem key="name" component="button">
-        Name
-      </DropdownItem>,
-    ];
+  const dropdownItems = [
+    <DropdownItem
+      key="name"
+      component="button"
+      onClick={() => pluginList.sort((a, b) => (a.name > b.name ? 1 : -1))}
+    >
+      Name
+    </DropdownItem>,
+    <DropdownItem
+      key="author"
+      component="button"
+      onClick={() =>
+        pluginList.sort((a, b) => (a.authors > b.authors ? 1 : -1))
+      }
+    >
+      Author
+    </DropdownItem>,
+    <DropdownItem
+      key="date_created"
+      component="button"
+      onClick={() =>
+        pluginList.sort(
+          (a, b) => new Date(a.creation_date) - new Date(b.creation_date)
+        )
+      }
+    >
+      Date Created
+    </DropdownItem>,
+  ];
 
-    return (
-      <div {...props}>
-      <div className='plugins-container'>
+  return (
+    <div {...props}>
+      <div className="plugins-container">
         {errorMsg && (
           <Notification
             title={errorMsg}
@@ -234,11 +256,11 @@ const Plugins = (props) => {
             onClose={() => setErrorMsg({ errorMsg: null })}
           />
         )}
-        <div className='plugins-stats'>
-        <div className='row plugins-stats-row'>
+        <div className="plugins-stats">
+          <div className="row plugins-stats-row">
             {/* Plugins Found */}
-            {pluginList ? (
-              <span className='plugins-found'>
+            {pluginList.length > 0 ? (
+              <span className="plugins-found">
                 {pluginList.length} plugins found
               </span>
             ) : (
@@ -253,7 +275,7 @@ const Plugins = (props) => {
               </LoadingContainer>
             )}
             <Dropdown
-            className='sort-by-dropdown btn-group'
+              className="sort-by-dropdown btn-group"
               onSelect={onSelect}
               position={DropdownPosition.right}
               toggle={
@@ -271,14 +293,14 @@ const Plugins = (props) => {
             />
           </div>
         </div>
-        <div className='row plugins-row'>
+        <div className="row plugins-row">
           <PluginsCategories
             categories={categoryEntries}
             onSelect={handleCategorySelect}
           />
-          <div className='plugins-list'>
+          <div className="plugins-list">
             {/* Plugin List Body*/}
-            {pluginList
+            {pluginList.length > 0
               ? pluginList
                   .filter((plugin) => {
                     if (selectedCategory) {
