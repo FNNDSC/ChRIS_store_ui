@@ -6,7 +6,7 @@ import { CopyIcon } from '@patternfly/react-icons';
 import './CopyToClipboard.css';
 
 const CopyToClipboard = ({ clipboardText }) => (
-  <d>
+  <div>
     <Tooltip id="copiedTooltip"
       trigger="click"
       content={(
@@ -19,7 +19,7 @@ const CopyToClipboard = ({ clipboardText }) => (
         <CopyIcon />
       </Clipboard>
     </Tooltip>
-  </d>
+  </div>
 )
 
 CopyToClipboard.propTypes = { clipboardText: PropTypes.string.isRequired };
