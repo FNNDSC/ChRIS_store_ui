@@ -11,6 +11,7 @@ import CreatePlugin from '../CreatePlugin/CreatePlugin';
 import NotFound from '../NotFound/NotFound';
 import Dashboard from '../Dashboard/Dashboard';
 import ProtectedRoute from './ProtectedRoute';
+import Faq from '../Faq/Faq'
 
 const Router = () => (
   <AppLayout>
@@ -19,6 +20,7 @@ const Router = () => (
       <Route path="/plugins" component={ConnectedPlugins} />
       <Route path="/plugin/:plugin" component={ConnectedPlugin} />
       <Route path="/quickstart" component={Developers} />
+      <Route path="/faq" component={Faq}/>
       <ProtectedRoute path="/create" component={CreatePlugin} />
       <ProtectedRoute path="/dashboard" component={Dashboard} />
       <Route component={NotFound} />

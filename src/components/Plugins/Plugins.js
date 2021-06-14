@@ -306,9 +306,40 @@ export class Plugins extends Component {
         )}
         <div className="plugins-stats">
           <div className="row plugins-stats-row">
+            {/* number of plugins found related to the search  */}
             {pluginsFound}
             <DropdownButton id="sort-by-dropdown" title="Sort By" pullRight>
-              <MenuItem eventKey="1">Name</MenuItem>
+              <MenuItem
+                eventKey="1"
+                onClick={() =>
+                  this.setState({
+                    sortFunc: (a, b) => (a.name > b.name ? 1 : -1),
+                  })
+                }
+              >
+                Name
+              </MenuItem>
+              <MenuItem
+                eventKey="2"
+                onClick={() =>
+                  this.setState({
+                    sortFunc: (a, b) => (a.authors > b.authors ? 1 : -1),
+                  })
+                }
+              >
+                Author
+              </MenuItem>
+              <MenuItem
+                eventKey="3"
+                onClick={() =>
+                  this.setState({
+                    sortFunc: (a, b) =>
+                      new Date(a.creation_date) - new Date(b.creation_date),
+                  })
+                }
+              >
+                Date Created
+              </MenuItem>
             </DropdownButton>
           </div>
         </div>
