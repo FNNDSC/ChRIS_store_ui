@@ -16,7 +16,7 @@ const Router = () => (
   <AppLayout>
     <Switch>
       <Route exact path="/" component={Welcome} />
-      <Route path="/plugin/p/:pluginId" component={ConnectedPlugin} />
+      <Route path="/p/:pluginId" component={ConnectedPlugin} />
       <Route path="/plugins" component={ConnectedPlugins} />
       <Route path="/plugin" component={ConnectedPlugins} />
       <Route path="/quickstart" component={Developers} />
