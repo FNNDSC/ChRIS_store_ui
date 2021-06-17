@@ -157,7 +157,7 @@ class DashPluginCardView extends Component {
           <Card style={{ height: '100%' }}>
             <CardHeader>
               <CardTitle>
-                <Link to={`/plugin/${plugin.id}`}>{plugin.name}</Link>
+                <Link to={`/plugin/${plugin.name}`}>{plugin.name}</Link>
               </CardTitle>
               <CardActions>
                 <Dropdown

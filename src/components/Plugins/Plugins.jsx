@@ -289,14 +289,14 @@ export class Plugins extends Component {
       : 
       authors.replace(/( ?<.*>)/g, '');
 
-    function filterMap(map, condition) {
-      let result = new Map();
-      for (let [k, v] of map)
-        if (condition(k,v))
-          result.set(k, v);
+    // function filterMap(map, condition) {
+    //   let result = new Map();
+    //   for (let [k, v] of map)
+    //     if (condition(k,v))
+    //       result.set(k, v);
           
-      return result;
-    }
+    //   return result;
+    // }
 
     // Render the pluginList if the plugins have been fetched
     const PluginListBody = () => {
