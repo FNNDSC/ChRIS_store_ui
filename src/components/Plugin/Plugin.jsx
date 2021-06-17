@@ -50,12 +50,16 @@ export class Plugin extends Component {
   async componentDidMount() {
     let pluginData;
 
+    console.log(this.state.pluginData)
     if (!this.state.pluginData) {
       pluginData = await this.fetchPluginData();
     } else {
       ({ pluginData } = this.state);
     }
 
+    if (this.mounted) {
+      this.setState({ pluginData, loading: false });
+    }
     if (this.isLoggedIn()) {
       this.fetchStarDataByPluginName(pluginData.name);
     }
@@ -118,21 +122,14 @@ export class Plugin extends Component {
   }
 
   async fetchPluginData() {
-    const { plugin: pluginId } = this.props.match.params;
+    const { pluginId } = this.props.match.params;
 
-    let pluginData;
     try {
       const plugin = await this.client.getPlugin(parseInt(pluginId, 10));
-      pluginData = plugin.data;
-      pluginData.url = plugin.url;
+      return { ...plugin.data, url: plugin.url };
     } catch (e) {
       this.showNotifications(new HttpApiCallError(e));
     }
-
-    if (this.mounted) {
-      this.setState({ pluginData, loading: false });
-    }
-    return pluginData;
   }
 
   async fetchStarDataByPluginName(pluginName) {
