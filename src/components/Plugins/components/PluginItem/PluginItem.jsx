@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardBody, Tooltip } from '@patternfly/react-core';
+import { Card, CardBody } from '@patternfly/react-core';
 import { StarIcon } from '@patternfly/react-icons';
 import { Link } from 'react-router-dom';
 import RelativeDate from '../../../RelativeDate/RelativeDate';
@@ -9,11 +9,8 @@ import './PluginItem.css';
 const dateIsValid = date => new RelativeDate(date).isValid();
 const formatDate = date => dateIsValid(date) ? new RelativeDate(date).format() : undefined;
 
-const PluginItem = ({ name, author, title, creation_date, description, isFavorite, ...rest }) => {
-  const [starActive, setStarActive] = useState(rest.isFavorite);
-
+const PluginItem = ({ name, author, title, creation_date, description, isFavorite, isLoggedIn, onStarClicked }) => {
   function renderStarButton() {
-    const { isLoggedIn } = rest;
     let className = "plugin-star";
     
     if (!isLoggedIn)
@@ -23,15 +20,6 @@ const PluginItem = ({ name, author, title, creation_date, description, isFavorit
       className += ' favorite';
 
     return <StarIcon className={className} onClick={onStarClicked} />;
-  }
-
-  function onStarClicked() {
-    rest.onStarClicked();
-    if (isFavorite)
-      return
-
-    setStarActive(true);
-    setTimeout(()=> setStarActive(false), 1000);
   }
 
   return (
@@ -47,16 +35,7 @@ const PluginItem = ({ name, author, title, creation_date, description, isFavorit
               >
                 {title}
               </Link>
-              <Tooltip trigger="manual"
-                isVisible={starActive}
-                position="top"
-                style={{ padding: '0' }}
-                content={(
-                  <strong>Favorited</strong>
-                )}
-              >
-                {renderStarButton()}
-              </Tooltip>
+              {renderStarButton()}
             </div>
             <div className="plugin-item-title">{description}</div>
             <Link

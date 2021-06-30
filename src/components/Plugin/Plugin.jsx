@@ -272,24 +272,6 @@ export class Plugin extends Component {
         <div className={`plugin ${this.props.className}`}>
           {container}
         </div>
-        
-        {/* <Route path="/plugin/:name/:version" render={(routeProps)=>{
-          if (this.state.loading)
-            return <LoadingPluginItem />
-
-          const { name: query, version } = routeProps.match.params
-          if (pluginList.has(query)) {
-            let versionList = pluginList.get(query).versions
-            if (versionList.hasOwnProperty(version))
-              return <ConnectedPlugin pluginData={versionList[version]} />
-            else
-              return <NotFound/>
-          }
-          else
-            return <NotFound/>
-        }} /> */}
-
-
       </React.Fragment>
 
     );

@@ -76,54 +76,42 @@ class DashPluginCardView extends Component {
       isOpen: [],
       isExpanded: [],
     };
-
-    const methods = [
-      "editPlugin",
-      "deletePlugin",
-      "showDeleteModal",
-      "showEditModal",
-      "handlePublicRepo"
-    ];
-    methods.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
   
-  editPlugin() {
+  editPlugin = () => {
     const { onEdit } = this.props;
     const { pluginToEdit } = this.state;
     onEdit(pluginToEdit.id, this.state.publicRepo);
     this.setState({ showEditConfirmation: false });
   }
   
-  deletePlugin() {
+  deletePlugin = () => {
     const { onDelete } = this.props;
     const { pluginToDelete } = this.state;
     onDelete(pluginToDelete.id);
     this.setState({ showDeleteConfirmation: false });
   }
   
-  showDeleteModal(plugin) {
+  showDeleteModal = (plugin) => {
     this.setState({
       showDeleteConfirmation: true,
       pluginToDelete: plugin
     });
   }
-  showEditModal(plugin) {
+  showEditModal = (plugin) => {
     this.setState({
       showEditConfirmation: true,
       pluginToEdit: plugin
     });
   }
   
-  handlePublicRepo(value) {
+  handlePublicRepo = (value) => {
     this.setState({ publicRepo: value });
   }
   
-  toggle = (value, id) => {
-    const pluginLength = this.props.plugins.length;
-    let isOpen = new Array(pluginLength);
-    isOpen[id] = value;
+  toggleEditMenu = (value, cardidx) => {
+    const isOpen = new Array(this.props.plugins.length);
+    isOpen[cardidx] = value;
     this.setState({
       isOpen: [...isOpen],
     });
@@ -145,6 +133,7 @@ class DashPluginCardView extends Component {
       pluginToEdit,
       showDeleteConfirmation,
       showEditConfirmation,
+      isOpen,
     } = this.state;
     
     const showEmptyState = isEmpty(plugins);
@@ -163,12 +152,12 @@ class DashPluginCardView extends Component {
                 <Dropdown
                   className="card-view-kebob"
                   onSelect={(event) => this.onSelect(event, plugin)}
-                  toggle={<KebabToggle onToggle={(value) => this.toggle(value, index)} id={`kebab-${plugin.id}`}/>}
-                  isOpen={this.state.isOpen[index]}
+                  toggle={<KebabToggle onToggle={(value) => this.toggleEditMenu(value, index)} id={`kebab-${plugin.id}`}/>}
+                  isOpen={isOpen[index]}
                   isPlain
                   dropdownItems={[
-                    <DropdownItem key={`edit-${plugin.id}`} id="edit">Edit</DropdownItem>,
-                    <DropdownItem key={`delete-${plugin.id}`} id="delete">Delete</DropdownItem>
+                    <DropdownItem key={`edit-${plugin.id}`} id={`edit-${plugin.name}`}>Edit</DropdownItem>,
+                    <DropdownItem key={`delete-${plugin.id}`} id={`delete-${plugin.name}`}>Delete</DropdownItem>
                   ]}
                 />
               </CardActions>

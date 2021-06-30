@@ -21,7 +21,6 @@ class Dashboard extends Component {
       loading: true,
       error: null,
     };
-    this.initialize = this.initialize.bind(this);
     this.deletePlugin = this.deletePlugin.bind(this);
     this.editPlugin = this.editPlugin.bind(this);
   }
@@ -32,19 +31,13 @@ class Dashboard extends Component {
       console.error(err);
     });
   }
-
-  initialize() {
-    this.setState({
-      arePluginsAvailable: !this.state.arePluginsAvailable,
-    });
-  }
   
   fetchPlugins() {
     const { store } = this.props;
     const storeURL = process.env.REACT_APP_STORE_URL;
     const client = new Client(storeURL);
     const searchParams = {
-      // owner_username: store.get("userName"),
+      owner_username: store.get("userName"),
       limit: 20,
       offset: 0,
     };

@@ -1,12 +1,22 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, GridItem, Tabs, Tab, TabTitleText, Card } from '@patternfly/react-core';
+import {
+  Grid,
+  GridItem,
+  Tabs,
+  Tab,
+  TabTitleText,
+  Card,
+  Popover,
+  ClipboardCopy,
+  Button
+} from "@patternfly/react-core";
+import { DownloadIcon } from "@patternfly/react-icons";
 import PropTypes from 'prop-types';
 import marked from 'marked';
 import { sanitize } from 'dompurify';
 
 import './PluginBody.css';
-import CopyURLButton  from '../../../general/CopyURLButton';
 import Notification from '../../../Notification';
 import HttpApiCallError from '../../../../errors/HttpApiCallError';
 import { GithubAPIRepoError,GithubAPIProfileError, GithubAPIReadmeError } from '../../../../errors/GithubError';
@@ -107,7 +117,24 @@ const PluginBody = ({ pluginData }) => {
                       <h4>Install</h4>
                       <p>Click to install this plugin to your ChRIS Server.</p>
                       <br />
-                      <CopyURLButton text={pluginData.url} />
+                      <Popover
+                        position="bottom"
+                        headerContent={<b>Install to your ChRIS server</b>}
+                        bodyContent={hide => (
+                          <div>
+                            <p>
+                              Copy and Paste the URL below into your ChRIS Admin Dashboard 
+                              to install this plugin.
+                            </p>
+                            <br />
+                            <ClipboardCopy isReadOnly>{String(pluginData.url)}</ClipboardCopy>
+                          </div>
+                        )}
+                      >
+                        <Button isBlock style={{ fontSize: '1.125em' }}>
+                          <DownloadIcon /> Install to ChRIS
+                        </Button>
+                      </Popover>
                     </div>
                     <div className="plugin-body-detail-section">
                       <h4>Repository</h4>
