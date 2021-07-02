@@ -153,7 +153,7 @@ describe('SignIn', () => {
   /* ======== FORM ACTIONS ======== */
   /* ============================== */
 
-  const event = { preventDefault: jest.fn() };
+  const event = { persist: jest.fn() };
 
   it('should call showError method on incorrect credentials', () => {
     // spy for showError method

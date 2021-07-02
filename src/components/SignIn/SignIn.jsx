@@ -75,7 +75,7 @@ export class SignIn extends Component {
           this.setState({ loading: false });
         }
     }
-    event.preventDefault();
+    event.persist();
   }
 
   showError(message) {

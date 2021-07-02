@@ -42,7 +42,7 @@ export class DeveloperSignup extends Component {
       username, email, password, passwordConfirm,
     } = this.state;
     const { store } = this.props;
-    event.preventDefault();
+    event.persist();
 
     if (!username) {
       return this.setState({

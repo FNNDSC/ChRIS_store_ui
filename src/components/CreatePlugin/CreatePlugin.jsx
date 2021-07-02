@@ -163,45 +163,7 @@ class CreatePlugin extends Component {
       }
     });
   }
-
-  // handleDrag(event) {
-  //   event.preventDefault();
-  //   event.stopPropagation();
-  //   const dt = event.dataTransfer;
-
-  //   if (event.type === 'drop') {
-  //     const file = dt.items[0].getAsFile();
-  //     this.handleFile({ target: { files: [file] } });
-  //   } else if (dt) {
-  //     const { items } = dt;
-
-  //     if (items.length > 0) {
-  //       const isJSONFormat = Array.from(items)
-  //         .every(item => item.type === 'application/json');
-  //       if (!isJSONFormat) {
-  //         dt.dropEffect = 'none';
-  //         return false;
-  //       }
-  //     }
-  //     dt.dropEffect = 'copy';
-  //   }
-
-  //   switch (event.type) {
-  //     case 'dragover':
-  //     case 'dragenter':
-  //       this.setState({ dragOver: true });
-  //       break;
-  //     case 'dragleave':
-  //     case 'dragend':
-  //     case 'drop':
-  //       this.setState({ dragOver: false });
-  //       break;
-  //     default:
-  //   }
-
-  //   return true;
-  // }
-
+  
   async handleSubmit() {
     const {
       name: pluginName,

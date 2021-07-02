@@ -264,7 +264,7 @@ describe('CreatePlugin', () => {
   });
 
   const defaultEventProps = {
-    preventDefault: jest.fn(),
+    persist: jest.fn(),
     stopPropagation: jest.fn(),
   };
 
@@ -285,7 +285,7 @@ describe('CreatePlugin', () => {
   it('should prevent event when handleDrag is called', () => {
     const event = { type: 'dragstart', ...defaultEventProps };
     wrapper.instance().handleDrag(event);
-    expect(event.preventDefault).toHaveBeenCalled();
+    expect(event.persist).toHaveBeenCalled();
     expect(event.stopPropagation).toHaveBeenCalled();
   });
 
