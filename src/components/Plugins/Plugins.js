@@ -122,7 +122,7 @@ const Plugins = (props) => {
    * @param pluginId
    */
   const removePluginStar = (pluginId) => {
-    setPluginStar(pluginId, undefined);
+    setPluginStar(pluginId, null);
   };
 
   /**
@@ -185,7 +185,7 @@ const Plugins = (props) => {
   };
 
   const isFavorite = (plugin) => {
-    return starsByPlugin[plugin.id] !== undefined;
+    return starsByPlugin[plugin.id] !== null;
   };
 
   /**
@@ -299,7 +299,6 @@ const Plugins = (props) => {
             onSelect={handleCategorySelect}
           />
           <div className="plugins-list">
-            {/* Plugin List Body*/}
             {pluginList.length > 0
               ? pluginList
                   .filter((plugin) => {
