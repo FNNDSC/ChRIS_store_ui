@@ -2,9 +2,16 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Client, { PluginMetaList } from '@fnndsc/chrisstoreapi';
-import { Dropdown, DropdownItem, DropdownToggle } from '@patternfly/react-core';
-import { Button, Grid, GridItem } from '@patternfly/react-core'
-import { Split, SplitItem } from '@patternfly/react-core';
+import { 
+  Dropdown, 
+  DropdownItem, 
+  DropdownToggle, 
+  Button, 
+  Grid, 
+  GridItem, 
+  Split, 
+  SplitItem
+} from "@patternfly/react-core";
 import { CaretDownIcon } from '@patternfly/react-icons';
 
 import ConnectedPlugin from '../Plugin/Plugin';
@@ -289,15 +296,6 @@ export class Plugins extends Component {
       : 
       authors.replace(/( ?<.*>)/g, '');
 
-    // function filterMap(map, condition) {
-    //   let result = new Map();
-    //   for (let [k, v] of map)
-    //     if (condition(k,v))
-    //       result.set(k, v);
-          
-    //   return result;
-    // }
-
     // Render the pluginList if the plugins have been fetched
     const PluginListBody = () => {
       if (!this.state.loading)
@@ -354,8 +352,10 @@ export class Plugins extends Component {
 
           window.scrollTo(0,0);
           const { name: query } = routeProps.match.params
-          if (pluginList.has(query))
-            return <ConnectedPlugin pluginData={pluginList.get(query)} />
+          if (pluginList.has(query)) {
+            const plugin = pluginList.get(query);
+            return <ConnectedPlugin pluginData={plugin} isFavorite={this.isFavorite(plugin)} />
+          }
           else
             return <NotFound/>
         }} />
@@ -376,17 +376,12 @@ export class Plugins extends Component {
               <Grid className="plugins-row">
                 <GridItem xs={12}>
                   <div style={{ padding: '2em' }}>
-                    <h1>Plugins</h1><br />
-                    <h2>ChRIS Store</h2><br />
+                    <h1>ChRIS Plugins</h1>
+                    <h3>
+                      Plugins available on your ChRIS Store are listed here. 
+                      Install these to your ChRIS instance to use them. 
+                    </h3>
                   </div>
-                </GridItem>
-
-                <GridItem lg={3} xs={12}>
-                  <PluginsCategories 
-                    categories={categoryEntries}
-                    onSelect={this.handleCategorySelect}
-                    selected={this.state.selectedCategory}
-                  />
                 </GridItem>
                 
                 <GridItem lg={9} xs={12}>
@@ -456,6 +451,14 @@ export class Plugins extends Component {
                       </SplitItem>
                     </Split>
                   </Grid>
+                </GridItem>
+
+                <GridItem lg={3} xs={12}>
+                  <PluginsCategories 
+                    categories={categoryEntries}
+                    onSelect={this.handleCategorySelect}
+                    selected={this.state.selectedCategory}
+                  />
                 </GridItem>
               </Grid>
             </article>

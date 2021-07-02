@@ -107,8 +107,7 @@ const PluginBody = ({ pluginData }) => {
             <Tab eventKey={1} title={<TabTitleText>Overview</TabTitleText>}>
               <Grid hasGutter>
                 <GridItem md={8} sm={12}>
-                  <h1>{pluginData.title}</h1>
-                  <div style={{ color: "gray" }}>README</div>
+                  <div style={{ color: "gray", margin: "1em 0" }}>README</div>
                   { readme ? <div dangerouslySetInnerHTML={{ __html: readme }}></div> : null }
                 </GridItem>
                 <GridItem md={4} sm={12}>
@@ -127,7 +126,12 @@ const PluginBody = ({ pluginData }) => {
                               to install this plugin.
                             </p>
                             <br />
-                            <ClipboardCopy isReadOnly>{String(pluginData.url)}</ClipboardCopy>
+                            <ClipboardCopy isReadOnly>
+                              { 
+                                pluginData.url ? pluginData.url 
+                                : `${process.env.REACT_APP_STORE_URL}/plugins/${pluginData.id}/`.replace(/\/\//g, '/')
+                              }
+                            </ClipboardCopy>
                           </div>
                         )}
                       >

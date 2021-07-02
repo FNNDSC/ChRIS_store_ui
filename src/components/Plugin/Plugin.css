@@ -20,13 +20,13 @@
 
 .plugin-name {
   /* color */
-  color: #39a5dc;
-  color: var(--pf-blue-300);
-
-  /* font */
-  font-size: 28px;
-  font-weight: 400;
+  color: var(--pf-blue-400);
+  margin-bottom: 0 !important;
 }
+.plugin-title {
+  margin-top: 0 !important;
+}
+
 
 .plugin-name > .plugin-star {
   /* display */
@@ -84,11 +84,6 @@
 
   /* font */
   text-decoration: none;
-}
-
-.plugin-description {
-  /* color */
-  color: var(--pf-black-600, #72767b);
 }
 
 .plugin-stats {

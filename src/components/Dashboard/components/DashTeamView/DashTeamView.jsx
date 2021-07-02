@@ -2,10 +2,23 @@ import React, { Component } from "react";
 import isEmpty from "lodash/isEmpty";
 import PropTypes from "prop-types";
 import {
-  Table, TableHeader, TableBody, sortable, SortByDirection, wrappable, cellWidth, headerCol, info
-} from '@patternfly/react-table';
-import { 
-  CardTitle, CardBody, Card, CardFooter, Grid, GridItem, CardActions, Button 
+  Table,
+  TableHeader,
+  TableBody,
+  sortable,
+  SortByDirection,
+  headerCol,
+  info,
+} from "@patternfly/react-table";
+import {
+  CardTitle,
+  CardBody,
+  Card,
+  CardFooter,
+  Grid,
+  GridItem,
+  CardActions,
+  Button,
 } from "@patternfly/react-core";
 
 import { PlusCircleIcon } from '@patternfly/react-icons';

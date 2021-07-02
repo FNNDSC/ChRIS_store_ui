@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Grid, GridItem, Split, SplitItem } from '@patternfly/react-core';
-import { StarIcon, ClockIcon } from '@patternfly/react-icons';
+import { Badge, Grid, GridItem, Split, SplitItem, Button } from '@patternfly/react-core';
+import { StarIcon } from '@patternfly/react-icons';
 import PropTypes from 'prop-types';
 import Client from '@fnndsc/chrisstoreapi';
 
@@ -27,11 +26,11 @@ export class Plugin extends Component {
 
     this.mounted = false;
 
-    const { pluginData } = props;
+    const { pluginData, isFavorite } = props;
     this.state = {
       pluginData,
       loading: true,
-      star: undefined,
+      star: isFavorite ? isFavorite : undefined,
       errors: [],
     };
 
@@ -40,33 +39,21 @@ export class Plugin extends Component {
     this.client = new Client(storeURL, auth);
 
     this.fetchPluginData = this.fetchPluginData.bind(this);
-    this.onStarClicked = this.onStarClicked.bind(this);
-  }
-
-  componentWillMount() {
-    this.mounted = true;
   }
 
   async componentDidMount() {
     let pluginData;
 
-    console.log(this.state.pluginData)
     if (!this.state.pluginData) {
       pluginData = await this.fetchPluginData();
     } else {
       ({ pluginData } = this.state);
     }
 
-    if (this.mounted) {
-      this.setState({ pluginData, loading: false });
-    }
+    this.setState({ pluginData, loading: false });
     if (this.isLoggedIn()) {
-      this.fetchStarDataByPluginName(pluginData.name);
+      this.fetchIsPluginStarred(pluginData);
     }
-  }
-
-  componentWillUnmount() {
-    this.mounted = false;
   }
 
   showNotifications = (error) => {
@@ -77,49 +64,9 @@ export class Plugin extends Component {
     })
   }
 
-  isFavorite() {
-    return this.state.star !== undefined;
-  }
+  isFavorite = () => this.state.star !== undefined;
 
-  isLoggedIn() {
-    return this.props.store ? this.props.store.get('isLoggedIn') : false;
-  }
-
-  onStarClicked() {
-    if (this.isLoggedIn()) {
-      return this.isFavorite() ? this.unfavPlugin() : this.favPlugin();
-    }
-    return Promise.resolve();
-  }
-
-  async favPlugin() {
-    // Early state change for instant visual feedback
-    this.setState({ star: {} });
-
-    const { name } = this.state.pluginData;
-    try {
-      const star = await this.client.createPluginStar({ plugin_name: name });
-      this.setState({ star: star.data });
-    } catch (error) {
-      this.showNotifications(new HttpApiCallError(error));
-      this.setState({ star: undefined });
-    }
-  }
-
-  async unfavPlugin() {
-    const previousStarState = { ...this.state.star };
-
-    // Early state change for instant visual feedback
-    this.setState({ star: undefined });
-
-    try {
-      const star = await this.client.getPluginStar(previousStarState.id);
-      await star.delete();
-    } catch (error) {
-      this.setState({ star: previousStarState });
-      this.showNotifications(new HttpApiCallError(error));
-    }
-  }
+  isLoggedIn = () => this.props.store ? this.props.store.get('isLoggedIn') : false;
 
   async fetchPluginData() {
     const { pluginId } = this.props.match.params;
@@ -132,27 +79,59 @@ export class Plugin extends Component {
     }
   }
 
-  async fetchStarDataByPluginName(pluginName) {
-    const storeURL = process.env.REACT_APP_STORE_URL;
-    const auth = { token: this.props.store.get('authToken') };
-    let stars = [];
+  async fetchIsPluginStarred({ name }) {
     try {
-      if (auth) {
-        const client = new Client(storeURL, auth);
-        const response = await client.getPluginStars({ plugin_name: pluginName });
-        stars = response.data;
-      }
-
-      if (stars.length > 0)
-        this.setState({ star: stars[0] });
-      else
-        throw new Error('Unable to fetch Plugin stars');
+      const response = await this.client.getPluginStars({ plugin_name: name });
+      if (response.data.length > 0)
+        this.setState({ star: response.data[0] });
     } catch(error) {
       this.showNotifications(new HttpApiCallError(error));
     }
   }
 
-  renderStar() {
+  onStarClicked = () => {
+    if (this.isLoggedIn()) {
+      return this.isFavorite() ? this.unfavPlugin() : this.favPlugin();
+    }
+    return Promise.resolve();
+  }
+
+  favPlugin = async () => {
+    const { pluginData } = this.state;
+
+    // Early state change for instant visual feedback
+    pluginData.stars++;
+    this.setState({ star: {}, pluginData });
+
+    try {
+      const star = await this.client.createPluginStar({ plugin_name: pluginData.name });
+      this.setState({ star: star.data });
+    } catch (error) {
+      this.showNotifications(new HttpApiCallError(error));
+      pluginData.stars--;
+      this.setState({ star: undefined, pluginData });
+    }
+  }
+
+  unfavPlugin = async () => {
+    const previousStarState = { ...this.state.star };
+    const { pluginData } = this.state;
+
+    // Early state change for instant visual feedback
+    pluginData.stars--;
+    this.setState({ star: undefined, pluginData });
+
+    try {
+      const star = await this.client.getPluginStar(previousStarState.id);
+      await star.delete();
+    } catch (error) {
+      pluginData.stars++;
+      this.setState({ star: previousStarState, pluginData });
+      this.showNotifications(new HttpApiCallError(error));
+    }
+  }
+
+  renderStar = () => {
     let name;
     let className;
 
@@ -170,77 +149,71 @@ export class Plugin extends Component {
     if (!this.state.loading && !this.state.pluginData)
       return <NotFound/>
 
-    let plugin;
-    let pluginURL;
-    let authorURL;
-    let data;
-
-    const pluginDataProp = this.props.pluginData;
-    if (pluginDataProp) {
-      // define plugin name from props
-      ({ plugin, pluginURL, authorURL } = pluginDataProp);
-
-      data = pluginDataProp;
-    } else {
-      // define plugin name from url
-      ({ plugin } = this.props.match.params);
-      pluginURL = `/plugin/${plugin}`;
-
-      const { pluginData } = this.state;
-      data = pluginData || {};
-    }
+    const plugin = this.state.pluginData;
 
     // conditional rendering
     let container;
-    if (Object.keys(data).length > 0) {
-      const modificationDate = new RelativeDate(data.modification_date);
+    if (plugin) {
+      const modificationDate = new RelativeDate(plugin.modification_date);
 
-      const author = removeEmail(data.authors);
-      if (!authorURL) authorURL = `/author/${author}`;
+      const author = removeEmail(plugin.authors);
+      if (!plugin.authorURL) plugin.authorURL = `/author/${author}`;
 
       container = (
         <article>
           <section>
-            <Split>
-              <SplitItem style={{ marginRight: '2em' }}>
+            <Grid hasGutter>
+              <GridItem style={{ marginRight: '2em' }} lg={2} xs={12}>
                 <img
                   className="plugin-icon"
                   src={PluginImg}
                   alt="Plugin icon"
                 />
-              </SplitItem>
-              <SplitItem isFilled>
+              </GridItem>
+
+              <GridItem lg={10} xs={12}>
                 <Grid>
-                  <GridItem className="plugin-category">{data.category}</GridItem>
-                  <GridItem className="plugin-name">
-                    <Link
-                      href={pluginURL || '/'}
-                      to={pluginURL || '/'}
-                      className="plugin-name"
-                    >
-                      {data.name}
-                    </Link>
-                    {this.renderStar()}
+                  <GridItem lg={10} xs={12}>
+                    <h3 className="plugin-name">{plugin.name} <Badge>{plugin.category}</Badge></h3>
+                    <h2 className="plugin-title">{plugin.title}</h2>
                   </GridItem>
 
-                  <GridItem className="plugin-description">{data.description}</GridItem>
-                  <GridItem className="plugin-stats">
-                    <StarIcon name="star" size="lg" /> {data.stars}
-                    { 
-                      modificationDate.isValid() ?
-                        <span className="plugin-modified">
-                          <ClockIcon name="clock-o" size="lg" /> Last modified {modificationDate.format()}
-                        </span>
-                      : null
-                    }
+                  <GridItem lg={2} xs={12} className="plugin-stats">
+                    <Split>
+                      <SplitItem isFilled />
+                      <SplitItem>
+                        {
+                          !this.isFavorite() ? 
+                            <Button onClick={this.onStarClicked}>
+                              Favorite <Badge isRead><StarIcon /> {plugin.stars}</Badge>
+                            </Button>
+                          : 
+                            <Button variant="secondary" onClick={this.onStarClicked}>
+                              Unfavorite <Badge><StarIcon /> {plugin.stars}</Badge>
+                            </Button>
+                        }
+                      </SplitItem>
+                    </Split>
+                  </GridItem>
+
+                  <GridItem>
+                    <p>{plugin.description}</p>
+                    <p style={{ color: "gray" }}>
+                      { 
+                        modificationDate.isValid() ?
+                          `Last modified ${modificationDate.format()}`
+                        : 
+                          `Added ${(new RelativeDate(plugin.creation_date)).format()}`
+                      }
+                    </p>
                   </GridItem>
                 </Grid>
-              </SplitItem>
-            </Split>
+              </GridItem>
+            </Grid>
           </section>
 
           <section>
-            <PluginBody pluginData={data} />
+            <PluginBody pluginData={plugin} />
           </section>
         </article>
       );
@@ -257,6 +230,7 @@ export class Plugin extends Component {
         {
           this.state.errors.map((message, index) => (
             <Notification
+              key={`notif-${message}`}
               title={message}
               position='top-right'
               variant='danger'

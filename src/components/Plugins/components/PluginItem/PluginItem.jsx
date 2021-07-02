@@ -27,7 +27,7 @@ const PluginItem = ({ name, author, title, creation_date, description, isFavorit
       <CardBody className="plugin-item-card-body">
         <div>
           <div className="row no-flex">
-            <p style={{ textTransform: 'uppercase', fontSize: '0.75em', fontWeight: 'bold' }}>{name}</p>
+            <p style={{ fontSize: '0.9em', fontWeight: 'bold' }}>{name}</p>
             <div className="plugin-item-name">
               <Link
                 href={`/plugin/${name}`}

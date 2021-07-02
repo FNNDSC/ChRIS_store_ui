@@ -44,7 +44,6 @@
   padding-bottom: 1em;
 }
 .plugins-category[class~="selected"] {
-  color: var(--pf-blue-500);
   font-weight: 600;
 }
 
