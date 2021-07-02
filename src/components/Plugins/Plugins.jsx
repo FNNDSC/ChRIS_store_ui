@@ -472,11 +472,7 @@ export const removeEmail = (authors) => {
   if (!Array.isArray(authors))
     authors = [ authors ]
 
-  return authors.map((author) => {
-    String(author).indexOf(/j/g)
-    author = author.replace(emailRegex, "")
-    return author.trim()
-  });
+  return authors.map((author) => author.replace(emailRegex, "").trim());
 }
 
 Plugins.propTypes = {
