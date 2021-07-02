@@ -144,7 +144,7 @@ const PluginBody = ({ pluginData }) => {
                       <h4>Contributors</h4>
                       {
                         pluginData.authors.map((author) => (
-                          <a href={`#${author}`}><p><UserAltIcon/> {author}</p></a>
+                          <a key={author} href={`#${author}`}><p><UserAltIcon/> {author}</p></a>
                         ))
                       }
                         
@@ -228,7 +228,7 @@ PluginBody.propTypes = {
     public_repo: PropTypes.string,
     type: PropTypes.string,
     authorURL: PropTypes.string,
-    authors: PropTypes.string,
+    authors: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
 };
 

@@ -259,7 +259,7 @@ Plugin.propTypes = {
     description: PropTypes.string,
     dock_image: PropTypes.string,
     modification_date: PropTypes.string,
-    authors: PropTypes.string,
+    authors: PropTypes.arrayOf(PropTypes.string),
     version: PropTypes.string,
   }),
   className: PropTypes.string,
