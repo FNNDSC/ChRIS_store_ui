@@ -20,7 +20,7 @@ const navLinks = [
     to: '/plugins'
   },
   {
-    label: 'Quick Start',
+    label: 'Submit your Plugin',
     to: '/quickstart'
   },
   {
