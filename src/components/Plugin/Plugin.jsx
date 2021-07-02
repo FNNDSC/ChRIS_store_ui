@@ -15,11 +15,6 @@ import HttpApiCallError from '../../errors/HttpApiCallError';
 
 import './Plugin.css';
 
-const removeEmail = (author) => {
-  if (author) return author.replace(/( ?\(.*\))/g, '');
-  return undefined;
-};
-
 export class Plugin extends Component {
   constructor(props) {
     super(props);
@@ -155,9 +150,6 @@ export class Plugin extends Component {
     let container;
     if (plugin) {
       const modificationDate = new RelativeDate(plugin.modification_date);
-
-      const author = removeEmail(plugin.authors);
-      if (!plugin.authorURL) plugin.authorURL = `/author/${author}`;
 
       container = (
         <article>

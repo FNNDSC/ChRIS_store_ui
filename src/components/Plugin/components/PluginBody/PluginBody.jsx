@@ -11,7 +11,7 @@ import {
   ClipboardCopy,
   Button
 } from "@patternfly/react-core";
-import { DownloadIcon } from "@patternfly/react-icons";
+import { DownloadIcon, UserAltIcon } from "@patternfly/react-icons";
 import PropTypes from 'prop-types';
 import marked from 'marked';
 import { sanitize } from 'dompurify';
@@ -20,12 +20,6 @@ import './PluginBody.css';
 import Notification from '../../../Notification';
 import HttpApiCallError from '../../../../errors/HttpApiCallError';
 import { GithubAPIRepoError,GithubAPIProfileError, GithubAPIReadmeError } from '../../../../errors/GithubError';
-
-
-const removeEmail = (authors) => Array.isArray(authors) ? 
-  authors.map((author) => author.replace(/( ?\(.*\))/g, "")) 
-  : 
-  authors.replace(/( ?<.*>)/g, '');
 
 const PluginBody = ({ pluginData }) => {
   const [activeTab, setActiveTab] = useState(1);
@@ -148,12 +142,12 @@ const PluginBody = ({ pluginData }) => {
                     </div>
                     <div className="plugin-body-detail-section">
                       <h4>Contributors</h4>
-                      <a href={pluginData.authorURL} className="pf-m-link" type="button">
-                        <span className="pf-c-button__icon pf-m-start">
-                          <i className="fas fa-user" aria-hidden="true"></i>
-                        </span>{' '}
-                        {removeEmail(pluginData.authors)}
-                      </a>
+                      {
+                        pluginData.authors.map((author) => (
+                          <a href={`#${author}`}><p><UserAltIcon/> {author}</p></a>
+                        ))
+                      }
+                        
                       <br/>
                       <a className="pf-m-link" href={`${pluginData.public_repo}/graphs/contributors`}>
                         View all contributors

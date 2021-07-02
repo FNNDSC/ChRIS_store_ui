@@ -280,21 +280,17 @@ export class Plugins extends Component {
   }
 
   render() {
-    const pluginList = new Map()
-    for (let plugin of this.state.plugins.data)
-      pluginList.set(plugin.name, plugin)
-
     // convert map into the data structure expected by <PluginsCategories />
     const { categories } = this.state;
     const categoryEntries = Array.from(categories.entries(), ([name, count]) => ({
       name: name, length: count
     }));
-
-    // Remove email from author
-    const removeEmail = (authors) => Array.isArray(authors) ? 
-      authors.map((author) => author.replace(/( ?\(.*\))/g, "")) 
-      : 
-      authors.replace(/( ?<.*>)/g, '');
+    
+    const pluginList = new Map()
+    for (let plugin of this.state.plugins.data) {
+      plugin.authors = removeEmail(plugin.authors.split(','))
+      pluginList.set(plugin.name, plugin)
+    }
 
     // Render the pluginList if the plugins have been fetched
     const PluginListBody = () => {
@@ -304,7 +300,6 @@ export class Plugins extends Component {
           <GridItem lg={6} xs={12} key={`${plugin.name}-${index}`}>
             <PluginItem
               { ...plugin }
-              author={removeEmail(plugin.authors)}
               isLoggedIn={this.isLoggedIn()}
               isFavorite={this.isFavorite(plugin)}
               onStarClicked={() => this.togglePluginFavorited(plugin)}
@@ -467,6 +462,21 @@ export class Plugins extends Component {
       </Switch>
     );
   }
+}
+
+
+// Remove email from author
+export const removeEmail = (authors) => {
+  const emailRegex = /([^.@\s]+)(\.[^.@\s]+)*@([^.@\s]+\.)+([^.@\s]+)/g;
+ 
+  if (!Array.isArray(authors))
+    authors = [ authors ]
+
+  return authors.map((author) => {
+    String(author).indexOf(/j/g)
+    author = author.replace(emailRegex, "")
+    return author.trim()
+  });
 }
 
 Plugins.propTypes = {

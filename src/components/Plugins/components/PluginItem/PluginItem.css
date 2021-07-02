@@ -1,31 +1,25 @@
 .plugin-item-card {
-  /* display */
   margin-bottom: 0;
   padding: 0;
   height: 100%;
   
-  /* border */
   border-bottom-color: #ededed;
   border-bottom: 4px solid var(--pf-blue-400);;
   box-shadow: none;
 }
 
 .plugin-item-card-body {
-  /* color */
   color: #4d5258;
   color: var(--pf-black-700);
 
-  /* font */
   font-size: 1.4em;
   position: relative;
 }
 
 .plugin-item-name {
-  /* color */
   color: #0088ce;
   color: var(--pf-blue-400);
 
-  /* font */
   font-size: 1.25em;
   font-weight: 600;
 }
@@ -34,11 +28,8 @@
   position: absolute;
   bottom: 0.75em;
   right: 0.75em;
-
-  /* display */
   margin-left: .5em;
 
-  /* color */
   color: var(--pf-black-400, #bbb);
   font-size: 22px;
 } .plugin-item-name > .plugin-star:hover {
@@ -48,63 +39,46 @@
 
 
 .plugin-item-name > .plugin-star[class~="disabled"] {
-  /* display */
   margin-left: .5em;
 
-  /* color */
   color: var(--pf-black-400, #bbb);
-
-  /* font */
   font-size: 22px;
 }
 
 .plugin-item-name > .plugin-star[class~="favorite"] {
-  /* display */
   margin-left: .5em;
 
-  /* color */
-  color: var(--pf-gold-300,#f4c145);
-
-  /* font */
+  color: var(--pf-blue-400);
   font-size: 22px;
 }
 
 
 .plugin-item-name > .plugin-star[class~="favorite"]:hover {
-  /* color */
-  color: var(--pf-gold-700, #3d2c00);
-
-    /* cursor */
-    cursor: pointer;
+  color: var(--pf-blue-500);
+  cursor: pointer;
 }
 
 .plugin-item-name:hover, .plugin-item-name:focus { text-decoration: none; }
 
 .plugin-item-title {
-  /* font */
   font-size: 1em;
   font-weight: 400;
 }
 
 .plugin-item-creation {
-  /* color */
   color: #72767b;
   color: var(--pf-black-600);
 
-  /* font */
   font-weight: 300;
 }
 
 .plugin-item-author {
-  /* color */
   color: #4d5258;
   color: var(--pf-black-700);
 
-  /* border */
   border-bottom-color: #d1d1d1;
   border-bottom: 1px solid var(--pf-black-300);
 
-  /* font */
   font-size: 1em;
   font-weight: 300;
 }
@@ -118,7 +92,6 @@
 
 @media (min-width: 768px)  {
   .plugins-list > .plugin-item-card {
-    /* display */
     padding: 0 20px;
   }
 }

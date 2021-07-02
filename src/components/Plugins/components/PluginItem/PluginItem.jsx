@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardBody } from '@patternfly/react-core';
+import { Badge, Card, CardBody, Split, SplitItem } from '@patternfly/react-core';
 import { StarIcon } from '@patternfly/react-icons';
 import { Link } from 'react-router-dom';
 import RelativeDate from '../../../RelativeDate/RelativeDate';
@@ -9,7 +9,7 @@ import './PluginItem.css';
 const dateIsValid = date => new RelativeDate(date).isValid();
 const formatDate = date => dateIsValid(date) ? new RelativeDate(date).format() : undefined;
 
-const PluginItem = ({ name, author, title, creation_date, description, isFavorite, isLoggedIn, onStarClicked }) => {
+const PluginItem = ({ name, authors, title, creation_date, category, isFavorite, isLoggedIn, onStarClicked }) => {
   function renderStarButton() {
     let className = "plugin-star";
     
@@ -27,23 +27,25 @@ const PluginItem = ({ name, author, title, creation_date, description, isFavorit
       <CardBody className="plugin-item-card-body">
         <div>
           <div className="row no-flex">
-            <p style={{ fontSize: '0.9em', fontWeight: 'bold' }}>{name}</p>
+            <Split>
+              <SplitItem isFilled><p style={{ fontSize: '0.9em', fontWeight: 'bold' }}>{name}</p></SplitItem>
+              <SplitItem><Badge isRead>{category}</Badge></SplitItem>
+            </Split>
             <div className="plugin-item-name">
               <Link
                 href={`/plugin/${name}`}
                 to={`/plugin/${name}`}
               >
-                {title}
+                { title }
               </Link>
               {renderStarButton()}
             </div>
-            <div className="plugin-item-title">{description}</div>
             <Link
-              href={`/author/${author}`}
-              to={`/author/${author}`}
+              href={`/author/${authors}`}
+              to={`/author/${authors}`}
               className="plugin-item-author"
             >
-              {author}
+              { authors.join(", ") }
             </Link>
             <p style={{ color: 'gray', fontWeight: '600', fontSize: 'small' }}>
               {`Created ${formatDate(creation_date)}`}

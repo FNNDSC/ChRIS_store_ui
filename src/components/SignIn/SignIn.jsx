@@ -28,23 +28,16 @@ export class SignIn extends Component {
     this.hideError = this.hideError.bind(this);
   }
 
-  componentWillMount() {
-    this.mounted = true;
-  }
-
   componentDidMount() {
     // if the user attempts to see the login page when they are
     // already logged in, we will log them out.
     // TODO SECURITY idk if safe from CSRF
     // TODO SECURITY send goodbye to backend to invalidate authToken
+    this.mounted = true;
     const { store } = this.props;
     if (store.get('isLoggedIn')) {
       store.set('authToken')('');
     }
-  }
-
-  componentWillUnmount() {
-    this.mounted = false;
   }
 
   handleChange(value, name) {
