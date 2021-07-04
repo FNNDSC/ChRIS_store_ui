@@ -467,8 +467,9 @@ export class Plugins extends Component {
 
 // Remove email from author
 export const removeEmail = (authors) => {
-  const emailRegex = /([^.@\s]+)(\.[^.@\s]+)*@([^.@\s]+\.)+([^.@\s]+)/g;
- 
+  const emailRegex = /(<|\().+?@.{2,}?\..{2,}?(>|\))/g;
+  // Match '<' or '(' at the beginning and end
+  // Match <string>@<host>.<tld> inside brackets
   if (!Array.isArray(authors))
     authors = [ authors ]
 
