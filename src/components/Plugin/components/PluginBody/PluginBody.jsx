@@ -79,7 +79,7 @@ const PluginBody = ({ pluginData }) => {
 
     if (expectRepoName) 
       fetchRepo();
-  }, [fetchReadme, fetchRepoData, pluginData.public_repo]);
+  }, [fetchReadme, fetchRepoData, pluginData.public_repo, showNotifications]);
 
   const versionString = (v) => `Version ${v}${v === pluginData.version ? ' (This)' : ''}`;
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Search.css';
 import SearchIcon from '@patternfly/react-icons/dist/esm/icons/search-icon';
 import TimesIcon from '@patternfly/react-icons/dist/esm/icons/times-icon';
@@ -44,19 +44,19 @@ const Search = ({
       onSearch(autoCompleteData[cursorState].name, 'ENTER');
       onBlur();
     }
-  }, [cursorState, enterKeyPress]);
+  }, [cursorState, enterKeyPress, autoCompleteData, onBlur, onSearch]);
 
   useEffect(() => {
     if (autoCompleteData && autoCompleteData.length && downKeyPress) {
       setCursorState((prevCursorState) => (prevCursorState < autoCompleteData.length - 1 ? prevCursorState + 1 : prevCursorState));
     }
-  }, [downKeyPress]);
+  }, [downKeyPress, autoCompleteData]);
 
   useEffect(() => {
     if (autoCompleteData && autoCompleteData.length && upArrowPress) {
       setCursorState((prevCursorState) => (prevCursorState > 0 ? prevCursorState - 1 : prevCursorState));
     }
-  }, [upArrowPress]);
+  }, [upArrowPress, autoCompleteData]);
 
   useEffect(() => {
     if (autoCompleteData && autoCompleteData.length) {
