@@ -105,7 +105,6 @@ describe('rendered Plugin', () => {
   });
 });
 
-
 describe('PluginItem: When user is NOT logged in', () => {
   it('should render the star with class plugin-star-disabled', () => {
     const wrapper = shallow(<PluginItem

@@ -8,8 +8,8 @@ import {
   PageHeaderTools,
   PageHeaderToolsItem,
 } from '@patternfly/react-core';
-import Button from '../Button';
 import { NavLink } from 'react-router-dom';
+import Button from '../Button';
 import './Navbar.css';
 import LogoImg from '../../assets/img/chris-plugin-store_logo.png';
 import ChrisStore from '../../store/ChrisStore';
@@ -17,17 +17,17 @@ import ChrisStore from '../../store/ChrisStore';
 const navLinks = [
   {
     label: 'Plugins',
-    to: '/plugins'
+    to: '/plugins',
   },
   {
     label: 'Submit your Plugin',
-    to: '/quickstart'
+    to: '/quickstart',
   },
   {
     label: 'Dashboard',
     to: '/dashboard',
-    cond: (store) => store.get('isLoggedIn')
-  }
+    cond: (store) => store.get('isLoggedIn'),
+  },
 ];
 
 /**
@@ -46,11 +46,12 @@ const Navigation = ({ store }) => {
         {
           navLinks
             .filter((l) => shouldShowLink(l))
-            .map(link => (
+            .map((link) => (
               <NavItem
                 key={link.to}
                 itemId={link.to}
-                isActive={window && window.location.pathname === link.to}>
+                isActive={window && window.location.pathname === link.to}
+              >
                 <NavLink to={link.to} activeClassName="pf-m-current">
                   {link.label}
                 </NavLink>
@@ -60,7 +61,7 @@ const Navigation = ({ store }) => {
       </NavList>
     </Nav>
   );
-}
+};
 
 const StatefulNavigation = ChrisStore.withStore(Navigation);
 const statefulNavigation = (<StatefulNavigation />);
@@ -77,7 +78,7 @@ const LoginButton = ({ store }) => (
 );
 const StatefulLoginButton = ChrisStore.withStore(LoginButton);
 
-const Logo = (<Brand className="logo" alt="ChRIS Plugin Store" src={LogoImg}/>);
+const Logo = (<Brand className="logo" alt="ChRIS Plugin Store" src={LogoImg} />);
 
 const Navbar = ({ searchComponent }) => {
   const HeaderTools = (
@@ -89,14 +90,15 @@ const Navbar = ({ searchComponent }) => {
         <StatefulLoginButton />
       </PageHeaderToolsItem>
     </PageHeaderTools>
-  )
+  );
   return (
-  <PageHeader
-    logo={Logo}
-    logoComponent={NavLink}
-    logoProps={{to: '/'}}
-    topNav={statefulNavigation}
-    headerTools={HeaderTools}
-  />)
-}
+    <PageHeader
+      logo={Logo}
+      logoComponent={NavLink}
+      logoProps={{ to: '/' }}
+      topNav={statefulNavigation}
+      headerTools={HeaderTools}
+    />
+  );
+};
 export default ChrisStore.withStore(Navbar);

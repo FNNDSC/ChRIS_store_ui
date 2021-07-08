@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import './Search.css';
 import SearchIcon from '@patternfly/react-icons/dist/esm/icons/search-icon';
 import TimesIcon from '@patternfly/react-icons/dist/esm/icons/times-icon';
 
 import { Button, TextInput } from '@patternfly/react-core';
-import { Fragment } from 'react';
+
 import { useKeyPress } from '../../../../hooks/useKeyPressHook';
 
 /*
@@ -21,55 +21,52 @@ import { useKeyPress } from '../../../../hooks/useKeyPressHook';
  * Feasible workaround: hide the logo or move the search somewhere else
  * if screen size is too small.
  */
-const Search = (props) => {
-  const {
-    value,
-    onClear,
-    onSearch,
-    onChange,
-    placeholder,
-    onBlur,
-    autoCompleteData,
-  } = props;
+const Search = ({
+  value,
+  onClear,
+  onSearch,
+  onChange,
+  placeholder,
+  onBlur,
+  autoCompleteData,
+}) => {
+  // const  = props;
   const searchRef = React.useRef(null);
   const downKeyPress = useKeyPress('ArrowDown');
   const upArrowPress = useKeyPress('ArrowUp');
   const enterKeyPress = useKeyPress('Enter');
 
   const [cursorState, setCursorState] = useState(0);
+  const [showAutoComplete, setShowAutoComplete] = useState(false);
 
   useEffect(() => {
     if (autoCompleteData && autoCompleteData.length && enterKeyPress) {
       onSearch(autoCompleteData[cursorState].name, 'ENTER');
       onBlur();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cursorState, enterKeyPress]);
 
   useEffect(() => {
     if (autoCompleteData && autoCompleteData.length && downKeyPress) {
-      setCursorState(prevCursorState => prevCursorState < autoCompleteData.length - 1 ? prevCursorState + 1 : prevCursorState);
+      setCursorState((prevCursorState) => (prevCursorState < autoCompleteData.length - 1 ? prevCursorState + 1 : prevCursorState));
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[downKeyPress]);
+  }, [downKeyPress]);
 
   useEffect(() => {
     if (autoCompleteData && autoCompleteData.length && upArrowPress) {
-      setCursorState(prevCursorState => prevCursorState > 0 ? prevCursorState - 1 : prevCursorState)
+      setCursorState((prevCursorState) => (prevCursorState > 0 ? prevCursorState - 1 : prevCursorState));
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [upArrowPress]);
 
   useEffect(() => {
-    if(autoCompleteData && autoCompleteData.length){
+    if (autoCompleteData && autoCompleteData.length) {
       setShowAutoComplete(true);
     }
     setCursorState(0);
   }, [autoCompleteData]);
 
-  const [showAutoComplete, setShowAutoComplete] = useState(false);
   return (
-    <Fragment>
+    <>
       <div id="search">
         <div id="ws-global-search-wrapper">
           <SearchIcon
@@ -88,7 +85,7 @@ const Search = (props) => {
             onChange={onChange}
             autoComplete="off"
             onKeyDown={(e) => {
-              if (e.key === 'Enter' && value.length >= 3 && !autoCompleteData.length){
+              if (e.key === 'Enter' && value.length >= 3 && !autoCompleteData.length) {
                 onSearch(value, 'ENTER');
                 setShowAutoComplete(false);
               }
@@ -102,13 +99,14 @@ const Search = (props) => {
           </Button>
         )}
         {showAutoComplete && autoCompleteData && autoCompleteData.length > 0 && (
-          <ul  className="ws-global-search-autocomplete">
+          <ul className="ws-global-search-autocomplete">
             {autoCompleteData.map((item, id) => (
+              // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
               <li
-                key={id}
+                key={`search-autocomplete-${item.name}`}
                 className={id === cursorState ? 'active-dropdown' : ''}
                 data-id={item.id}
-                onMouseDown={(e) => {onSearch(item.name, 'ENTER')}}
+                onMouseDown={() => { onSearch(item.name, 'ENTER'); }}
               >
                 {item.name}
               </li>
@@ -116,7 +114,7 @@ const Search = (props) => {
           </ul>
         )}
       </div>
-    </Fragment>
+    </>
   );
 };
 

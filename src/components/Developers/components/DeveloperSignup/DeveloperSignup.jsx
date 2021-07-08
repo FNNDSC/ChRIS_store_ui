@@ -38,11 +38,9 @@ export class DeveloperSignup extends Component {
   }
 
   handleSubmit(event) {
-    const {
-      username, email, password, passwordConfirm,
-    } = this.state;
-    const { store } = this.props;
     event.persist();
+    const { username, email, password, passwordConfirm } = this.state;
+    const { store } = this.props;
 
     if (!username) {
       return this.setState({
@@ -100,7 +98,7 @@ export class DeveloperSignup extends Component {
     return this.handleStoreLogin();
   }
 
-  handleStoreLogin() {
+  async handleStoreLogin() {
     const { username, email, password } = this.state;
     const { store } = this.props;
     const storeURL = process.env.REACT_APP_STORE_URL;
@@ -108,46 +106,46 @@ export class DeveloperSignup extends Component {
     const authURL = `${storeURL}auth-token/`;
     let authToken;
 
-    return new Promise(async (resolve, reject) => {
-      try {
-        await StoreClient.createUser(usersURL, username, password, email);
-      } catch (e) {
-        if (_.has(e, 'response')) {
-          if (_.has(e, 'response.data.username')) {
-            this.setState({
-              loading: false,
-              error: {
-                message: 'This username is already registered.',
-                controls: ['username'],
-              },
-            });
-          } else {
-            this.setState({
-              loading: false,
-              error: {
-                message: 'This email is already registered.',
-                controls: ['email'],
-              },
-            });
-          }
+    try {
+      await StoreClient.createUser(usersURL, username, password, email);
+    } catch (e) {
+      if (_.has(e, 'response')) {
+        if (_.has(e, 'response.data.username')) {
+          this.setState({
+            loading: false,
+            error: {
+              message: 'This username is already registered.',
+              controls: ['username'],
+            },
+          });
         } else {
           this.setState({
             loading: false,
+            error: {
+              message: 'This email is already registered.',
+              controls: ['email'],
+            },
           });
         }
-        return resolve(e);
+      } else {
+        this.setState({
+          loading: false,
+        });
       }
-      try {
-        authToken = await StoreClient.getAuthToken(authURL, username, password);
-      } catch (e) {
-        return reject(e);
-      }
-      return this.setState({
-        toDashboard: true,
-      }, () => {
-        store.set('authToken')(authToken);
-        return resolve(authToken);
-      });
+      return e;
+    }
+
+    try {
+      authToken = await StoreClient.getAuthToken(authURL, username, password);
+    } catch (e) {
+      return Promise.reject(e);
+    }
+
+    return this.setState({
+      toDashboard: true,
+    }, () => {
+      store.set('authToken')(authToken);
+      return authToken;
     });
   }
 
@@ -156,10 +154,14 @@ export class DeveloperSignup extends Component {
       error,
       loading,
       toDashboard,
+
+      username,
+      email,
+      password,
+      passwordConfirm,
     } = this.state;
 
-    if (toDashboard)
-      return <Redirect to="/dashboard" />;
+    if (toDashboard) return <Redirect to="/dashboard" />;
 
     const disableControls = loading;
     return (
@@ -172,7 +174,7 @@ export class DeveloperSignup extends Component {
           inputType="text"
           id="username"
           fieldName="username"
-          value={this.state.username}
+          value={username}
           autofocus={!isTouchDevice}
           onChange={(val) => this.handleChange(val, 'username')}
           disableControls={disableControls}
@@ -186,7 +188,7 @@ export class DeveloperSignup extends Component {
           inputType="email"
           id="email"
           fieldName="email"
-          value={this.state.email}
+          value={email}
           onChange={(val) => this.handleChange(val, 'email')}
           disableControls={disableControls}
           error={error}
@@ -199,7 +201,7 @@ export class DeveloperSignup extends Component {
           inputType="password"
           id="password"
           fieldName="password"
-          value={this.state.password}
+          value={password}
           onChange={(val) => this.handleChange(val, 'password')}
           disableControls={disableControls}
           error={error}
@@ -212,16 +214,16 @@ export class DeveloperSignup extends Component {
           inputType="password"
           id="password"
           fieldName="passwordConfirm"
-          value={this.state.passwordConfirm}
+          value={passwordConfirm}
           onChange={(val) => this.handleChange(val, 'passwordConfirm')}
           disableControls={disableControls}
           error={error}
         />
         <div style={{ padding: '1em 0' }}>
-          {loading ? <Spinner size="md"/> : (
-            <Button 
+          {loading ? <Spinner size="md" /> : (
+            <Button
               variant="primary"
-              type="submit" 
+              type="submit"
               loading={disableControls}
             >
               Create Account

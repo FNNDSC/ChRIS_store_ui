@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -12,14 +14,16 @@ const ProtectedRoute = ({ component: Component, ...rest }) => (
       if (isLoggedIn) {
         return <Component {...props} />;
       }
-        return <Redirect to={{
-          pathname: "/signin",
-          state: {from: props.location},
-        }} />;
+      return (
+        <Redirect to={{
+          pathname: '/signin',
+          state: { from: props.location },
+        }}
+        />
+      );
     }}
   />
 );
-
 
 ProtectedRoute.propTypes = {
   store: PropTypes.objectOf(PropTypes.object),

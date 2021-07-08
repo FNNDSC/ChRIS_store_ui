@@ -1,6 +1,6 @@
-import React from "react";
-import "./Footer.css";
-import chrisLogo from "../../assets/img/chris_logo-white.png";
+import React from 'react';
+import './Footer.css';
+import chrisLogo from '../../assets/img/chris_logo-white.png';
 
 const Footer = () => (
   <div className="footer">
@@ -10,7 +10,9 @@ const Footer = () => (
       </div>
       <div className="footer-body">
         <div className="footer-desc">
-          ChRIS is developed by Boston Children{"'"}s Hospital in partnership
+          ChRIS is developed by Boston Children
+          &apos;
+          s Hospital in partnership
           with Red Hat, the Massachusetts Open Cloud (MOC), and Boston
           University.
         </div>
@@ -31,7 +33,7 @@ const Footer = () => (
               Report an Issue
             </a>
           </div>
-           <div className="footer-link">
+          <div className="footer-link">
             <a href="https://github.com/FNNDSC/ChRIS_store_ui">
               Contribute
             </a>
@@ -48,7 +50,7 @@ const Footer = () => (
       </div>
     </div>
     <div className="footer-copyright">
-      © 2018 - {new Date().getFullYear()} Boston Children{"'"}s Hospital, Red
+      © 2018 - {new Date().getFullYear()} Boston Children&apos;s Hospital, Red
       Hat, Massachusetts Open Cloud, Boston University. All rights reserved.
     </div>
   </div>

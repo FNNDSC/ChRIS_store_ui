@@ -1,10 +1,10 @@
-import React from "react";
-import sampleCategories from "./sampleCategories";
-import "./welcomeCategories.css";
-import WelcomeCategory from "../WelcomeCategory/WelcomeCategory";
+import React from 'react';
+import sampleCategories from './sampleCategories';
+import './welcomeCategories.css';
+import WelcomeCategory from '../WelcomeCategory/WelcomeCategory';
 
 const WelcomeCategories = () => {
-const categories = sampleCategories ;
+  const categories = sampleCategories;
 
   return (
     <div className="welcome-categories">

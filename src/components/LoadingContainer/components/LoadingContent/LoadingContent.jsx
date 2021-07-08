@@ -1,18 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const LoadingContent = (props) => {
+const LoadingContent = ({ 
+  width,
+  height,
+  top,
+  left,
+  bottom,
+  right, 
+  className,
+  type,
+}) => {
   const computedStyle = {
-    width: props.width,
-    height: props.height,
-    marginTop: props.top,
-    marginLeft: props.left,
-    marginBottom: props.bottom,
-    marginRight: props.right,
+    width,
+    height,
+    marginTop: top,
+    marginLeft: left,
+    marginBottom: bottom,
+    marginRight: right,
   };
 
-  let addedClasses = props.className;
-  switch (props.type) {
+  let addedClasses = className;
+  switch (type) {
     case 'white':
       addedClasses += ' white';
       break;

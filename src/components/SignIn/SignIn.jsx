@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Button from '../Button';
 import StoreClient from '@fnndsc/chrisstoreapi';
+import {
+  Form,
+  Alert,
+  AlertActionCloseButton,
+  CardTitle,
+  Card,
+  CardBody,
+} from '@patternfly/react-core';
+
+import Button from '../Button';
 import './SignIn.css';
 import chrisLogo from '../../assets/img/chris_logo-white.png';
 import ChrisStore from '../../store/ChrisStore';
 import FormInput from '../FormInput';
-import { Form, Alert, AlertActionCloseButton, CardTitle, Card, CardBody } from '@patternfly/react-core';
 
 export class SignIn extends Component {
   constructor(props) {
@@ -18,7 +26,6 @@ export class SignIn extends Component {
       username: '',
       password: '',
       loading: false,
-      toDashboard: false,
       error: null,
     };
 
@@ -49,24 +56,23 @@ export class SignIn extends Component {
     const { username, password } = this.state;
     const { store, location, history } = this.props;
     this.setState({ loading: true });
-    try{
+    try {
       const token = await StoreClient.getAuthToken(authURL, username, password);
       store.set('userName')(username);
-        store.set('authToken')(token);
-        if (this.mounted) {
-          this.setState({ loading: false });
-          if (location.state && location.state.from) {
-            history.replace(location.state.from);
-          }
-          else {
-            history.push('/dashboard');
-          }
+      store.set('authToken')(token);
+      if (this.mounted) {
+        this.setState({ loading: false });
+        if (location.state && location.state.from) {
+          history.replace(location.state.from);
+        } else {
+          history.push('/dashboard');
         }
-    } catch(error){
+      }
+    } catch (error) {
       this.showError('Invalid username or password');
-        if (this.mounted) {
-          this.setState({ loading: false });
-        }
+      if (this.mounted) {
+        this.setState({ loading: false });
+      }
     }
     event.persist();
   }
@@ -117,7 +123,7 @@ export class SignIn extends Component {
               <h1>Login to your account</h1>
             </CardTitle>
             <CardBody>
-              <Form className="signin-form" >
+              <Form className="signin-form">
                 <FormInput
                   placeholder="Username"
                   fieldName="username"
@@ -142,7 +148,8 @@ export class SignIn extends Component {
                   className="signin-login-btn"
                   variant="primary"
                   loading={loading}
-                  onClick={this.handleSubmit}>
+                  onClick={this.handleSubmit}
+                >
                   Log In
                 </Button>
                 <p className="login-pf-signup">

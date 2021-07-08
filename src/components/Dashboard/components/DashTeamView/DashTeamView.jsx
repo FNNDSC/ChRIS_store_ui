@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import isEmpty from "lodash/isEmpty";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types';
 import {
   Table,
   TableHeader,
@@ -9,7 +9,7 @@ import {
   SortByDirection,
   headerCol,
   info,
-} from "@patternfly/react-table";
+} from '@patternfly/react-table';
 import {
   CardTitle,
   CardBody,
@@ -19,11 +19,11 @@ import {
   GridItem,
   CardActions,
   Button,
-} from "@patternfly/react-core";
+} from '@patternfly/react-core';
 
 import { PlusCircleIcon } from '@patternfly/react-icons';
-import BrainyTeammatesPointer from "../../../../assets/img/brainy_teammates-pointer.png";
-import "./DashTeamView.css";
+import BrainyTeammatesPointer from '../../../../assets/img/brainy_teammates-pointer.png';
+import './DashTeamView.css';
 
 const DashTeamEmptyState = () => (
   <div className="card-body-content-parent">
@@ -41,48 +41,51 @@ class DashTeamView extends Component {
     this.state = {
       rows: [],
       columns: [
-        { 
-          title: 'Name', 
+        {
+          title: 'Name',
           property: 'name',
-          transforms: [sortable, headerCol()] 
+          transforms: [sortable, headerCol()],
         },
-        { 
-          title: 'Position Title', 
+        {
+          title: 'Position Title',
           property: 'title',
-          transforms: [sortable] 
+          transforms: [sortable],
         },
         {
           title: 'Date Joined',
           property: 'date_joined',
           transforms: [
             info({
-              tooltip: 'More information about teammates'
+              tooltip: 'More information about teammates',
             }),
-            sortable
-          ]
-        }
+            sortable,
+          ],
+        },
       ],
-      sortBy: {}
+      sortBy: {},
     };
 
     this.state.rows = props.plugins.map((plugin) => {
-      let row = []; 
-      for(const prop of this.state.columns.map(({property}) => property)) 
-        row.push(plugin[prop]); 
+      const row = [];
+      const { columns } = this.state;
+      row.push(...columns.map(({ property }) => plugin[property])); 
       return row;
-    })
+    });
 
     this.onSort = this.onSort.bind(this);
   }
 
   onSort(_event, index, direction) {
-    const sortedRows = this.state.rows.sort((a, b) => (a[index] < b[index] ? -1 : a[index] > b[index] ? 1 : 0));
-    this.setState({
-      sortBy: {
-        index,
-        direction
-      },
-      rows: direction === SortByDirection.asc ? sortedRows : sortedRows.reverse()
+    this.setState((prevState) => {
+      // eslint-disable-next-line no-nested-ternary
+      const sortedRows = prevState.rows.sort((a, b) => (a[index] < b[index] ? -1 : a[index] > b[index] ? 1 : 0));
+      return {
+        sortBy: {
+          index,
+          direction,
+        },
+        rows: direction === SortByDirection.asc ? sortedRows : sortedRows.reverse(),
+      }
     });
   }
 
@@ -94,45 +97,49 @@ class DashTeamView extends Component {
     return (
       <Grid>
         <GridItem sm={12}>
-        <Card>
-          <CardTitle>Teammates</CardTitle>
-          <CardBody>
-            {showEmptyState ? (
-              <DashTeamEmptyState />
-            ) : (
-              <React.Fragment>
-                <Table aria-label="Sortable Table" 
-                  sortBy={sortBy} 
-                  onSort={this.onSort} 
-                  cells={columns} 
-                  rows={rows}
-                  actions={([
-                    {
-                      title: <a href="https://www.patternfly.org">Link action</a>
-                    },
-                    {
-                      title: 'Some action',
-                      onClick: (event, rowId, rowData, extra) => {
-                        console.log('clicked on Some action, on row: ', rowId)
+          <Card>
+            <CardTitle>Teammates</CardTitle>
+            <CardBody>
+              {showEmptyState ? (
+                <DashTeamEmptyState />
+              ) : (
+                <>
+                  <Table
+                    aria-label="Sortable Table"
+                    sortBy={sortBy}
+                    onSort={this.onSort}
+                    cells={columns}
+                    rows={rows}
+                    actions={([
+                      {
+                        title: <a href="https://www.patternfly.org">Link action</a>,
                       },
-                    },
-                    {
-                      title: 'Third action',
-                      onClick: (event, rowId, rowData, extra) => {
-                        console.log('clicked on Third action, on row: ', rowId)
-                      }
-                    }
-                  ])}
-                  areActionsDisabled={false}
-                  dropdownPosition="left"
-                  dropdownDirection="bottom">
+                      {
+                        title: 'Some action',
+                        // eslint-disable-next-line no-unused-vars
+                        onClick: (event, rowId, rowData, extra) => {
+                          // console.log('clicked on Some action, on row: ', rowId);
+                        },
+                      },
+                      {
+                        title: 'Third action',
+                        // eslint-disable-next-line no-unused-vars
+                        onClick: (event, rowId, rowData, extra) => {
+                          // console.log('clicked on Third action, on row: ', rowId);
+                        },
+                      },
+                    ])}
+                    areActionsDisabled={false}
+                    dropdownPosition="left"
+                    dropdownDirection="bottom"
+                  >
                     <TableHeader />
                     <TableBody />
-                </Table>
-              </React.Fragment>
-            )}
-          </CardBody>
-          {!showEmptyState && (
+                  </Table>
+                </>
+              )}
+            </CardBody>
+            {!showEmptyState && (
             <CardFooter
               className="card-footer"
             >
@@ -142,10 +149,10 @@ class DashTeamView extends Component {
                   <span>Add Teammate</span>
                 </Button>
               </CardActions>
-              
+
             </CardFooter>
-          )}
-        </Card>
+            )}
+          </Card>
         </GridItem>
       </Grid>
     );
@@ -153,11 +160,11 @@ class DashTeamView extends Component {
 }
 
 DashTeamView.propTypes = {
-  plugins: PropTypes.arrayOf(PropTypes.object)
+  plugins: PropTypes.arrayOf(PropTypes.object),
 };
 
 DashTeamView.defaultProps = {
-  plugins: []
+  plugins: [],
 };
 
 export default DashTeamView;

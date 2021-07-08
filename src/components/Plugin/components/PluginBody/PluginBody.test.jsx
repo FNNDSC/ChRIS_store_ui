@@ -46,7 +46,6 @@ describe('PluginBody', () => {
       .toHaveLength(1);
   });
 
-
   /* ============================== */
   /* =========== CARDS ============ */
   /* ============================== */
@@ -86,7 +85,7 @@ describe('rendered PluginBody', () => {
   });
 
   xit('should render title inside plugin-body-title', () => {
-    const changedData = Object.assign({}, samplePluginData);
+    const changedData = { ...samplePluginData };
     changedData.title = 'testTitle';
     wrapper.setProps({ pluginData: changedData });
     expect(wrapper
@@ -98,7 +97,7 @@ describe('rendered PluginBody', () => {
   });
 
   xit('should render description inside plugin-body-description', () => {
-    const changedData = Object.assign({}, samplePluginData);
+    const changedData = { ...samplePluginData };
     changedData.description = 'testDescription';
     wrapper.setProps({ pluginData: changedData });
     expect(wrapper

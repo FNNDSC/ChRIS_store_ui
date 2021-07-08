@@ -1,3 +1,6 @@
+/* eslint-disable react/no-danger */
+// Required for setting README html
+
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -9,17 +12,18 @@ import {
   Card,
   Popover,
   ClipboardCopy,
-  Button
-} from "@patternfly/react-core";
-import { DownloadIcon, UserAltIcon } from "@patternfly/react-icons";
+  Button,
+} from '@patternfly/react-core';
+import { DownloadIcon, UserAltIcon } from '@patternfly/react-icons';
 import PropTypes from 'prop-types';
 import marked from 'marked';
 import { sanitize } from 'dompurify';
 
 import './PluginBody.css';
-import Notification from '../../../Notification';
+import ErrorNotification from '../../../Notification';
 import HttpApiCallError from '../../../../errors/HttpApiCallError';
-import { GithubAPIRepoError,GithubAPIProfileError, GithubAPIReadmeError } from '../../../../errors/GithubError';
+// eslint-disable-next-line import/named
+import { GithubAPIRepoError, GithubAPIProfileError, GithubAPIReadmeError } from '../../../../errors/GithubError';
 
 const PluginBody = ({ pluginData }) => {
   const [activeTab, setActiveTab] = useState(1);
@@ -27,69 +31,69 @@ const PluginBody = ({ pluginData }) => {
 
   const [repoData, setRepoData] = useState();
   const [readme, setReadme] = useState();
-  const setReadmeHTML = $ => setReadme(sanitize($))
+  const setReadmeHTML = ($) => setReadme(sanitize($));
 
   const [errors, setErrors] = useState([]);
   const showNotifications = useCallback((error) => {
-    setErrors([ ...errors, error.message ])
-  }, [errors])
+    setErrors([...errors, error.message]);
+  }, [errors]);
 
   const fetchReadme = useCallback(async (repo) => {
-    const profile =  await fetch(`https://api.github.com/repos/${repo}/community/profile`)
-    if (!profile.ok) throw new GithubAPIProfileError(repo, profile)
+    const profile = await fetch(`https://api.github.com/repos/${repo}/community/profile`);
+    if (!profile.ok) throw new GithubAPIProfileError(repo, profile);
 
-    const url = await fetch((await profile.json()).files.readme.url)
-    if (!url.ok) throw new GithubAPIReadmeError(repo, url)
+    const url = await fetch((await profile.json()).files.readme.url);
+    if (!url.ok) throw new GithubAPIReadmeError(repo, url);
 
-    const { download_url } = (await url.json())
-    const file = await (await fetch(download_url)).text()
-    const type = download_url.split('.').reverse().shift()
+    // Has to be done since key is snake_case in data coming from Github
+    // eslint-disable-next-line camelcase
+    const { download_url } = (await url.json());
+    const file = await (await fetch(download_url)).text();
+    const type = download_url.split('.').reverse().shift();
 
-    return { file, type }
-  }, [])
+    return { file, type };
+  }, []);
 
   const fetchRepoData = useCallback(async (repo) => {
-    const data = await fetch(`https://api.github.com/repos/${repo}`)
-    if (!data.ok) throw new GithubAPIRepoError(repo, data)
+    const data = await fetch(`https://api.github.com/repos/${repo}`);
+    if (!data.ok) throw new GithubAPIRepoError(repo, data);
 
-    return await data.json()
-  }, [])
+    // Has to be done to avoid reassigning `data`
+    // eslint-disable-next-line no-return-await
+    return (await data.json());
+  }, []);
 
   useEffect(() => {
+    const expectRepoName = pluginData.public_repo.split('github.com/')[1];
     async function fetchRepo() {
       try {
-        const data = await fetchRepoData(expectRepoName)
-        setRepoData(data)
+        const data = await fetchRepoData(expectRepoName);
+        setRepoData(data);
 
-        const { file, type } = await fetchReadme(expectRepoName)
-        if (type === 'md' || type === 'rst') 
-          setReadmeHTML(marked(file))
-        else
-          setReadmeHTML(file)
+        const { file, type } = await fetchReadme(expectRepoName);
+        if (type === 'md' || type === 'rst') { setReadmeHTML(marked(file)); } else setReadmeHTML(file);
       } catch (error) {
-        showNotifications(new HttpApiCallError(error))
+        showNotifications(new HttpApiCallError(error));
       }
     }
 
-    const expectRepoName = pluginData.public_repo.split('github.com/')[1];
-    if (expectRepoName)
-      fetchRepo()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fetchReadme, fetchRepoData, pluginData.public_repo])
+    if (expectRepoName) 
+      fetchRepo();
+  }, [fetchReadme, fetchRepoData, pluginData.public_repo]);
 
-  const versionString = (v) => `Version ${v}` + (v === pluginData.version ? ' (This)' : '')
+  const versionString = (v) => `Version ${v}${v === pluginData.version ? ' (This)' : ''}`;
 
   return (
-    <React.Fragment>
+    <>
       {
         errors.map((message, index) => (
-          <Notification
+          <ErrorNotification
             title={message}
-            position='top-right'
-            variant='danger'
+            position="top-right"
+            variant="danger"
             closeable
             onClose={() => {
-              setErrors(errors.splice(index))
+              setErrors(errors.splice(index));
             }}
           />
         ))
@@ -101,8 +105,8 @@ const PluginBody = ({ pluginData }) => {
             <Tab eventKey={1} title={<TabTitleText>Overview</TabTitleText>}>
               <Grid hasGutter>
                 <GridItem md={8} sm={12}>
-                  <div style={{ color: "gray", margin: "1em 0" }}>README</div>
-                  { readme ? <div dangerouslySetInnerHTML={{ __html: readme }}></div> : null }
+                  <div style={{ color: 'gray', margin: '1em 0' }}>README</div>
+                  { readme ? <div dangerouslySetInnerHTML={{ __html: readme }} /> : null }
                 </GridItem>
                 <GridItem md={4} sm={12}>
                   <div className="plugin-body-side-col">
@@ -113,24 +117,26 @@ const PluginBody = ({ pluginData }) => {
                       <Popover
                         position="bottom"
                         headerContent={<b>Install to your ChRIS server</b>}
-                        bodyContent={hide => (
+                        bodyContent={() => (
                           <div>
                             <p>
-                              Copy and Paste the URL below into your ChRIS Admin Dashboard 
+                              Copy and Paste the URL below into your ChRIS Admin Dashboard
                               to install this plugin.
                             </p>
                             <br />
                             <ClipboardCopy isReadOnly>
-                              { 
-                                pluginData.url ? pluginData.url 
-                                : `${process.env.REACT_APP_STORE_URL}/plugins/${pluginData.id}/`.replace(/\/\//g, '/')
+                              {
+                                pluginData.url ? pluginData.url
+                                  : `${process.env.REACT_APP_STORE_URL}/plugins/${pluginData.id}/`.replace(/\/\//g, '/')
                               }
                             </ClipboardCopy>
                           </div>
                         )}
                       >
                         <Button isBlock style={{ fontSize: '1.125em' }}>
-                          <DownloadIcon /> Install to ChRIS
+                          <DownloadIcon />
+                          {' '}
+                          Install to ChRIS
                         </Button>
                       </Popover>
                     </div>
@@ -144,11 +150,17 @@ const PluginBody = ({ pluginData }) => {
                       <h4>Contributors</h4>
                       {
                         pluginData.authors.map((author) => (
-                          <a key={author} href={`#${author}`}><p><UserAltIcon/> {author}</p></a>
+                          <a key={author} href={`#${author}`}>
+                            <p>
+                              <UserAltIcon />
+                              {' '}
+                              {author}
+                            </p>
+                          </a>
                         ))
                       }
-                        
-                      <br/>
+
+                      <br />
                       <a className="pf-m-link" href={`${pluginData.public_repo}/graphs/contributors`}>
                         View all contributors
                       </a>
@@ -186,10 +198,10 @@ const PluginBody = ({ pluginData }) => {
                   {
                     pluginData.versions !== undefined ? (
                       <>
-                      <h2>Versions of this plugin</h2>
-                      {
-                        Object.keys(pluginData.versions).length > 1 ? 
-                          Object.keys(pluginData.versions).map((version) => (
+                        <h2>Versions of this plugin</h2>
+                        {
+                        Object.keys(pluginData.versions).length > 1
+                          ? Object.keys(pluginData.versions).map((version) => (
                             <div key={version}>
                               <Link
                                 href={`/plugin/${pluginData.name}/${version}`}
@@ -199,15 +211,17 @@ const PluginBody = ({ pluginData }) => {
                               </Link>
                             </div>
                           )) : (
-                          <div>
-                            {versionString(Object.keys(pluginData.versions).toString())}
-                          </div>
-                        )
+                            <div>
+                              {versionString(Object.keys(pluginData.versions).toString())}
+                            </div>
+                          )
                       }
                       </>
-                    ) : <div>
-                      <p>This is the only version of this plugin.</p>
-                    </div>
+                    ) : (
+                      <div>
+                        <p>This is the only version of this plugin.</p>
+                      </div>
+                    )
                   }
                 </GridItem>
               </Grid>
@@ -215,9 +229,9 @@ const PluginBody = ({ pluginData }) => {
           </Tabs>
         </Card>
       </article>
-    </React.Fragment>
+    </>
   );
-}
+};
 
 PluginBody.propTypes = {
   pluginData: PropTypes.shape({

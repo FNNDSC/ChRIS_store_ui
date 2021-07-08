@@ -4,7 +4,7 @@ import LoadingContent from '../../../LoadingContainer/components/LoadingContent/
 import './LoadingPluginItem.css';
 
 const LoadingPluginItem = () => (
-  <LoadingContainer className="loading-plugin-item" >
+  <LoadingContainer className="loading-plugin-item">
     <LoadingContent
       width="150px"
       height="37px"

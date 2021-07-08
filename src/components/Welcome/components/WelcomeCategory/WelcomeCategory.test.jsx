@@ -28,14 +28,14 @@ describe('WelcomeCategory', () => {
   it('should have an img element to go with every welcome-category-item div', () => {
     expect(Array
       .from(wrapper.find('div.welcome-category-item'))
-      .every(div => shallow(div).find('img.welcome-category-item-img').length === 1))
+      .every((div) => shallow(div).find('img.welcome-category-item-img').length === 1))
       .toEqual(true);
   });
 
   it('should have an item-body to go with every category-item', () => {
     expect(Array
       .from(wrapper.find('div.welcome-category-item'))
-      .every(div => shallow(div)
+      .every((div) => shallow(div)
         .find('div.welcome-category-item-body').length === 1))
       .toEqual(true);
   });
@@ -43,7 +43,7 @@ describe('WelcomeCategory', () => {
   it('should have an item-name to go with every item-body', () => {
     expect(Array
       .from(wrapper.find('div.welcome-category-item'))
-      .every(div => shallow(div)
+      .every((div) => shallow(div)
         .find('div.welcome-category-item-body')
         .find('div.welcome-category-item-name').length === 1))
       .toEqual(true);
@@ -52,7 +52,7 @@ describe('WelcomeCategory', () => {
   it('should have an item-desc to go with every item-body', () => {
     expect(Array
       .from(wrapper.find('div.welcome-category-item'))
-      .every(div => shallow(div)
+      .every((div) => shallow(div)
         .find('div.welcome-category-item-body')
         .find('div.welcome-category-item-desc').length === 1))
       .toEqual(true);
@@ -61,7 +61,7 @@ describe('WelcomeCategory', () => {
   it('should have an item-tags to go with every item-body', () => {
     expect(Array
       .from(wrapper.find('div.welcome-category-item'))
-      .every(div => shallow(div)
+      .every((div) => shallow(div)
         .find('div.welcome-category-item-body')
         .find('div.welcome-category-item-tags').length === 1))
       .toEqual(true);

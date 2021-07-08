@@ -175,7 +175,7 @@ describe('CreatePlugin', () => {
     });
   });
 
-  const getFormGroupFromId = id => wrapper
+  const getFormGroupFromId = (id) => wrapper
     .find('Form.createplugin-form')
     .find(`FormGroup[controlId="${id}"]`);
 
@@ -233,7 +233,7 @@ describe('CreatePlugin', () => {
   /* ============ UPLOAD ========== */
   /* ============================== */
 
-  const findUploadFormGroup = shallowWrapper => shallowWrapper
+  const findUploadFormGroup = (shallowWrapper) => shallowWrapper
     .find('Form.createplugin-form')
     .find('FormGroup[controlId="file"]');
 
@@ -519,7 +519,12 @@ describe('CreatePlugin', () => {
       ...formState,
     });
     await mockedWrapper.instance().handleSubmit();
-    expect(spy).toHaveBeenCalledWith(<span>The <code>:latest</code> tag is discouraged.</span>);
+    expect(spy).toHaveBeenCalledWith(<span>
+      The
+      <code>:latest</code>
+      {' '}
+      tag is discouraged.
+    </span>);
   });
 
   it('should call handleError if no docker tag is provided', async () => {
@@ -534,10 +539,20 @@ describe('CreatePlugin', () => {
     });
     await mockedWrapper.instance().handleSubmit();
     const description = 'Please tag your Docker image by version.';
-    const tagExample = `docker tag ${formState.image.split(':')[0]} ${formState.image.split(':')[0]}:1.0.1`; //TODO 
+    const tagExample = `docker tag ${formState.image.split(':')[0]} ${formState.image.split(':')[0]}:1.0.1`; // TODO
     const pushExample = `docker push ${formState.image.split(':')[0]}:1.0.1`;
-    expect(spy).toHaveBeenCalledWith(<div>{description} <p><b>Example:</b><br/>{tagExample}<br/>{pushExample}</p></div> )
-  })
+    expect(spy).toHaveBeenCalledWith(<div>
+      {description}
+      {' '}
+      <p>
+        <b>Example:</b>
+        <br />
+        {tagExample}
+        <br />
+        {pushExample}
+      </p>
+                                     </div>);
+  });
   it('should call handleError if all fields are filled but invalid JSON is received', async () => {
     window.sessionStorage.setItem('AUTH_TOKEN', 'testToken');
 

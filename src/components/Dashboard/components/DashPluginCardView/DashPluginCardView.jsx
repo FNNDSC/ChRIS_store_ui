@@ -49,17 +49,17 @@ const DashGitHubEmptyState = () => (
 const DashApplicationType = type => {
   if (type === "ds") {
     return (
-      <React.Fragment>
+      <>
         <span className="fa fa-database" /> {" "}
         <span style={{ fontWeight: 'bold' }}>Data System</span>
-      </React.Fragment>
+      </>
     );
   }
   return (
-    <React.Fragment>
+    <>
       <span className="fa fa-file" /> {" "}
       <span style={{ fontWeight: 'bold' }}>File System</span>
-    </React.Fragment>
+    </>
   );
 };
 
@@ -74,14 +74,13 @@ class DashPluginCardView extends Component {
       pluginToEdit: null,
       publicRepo: "",
       isOpen: [],
-      isExpanded: [],
     };
   }
   
   editPlugin = () => {
     const { onEdit } = this.props;
-    const { pluginToEdit } = this.state;
-    onEdit(pluginToEdit.id, this.state.publicRepo);
+    const { pluginToEdit, publicRepo } = this.state;
+    onEdit(pluginToEdit.id, publicRepo);
     this.setState({ showEditConfirmation: false });
   }
   
@@ -98,6 +97,7 @@ class DashPluginCardView extends Component {
       pluginToDelete: plugin
     });
   }
+
   showEditModal = (plugin) => {
     this.setState({
       showEditConfirmation: true,
@@ -108,13 +108,12 @@ class DashPluginCardView extends Component {
   handlePublicRepo = (value) => {
     this.setState({ publicRepo: value });
   }
-  
+
   toggleEditMenu = (value, cardidx) => {
-    const isOpen = new Array(this.props.plugins.length);
+    const { plugins } = this.props;
+    const isOpen = new Array(plugins.length);
     isOpen[cardidx] = value;
-    this.setState({
-      isOpen: [...isOpen],
-    });
+    this.setState({ isOpen });
   }
   
   onSelect = (event, plugin) => {
@@ -230,7 +229,7 @@ class DashPluginCardView extends Component {
     return showEmptyState ? (
       <DashGitHubEmptyState />
     ) : (
-      <React.Fragment>
+      <>
         <div className="card-view-row">
           <Grid style={{ width: '100%' }} hasGutter>
             {pluginCardBody}
@@ -271,7 +270,7 @@ class DashPluginCardView extends Component {
             {secondaryDeleteContent}
           </Modal>
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }

@@ -27,15 +27,17 @@ const FormInput = (props) => {
       validated={validationState}
       className={className}
       helperText={
-        helperText ? 
-        <FormHelperText isHidden={validationState === 'error'}>
-          {helperText}
-        </FormHelperText> : null
+        helperText
+          ? (
+            <FormHelperText isHidden={validationState === 'error'}>
+              {helperText}
+            </FormHelperText>
+          ) : null
       }
-      helperTextInvalid={error && error.controls.includes(fieldName) ? error.message: null}
+      helperTextInvalid={error && error.controls.includes(fieldName) ? error.message : null}
     >
-    {
-      children ? children : (
+      {
+      children || (
         <TextInput
           validated={validationState}
           type={inputType}
@@ -51,9 +53,9 @@ const FormInput = (props) => {
         />
       )
     }
-    
+
     </FormGroup>
-  )
+  );
 };
 
 export default FormInput;

@@ -10,7 +10,6 @@ import biomediaLogo from '../../../../assets/img/plugins/biomedia_90.png';
 import antLogo from '../../../../assets/img/plugins/ant_90.png';
 import civetLogo from '../../../../assets/img/plugins/civet_90.png';
 
-
 const WelcomeCTA = () => (
   <div className="welcome-cta">
     <div className="welcome-cta-img">
@@ -25,14 +24,14 @@ const WelcomeCTA = () => (
         Apps available in the ChRIS store include:
       </div>
       <div className="row welcome-cta-featured-container">
-        <WelcomeFeature name="Fastsurfer" img={freesurferLogo} url='https://chrisstore.co/plugin/44'/>
-        <WelcomeFeature name="Infant-FreeSurfer" img={infantLogo} url='https://chrisstore.co/plugin/78'/>
-        <WelcomeFeature name="IRTK reconstruction" img={biomediaLogo} url='https://chrisstore.co/plugin/85'/>
-        <WelcomeFeature name="N4 Bias Field Correction" img={antLogo} url='https://chrisstore.co/plugin/77'/>
-        <WelcomeFeature name="Civet" img={civetLogo} url='https://chrisstore.co/plugin/2'/>
+        <WelcomeFeature name="Fastsurfer" img={freesurferLogo} url="https://chrisstore.co/plugin/44" />
+        <WelcomeFeature name="Infant-FreeSurfer" img={infantLogo} url="https://chrisstore.co/plugin/78" />
+        <WelcomeFeature name="IRTK reconstruction" img={biomediaLogo} url="https://chrisstore.co/plugin/85" />
+        <WelcomeFeature name="N4 Bias Field Correction" img={antLogo} url="https://chrisstore.co/plugin/77" />
+        <WelcomeFeature name="Civet" img={civetLogo} url="https://chrisstore.co/plugin/2" />
       </div>
       <div className="welcome-scroll-caret">
-        <AngleDownIcon/>
+        <AngleDownIcon />
       </div>
     </div>
     <div className="row no-flex">

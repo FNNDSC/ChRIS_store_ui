@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
 import Client from '@fnndsc/chrisstoreapi';
 import { Link } from 'react-router-dom';
-import { CardHeader, Grid, GridItem } from '@patternfly/react-core';
-import { Form, FormGroup, TextInput, FileUpload, } from '@patternfly/react-core';
-import { Alert, Card, CardBody, CodeBlock, CodeBlockCode } from '@patternfly/react-core';
-import { FileIcon, UploadIcon, ExclamationTriangleIcon } from '@patternfly/react-icons'
+import {
+  CardHeader,
+  Grid,
+  GridItem,
+  Form,
+  FormGroup,
+  TextInput,
+  FileUpload,
+  Alert,
+  Card,
+  CardBody,
+  CodeBlock,
+  CodeBlockCode,
+} from '@patternfly/react-core';
+import { FileIcon, UploadIcon, ExclamationTriangleIcon } from '@patternfly/react-icons';
 
 import Button from '../Button';
 import './CreatePlugin.css';
-
 
 class CreatePlugin extends Component {
   constructor() {
@@ -26,63 +36,45 @@ class CreatePlugin extends Component {
       success: false,
     };
 
+    this.storeURL = process.env.REACT_APP_STORE_URL;
+
+    this.formGroupsData = [
+      {
+        id: 'name',
+        label: 'Plugin Name',
+        help: 'Choose a unique name',
+        validated: 'isNameValidated',
+        validation: async (value) => {
+          if (value.length < 5) return 'warning';
+
+          try {
+            const result = await this.Client().getPluginMetas({
+              name_title_category: value,
+            });
+            if (result.data.length === 0) return 'success';
+            return 'error';
+          } catch (error) {
+            return 'warning';
+          }
+        },
+      },
+      {
+        id: 'image',
+        label: 'Docker Image',
+        help: 'DockerHub URL of the image to be used',
+      },
+      {
+        id: 'repo',
+        label: 'Repository',
+        help: 'Public URL to your source code',
+      },
+    ];
+
     [
       'setFileError', 'handleError', 'hideError', 'handleChange',
       'handleFile', 'readFile', 'handleSubmit',
-    ].forEach((method) => { 
-      this[method] = this[method].bind(this); 
-    });
-  }
-
-  Client() {
-    const storeURL = process.env.REACT_APP_STORE_URL;
-    const token = window.sessionStorage.getItem('AUTH_TOKEN');
-    return new Client(storeURL, { token });
-  }
-  
-  formGroupsData = [
-    {
-      id: 'name',
-      label: 'Plugin Name',
-      help: 'Choose a unique name',
-      validated: 'isNameValidated',
-      validation: async (value) => {
-        if (value.length < 5)
-          return 'warning';
-
-        try {
-          const result = await this.Client().getPluginMetas({
-            name_title_category: value
-          })
-          if (result.data.length === 0) return 'success';
-          return 'error';
-        } catch (error) {
-          console.error(error)
-          return 'warning';
-        }
-      }
-    },
-    {
-      id: 'image',
-      label: 'Docker Image',
-      help: 'DockerHub URL of the image to be used',
-    },
-    {
-      id: 'repo',
-      label: 'Repository',
-      help: 'Public URL to your source code',
-    },
-  ];
-
-  setFileError(state) {
-    this.setState((prevState) => {
-      const nextState = {};
-      if (typeof state !== 'undefined') {
-        nextState.fileError = state;
-      } else {
-        nextState.fileError = !prevState.fileError;
-      }
-      return nextState;
+    ].forEach((method) => {
+      this[method] = this[method].bind(this);
     });
   }
 
@@ -106,20 +98,16 @@ class CreatePlugin extends Component {
     }
   }
 
-  hideError() {
-    this.setState({ formError: null });
-  }
-
   handleChange(value, { target }, check) {
-    let nextState = { [target.name]: value };
+    const nextState = { [target.name]: value };
     this.setState(nextState);
 
     if (check) {
-      check.validation(value).then((status)=>{
+      check.validation(value).then((status) => {
         this.setState({
-          [check.validated]: status
-        })
-      })
+          [check.validated]: status,
+        });
+      });
     }
   }
 
@@ -138,32 +126,6 @@ class CreatePlugin extends Component {
     }
   }
 
-  readFile(file) {
-    return new Promise((resolve, reject) => {
-      const invalidRepresentation = new Error('Invalid Plugin Representation');
-      if (file instanceof Blob) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const { target: { result } } = e;
-
-          let pluginRepresentation;
-          try {
-            pluginRepresentation = JSON.parse(result);
-          } catch (_err) {
-            reject(invalidRepresentation);
-          }
-
-          this.setState({ pluginRepresentation, fileError: false }, resolve);
-        };
-
-        reader.onerror = () => reject(invalidRepresentation);
-        reader.readAsText(file);
-      } else {
-        reject(invalidRepresentation);
-      }
-    });
-  }
-  
   async handleSubmit() {
     const {
       name: pluginName,
@@ -176,33 +138,46 @@ class CreatePlugin extends Component {
     const errors = [];
     let missingRepresentationString = '';
     const inputImage = pluginImage.trim();
-    if(inputImage){
+    if (inputImage) {
       if (inputImage.endsWith(':latest')) {
-        return this.handleError(<span>The <code>:latest</code> tag is discouraged.</span>);
-      }
-      else if (!inputImage.includes(':')) {
+        this.handleError(
+          <span>
+            The
+            <code>:latest</code>
+            tag is discouraged.
+          </span>,
+        );
+      } else if (!inputImage.includes(':')) {
         /**
          * @todo
          * We can provide specific feedback based on the plugin's JSON description,
          * if it is uploaded.
          */
         const tag = inputImage.split(':')[0];
-        return this.handleError(
+        this.handleError(
           <div>
             <p>
-              Please tag your Docker image by version.<br />
+              Please tag your Docker image by version.
+              <br />
               Example:
             </p>
             <CodeBlock>
               <CodeBlockCode>
-                docker tag {tag} {tag}:1.0.1<br />
-                docker push {tag}:1.0.1
+                docker tag
+                {tag}
+                {tag}
+                :1.0.1
+                <br />
+                docker push
+                {tag}
+                :1.0.1
               </CodeBlockCode>
             </CodeBlock>
-          </div>
+          </div>,
         );
       }
     }
+
     if (!(
       pluginName.trim() && pluginImage.trim() &&
       pluginRepo.trim() && pluginRepresentation &&
@@ -226,11 +201,11 @@ class CreatePlugin extends Component {
       if (errors.length === 3 && missingRepresentationString !== '') {
         return this.handleError('All fields are required.');
       // If one fields is empty
-      } else if (errors.length === 1) {
+      } if (errors.length === 1) {
         return this.handleError(`Please ${missingRepresentationString}enter
           the ${errors[0]}`);
       // If two fields are empty
-      } else if (errors.length === 2) {
+      } if (errors.length === 2) {
         return this.handleError(`Please ${missingRepresentationString}enter
           the ${errors[0]} and ${errors[1]}`);
       // If more than Plugin Representation or two fields are empty or
@@ -269,9 +244,58 @@ class CreatePlugin extends Component {
     return newPlugin;
   }
 
+  setFileError(state) {
+    this.setState((prevState) => {
+      const nextState = {};
+      if (typeof state !== 'undefined') {
+        nextState.fileError = state;
+      } else {
+        nextState.fileError = !prevState.fileError;
+      }
+      return nextState;
+    });
+  }
+
+  readFile(file) {
+    return new Promise((resolve, reject) => {
+      const invalidRepresentation = new Error('Invalid Plugin Representation');
+      if (file instanceof Blob) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const { target: { result } } = e;
+
+          let pluginRepresentation;
+          try {
+            pluginRepresentation = JSON.parse(result);
+          } catch (_err) {
+            reject(invalidRepresentation);
+          }
+
+          this.setState({ pluginRepresentation, fileError: false }, resolve);
+        };
+
+        reader.onerror = () => reject(invalidRepresentation);
+        reader.readAsText(file);
+      } else {
+        reject(invalidRepresentation);
+      }
+    });
+  }
+
+  Client() {
+    const token = window.sessionStorage.getItem('AUTH_TOKEN');
+    return new Client(this.storeURL, { token });
+  }
+
+  hideError() {
+    this.setState({ formError: null });
+  }
+
   render() {
-    const { fileName, fileError, formError, success, newPlugin } = this.state;
-    
+    const {
+      fileName, fileError, formError, success, newPlugin,
+    } = this.state;
+
     let pluginId;
     if (newPlugin) {
       pluginId = newPlugin.id;
@@ -279,20 +303,23 @@ class CreatePlugin extends Component {
 
     // generate formGroups based on data
     const PluginFormDataGroups = this.formGroupsData.map(
-      ({ id, label, help, validated, validation }) => (
+      ({ id, label, help, validated, validation  }) => (
         <FormGroup label={label} key={id} type="text">
           <TextInput id={id} name={id}
             autoComplete="off"
+            // eslint-disable-next-line react/destructuring-assignment
             validated={validated ? this.state[validated] : undefined}
+            // eslint-disable-next-line react/destructuring-assignment
             value={this.state[id]}
             onChange={!validated ? this.handleChange : (
-              (...args) => this.handleChange(...args, {validated, validation})
+              (...args) => this.handleChange(...args, { validated, validation })
             )}
             placeholder={help}
             isRequired
           />
         </FormGroup>
-    ));
+      )
+    );
 
     return (
       <article className="createplugin">
@@ -320,7 +347,7 @@ class CreatePlugin extends Component {
               </GridItem>
             </Grid>
           </GridItem>
-          
+
           <GridItem lg={6} xs={12}>
             <Grid hasGutter>
               {
@@ -335,7 +362,7 @@ class CreatePlugin extends Component {
                   </GridItem>
                 ) : null
               }
-              
+
               {
                 success ? (
                   <GridItem xs={12}>
@@ -370,10 +397,10 @@ class CreatePlugin extends Component {
                       <FormGroup label="Representation File" id="createplugin-upload">
                         <div id="createplugin-upload-file">
                           <span id="createplugin-upload-icon">
-                            { fileError ? <ExclamationTriangleIcon/> : (
-                                !fileName ? <UploadIcon /> : <FileIcon />
-                              )
-                            }
+                            { // eslint-disable-next-line no-nested-ternary
+                              fileError ? <ExclamationTriangleIcon /> : (
+                              !fileName ? <UploadIcon /> : <FileIcon />
+                            )}
                           </span>
                           <FileUpload
                             id="createplugin-upload-fileupload"

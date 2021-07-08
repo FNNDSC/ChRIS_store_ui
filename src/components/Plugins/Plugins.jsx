@@ -24,11 +24,23 @@ import NotFound from '../NotFound/NotFound';
 
 import ChrisStore from '../../store/ChrisStore';
 import HttpApiCallError from '../../errors/HttpApiCallError';
-import Notification from '../Notification';
+import ErrorNotification from '../Notification';
 
 import './Plugins.css';
 
 const CATEGORIES = ['FreeSurfer', 'MRI', 'Segmentation'];
+
+// Remove email from author
+export const removeEmail = (authors) => {
+  const emailRegex = /(<|\().+?@.{2,}?\..{2,}?(>|\))/g;
+  // Match '<' or '(' at the beginning and end
+  // Match <string>@<host>.<tld> inside brackets
+  if (!Array.isArray(authors))
+    // eslint-disable-next-line no-param-reassign
+    authors = [ authors ]
+
+  return authors.map((author) => author.replace(emailRegex, "").trim());
+}
 
 /**
  * A page showing a list of ChRIS plugins, according to the search
@@ -48,11 +60,11 @@ export class Plugins extends Component {
     this.state = {
       loading: true,
       isSortOpen: false,
-      errorMsg: null,
+      error: null,
       plugins: new PluginMetaList(),
       paginationLimit: 0,
       paginationOffset: 0,
-      categories: categories,
+      categories,
       selectedCategory: null,
       starsByPlugin: {},
     };
@@ -71,9 +83,56 @@ export class Plugins extends Component {
    * in the NarBar's search bar.
    */
   async componentDidUpdate(prevProps) {
+    // eslint-disable-next-line react/destructuring-assignment
     if (this.props.location !== prevProps.location) {
       await this.refreshPluginList();
     }
+  }
+
+  /**
+   * Add a star next to the plugin visually.
+   * (Does not necessarily send to the backend that the plugin is a favorite).
+   *
+   * @param pluginId
+   * @param star
+   */
+  setPluginStar(pluginId, star) {
+    this.setState((prevState) => ({
+      starsByPlugin: {
+        ...prevState.starsByPlugin,
+        [pluginId]: star,
+      },
+    }));
+  }
+
+  // eslint-disable-next-line react/destructuring-assignment
+  isLoggedIn = () => this.props.store ? this.props.store.get("isLoggedIn") : false;
+
+  // eslint-disable-next-line react/destructuring-assignment
+  isFavorite = ({ id }) => this.state.starsByPlugin[id] !== undefined;
+
+  /**
+   * Show only plugins which are part of this category.
+   *
+   * @param name name of category
+   */
+  handleCategorySelect = (category) => {
+    this.setState({ loading: true, selectedCategory: category });
+    this.refreshPluginList({ category })
+  }
+  
+  handleToggleSort = () => {
+    this.setState((prevState) => ({
+      isSortOpen: !prevState.isSortOpen 
+    }))
+  }
+
+  // eslint-disable-next-line no-unused-vars
+  handleSortingSelect = (sort) => {
+    /**
+     * @todo sort plugins
+     */
+    this.handleToggleSort()
   }
 
   /**
@@ -91,8 +150,9 @@ export class Plugins extends Component {
       ...search
     };
 
+    let plugins;
     try {
-      var plugins = await this.client.getPluginMetas(searchParams);
+      plugins = await this.client.getPluginMetas(searchParams);
     } catch(error) {
       this.showNotifications(new HttpApiCallError(error));
       return;
@@ -130,8 +190,9 @@ export class Plugins extends Component {
    * @returns void
    */
   async fetchAllCategories() {
+    let catplugins;
     try {
-      var catplugins = await this.client.getPlugins({
+      catplugins = await this.client.getPlugins({
         limit: 1e6,
         offset: 0,
         name_title_category: null,
@@ -143,6 +204,7 @@ export class Plugins extends Component {
 
     const { categories } = this.state;
     // count the frequency of catplugins which belong to categories
+    // eslint-disable-next-line no-restricted-syntax
     for (const { category } of catplugins.data)
       if (category)
         categories.set(
@@ -151,22 +213,6 @@ export class Plugins extends Component {
             categories.get(category) + 1 : 1);
 
     this.setState({ categories });
-  }
-
-  /**
-   * Add a star next to the plugin visually.
-   * (Does not necessarily send to the backend that the plugin is a favorite).
-   *
-   * @param pluginId
-   * @param star
-   */
-  setPluginStar(pluginId, star) {
-    this.setState({
-      starsByPlugin: {
-        ...this.state.starsByPlugin,
-        [pluginId]: star,
-      },
-    });
   }
 
   /**
@@ -183,9 +229,8 @@ export class Plugins extends Component {
    * @param error error message
    */
   showNotifications(error) {
-    console.error(error);
     this.setState({
-      errorMsg: error.message,
+      error: error.message,
     })
   }
 
@@ -218,6 +263,7 @@ export class Plugins extends Component {
    * @return {Promise<void>}
    */
   async unfavPlugin(plugin) {
+    // eslint-disable-next-line react/destructuring-assignment
     const previousStarState = { ...this.state.starsByPlugin[plugin.id] };
 
     // Early state change for instant visual feedback
@@ -252,52 +298,28 @@ export class Plugins extends Component {
     }
   }
 
-  isLoggedIn = () => this.props.store ? this.props.store.get("isLoggedIn") : false;
-
-  isFavorite = ({ id }) => this.state.starsByPlugin[id] !== undefined;
-
-  /**
-   * Show only plugins which are part of this category.
-   *
-   * @param name name of category
-   */
-  handleCategorySelect = (category) => {
-    this.setState({ loading: true, selectedCategory: category });
-    this.refreshPluginList({ category })
-  }
-  
-  handleToggleSort = () => {
-    this.setState({
-      isSortOpen: !this.state.isSortOpen
-    })
-  }
-
-  handleSortingSelect = (sort) => {
-    /**
-     * @todo sort plugins
-     */
-    this.handleToggleSort()
-  }
-
   render() {
     // convert map into the data structure expected by <PluginsCategories />
-    const { categories } = this.state;
+    const { categories, plugins, loading, error } = this.state;
+    const { paginationOffset, paginationLimit, isSortOpen, selectedCategory } = this.state;
+
     const categoryEntries = Array.from(categories.entries(), ([name, count]) => ({
-      name: name, length: count
+      name, length: count
     }));
     
     const pluginList = new Map()
-    for (let plugin of this.state.plugins.data) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const plugin of plugins.data) {
       plugin.authors = removeEmail(plugin.authors.split(','))
       pluginList.set(plugin.name, plugin)
     }
 
     // Render the pluginList if the plugins have been fetched
     const PluginListBody = () => {
-      if (!this.state.loading)
+      if (!loading)
         return [...pluginList.values()]
-        .map((plugin, index) => (
-          <GridItem lg={6} xs={12} key={`${plugin.name}-${index}`}>
+        .map((plugin) => (
+          <GridItem lg={6} xs={12} key={plugin.name}>
             <PluginItem
               { ...plugin }
               isLoggedIn={this.isLoggedIn()}
@@ -306,8 +328,8 @@ export class Plugins extends Component {
             />
           </GridItem>
         ));
-      else
-        return new Array(6).fill().map((e, i) => (
+      return new Array(6).fill().map((e, i) => (
+          // eslint-disable-next-line react/no-array-index-key
           <LoadingPluginItem key={i} />
         ));
     }
@@ -316,22 +338,22 @@ export class Plugins extends Component {
       <div style={{ marginLeft: '1em' }}>
         <Button style={{ marginLeft: '1em' }} 
           variant="secondary" 
-          isDisabled={!this.state.plugins.hasPreviousPage}
+          isDisabled={!plugins.hasPreviousPage}
           onClick={() => {
             this.setState({ loading: true });
             this.refreshPluginList({
-              offset: this.state.paginationOffset - this.state.paginationLimit
+              offset: paginationOffset - paginationLimit
             })
           }}>
             Previous
         </Button>
 
         <Button style={{ marginLeft: '1em' }} 
-          isDisabled={!this.state.plugins.hasNextPage}
+          isDisabled={!plugins.hasNextPage}
           onClick={() => {
             this.setState({ loading: true });
             this.refreshPluginList({
-              offset: this.state.paginationOffset + this.state.paginationLimit
+              offset: paginationOffset + paginationLimit
             })
           }}>
             Next
@@ -342,7 +364,7 @@ export class Plugins extends Component {
     return (
       <Switch>
         <Route path="/plugin/:name" render={(routeProps)=>{
-          if (this.state.loading)
+          if (loading)
             return <LoadingPluginItem />
 
           window.scrollTo(0,0);
@@ -351,18 +373,17 @@ export class Plugins extends Component {
             const plugin = pluginList.get(query);
             return <ConnectedPlugin pluginData={plugin} isFavorite={this.isFavorite(plugin)} />
           }
-          else
-            return <NotFound/>
+          return <NotFound/>
         }} />
 
         <Route exact path="/plugins">
-          {this.state.errorMsg && (
-            <Notification
-              title={this.state.errorMsg}
+          {error && (
+            <ErrorNotification
+              title={error}
               position='top-right'
               variant='danger'
               closeable
-              onClose={()=>this.setState({ errorMsg: null })}
+              onClose={()=>this.setState({ error: null })}
             />
           )}
 
@@ -385,7 +406,7 @@ export class Plugins extends Component {
                       <Split>
                         <SplitItem>
                           {
-                            this.state.loading ? (
+                            loading ? (
                               <LoadingContainer>
                                 <LoadingContent
                                   width="135px"
@@ -398,17 +419,18 @@ export class Plugins extends Component {
                             ) : (
                               <span style={{ color: 'gray', fontSize: '1.5em', margin: '1em 0'}}>
                                 <p style={{ fontSize: '1.25em', margin: '0', color: 'black', fontWeight: '600' }}>
-                                  {this.state.plugins.totalCount} plugins found
+                                  {plugins.totalCount} plugins found
                                 </p>
-                                Showing {this.state.paginationOffset + 1} to {' '}
+                                Showing {paginationOffset + 1} to {' '}
                                   { 
-                                    (this.state.paginationOffset + this.state.paginationLimit > this.state.plugins.totalCount) ? 
-                                      this.state.plugins.totalCount
+                                    // eslint-disable-next-line no-nested-ternary
+                                    (paginationOffset + paginationLimit > plugins.totalCount) ? 
+                                      plugins.totalCount
                                       :
-                                      (this.state.paginationOffset > 0) ?
-                                        this.state.paginationOffset
+                                      (paginationOffset > 0) ?
+                                        paginationOffset
                                         :
-                                        this.state.paginationLimit
+                                        paginationLimit
                                   }
                               </span>
                             )
@@ -418,7 +440,7 @@ export class Plugins extends Component {
                         <SplitItem>
                           <Dropdown
                             onSelect={this.handleSortingSelect}
-                            isOpen={this.state.isSortOpen}
+                            isOpen={isSortOpen}
                             toggle={
                               <DropdownToggle id="toggle-id" 
                                 onToggle={this.handleToggleSort} 
@@ -452,7 +474,7 @@ export class Plugins extends Component {
                   <PluginsCategories 
                     categories={categoryEntries}
                     onSelect={this.handleCategorySelect}
-                    selected={this.state.selectedCategory}
+                    selected={selectedCategory}
                   />
                 </GridItem>
               </Grid>
@@ -462,18 +484,6 @@ export class Plugins extends Component {
       </Switch>
     );
   }
-}
-
-
-// Remove email from author
-export const removeEmail = (authors) => {
-  const emailRegex = /(<|\().+?@.{2,}?\..{2,}?(>|\))/g;
-  // Match '<' or '(' at the beginning and end
-  // Match <string>@<host>.<tld> inside brackets
-  if (!Array.isArray(authors))
-    authors = [ authors ]
-
-  return authors.map((author) => author.replace(emailRegex, "").trim());
 }
 
 Plugins.propTypes = {

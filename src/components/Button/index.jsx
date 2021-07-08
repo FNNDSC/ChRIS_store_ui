@@ -1,8 +1,9 @@
-import React from "react";
-import { Button } from "@patternfly/react-core";
-import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
-import "./button.css";
+import React from 'react';
+import { Button } from '@patternfly/react-core';
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+import './button.css';
+
 const ButtonComponent = ({
   variant,
   onClick,
@@ -10,11 +11,10 @@ const ButtonComponent = ({
   toRoute,
   children,
   type,
-  ...otherProps
 }) => {
   const history = useHistory();
   return (
-    <div  {...otherProps}>
+    <div>
       <Button
         isLoading={loading}
         variant={variant}
@@ -30,8 +30,8 @@ const ButtonComponent = ({
 ButtonComponent.propTypes = {
   variant: PropTypes.string,
   onClick: PropTypes.func,
-  icon: PropTypes.object,
   loading: PropTypes.bool,
-  };
+  toRoute: PropTypes.string
+};
 
 export default ButtonComponent;

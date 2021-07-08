@@ -4,8 +4,8 @@ import AppLayout from '../AppLayout/AppLayout';
 
 // pages
 import Welcome from '../Welcome/Welcome';
-import ConnectedPlugin from '../Plugin/Plugin';
-import ConnectedPlugins from '../Plugins/Plugins';
+import PluginDetail from '../Plugin/Plugin';
+import PluginsList from '../Plugins/Plugins';
 import Developers from '../Developers/Developers';
 import CreatePlugin from '../CreatePlugin/CreatePlugin';
 import NotFound from '../NotFound/NotFound';
@@ -16,9 +16,9 @@ const Router = () => (
   <AppLayout>
     <Switch>
       <Route exact path="/" component={Welcome} />
-      <Route path="/p/:pluginId" component={ConnectedPlugin} />
-      <Route path="/plugins" component={ConnectedPlugins} />
-      <Route path="/plugin" component={ConnectedPlugins} />
+      <Route path="/p/:pluginId" component={PluginDetail} />
+      <Route path="/plugins" component={PluginsList} />
+      <Route path="/plugin" component={PluginsList} />
       <Route path="/quickstart" component={Developers} />
       <ProtectedRoute path="/create" component={CreatePlugin} />
       <ProtectedRoute path="/dashboard" component={Dashboard} />

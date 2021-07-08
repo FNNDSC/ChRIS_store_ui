@@ -10,7 +10,7 @@ import DashPluginCardView from "./components/DashPluginCardView/DashPluginCardVi
 import DashTeamView from "./components/DashTeamView/DashTeamView";
 import DashGitHubView from "./components/DashGitHubView/DashGitHubView";
 import ChrisStore from "../../store/ChrisStore";
-import Notification from "../Notification";
+import ErrorNotification from "../Notification";
 import HttpApiCallError from "../../errors/HttpApiCallError";
 
 class Dashboard extends Component {
@@ -28,7 +28,6 @@ class Dashboard extends Component {
   componentDidMount() {
     this.fetchPlugins().catch((err) => {
       this.showNotifications(new HttpApiCallError(err));
-      console.error(err);
     });
   }
   
@@ -43,12 +42,10 @@ class Dashboard extends Component {
     };
 
     return client.getPluginMetas(searchParams).then((plugins) => {
-      this.setState(({ pluginList }) => {
-        return { 
+      this.setState(({ pluginList }) => ({ 
           pluginList: pluginList.concat(plugins.data), 
           loading: false 
-        };
-      });
+        }));
 
       return plugins.data;
     });
@@ -97,7 +94,7 @@ class Dashboard extends Component {
     return response;
   }
   
-  showNotifications = (error) => {
+  showNotifications(error) {
     this.setState({
       error: error.message,
     });
@@ -107,9 +104,9 @@ class Dashboard extends Component {
     const { pluginList, loading, error } = this.state;
     
     return (
-      <React.Fragment>
+      <>
         {error && (
-          <Notification
+          <ErrorNotification
             title={error}
             position="top-right"
             variant="danger"
@@ -164,7 +161,7 @@ class Dashboard extends Component {
             )
           }
         </article>
-      </React.Fragment>
+      </>
     );
   }
 }

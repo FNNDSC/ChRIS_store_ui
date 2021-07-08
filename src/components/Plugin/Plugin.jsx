@@ -10,7 +10,7 @@ import RelativeDate from '../RelativeDate/RelativeDate';
 import ChrisStore from '../../store/ChrisStore';
 import PluginImg from '../../assets/img/brainy-pointer.png';
 import NotFound from '../NotFound/NotFound';
-import Notification from '../Notification';
+import ErrorNotification from '../Notification';
 import HttpApiCallError from '../../errors/HttpApiCallError';
 
 import './Plugin.css';
@@ -25,7 +25,7 @@ export class Plugin extends Component {
     this.state = {
       pluginData,
       loading: true,
-      star: isFavorite ? isFavorite : undefined,
+      star: isFavorite || undefined,
       errors: [],
     };
 
@@ -37,12 +37,10 @@ export class Plugin extends Component {
   }
 
   async componentDidMount() {
-    let pluginData;
+    let { pluginData } = this.state;
 
-    if (!this.state.pluginData) {
+    if (!pluginData) {
       pluginData = await this.fetchPluginData();
-    } else {
-      ({ pluginData } = this.state);
     }
 
     this.setState({ pluginData, loading: false });
@@ -59,30 +57,11 @@ export class Plugin extends Component {
     })
   }
 
+  // eslint-disable-next-line react/destructuring-assignment
   isFavorite = () => this.state.star !== undefined;
 
+  // eslint-disable-next-line react/destructuring-assignment
   isLoggedIn = () => this.props.store ? this.props.store.get('isLoggedIn') : false;
-
-  async fetchPluginData() {
-    const { pluginId } = this.props.match.params;
-
-    try {
-      const plugin = await this.client.getPlugin(parseInt(pluginId, 10));
-      return { ...plugin.data, url: plugin.url };
-    } catch (e) {
-      this.showNotifications(new HttpApiCallError(e));
-    }
-  }
-
-  async fetchIsPluginStarred({ name }) {
-    try {
-      const response = await this.client.getPluginStars({ plugin_name: name });
-      if (response.data.length > 0)
-        this.setState({ star: response.data[0] });
-    } catch(error) {
-      this.showNotifications(new HttpApiCallError(error));
-    }
-  }
 
   onStarClicked = () => {
     if (this.isLoggedIn()) {
@@ -95,7 +74,7 @@ export class Plugin extends Component {
     const { pluginData } = this.state;
 
     // Early state change for instant visual feedback
-    pluginData.stars++;
+    pluginData.stars += 1;
     this.setState({ star: {}, pluginData });
 
     try {
@@ -103,24 +82,24 @@ export class Plugin extends Component {
       this.setState({ star: star.data });
     } catch (error) {
       this.showNotifications(new HttpApiCallError(error));
-      pluginData.stars--;
+      pluginData.stars -= 1;
       this.setState({ star: undefined, pluginData });
     }
   }
 
   unfavPlugin = async () => {
-    const previousStarState = { ...this.state.star };
-    const { pluginData } = this.state;
+    const { pluginData, star: previousStarState } = this.state;
 
     // Early state change for instant visual feedback
-    pluginData.stars--;
+    pluginData.stars -= 1;
     this.setState({ star: undefined, pluginData });
 
     try {
-      const star = await this.client.getPluginStar(previousStarState.id);
-      await star.delete();
+      await (
+        await this.client.getPluginStar(previousStarState.id)
+      ).delete();
     } catch (error) {
-      pluginData.stars++;
+      pluginData.stars += 1;
       this.setState({ star: previousStarState, pluginData });
       this.showNotifications(new HttpApiCallError(error));
     }
@@ -140,13 +119,35 @@ export class Plugin extends Component {
     return <StarIcon name={name} className={className} onClick={this.onStarClicked} />;
   }
 
+  async fetchPluginData() {
+    // eslint-disable-next-line react/destructuring-assignment
+    const { pluginId } = this.props.match.params;
+
+    try {
+      const plugin = await this.client.getPlugin(parseInt(pluginId, 10));
+      return { ...plugin.data, url: plugin.url };
+    } catch (e) {
+      this.showNotifications(new HttpApiCallError(e));
+      return e
+    }
+  }
+
+  async fetchIsPluginStarred({ name }) {
+    try {
+      const response = await this.client.getPluginStars({ plugin_name: name });
+      if (response.data.length > 0)
+        this.setState({ star: response.data[0] });
+    } catch(error) {
+      this.showNotifications(new HttpApiCallError(error));
+    }
+  }
+
   render() {
-    if (!this.state.loading && !this.state.pluginData)
+    const { loading, pluginData: plugin, errors } = this.state;
+
+    if (!loading && !plugin)
       return <NotFound/>
 
-    const plugin = this.state.pluginData;
-
-    // conditional rendering
     let container;
     if (plugin) {
       const modificationDate = new RelativeDate(plugin.modification_date);
@@ -217,28 +218,28 @@ export class Plugin extends Component {
       );
     }
 
+    const { className } = this.props;
     return (
-      <React.Fragment>
+      <>
         {
-          this.state.errors.map((message, index) => (
-            <Notification
+          errors.map((message, index) => (
+            <ErrorNotification
               key={`notif-${message}`}
               title={message}
               position='top-right'
               variant='danger'
               closeable
               onClose={() => {
-                let { errors } = this.state;
                 errors.splice(index)
                 this.setState({ errors })
               }}
             />
           ))
         }
-        <div className={`plugin ${this.props.className}`}>
+        <div className={`plugin ${className}`}>
           {container}
         </div>
-      </React.Fragment>
+      </>
 
     );
   }

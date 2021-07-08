@@ -1,9 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
-import "./WelcomeFeature.css";
+import React from 'react';
+import PropTypes from 'prop-types';
+import './WelcomeFeature.css';
 
-const WelcomeFeature = ({ img, name, url, ...props }) => (
-  <div {...props}>
+const WelcomeFeature = ({
+  img, name, url,
+}) => (
+  <div>
     <div className="welcome-feature">
       <a href={url}>
         <img src={img} alt={name} className="welcome-feature-img" />
@@ -13,9 +15,14 @@ const WelcomeFeature = ({ img, name, url, ...props }) => (
   </div>
 );
 
+WelcomeFeature.defaultProps = {
+  url: PropTypes.string,
+};
+
 WelcomeFeature.propTypes = {
   img: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  url: PropTypes.string,
 };
 
 export default WelcomeFeature;

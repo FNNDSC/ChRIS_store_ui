@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
-import { List } from '@patternfly/react-core';
-import { Card, CardTitle, CardBody } from '@patternfly/react-core';
+import {
+  List, Card, CardTitle, CardBody,
+} from '@patternfly/react-core';
 
 import './DashGitHubView.css';
 import BrainyPointer from '../../../../assets/img/brainy-pointer.png';
@@ -31,11 +32,9 @@ class DashGitHubView extends Component {
           Revisions
         </CardTitle>
         <CardBody className="github-card-body">
-          { showEmptyState ?
-            <DashGitHubEmptyState />
-            :
-            <List className="github-description" />
-          }
+          { showEmptyState
+            ? <DashGitHubEmptyState />
+            : <List className="github-description" />}
         </CardBody>
       </Card>
     );

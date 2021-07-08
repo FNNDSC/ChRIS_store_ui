@@ -126,7 +126,7 @@ describe('SignIn', () => {
   });
 
   // helper function to get FormControl
-  const getControl = control => wrapper
+  const getControl = (control) => wrapper
     .find(`FormGroup.signin-${control}-form-group`)
     .find('FormControl');
 

@@ -20,7 +20,7 @@ const App = () => (
   <ChrisStore.Container>
     <div className="App">
       <BrowserRouter>
-        <Switch> 
+        <Switch>
           <Route path="/signin" component={ConnectedSignIn} />
           <Route path="/" component={Router} />
         </Switch>

@@ -6,8 +6,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "lint": "eslint ./src/components",
-    "lint:fix": "eslint --fix ./src/components",
+    "lint": "eslint src/**/*.jsx",
+    "lint:fix": "eslint --fix src/**/*.jsx",
     "ci": "concurrently --kill-others-on-fail \"yarn:test\" \"yarn:lint\"",
     "serve": "sirv build --cors --single --host --port 3000",
     "deploy": "yarn run build && yarn run serve",
@@ -20,6 +20,8 @@
     ]
   },
   "dependencies": {
+    "@babel/eslint-parser": "^7.14.7",
+    "@babel/preset-react": "^7.14.5",
     "@fnndsc/chrisstoreapi": "^2.0.2",
     "@patternfly/patternfly": "^4.59.1",
     "@patternfly/react-core": "^4.75.2",
@@ -33,16 +35,14 @@
     "email-validator": "^2.0.4",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "eslint": "^6.6.0",
-    "eslint-config-airbnb": "^18.2.0",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
-    "eslint-plugin-react": "^7.21.2",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
     "husky": "^0.14.3",
     "lint-staged": "^7.2.0",
     "lodash": "^4.17.21",
     "marked": "^2.0.3",
     "moment": "^2.22.2",
+    "prettier": "^2.3.2",
     "prop-types": "^15.6.2",
     "react": "^17.0.2",
     "react-bootstrap": "^0.32.1",
@@ -67,5 +67,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^7.30.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0"
   }
 }

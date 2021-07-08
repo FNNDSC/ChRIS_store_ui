@@ -159,7 +159,7 @@ describe('Plugin with data', () => {
 
   xit('should render plugin-modified div if valid date is provided', () => {
     Date.now = jest.fn(() => 1530814238992);
-    const changedData = Object.assign({}, sampleData);
+    const changedData = { ...sampleData };
     changedData.pluginData.modification_date = '2018-06-19T15:29:11.349272Z';
     wrapper.setState(changedData);
 
@@ -170,7 +170,7 @@ describe('Plugin with data', () => {
   });
 
   xit('should not render plugin-modified if invalid date is provided', () => {
-    const changedData = Object.assign({}, sampleData);
+    const changedData = { ...sampleData };
     changedData.pluginData.modification_date = 'invalid date';
 
     wrapper.setState(changedData);
@@ -190,7 +190,7 @@ describe('Plugin with data', () => {
   });
 
   xit('should render correct plugin version inside plugin-version div', () => {
-    const changedData = Object.assign({}, sampleData);
+    const changedData = { ...sampleData };
     changedData.pluginData.version = 'testVersion';
     wrapper.setState(changedData);
 
@@ -215,7 +215,7 @@ describe('Plugin with data', () => {
   });
 
   xit('plugin-author Link should render correct "to" and "href" props', () => {
-    const changedData = Object.assign({}, sampleData);
+    const changedData = { ...sampleData };
     changedData.pluginData.authors = 'testAuthor (user@domain.com)';
     wrapper.setState(changedData);
 
@@ -226,7 +226,7 @@ describe('Plugin with data', () => {
   });
 
   xit('plugin-author Link should render correct text', () => {
-    const changedData = Object.assign({}, sampleData);
+    const changedData = { ...sampleData };
     changedData.pluginData.authors = 'testAuthor (user@domain.com)';
     wrapper.setState(changedData);
 
@@ -257,14 +257,14 @@ describe('Plugin with data', () => {
 
   xit('should render the value of creationDate if it is a valid date', () => {
     Date.now = jest.fn(() => 1530814238992);
-    const changedData = Object.assign({}, sampleData);
+    const changedData = { ...sampleData };
     changedData.pluginData.creation_date = '2018-06-19T15:29:11.349272Z';
     wrapper.setState(changedData);
     expect(getPluginCreatedText()).toEqual(' created 16 days ago');
   });
 
   xit('should not render the value of creationDate if it is not a valid date', () => {
-    const changedData = Object.assign({}, sampleData);
+    const changedData = { ...sampleData };
     changedData.pluginData.creation_date = 'invalid date';
     wrapper.setState(changedData);
     expect(getPluginCreatedText()).toEqual('');
@@ -277,7 +277,6 @@ describe('Plugin with data', () => {
       .toHaveLength(1);
   });
 });
-
 
 /* ============================== */
 /* ===== FAVORITE/UNFAVORITE ==== */

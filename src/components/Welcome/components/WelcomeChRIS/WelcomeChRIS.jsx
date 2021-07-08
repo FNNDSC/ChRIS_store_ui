@@ -35,7 +35,10 @@ const WelcomeChRIS = () => (
             allowFullScreen
           />
           <p className="welcome-chris-video-desc">
-            {'"'}Creating ChRIS{'"'} is an upcoming video series by Red Hat films that
+            &quot;Creating ChRIS
+            &quot;
+            {' '}
+            is an upcoming video series by Red Hat films that
             focuses on the ChRIS project - its purpose, development, milestones.
           </p>
         </div>
@@ -46,7 +49,7 @@ const WelcomeChRIS = () => (
         <Button
           variant="secondary"
           className="welcome-chris-btn welcome-chris-more-btn"
-          onClick={()=>{window.open('https://www.chrisproject.org')}}
+          onClick={() => { window.open('https://www.chrisproject.org'); }}
         >
           Learn more
         </Button>
@@ -56,7 +59,9 @@ const WelcomeChRIS = () => (
           variant="secondary"
           className="welcome-chris-btn"
         >
-          Don{"'"}t have access to ChRIS?
+          Don
+          &apos;
+          t have access to ChRIS?
         </Button>
       </div>
     </div>

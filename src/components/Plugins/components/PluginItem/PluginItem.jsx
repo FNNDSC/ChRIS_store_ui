@@ -1,23 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Badge, Card, CardBody, Split, SplitItem } from '@patternfly/react-core';
+import {
+  Badge, Card, CardBody, Split, SplitItem,
+} from '@patternfly/react-core';
 import { StarIcon } from '@patternfly/react-icons';
 import { Link } from 'react-router-dom';
 import RelativeDate from '../../../RelativeDate/RelativeDate';
 import './PluginItem.css';
 
-const dateIsValid = date => new RelativeDate(date).isValid();
-const formatDate = date => dateIsValid(date) ? new RelativeDate(date).format() : undefined;
+const dateIsValid = (date) => new RelativeDate(date).isValid();
+const formatDate = (date) => (dateIsValid(date) ? new RelativeDate(date).format() : undefined);
 
-const PluginItem = ({ name, authors, title, creation_date, category, isFavorite, isLoggedIn, onStarClicked }) => {
+const PluginItem = ({
+  // Need to do this because the property "creation_date" comes from CUBE
+  // eslint-disable-next-line camelcase
+  name, authors, title, creation_date, category, isFavorite, isLoggedIn, onStarClicked,
+}) => {
   function renderStarButton() {
-    let className = "plugin-star";
-    
-    if (!isLoggedIn)
-      className += ' disabled';
-    
-    if (isFavorite)
-      className += ' favorite';
+    let className = 'plugin-star';
+
+    if (!isLoggedIn) className += ' disabled';
+
+    if (isFavorite) className += ' favorite';
 
     return <StarIcon className={className} onClick={onStarClicked} />;
   }
@@ -45,7 +49,7 @@ const PluginItem = ({ name, authors, title, creation_date, category, isFavorite,
               to={`/author/${authors}`}
               className="plugin-item-author"
             >
-              { authors.join(", ") }
+              { authors.join(', ') }
             </Link>
             <p style={{ color: 'gray', fontWeight: '600', fontSize: 'small' }}>
               {`Created ${formatDate(creation_date)}`}
@@ -55,7 +59,7 @@ const PluginItem = ({ name, authors, title, creation_date, category, isFavorite,
       </CardBody>
     </Card>
   );
-}
+};
 
 Plugin.propTypes = {
   title: PropTypes.string.isRequired,

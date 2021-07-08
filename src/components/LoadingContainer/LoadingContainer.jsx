@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './LoadingContainer.css';
 
-const LoadingContainer = props => (
-  <div className={`loading-container ${props.className}`}>
-    {props.children}
+const LoadingContainer = ({ className, children }) => (
+  <div className={`loading-container ${className}`}>
+    {children}
   </div>
 );
 

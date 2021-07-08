@@ -130,7 +130,6 @@ describe('Plugins', () => {
   });
 });
 
-
 describe('rendered Plugins', () => {
   let wrapper;
   let plugins;
@@ -202,7 +201,6 @@ describe('rendered Plugins', () => {
       expect(plugin.props.isLoggedIn).toEqual(true);
     });
   });
-
 
   it('should mark plugin as favorited when a plugin star is clicked', async () => {
     // define mock for @fnndsc/chrisstoreapi module
