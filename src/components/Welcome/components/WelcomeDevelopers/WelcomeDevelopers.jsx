@@ -1,8 +1,8 @@
 import React from "react";
-import { Grid, GridItem } from '@patternfly/react-core'
-import "./WelcomeDevelopers.css";
+import { Grid, GridItem } from '@patternfly/react-core';
 
-import Button from '../../../Button'
+import "./WelcomeDevelopers.css";
+import Button from '../../../Button';
 
 const WelcomeDevelopers = () => (
   <div id="welcome-developers">
@@ -15,12 +15,9 @@ const WelcomeDevelopers = () => (
       </p>
     </div>
 
-    <article style={{ maxWidth: '1000px' }}>
-      <Grid id="welcome-developers-body">
-        <GridItem lg={6} xs={12}>
-          <img src="" alt="" />
-        </GridItem>
-        <GridItem lg={6} xs={12}>
+    {/* <article style={{ maxWidth: '1000px' }}>
+      <Grid id="welcome-developers-body">        
+        <GridItem lg={12} xs={12} style={{ textAlign: 'center' }}>
           <h2 style={{ fontWeight: '600' }}>
             Open Source Software
           </h2>
@@ -32,26 +29,15 @@ const WelcomeDevelopers = () => (
               <strong> common standards.</strong>
             </p>
           </div>
-        </GridItem>
-        
-        <GridItem lg={6} xs={12} style={{ textAlign: 'right' }}>
-          <h2 style={{ fontWeight: '600' }}>
-            Open Source Software
-          </h2>
-          <div className="text-light">
-            <p>
-              <strong>ChRIS is an open source platform</strong> for medical
-              analytics in the cloud, democratizing the development and usage of
-              image processing software within an ecosystem following
-              <strong> common standards.</strong>
-            </p>
-          </div>
-        </GridItem>
-        <GridItem lg={6} xs={12}>
-          <img src="" alt="" />
+          <Card>
+            <CardBody>
+              <h2 style={{ margin: '0.25em 0 1.5em 0' }}><b>Create a ChRIS Developer Account</b></h2>
+              <SignUp/>
+            </CardBody>
+          </Card>
         </GridItem>
       </Grid>
-    </article>
+    </article> */}
 
     <article>
       <Grid hasGutter id="welcome-developers-signup">

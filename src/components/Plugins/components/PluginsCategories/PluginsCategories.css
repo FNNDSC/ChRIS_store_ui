@@ -27,7 +27,7 @@
 
 .plugins-category {
   /* color */
-  color: var(--pf-blue-400);
+  color:  var(--pf-global--link--Color);
 
   /* display */
   display: flex;

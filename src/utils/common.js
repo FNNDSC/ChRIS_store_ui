@@ -17,3 +17,5 @@ export const debounce = (fn, delay = 250) => {
     timeout = setTimeout(later, delay);
   }
 }
+
+export default debounce;

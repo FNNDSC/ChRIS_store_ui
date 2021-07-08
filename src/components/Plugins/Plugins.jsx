@@ -390,12 +390,12 @@ export class Plugins extends Component {
           <div className="plugins-container">
             <article>
               <Grid className="plugins-row">
-                <GridItem xs={12}>
+                <GridItem xs={12} id="plugins-header">
                   <div style={{ padding: '2em' }}>
                     <h1>ChRIS Plugins</h1>
-                    <h3>
-                      Plugins available on your ChRIS Store are listed here. 
-                      Install these to your ChRIS instance to use them. 
+                    <h3 style={{ color: "darkgray" }}>
+                      Plugins available on this ChRIS Store are listed here. <br />
+                      <b>Install these to your ChRIS instance to use them. </b>
                     </h3>
                   </div>
                 </GridItem>

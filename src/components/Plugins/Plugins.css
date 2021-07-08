@@ -3,6 +3,14 @@
   flex-direction: column;
 }
 
+#plugins-header h1 {
+  font-size: 2em;
+  font-weight: 500;
+}
+#plugins-header h3 {
+  font-size: 1.25em;
+}
+
 .plugins-list {
   padding: 2em;
 }
