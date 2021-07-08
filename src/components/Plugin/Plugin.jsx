@@ -150,8 +150,6 @@ export class Plugin extends Component {
 
     let container;
     if (plugin) {
-      const modificationDate = new RelativeDate(plugin.modification_date);
-
       container = (
         <article>
           <section>
@@ -193,10 +191,10 @@ export class Plugin extends Component {
                     <p>{plugin.description}</p>
                     <p style={{ color: "gray" }}>
                       { 
-                        modificationDate.isValid() ?
-                          `Last modified ${modificationDate.format()}`
+                        RelativeDate.isValid(plugin.modification_date) ?
+                          `Updated ${new RelativeDate(plugin.modification_date).format()}`
                         : 
-                          `Added ${(new RelativeDate(plugin.creation_date)).format()}`
+                          `Created ${new RelativeDate(plugin.creation_date).format()}`
                       }
                     </p>
                   </GridItem>

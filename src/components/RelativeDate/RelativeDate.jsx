@@ -5,6 +5,10 @@ class RelativeDate {
     this.date = date;
   }
 
+  static isValid(date) {
+    return new Date(date).toDateString() !== 'Invalid Date';
+  }
+
   isValid() {
     return new Date(this.date).toDateString() !== 'Invalid Date';
   }

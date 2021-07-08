@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Button,
   Brand,
   PageHeader,
   Nav,
@@ -9,7 +10,6 @@ import {
   PageHeaderToolsItem,
 } from '@patternfly/react-core';
 import { NavLink } from 'react-router-dom';
-import Button from '../Button';
 import './Navbar.css';
 import LogoImg from '../../assets/img/chris-plugin-store_logo.png';
 import ChrisStore from '../../store/ChrisStore';
@@ -58,25 +58,18 @@ const Navigation = ChrisStore.withStore(({ store }) => (
   </Nav>
 ));
 
-const LoginButton = ChrisStore.withStore(({ store }) => (
-  <NavLink to="/signin">
-    <Button
-      variant="primary"
-      className="login-button"
-    >
-      {store.get('isLoggedIn') ? 'Sign Out' : 'Sign In'}
-    </Button>
-  </NavLink>
-));
-
-const Navbar = ({ searchComponent }) => {
+const Navbar = ({ searchComponent, store }) => {
   const HeaderTools = (
     <PageHeaderTools>
       <PageHeaderToolsItem>
         {searchComponent}
       </PageHeaderToolsItem>
       <PageHeaderToolsItem>
-        <LoginButton />
+        <NavLink to="/signin">
+          <Button id="login-button">
+            {store.get('isLoggedIn') ? 'Sign Out' : 'Sign In'}
+          </Button>
+        </NavLink>
       </PageHeaderToolsItem>
     </PageHeaderTools>
   )

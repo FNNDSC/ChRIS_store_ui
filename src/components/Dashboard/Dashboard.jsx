@@ -125,9 +125,9 @@ class Dashboard extends Component {
               <Button variant="primary" toRoute="/create">
                 Add Plugin
               </Button>
-              <Button variant="secondary" toRoute="/">
+              {/* <Button variant="secondary" toRoute="/">
                 Another
-              </Button>
+              </Button> */}
             </SplitItem>
           </Split>
 

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './Search.css';
 import SearchIcon from '@patternfly/react-icons/dist/esm/icons/search-icon';
-import TimesIcon from '@patternfly/react-icons/dist/esm/icons/times-icon';
+// import TimesIcon from '@patternfly/react-icons/dist/esm/icons/times-icon';
 
-import { Button, TextInput } from '@patternfly/react-core';
+import { TextInput } from '@patternfly/react-core';
 
 import { useKeyPress } from '../../../../hooks/useKeyPressHook';
 
@@ -23,7 +23,7 @@ import { useKeyPress } from '../../../../hooks/useKeyPressHook';
  */
 const Search = ({
   value,
-  onClear,
+  // onClear,
   onSearch,
   onChange,
   placeholder,
@@ -93,11 +93,6 @@ const Search = ({
             onBlur={onBlur}
           />
         </div>
-        {value.length > 0 && (
-          <Button variant="plain" className="ws-clear-search" onClick={onClear}>
-            <TimesIcon />
-          </Button>
-        )}
         {showAutoComplete && autoCompleteData && autoCompleteData.length > 0 && (
           <ul className="ws-global-search-autocomplete">
             {autoCompleteData.map((item, id) => (

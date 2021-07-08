@@ -8,13 +8,10 @@ import { Link } from 'react-router-dom';
 import RelativeDate from '../../../RelativeDate/RelativeDate';
 import './PluginItem.css';
 
-const dateIsValid = (date) => new RelativeDate(date).isValid();
-const formatDate = (date) => (dateIsValid(date) ? new RelativeDate(date).format() : undefined);
-
 const PluginItem = ({
   // Need to do this because the property "creation_date" comes from CUBE
   // eslint-disable-next-line camelcase
-  name, authors, title, creation_date, category, isFavorite, isLoggedIn, onStarClicked,
+  name, authors, title, creation_date, modification_date, category, isFavorite, isLoggedIn, onStarClicked,
 }) => {
   function renderStarButton() {
     let className = 'plugin-star';
@@ -52,7 +49,12 @@ const PluginItem = ({
               { authors.join(', ') }
             </Link>
             <p style={{ color: 'gray', fontWeight: '600', fontSize: 'small' }}>
-              {`Created ${formatDate(creation_date)}`}
+              {
+                RelativeDate.isValid(modification_date) ?
+                  `Updated ${new RelativeDate(modification_date).format()}`
+                : 
+                  `Created ${new RelativeDate(creation_date).format()}`
+              }
             </p>
           </div>
         </div>
