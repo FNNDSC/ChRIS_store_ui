@@ -31,14 +31,14 @@
   text-align: center;
   padding: 2em 0;
 } #welcome-cta-header h1 {
-  font-size: 5em;
-  font-weight: 600;
+  font-size: 5em !important;
+  font-weight: 600 !important;
   line-height: 1.25;
   margin: 0.5em 0;
   color: white;
 } #welcome-cta-header p {
-  font-size: 1.5em;
-  line-height: 1.25;
+  font-size: 1.5em !important;
+  line-height: 1.25 !important;
   max-width: 600px;
 }
 
