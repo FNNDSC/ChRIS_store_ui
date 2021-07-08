@@ -161,7 +161,8 @@ export class DeveloperSignup extends Component {
       passwordConfirm,
     } = this.state;
 
-    if (toDashboard) return <Redirect to="/dashboard" />;
+    if (toDashboard)
+      return <Redirect to="/dashboard" />;
 
     const disableControls = loading;
     return (
@@ -220,10 +221,10 @@ export class DeveloperSignup extends Component {
           error={error}
         />
         <div style={{ padding: '1em 0' }}>
-          {loading ? <Spinner size="md" /> : (
-            <Button
+          {loading ? <Spinner size="md"/> : (
+            <Button 
               variant="primary"
-              type="submit"
+              type="submit" 
               loading={disableControls}
             >
               Create Account

@@ -1,5 +1,4 @@
 import React from 'react';
-import { AngleDownIcon } from '@patternfly/react-icons';
 import './WelcomeCTA.css';
 import WelcomeFeature from '../WelcomeFeature/WelcomeFeature';
 
@@ -10,48 +9,48 @@ import biomediaLogo from '../../../../assets/img/plugins/biomedia_90.png';
 import antLogo from '../../../../assets/img/plugins/ant_90.png';
 import civetLogo from '../../../../assets/img/plugins/civet_90.png';
 
-const WelcomeCTA = () => (
-  <div className="welcome-cta">
-    <div className="welcome-cta-img">
-      <div className="row welcome-cta-header">
-        Accessible medical imaging using the latest
-        research innovations, backed by cloud-based
-        computing power.
-      </div>
-    </div>
-    <div className="welcome-cta-featured">
-      <div className="welcome-cta-featured-desc">
-        Apps available in the ChRIS store include:
-      </div>
-      <div className="row welcome-cta-featured-container">
-        <WelcomeFeature name="Fastsurfer" img={freesurferLogo} url="https://chrisstore.co/plugin/44" />
-        <WelcomeFeature name="Infant-FreeSurfer" img={infantLogo} url="https://chrisstore.co/plugin/78" />
-        <WelcomeFeature name="IRTK reconstruction" img={biomediaLogo} url="https://chrisstore.co/plugin/85" />
-        <WelcomeFeature name="N4 Bias Field Correction" img={antLogo} url="https://chrisstore.co/plugin/77" />
-        <WelcomeFeature name="Civet" img={civetLogo} url="https://chrisstore.co/plugin/2" />
-      </div>
-      <div className="welcome-scroll-caret">
-        <AngleDownIcon />
-      </div>
-    </div>
-    <div className="row no-flex">
-      <div className="welcome-user-cta">
-        <div className="welcome-user-cta-header">
-          Focus on your data. Not the tools.
+
+const WelcomeCTA = () => {
+  // Object to make fetching from build/external easier later
+  const features = [
+    {name: "Fastsurfer", url: 'https://chrisstore.co/plugin/44', img: freesurferLogo},
+    {name: "Civet", url: 'https://chrisstore.co/plugin/2', img: civetLogo},
+    {name: "Infant FreeSurfer", url: 'https://chrisstore.co/plugin/78', img: infantLogo},
+    {name: "IRTK Reconstruction", url: 'https://chrisstore.co/plugin/85', img: biomediaLogo},
+    {name: "N4 Bias Field Correction", url: 'https://chrisstore.co/plugin/77', img: antLogo},
+  ]
+
+  return (
+    <>
+    <div className="welcome-cta">
+      <article>
+        <div id="welcome-cta-header">
+          <h1>ChRIS Store</h1>
+          <p>
+            Accessible medical imaging using the latest
+            research innovations, backed by cloud-based
+            computing power.
+          </p>
         </div>
-        <div className="text-light">
-          You need to run analyses on data, view the results,
-          create visualizations, collaborate on your findings.
-          Not build an infrastructure and become a software developer.
+      </article>
+      
+      <article>
+        <div className="welcome-cta-featured">
+          {/* <div style={{ opacity: 0.75, color: 'white', textAlign: 'center' }}>
+            <h2>Apps available in the ChRIS Store</h2>
+          </div> */}
+          <div className="row welcome-cta-featured-container">
+            {
+              features.map((feature)=>(
+                <WelcomeFeature { ...feature } />
+              ))
+            }
+          </div>
         </div>
-        <br />
-        <div className="text-light">
-          The ChRIS platform provides a common infrastructure to
-          which you can deploy...
-        </div>
-      </div>
+      </article>
     </div>
-  </div>
-);
+    </>
+  );
+}
 
 export default WelcomeCTA;

@@ -1,10 +1,9 @@
-import React from 'react';
-import {
-  Card, CardTitle, CardBody, CardFooter,
-} from '@patternfly/react-core';
-import PropTypes from 'prop-types';
-import Button from '../../../Button';
-import './WelcomeCategory.css';
+import React from "react";
+import { Link } from 'react-router-dom';
+import PropTypes from "prop-types";
+import { Card, CardTitle, CardBody, CardFooter } from "@patternfly/react-core";
+import Button from "../../../Button";
+import "./WelcomeCategory.css";
 
 const WelcomeCategory = ({ category }) => (
   <div>
@@ -17,7 +16,7 @@ const WelcomeCategory = ({ category }) => (
           <div className="welcome-category-item" key={name}>
             <img src={img} alt="" className="welcome-category-item-img" />
             <div className="welcome-category-item-body">
-              <div className="welcome-category-item-name">{name}</div>
+              <Link to={`#${name}`}><h2 className="welcome-category-item-name">{name}</h2></Link>
               <div className="welcome-category-item-desc">{desc}</div>
               <div className="welcome-category-item-tags">{tags.join(' ')}</div>
             </div>
@@ -26,7 +25,7 @@ const WelcomeCategory = ({ category }) => (
       </CardBody>
       <CardFooter>
         <Button variant="primary" className="btn-block">
-          View More ...
+          View More
         </Button>
       </CardFooter>
     </Card>
