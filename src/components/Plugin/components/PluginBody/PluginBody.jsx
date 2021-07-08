@@ -127,7 +127,7 @@ const PluginBody = ({ pluginData }) => {
                             <ClipboardCopy isReadOnly>
                               {
                                 pluginData.url ? pluginData.url
-                                  : `${process.env.REACT_APP_STORE_URL}/plugins/${pluginData.id}/`.replace(/\/\//g, '/')
+                                  : `${process.env.REACT_APP_STORE_URL}plugins/${pluginData.id}/`
                               }
                             </ClipboardCopy>
                           </div>
