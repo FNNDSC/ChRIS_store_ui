@@ -35,8 +35,8 @@ const PluginBody = ({ pluginData }) => {
 
   const [errors, setErrors] = useState([]);
   const showNotifications = useCallback((error) => {
-    setErrors([...errors, error.message]);
-  }, [errors]);
+    setErrors((prev) => [...prev, error.message]);
+  }, []);
 
   const fetchReadme = useCallback(async (repo) => {
     const profile = await fetch(`https://api.github.com/repos/${repo}/community/profile`);
