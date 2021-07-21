@@ -1,56 +1,38 @@
+.plugins-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#plugins-header h1 {
+  font-size: 2em;
+  font-weight: 500;
+}
+#plugins-header h3 {
+  font-size: 1.25em;
+}
+
+.plugins-list {
+  padding: 2em;
+}
+
 .plugins-stats {
-  /* color */
   background: #f5f5f5;
   background: var(--pf-black-150);
   
-  /* border */
   border-bottom-color: #bbbbbb;
   border-bottom: 1px solid var(--pf-black-400);
 }
 
-.plugins-stats-row {
-  /* display */
-  display: flex;
 
-  /* position */
-  position: relative;
-}
- 
-.plugins-found {
-  /* color */
-  color: #393f44;
-  color: var(--pf-black-800);
-  
-  /* display */
-  padding: 1em;
-
-  /* font */
-  font-size: 1.5em;
-  font-weight: 600;
-}
-
-.dropdown.btn-group {
-  /* display */
+.dropdown .btn-group {
   height: 26px; 
   margin: 1.65em 1em 1.65em;
 
-  /* position */
   position: absolute;
   right: 0;
 }
 
-.plugins-list {
-  /* display */
-  padding: 2em;
-  
-  /* flex */
-  flex: 3;
-}
-
-@media (min-width: 768px)  {
-  .plugins-list {
-    /* display */
-    width: 0;
-    padding: 0 3em 2em;
-  }
+.plugins-stats-row {
+  display: flex;
+  position: relative;
 }

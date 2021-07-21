@@ -1,109 +1,85 @@
-.plugins-list > .plugin-item-card {
-  /* display */
+.plugin-item-card {
   margin-bottom: 0;
   padding: 0;
+  height: 100%;
   
-  /* border */
   border-bottom-color: #ededed;
-  border-bottom: 4px solid var(--pf-black-200);
+  border-bottom: 4px solid var(--pf-blue-400);;
   box-shadow: none;
 }
 
 .plugin-item-card-body {
-  /* color */
   color: #4d5258;
   color: var(--pf-black-700);
 
-  /* font */
   font-size: 1.4em;
+  position: relative;
 }
 
 .plugin-item-name {
-  /* color */
   color: #0088ce;
   color: var(--pf-blue-400);
 
-  /* font */
-  font-size: 1.5em;
+  font-size: 1.25em;
   font-weight: 600;
 }
 
 .plugin-item-name > .plugin-star {
-  /* display */
+  position: absolute;
+  bottom: 0.75em;
+  right: 0.75em;
   margin-left: .5em;
 
-  /* color */
   color: var(--pf-black-400, #bbb);
-
-  /* font */
   font-size: 22px;
-}
-.plugin-item-name > .plugin-star:hover {
-  /* color */
+} .plugin-item-name > .plugin-star:hover {
   color: var(--pf-black-700, #bbb);
-
-  /* cursor */
   cursor: pointer;
 }
 
-.plugin-item-name > .plugin-star-disabled {
-  /* display */
+
+.plugin-item-name > .plugin-star[class~="disabled"] {
   margin-left: .5em;
 
-  /* color */
   color: var(--pf-black-400, #bbb);
-
-  /* font */
   font-size: 22px;
 }
 
-.plugin-item-name > .plugin-star-favorite {
-  /* display */
+.plugin-item-name > .plugin-star[class~="favorite"] {
   margin-left: .5em;
 
-  /* color */
-  color: var(--pf-gold-300,#f4c145);
-
-  /* font */
+  color: var(--pf-blue-400);
   font-size: 22px;
 }
 
 
-.plugin-item-name > .plugin-star-favorite:hover {
-  /* color */
-  color: var(--pf-gold-700, #3d2c00);
-
-    /* cursor */
-    cursor: pointer;
+.plugin-item-name > .plugin-star[class~="favorite"]:hover {
+  color: var(--pf-blue-500);
+  cursor: pointer;
 }
 
 .plugin-item-name:hover, .plugin-item-name:focus { text-decoration: none; }
 
 .plugin-item-title {
-  /* font */
   font-size: 1em;
   font-weight: 400;
 }
 
 .plugin-item-creation {
-  /* color */
   color: #72767b;
   color: var(--pf-black-600);
 
-  /* font */
   font-weight: 300;
 }
 
 .plugin-item-author {
-  /* color */
   color: #4d5258;
   color: var(--pf-black-700);
 
-  /* border */
   border-bottom-color: #d1d1d1;
   border-bottom: 1px solid var(--pf-black-300);
 
-  /* font */
+  font-size: 1em;
   font-weight: 300;
 }
 
@@ -116,7 +92,6 @@
 
 @media (min-width: 768px)  {
   .plugins-list > .plugin-item-card {
-    /* display */
     padding: 0 20px;
   }
 }

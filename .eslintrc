@@ -1,13 +1,42 @@
 {
-  "extends": "react-app",
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "prettier"
+  ],
   "env": {
     "node": true,
     "jest": true,
     "browser": true,
     "es6": true
   },
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "requireConfigFile": false,
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "babelOptions": {
+      "presets": ["@babel/preset-react"],
+      "plugins": ["@babel/plugin-proposal-class-properties"]
+    }
+  },
+  "plugins": [
+    "react",
+    "prettier"
+  ],
   "rules": {
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.js", "**/*.spec.js", "./src/setupTests.js"]}]
+    "react/jsx-filename-extension": [1, { "extensions": [".jsx"] }],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.js", "**/*.spec.js", "./src/setupTests.js"]}],
+    "react/state-in-constructor": "off",
+    "react/prop-types": "off",
+    "react/require-default-props": "off",
+    "react/jsx-props-no-spreading": "off"
   }
 }

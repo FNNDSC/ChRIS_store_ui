@@ -2,13 +2,13 @@
   /* color */
   background: #292e34;
   background: var(--pf-black-900);
-  background: linear-gradient(#292e34, #030303);
-  background: linear-gradient(var(--pf-black-900), var(--pf-black));
+  /* background: linear-gradient(#292e34, #030303);
+  background: linear-gradient( var(--pf-black) 25%, var(--pf-black-900)); */
   color: #fafafa;
   color: var(--pf-black-100);
 
   /* display */
-  padding: 4em 1em;
+  padding: 5em 1em;
   padding-bottom: 8em;
 
   /* position */
@@ -21,7 +21,7 @@
 .footer-row {
   /* display */
   width: 100%;
-  max-width: 1500px;
+  max-width: 1200px;
   margin: 0 auto !important;
 }
 
@@ -92,12 +92,13 @@
 .footer-copyright {
   /* position */
   position: absolute;
-  bottom: 1em;
+  bottom: 2em;
   left: 0;
   right: 0;
 
   /* font */
   text-align: center;
+  font-size: 0.8em;
 }
 
 /* ============================== */

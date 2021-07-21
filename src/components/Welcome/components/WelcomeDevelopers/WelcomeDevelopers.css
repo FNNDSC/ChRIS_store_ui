@@ -1,33 +1,35 @@
-.welcome-developers {
-  /* display */
+#welcome-developers {
   display:flex;
   flex-direction:column;
-  width:70%;
-  padding: 6em 2em;
-
-  /* font */
-  font-size: 1.4em;
+  align-content: center;
+  
+  margin: auto;
+  padding: 4em 2em;
+  background: linear-gradient(#00000030 0%, #00000010 3%, transparent 7%);
 }
-.welcome-developers-header{
-  /* display */
-  margin-bottom: 0.5em;
 
-  /* font */
-  font-size: 2em;
+#welcome-developers-header {
+  margin: 2em auto;
+  text-align: center;
+} #welcome-developers-header .tag {
+  font-weight: 800;
+  opacity: 0.6;
+} #welcome-developers-header h1 {
+  font-size: 3em;
   line-height: 1.3;
-}
-.callToAction-btn{
-  width: max-content;
-  margin:0 auto;
-  width: 208.5px;
+  margin: 0.25em 0;
+  color: var(--pf-blue-500);
+} #welcome-developers-header p {
+  font-size: 1.5em;
 }
 
-/* ============================== */
-/* ---------- RESPONSIVE -------- */
-/* ============================== */
+#welcome-developers-body {
+  margin: 3em auto;
+} #welcome-developers-body > .pf-l-grid__item {
+  margin-bottom: 2em;
+}
 
-@media (min-width: 768px) {
-  .welcome-developers{
-    width: 70%;
-  }
+#welcome-developers-signup {
+  font-size: 1.25em;
+  text-align: center;
 }

@@ -1,6 +1,6 @@
 .plugins-categories {
   /* display */
-  padding: 0 1em 0;
+  padding: 0 2em 0;
   
   /* flex */
   flex: 1;
@@ -27,8 +27,7 @@
 
 .plugins-category {
   /* color */
-  color: #0088ce;
-  color: var(--pf-blue-400);
+  color:  var(--pf-global--link--Color);
 
   /* display */
   display: flex;
@@ -36,7 +35,6 @@
   
   /* font */
   font-size: 1.4em;
-  font-weight: 600;
   line-height: 1.2;
 
   /* other */
@@ -44,6 +42,9 @@
 } 
 .plugins-category:last-of-type {
   padding-bottom: 1em;
+}
+.plugins-category[class~="selected"] {
+  font-weight: 600;
 }
 
 .plugins-category-name { flex: 1; }

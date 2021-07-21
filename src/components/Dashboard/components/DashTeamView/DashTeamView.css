@@ -1,11 +1,11 @@
-.github-team-noplugin-title {
-    padding-left: 5px;
-}
-
 .dash-text-div {
     padding-top: 6px;
 }
 
 .card-footer{
     color: #0088ce;
+}
+
+.pf-c-card__title {
+    font-size: larger;
 }

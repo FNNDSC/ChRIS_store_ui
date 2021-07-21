@@ -216,9 +216,10 @@ header > .navbar-dropdown {
   /* font */
   font-size: 1.5em;
 }
-.login-button .other-button{
-  background: #06c !important;
-  color: white !important;
+
+#login-button {
+  color: var(--pf-c-button--m-primary--BackgroundColor);
+  background-color: var(--pf-c-button--m-primary--Color);
 }
 /* ===== ACTIVE DROPDOWN BTN ==== */
 
@@ -321,9 +322,9 @@ header > .navbar-dropdown {
   }
 }
 @media (max-width: 480px){
-  .login-button .other-button{
-      width:70px;
-      height:auto;
-      font-size:0.9em;
+  .login-button {
+    width:70px;
+    height:auto;
+    font-size:0.9em;
   }
-  }
+}

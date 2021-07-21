@@ -1,7 +1,5 @@
+/* eslint-disable max-classes-per-file */
 export class GithubAPIRepoError extends Error {
-  statusCode;
-  response;
-
   /**
    * Create a new Github repo fetch error
    * @param repo Name of repository
