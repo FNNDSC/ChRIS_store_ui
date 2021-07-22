@@ -22,7 +22,6 @@ import { sanitize } from 'dompurify';
 import './PluginBody.css';
 import ErrorNotification from '../../../Notification';
 import HttpApiCallError from '../../../../errors/HttpApiCallError';
-// eslint-disable-next-line import/named
 import { GithubAPIRepoError, GithubAPIProfileError, GithubAPIReadmeError } from '../../../../errors/GithubError';
 
 const PluginBody = ({ pluginData }) => {

@@ -24,6 +24,7 @@ export class Plugin extends Component {
     const { pluginData, isFavorite } = props;
     this.state = {
       pluginData,
+      versions: null,
       loading: true,
       star: isFavorite || undefined,
       errors: [],
@@ -67,7 +68,7 @@ export class Plugin extends Component {
     if (this.isLoggedIn()) {
       return this.isFavorite() ? this.unfavPlugin() : this.favPlugin();
     }
-    return Promise.resolve();
+    return this.showNotifications(new Error('You need to be logged in!'))
   }
 
   favPlugin = async () => {
@@ -125,6 +126,17 @@ export class Plugin extends Component {
 
     try {
       const plugin = await this.client.getPlugin(parseInt(pluginId, 10));
+      return { ...plugin.data, url: plugin.url };
+    } catch (e) {
+      this.showNotifications(new HttpApiCallError(e));
+      return e
+    }
+  }
+
+  async fetchPluginVersions() {
+
+    try {
+      const plugin = await this.client.getPlugin();
       return { ...plugin.data, url: plugin.url };
     } catch (e) {
       this.showNotifications(new HttpApiCallError(e));
