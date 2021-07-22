@@ -24,7 +24,6 @@ export class Plugin extends Component {
     const { pluginData, isFavorite } = props;
     this.state = {
       pluginData,
-      versions: null,
       loading: true,
       star: isFavorite || undefined,
       errors: [],
@@ -40,9 +39,10 @@ export class Plugin extends Component {
   async componentDidMount() {
     let { pluginData } = this.state;
 
-    if (!pluginData) {
+    if (!pluginData)
       pluginData = await this.fetchPluginData();
-    }
+    else
+      this.fetchPluginVersions(pluginData.name)
 
     this.setState({ pluginData, loading: false });
     if (this.isLoggedIn()) {
@@ -133,11 +133,12 @@ export class Plugin extends Component {
     }
   }
 
-  async fetchPluginVersions() {
-
+  async fetchPluginVersions(name) {
     try {
-      const plugin = await this.client.getPlugin();
-      return { ...plugin.data, url: plugin.url };
+      const versions = await this.client.getPlugins({ limit: 10e6, name });
+      return this.setState((prevState) => 
+        ({ pluginData: { ...prevState.pluginData, versions: versions.data } })
+      );
     } catch (e) {
       this.showNotifications(new HttpApiCallError(e));
       return e
