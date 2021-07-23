@@ -39,9 +39,10 @@ export class Plugin extends Component {
   async componentDidMount() {
     let { pluginData } = this.state;
 
-    if (!pluginData) {
+    if (!pluginData)
       pluginData = await this.fetchPluginData();
-    }
+    else
+      this.fetchPluginVersions(pluginData.name)
 
     this.setState({ pluginData, loading: false });
     if (this.isLoggedIn()) {
@@ -65,9 +66,13 @@ export class Plugin extends Component {
 
   onStarClicked = () => {
     if (this.isLoggedIn()) {
-      return this.isFavorite() ? this.unfavPlugin() : this.favPlugin();
+      if (this.isFavorite()) 
+        this.unfavPlugin();
+      else 
+        this.favPlugin();
     }
-    return Promise.resolve();
+    else
+      this.showNotifications(new Error('You need to be logged in!'))
   }
 
   favPlugin = async () => {
@@ -126,6 +131,22 @@ export class Plugin extends Component {
     try {
       const plugin = await this.client.getPlugin(parseInt(pluginId, 10));
       return { ...plugin.data, url: plugin.url };
+    } catch (e) {
+      this.showNotifications(new HttpApiCallError(e));
+      return e
+    }
+  }
+
+  async fetchPluginVersions(name) {
+    try {
+      const versions = await this.client.getPlugins({ limit: 10e6, name });
+      return this.setState((prevState) => ({ 
+        pluginData: { 
+          ...prevState.pluginData, 
+          versions: versions.data, 
+          url: versions.url,
+        } 
+      }));
     } catch (e) {
       this.showNotifications(new HttpApiCallError(e));
       return e

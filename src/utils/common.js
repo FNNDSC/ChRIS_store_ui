@@ -18,4 +18,20 @@ export const debounce = (fn, delay = 250) => {
   }
 }
 
+/**
+ * Remove email from author
+ * @param {*} authors List or string
+ * @returns Just names of plugin authors
+ */
+export const removeEmail = (authors) => {
+  const emailRegex = /(<|\().+?@.{2,}?\..{2,}?(>|\))/g;
+  // Match '<' or '(' at the beginning and end
+  // Match <string>@<host>.<tld> inside brackets
+  if (!Array.isArray(authors))
+    // eslint-disable-next-line no-param-reassign
+    authors = [ authors ]
+
+  return authors.map((author) => author.replace(emailRegex, "").trim());
+}
+
 export default debounce;
