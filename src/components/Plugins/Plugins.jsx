@@ -25,22 +25,11 @@ import NotFound from '../NotFound/NotFound';
 import ChrisStore from '../../store/ChrisStore';
 import HttpApiCallError from '../../errors/HttpApiCallError';
 import ErrorNotification from '../Notification';
+import { removeEmail } from '../../utils/common';
 
 import './Plugins.css';
 
 const CATEGORIES = ['FreeSurfer', 'MRI', 'Segmentation'];
-
-// Remove email from author
-export const removeEmail = (authors) => {
-  const emailRegex = /(<|\().+?@.{2,}?\..{2,}?(>|\))/g;
-  // Match '<' or '(' at the beginning and end
-  // Match <string>@<host>.<tld> inside brackets
-  if (!Array.isArray(authors))
-    // eslint-disable-next-line no-param-reassign
-    authors = [ authors ]
-
-  return authors.map((author) => author.replace(emailRegex, "").trim());
-}
 
 /**
  * A page showing a list of ChRIS plugins, according to the search

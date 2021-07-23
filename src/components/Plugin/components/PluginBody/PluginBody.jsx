@@ -23,6 +23,7 @@ import './PluginBody.css';
 import ErrorNotification from '../../../Notification';
 import HttpApiCallError from '../../../../errors/HttpApiCallError';
 import { GithubAPIRepoError, GithubAPIProfileError, GithubAPIReadmeError } from '../../../../errors/GithubError';
+import { removeEmail } from '../../../../utils/common';
 
 const PluginBody = ({ pluginData }) => {
   const [activeTab, setActiveTab] = useState(1);
@@ -85,7 +86,7 @@ const PluginBody = ({ pluginData }) => {
       return <>
         <p><b>Version { pluginData.version }</b></p>
         <ClipboardCopy isReadOnly>
-          { `${process.env.REACT_APP_STORE_URL}plugins/${pluginData.id}/` }
+          {pluginData.url + pluginData.id}
         </ClipboardCopy>
       </>
 
@@ -94,7 +95,7 @@ const PluginBody = ({ pluginData }) => {
       return <>
         <p><b>Version { pluginData.versions[0].version }</b></p>
         <ClipboardCopy isReadOnly>
-          { `${process.env.REACT_APP_STORE_URL}plugins/${pluginData.versions[0].id}/` }
+          {pluginData.url + pluginData.versions[0].id}
         </ClipboardCopy>
         <br />
         <ExpandableSection toggleText="More Versions">
@@ -212,33 +213,26 @@ const PluginBody = ({ pluginData }) => {
                   </a>
                 </div>
 
-                {
-                  Array.isArray(pluginData.authors) &&
-                  <div className="plugin-body-detail-section">
-                    <h4>Contributors</h4>
-                    {
+                <div className="plugin-body-detail-section">
+                  <h4>Contributors</h4>
+                  {
+                    Array.isArray(pluginData.authors) ? 
                       pluginData.authors.map((author) => (
                         <a key={author} href={`#${author}`}>
-                          <p>
-                            <UserAltIcon />
-                            {' '}
-                            {author}
-                          </p>
+                          <p><UserAltIcon /> {author}</p>
                         </a>
                       ))
-                    }
+                    :
+                      <a key={pluginData.authors} href={`#${pluginData.authors}`}>
+                        <p><UserAltIcon /> {removeEmail(pluginData.authors)}</p>
+                      </a>
+                  }
 
-                    <br />
-                    <a className="pf-m-link" href={`${pluginData.public_repo}/graphs/contributors`}>
-                      View all contributors
-                    </a>
-                  </div>
-                }
-
-                {/* <div className="plugin-body-detail-section">
-                  <h4>Plugin ID</h4>
-                  {pluginData.id}
-                </div> */}
+                  <br />
+                  <a className="pf-m-link" href={`${pluginData.public_repo}/graphs/contributors`}>
+                    View all contributors
+                  </a>
+                </div>
 
                 <div className="plugin-body-detail-section">
                   <h4>License</h4>
