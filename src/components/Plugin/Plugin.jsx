@@ -39,8 +39,20 @@ export class Plugin extends Component {
   async componentDidMount() {
     let { pluginData } = this.state;
 
+    /**
+     * When the user opens this page from `/plugins` or `/plugins/<name>`, 
+     * the incoming prop has a value and we use that.
+     * 
+     * If the incoming prop does not have a value, we assume 
+     * we are on `/p/<id>` and we fetch by ID `name_exact=<name>`.
+     */
     if (!pluginData)
       pluginData = await this.fetchPluginData();
+    /**
+     * If pluginData was fetched (by ID), it will have a version, hence continue.
+     * If not, we fetch all plugins with `name_exact=<name>` 
+     * and select plugin.versions[0] from that to show on the install button.
+     */
     else
       this.fetchPluginVersions(pluginData.name)
 
@@ -137,6 +149,12 @@ export class Plugin extends Component {
     }
   }
 
+  /**
+   * Fetch all versions of a plugin by name.
+   * 
+   * @param {*} name Plugin name
+   * @returns Promise => void
+   */
   async fetchPluginVersions(name) {
     try {
       const versions = await this.client.getPlugins({ limit: 10e6, name_exact: name });

@@ -34,6 +34,9 @@ const CATEGORIES = ['FreeSurfer', 'MRI', 'Segmentation'];
 /**
  * A page showing a list of ChRIS plugins, according to the search
  * specified in the URI's query string.
+ * 
+ * When the user opens /plugins, all plugin metas are fetched, with pagination.
+ * so that we already have the data to immediately populate each plugin body.
  */
 export class Plugins extends Component {
   constructor(props) {
@@ -363,6 +366,14 @@ export class Plugins extends Component {
           const { name } = routeProps.match.params
 
           if (loading) return <LoadingPluginItem />
+
+          /**
+           * When the user opens this route from `/plugins`, the pluginList Map
+           * has the item and we return the ConnectedPlugin.
+           * 
+           * When the user opens this route directly, the pluginList Map 
+           * does not have the item and we we fetch by `name_exact=name`.
+           */
 
           if (pluginList.has(name)) {
             const plugin = pluginList.get(name);
