@@ -116,19 +116,17 @@ const PluginBody = ({ pluginData }) => {
 
   return (
     <>
-      {
-        errors.map((message, index) => (
-          <ErrorNotification
-            title={message}
-            position="top-right"
-            variant="danger"
-            closeable
-            onClose={() => {
-              setErrors(errors.splice(index));
-            }}
-          />
-        ))
-      }
+      { errors.map((message, index) => (
+        <ErrorNotification
+          title={message}
+          position="top-right"
+          variant="danger"
+          closeable
+          onClose={() => {
+            setErrors(errors.splice(index));
+          }}
+        />
+      ))}
 
       <article>
         <Card id="plugin-body">

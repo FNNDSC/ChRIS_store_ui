@@ -68,15 +68,21 @@ export class Plugins extends Component {
   }
 
   /**
-   * Re-fetch the list of plugins if the input was changed
-   * in the NarBar's search bar.
+   * @todo
+   * Causes issues, will be reviewed later.
    */
-  async componentDidUpdate(prevProps) {
-    // eslint-disable-next-line react/destructuring-assignment
-    if (this.props.location !== prevProps.location) {
-      await this.refreshPluginList();
-    }
-  }
+  // /**
+  //  * Re-fetch the list of plugins if the input was changed 
+  //  * in the NarBar's search bar.
+  //  * @param {*} pluginId 
+  //  * @param {*} star 
+  //  */
+  // async componentDidUpdate(prevProps) {
+  //   // eslint-disable-next-line react/destructuring-assignment
+  //   if (this.props.location !== prevProps.location) {
+  //     await this.refreshPluginList();
+  //   }
+  // }
 
   /**
    * Add a star next to the plugin visually.
@@ -352,21 +358,23 @@ export class Plugins extends Component {
 
     return (
       <Switch>
-        <Route path="/plugin/:name" render={(routeProps)=>{
-          if (loading)
-            return <LoadingPluginItem />
-
+        <Route path="/plugin/:name" render={(routeProps) => {
           window.scrollTo(0,0);
-          const { name: query } = routeProps.match.params
-          if (pluginList.has(query)) {
-            const plugin = pluginList.get(query);
+          const { name } = routeProps.match.params
+
+          if (loading) return <LoadingPluginItem />
+
+          if (pluginList.has(name)) {
+            const plugin = pluginList.get(name);
             return <ConnectedPlugin pluginData={plugin} isFavorite={this.isFavorite(plugin)} />
           }
+          this.setState({ loading: true })
+          this.refreshPluginList({ name })
           return <NotFound/>
         }} />
 
         <Route exact path="/plugins">
-          {error && (
+          { error && (
             <ErrorNotification
               title={error}
               position='top-right'

@@ -139,7 +139,7 @@ export class Plugin extends Component {
 
   async fetchPluginVersions(name) {
     try {
-      const versions = await this.client.getPlugins({ limit: 10e6, name });
+      const versions = await this.client.getPlugins({ limit: 10e6, name_exact: name });
       return this.setState((prevState) => ({ 
         pluginData: { 
           ...prevState.pluginData, 
