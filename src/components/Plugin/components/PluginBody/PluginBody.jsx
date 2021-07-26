@@ -84,9 +84,8 @@ const PluginBody = ({ pluginData }) => {
   const InstallButton = () => {
     if (pluginData.version) 
       return <>
-        <p><b>Version { pluginData.version }</b></p>
         <ClipboardCopy isReadOnly>
-          {pluginData.url + pluginData.id}
+          {pluginData.url}
         </ClipboardCopy>
       </>
 
@@ -155,15 +154,11 @@ const PluginBody = ({ pluginData }) => {
                           pluginData.versions ? (
                             <>
                               <h2>Versions of this plugin</h2>
-                              {
-                                pluginData.versions.map((version) => (
-                                  <div key={version}>
-                                    <a href={`/p/${version.id}`}>
-                                      Version { version.version }
-                                    </a>
-                                  </div>
-                                ))
-                              }
+                              { pluginData.versions.map((version) => (
+                                <a key={version} href={`/p/${version.id}`}>
+                                  <b>Version { version.version }</b>
+                                </a>
+                              ))}
                             </>
                           ) : (
                             <div>
@@ -264,7 +259,9 @@ PluginBody.propTypes = {
     public_repo: PropTypes.string,
     type: PropTypes.string,
     authorURL: PropTypes.string,
-    authors: PropTypes.arrayOf(PropTypes.string),
+    authors: PropTypes.oneOfType([
+      PropTypes.string, PropTypes.arrayOf(PropTypes.string)
+    ]),
     versions: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.any), PropTypes.any
     ])
