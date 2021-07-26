@@ -369,7 +369,7 @@ export class Plugins extends Component {
             return <ConnectedPlugin pluginData={plugin} isFavorite={this.isFavorite(plugin)} />
           }
           this.setState({ loading: true })
-          this.refreshPluginList({ name })
+          this.refreshPluginList({ name_exact: name })
           return <NotFound/>
         }} />
 
