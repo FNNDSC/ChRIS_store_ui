@@ -97,17 +97,18 @@ const PluginBody = ({ pluginData }) => {
           {pluginData.url + pluginData.versions[0].id}
         </ClipboardCopy>
         <br />
-        <ExpandableSection toggleText="More Versions">
-          { 
-            pluginData.versions.slice(1).map((version) =>(
+        {
+          pluginData.versions.length > 1 &&
+          <ExpandableSection toggleText="More Versions">
+            { pluginData.versions.slice(1).map((version) =>(
               <div key={version.version}>
                 <a href={`/p/${version.id}`}>
                   Version {version.version}
                 </a>
               </div>
-            ))
-          }
-        </ExpandableSection>
+            ))}
+          </ExpandableSection>
+        }
       </>
 
     return <p>Loading</p>
