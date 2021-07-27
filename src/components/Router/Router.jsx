@@ -16,9 +16,12 @@ const Router = () => (
   <AppLayout>
     <Switch>
       <Route exact path="/" component={Welcome} />
+
       <Route path="/p/:pluginId" component={PluginDetail} />
+
       <Route path="/plugins" component={PluginsList} />
-      <Route path="/plugin" component={PluginsList} />
+      <Route path="/plugin/:name" component={PluginsList} />
+
       <Route path="/quickstart" component={Developers} />
       <ProtectedRoute path="/create" component={CreatePlugin} />
       <ProtectedRoute path="/dashboard" component={Dashboard} />

@@ -13,6 +13,7 @@ import {
   ClipboardCopy,
   Button,
   ExpandableSection,
+  Spinner,
 } from '@patternfly/react-core';
 import { DownloadIcon, UserAltIcon } from '@patternfly/react-icons';
 import PropTypes from 'prop-types';
@@ -83,18 +84,13 @@ const PluginBody = ({ pluginData }) => {
 
   const InstallButton = () => {
     if (pluginData.version) 
-      return <>
-        <ClipboardCopy isReadOnly>
-          {pluginData.url}
-        </ClipboardCopy>
-      </>
-
+      return <ClipboardCopy isReadOnly>{ pluginData.url }</ClipboardCopy>
 
     if (pluginData.versions)
       return <>
         <p><b>Version { pluginData.versions[0].version }</b></p>
         <ClipboardCopy isReadOnly>
-          {pluginData.url + pluginData.versions[0].id}
+          { pluginData.versions[0].url }
         </ClipboardCopy>
         <br />
         {
@@ -111,7 +107,7 @@ const PluginBody = ({ pluginData }) => {
         }
       </>
 
-    return <p>Loading</p>
+    return <Spinner size="lg" />
   }
 
   return (

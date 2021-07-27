@@ -152,17 +152,20 @@ export class Plugin extends Component {
   /**
    * Fetch all versions of a plugin by name.
    * 
-   * @param {*} name Plugin name
+   * @param {string} name Plugin name
    * @returns Promise => void
    */
   async fetchPluginVersions(name) {
     try {
       const versions = await this.client.getPlugins({ limit: 10e6, name_exact: name });
+      const firstplg = await this.client.getPlugin(parseInt(versions.data[0].id, 10));
       return this.setState((prevState) => ({ 
         pluginData: { 
           ...prevState.pluginData, 
-          versions: versions.data, 
-          url: versions.url,
+          versions: [
+            { ...versions.data[0], url: firstplg.url },
+            ...versions.data.slice(1)
+          ],
         } 
       }));
     } catch (e) {

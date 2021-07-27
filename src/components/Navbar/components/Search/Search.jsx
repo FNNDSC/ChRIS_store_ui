@@ -85,7 +85,7 @@ const Search = ({
             onChange={onChange}
             autoComplete="off"
             onKeyDown={(e) => {
-              if (e.key === 'Enter' && value.length >= 3 && !autoCompleteData.length) {
+              if (e.key === 'Enter' && value.length >= 3) {
                 onSearch(value, 'ENTER');
                 setShowAutoComplete(false);
               }

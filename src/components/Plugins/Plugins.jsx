@@ -71,21 +71,17 @@ export class Plugins extends Component {
   }
 
   /**
-   * @todo
-   * Causes issues, will be reviewed later.
+   * Re-fetch the list of plugins if the input was changed 
+   * in the NarBar's search bar.
+   * @param {*} pluginId 
+   * @param {*} star 
    */
-  // /**
-  //  * Re-fetch the list of plugins if the input was changed 
-  //  * in the NarBar's search bar.
-  //  * @param {*} pluginId 
-  //  * @param {*} star 
-  //  */
-  // async componentDidUpdate(prevProps) {
-  //   // eslint-disable-next-line react/destructuring-assignment
-  //   if (this.props.location !== prevProps.location) {
-  //     await this.refreshPluginList();
-  //   }
-  // }
+  async componentDidUpdate(prevProps) {
+    // eslint-disable-next-line react/destructuring-assignment
+    if (this.props.location !== prevProps.location) {
+      await this.refreshPluginList();
+    }
+  }
 
   /**
    * Add a star next to the plugin visually.
@@ -141,12 +137,18 @@ export class Plugins extends Component {
   async refreshPluginList(search = {}) {
     const params = new URLSearchParams(window.location.search)
     const name = params.get('q');
+    const { match } = this.props;
+
     const searchParams = {
       limit: 20,
       offset: 0,
-      name_title_category: name,
       ...search
     };
+
+    if (name)
+      searchParams.name_title_category = name;
+    if (match.params.name)
+      searchParams.name_exact = match.params.name;
 
     let plugins;
     try {
@@ -379,8 +381,6 @@ export class Plugins extends Component {
             const plugin = pluginList.get(name);
             return <ConnectedPlugin pluginData={plugin} isFavorite={this.isFavorite(plugin)} />
           }
-          this.setState({ loading: true })
-          this.refreshPluginList({ name_exact: name })
           return <NotFound/>
         }} />
 
