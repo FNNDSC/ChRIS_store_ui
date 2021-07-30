@@ -110,6 +110,8 @@ const PluginBody = ({ pluginData }) => {
     return <Spinner size="lg" />
   }
 
+  const authors = removeEmail(pluginData.authors.split(','))
+
   return (
     <>
       { errors.map((message, index) => (
@@ -145,22 +147,12 @@ const PluginBody = ({ pluginData }) => {
                   <Tab eventKey={3} title={<TabTitleText>Versions</TabTitleText>}>
                     <Grid hasGutter className="plugin-body-main">
                       <GridItem sm={12}>
-                        {
-                          pluginData.versions ? (
-                            <>
-                              <h2>Versions of this plugin</h2>
-                              { pluginData.versions.map((version) => (
-                                <a key={version} href={`/p/${version.id}`}>
-                                  <b>Version { version.version }</b>
-                                </a>
-                              ))}
-                            </>
-                          ) : (
-                            <div>
-                              <p>This is the only version of this plugin.</p>
-                            </div>
-                          )
-                        }
+                        <h2>Versions of this plugin</h2>
+                        { pluginData.versions.map((version) => (
+                          <a key={version} href={`/p/${version.id}`}>
+                            <b>Version { version.version }</b>
+                          </a>
+                        ))}
                       </GridItem>
                     </Grid>
                   </Tab>
@@ -205,19 +197,11 @@ const PluginBody = ({ pluginData }) => {
 
                 <div className="plugin-body-detail-section">
                   <h4>Contributors</h4>
-                  {
-                    Array.isArray(pluginData.authors) ? 
-                      pluginData.authors.map((author) => (
-                        <a key={author} href={`#${author}`}>
-                          <p><UserAltIcon /> {author}</p>
-                        </a>
-                      ))
-                    :
-                      <a key={pluginData.authors} href={`#${pluginData.authors}`}>
-                        <p><UserAltIcon /> {removeEmail(pluginData.authors)}</p>
-                      </a>
-                  }
-
+                  { authors.map((author) => (
+                    <a key={author} href={`#${author}`}>
+                      <p><UserAltIcon /> {author}</p>
+                    </a>
+                  ))}
                   <br />
                   <a className="pf-m-link" href={`${pluginData.public_repo}/graphs/contributors`}>
                     View all contributors

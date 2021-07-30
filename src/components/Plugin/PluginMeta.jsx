@@ -15,17 +15,16 @@ import HttpApiCallError from '../../errors/HttpApiCallError';
 
 import './Plugin.css';
 
-export class Plugin extends Component {
+export class PluginMeta extends Component {
   constructor(props) {
     super(props);
 
     this.mounted = false;
 
-    const { pluginData, isFavorite } = props;
     this.state = {
-      pluginData,
+      pluginData: undefined,
+      star: undefined,
       loading: true,
-      star: isFavorite || undefined,
       errors: [],
     };
 
@@ -35,12 +34,12 @@ export class Plugin extends Component {
   }
 
   async componentDidMount() {
-    const pluginData = await this.fetchPlugin();
-    this.fetchPluginVersions(pluginData.name)
+    const pluginMeta = await this.fetchPluginMeta();
+    this.fetchPluginVersions(pluginMeta.name)
 
-    this.setState({ pluginData, loading: false });
+    this.setState({ pluginData: pluginMeta, loading: false });
     if (this.isLoggedIn()) {
-      this.fetchIsPluginStarred(pluginData);
+      this.fetchIsPluginStarred(pluginMeta);
     }
   }
 
@@ -104,27 +103,13 @@ export class Plugin extends Component {
     }
   }
 
-  renderStar = () => {
-    let name;
-    let className;
-
-    if (this.isLoggedIn()) {
-      className = this.isFavorite() ? 'plugin-star-favorite' : 'plugin-star';
-      name = this.isFavorite() ? 'star' : 'star-o';
-    } else {
-      className = 'plugin-star-disabled';
-      name = 'star-o';
-    }
-    return <StarIcon name={name} className={className} onClick={this.onStarClicked} />;
-  }
-
-  async fetchPlugin() {
+  async fetchPluginMeta() {
     // eslint-disable-next-line react/destructuring-assignment
-    const { pluginId } = this.props.match.params;
+    const { pluginName } = this.props.match.params;
 
     try {
-      const plugin = await this.client.getPlugin(parseInt(pluginId, 10));
-      return { ...plugin.data, url: plugin.url };
+      const plugin = await this.client.getPluginMetas({ name_exact: pluginName });
+      return plugin.data[0];
     } catch (e) {
       this.showNotifications(new HttpApiCallError(e));
       return e
@@ -266,7 +251,7 @@ export class Plugin extends Component {
   }
 }
 
-Plugin.propTypes = {
+PluginMeta.propTypes = {
   store: PropTypes.objectOf(PropTypes.object),
   match: PropTypes.shape({
     params: PropTypes.shape({
@@ -275,7 +260,7 @@ Plugin.propTypes = {
   })
 };
 
-Plugin.defaultProps = {
+PluginMeta.defaultProps = {
   store: new Map(),
   match: {
     params: {
@@ -284,4 +269,4 @@ Plugin.defaultProps = {
   }
 };
 
-export default ChrisStore.withStore(Plugin);
+export default ChrisStore.withStore(PluginMeta);

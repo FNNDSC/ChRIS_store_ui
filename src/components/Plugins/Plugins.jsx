@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Client, { PluginMetaList } from '@fnndsc/chrisstoreapi';
 import { 
@@ -14,13 +13,11 @@ import {
 } from "@patternfly/react-core";
 import { CaretDownIcon } from '@patternfly/react-icons';
 
-import ConnectedPlugin from '../Plugin/Plugin';
 import PluginItem from './components/PluginItem/PluginItem';
 import LoadingPluginItem from './components/LoadingPluginItem/LoadingPluginItem';
 import PluginsCategories from './components/PluginsCategories/PluginsCategories';
 import LoadingContainer from '../LoadingContainer/LoadingContainer';
 import LoadingContent from '../LoadingContainer/components/LoadingContent/LoadingContent';
-import NotFound from '../NotFound/NotFound';
 
 import ChrisStore from '../../store/ChrisStore';
 import HttpApiCallError from '../../errors/HttpApiCallError';
@@ -73,8 +70,6 @@ export class Plugins extends Component {
   /**
    * Re-fetch the list of plugins if the input was changed 
    * in the NarBar's search bar.
-   * @param {*} pluginId 
-   * @param {*} star 
    */
   async componentDidUpdate(prevProps) {
     // eslint-disable-next-line react/destructuring-assignment
@@ -87,7 +82,7 @@ export class Plugins extends Component {
    * Add a star next to the plugin visually.
    * (Does not necessarily send to the backend that the plugin is a favorite).
    *
-   * @param pluginId
+   * @param {number} pluginId
    * @param star
    */
   setPluginStar(pluginId, star) {
@@ -130,13 +125,13 @@ export class Plugins extends Component {
   }
 
   /**
-   * 1. Fetch the list of plugins based on the search query.
-   * 2. Call setState
-   * 3. If user is logged in, get information about their favorite plugins.
+   * 1. Fetch the list of plugins based on the url path OR search query.
+   * 2. If user is logged in, get information about their favorite plugins.
+   * 3. Call setState
    */
   async refreshPluginList(search = {}) {
     const params = new URLSearchParams(window.location.search)
-    const name = params.get('q');
+    const query = params.get('q');
     const { match } = this.props;
 
     const searchParams = {
@@ -145,10 +140,21 @@ export class Plugins extends Component {
       ...search
     };
 
-    if (name)
-      searchParams.name_title_category = name;
+    /**
+     * When the user opens this route from `/plugins`, the pluginList Map
+     * has the item and we return the ConnectedPlugin in `render()` below.
+     * 
+     * When the user opens this route directly, the pluginList Map 
+     * does not have the item and we we fetch by `name_exact=name`.
+     */
     if (match.params.name)
       searchParams.name_exact = match.params.name;
+    /**
+     * When URL contains query-param "q=<something>", `query` is not undefined
+     * and we search by `query`.
+     */
+    else if (query)
+      searchParams.name_title_category = query;
 
     let plugins;
     try {
@@ -362,134 +368,109 @@ export class Plugins extends Component {
     )
 
     return (
-      <Switch>
-        <Route path="/plugin/:name" render={(routeProps) => {
-          window.scrollTo(0,0);
-          const { name } = routeProps.match.params
+      <article>
+        { error && (
+          <ErrorNotification
+            title={error}
+            position='top-right'
+            variant='danger'
+            closeable
+            onClose={()=>this.setState({ error: null })}
+          />
+        )}
 
-          if (loading) return <LoadingPluginItem />
-
-          /**
-           * When the user opens this route from `/plugins`, the pluginList Map
-           * has the item and we return the ConnectedPlugin.
-           * 
-           * When the user opens this route directly, the pluginList Map 
-           * does not have the item and we we fetch by `name_exact=name`.
-           */
-
-          if (pluginList.has(name)) {
-            const plugin = pluginList.get(name);
-            return <ConnectedPlugin pluginData={plugin} isFavorite={this.isFavorite(plugin)} />
-          }
-          return <NotFound/>
-        }} />
-
-        <Route exact path="/plugins">
-          { error && (
-            <ErrorNotification
-              title={error}
-              position='top-right'
-              variant='danger'
-              closeable
-              onClose={()=>this.setState({ error: null })}
-            />
-          )}
-
-          <div className="plugins-container">
-            <article>
-              <Grid className="plugins-row">
-                <GridItem xs={12} id="plugins-header">
-                  <div style={{ padding: '2em' }}>
-                    <h1>ChRIS Plugins</h1>
-                    <h3 style={{ color: "darkgray" }}>
-                      Plugins available on this ChRIS Store are listed here. <br />
-                      <b>Install these to your ChRIS instance to use them. </b>
-                    </h3>
-                  </div>
-                </GridItem>
-                
-                <GridItem lg={9} xs={12}>
-                  <Grid hasGutter className="plugins-list">
-                    <GridItem xs={12}>
-                      <Split>
-                        <SplitItem>
-                          {
-                            loading ? (
-                              <LoadingContainer>
-                                <LoadingContent
-                                  width="135px"
-                                  height="30px"
-                                  left="1em"
-                                  top="1.5em"
-                                  bottom="1.5em"
-                                />
-                              </LoadingContainer>
-                            ) : (
-                              <span style={{ color: 'gray', fontSize: '1.5em', margin: '1em 0'}}>
-                                <p style={{ fontSize: '1.25em', margin: '0', color: 'black', fontWeight: '600' }}>
-                                  {plugins.totalCount} plugins found
-                                </p>
-                                Showing {paginationOffset + 1} to {' '}
-                                  { 
-                                    // eslint-disable-next-line no-nested-ternary
-                                    (paginationOffset + paginationLimit > plugins.totalCount) ? 
-                                      plugins.totalCount
-                                      :
-                                      (paginationOffset > 0) ?
-                                        paginationOffset
-                                        :
-                                        paginationLimit
-                                  }
-                              </span>
-                            )
-                          }
-                        </SplitItem>
-                        <SplitItem isFilled/>
-                        <SplitItem>
-                          <Dropdown
-                            onSelect={this.handleSortingSelect}
-                            isOpen={isSortOpen}
-                            toggle={
-                              <DropdownToggle id="toggle-id" 
-                                onToggle={this.handleToggleSort} 
-                                toggleIndicator={CaretDownIcon}>
-                                Sort by
-                              </DropdownToggle>
-                            }
-                            dropdownItems={[
-                              <DropdownItem key="name">Name</DropdownItem>
-                            ]}
-                          />
-                        </SplitItem>
-                        <SplitItem>
-                          <PaginationControls />
-                        </SplitItem>
-                      </Split>
-                    </GridItem>
-
-                    <PluginListBody />
-
-                    <Split>
-                      <SplitItem isFilled/>
-                      <SplitItem>
-                        <PaginationControls />
-                      </SplitItem>
-                    </Split>
-                  </Grid>
+        <div className="plugins-container">
+          <Grid className="plugins-row">
+            <GridItem xs={12} id="plugins-header">
+              <div style={{ padding: '2em' }}>
+                <h1>ChRIS Plugins</h1>
+                <h3 style={{ color: "darkgray" }}>
+                  Plugins available on this ChRIS Store are listed here. <br />
+                  <b>Install these to your ChRIS instance to use them. </b>
+                </h3>
+              </div>
+            </GridItem>
+            
+            <GridItem lg={9} xs={12}>
+              <Grid hasGutter className="plugins-list">
+                <GridItem xs={12}>
+                  <Split>
+                    <SplitItem>
+                      {
+                        loading ? (
+                          <LoadingContainer>
+                            <LoadingContent
+                              width="135px"
+                              height="30px"
+                              left="1em"
+                              top="1.5em"
+                              bottom="1.5em"
+                            />
+                          </LoadingContainer>
+                        ) : (
+                          <span style={{ color: 'gray', fontSize: '1.5em', margin: '1em 0'}}>
+                            <p style={{ fontSize: '1.25em', margin: '0', color: 'black', fontWeight: '600' }}>
+                              {plugins.totalCount} plugins found
+                            </p>
+                            Showing {paginationOffset + 1} to {' '}
+                              { 
+                                // eslint-disable-next-line no-nested-ternary
+                                (paginationOffset + paginationLimit > plugins.totalCount) ? 
+                                  plugins.totalCount
+                                  :
+                                  (paginationOffset > 0) ?
+                                    paginationOffset
+                                    :
+                                    paginationLimit
+                              }
+                          </span>
+                        )
+                      }
+                    </SplitItem>
+                    <SplitItem isFilled/>
+                    <SplitItem>
+                      <Dropdown
+                        onSelect={this.handleSortingSelect}
+                        isOpen={isSortOpen}
+                        toggle={
+                          <DropdownToggle id="toggle-id" 
+                            onToggle={this.handleToggleSort} 
+                            toggleIndicator={CaretDownIcon}>
+                            Sort by
+                          </DropdownToggle>
+                        }
+                        dropdownItems={[
+                          <DropdownItem key="name">Name</DropdownItem>
+                        ]}
+                      />
+                    </SplitItem>
+                    <SplitItem>
+                      <PaginationControls />
+                    </SplitItem>
+                  </Split>
                 </GridItem>
 
-                <GridItem lg={3} xs={12}>
-                  <PluginsCategories 
-                    categories={categoryEntries}
-                    onSelect={this.handleCategorySelect}
-                    selected={selectedCategory}
-                  />
-                </GridItem>
+                <PluginListBody />
+
+                <Split>
+                  <SplitItem isFilled/>
+                  <SplitItem>
+                    <PaginationControls />
+                  </SplitItem>
+                </Split>
               </Grid>
-            </article>
-          </div>
-        </Route>
-      </Switch>
+            </GridItem>
+
+            <GridItem lg={3} xs={12}>
+              <PluginsCategories 
+                categories={categoryEntries}
+                onSelect={this.handleCategorySelect}
+                selected={selectedCategory}
+              />
+            </GridItem>
+          </Grid>
+        </div>
+      </article>
     );
   }
 }
