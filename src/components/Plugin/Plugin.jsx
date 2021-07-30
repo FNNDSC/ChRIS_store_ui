@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Badge, Grid, GridItem, Split, SplitItem, Button } from '@patternfly/react-core';
 import { StarIcon } from '@patternfly/react-icons';
 import PropTypes from 'prop-types';
-import Client from '@fnndsc/chrisstoreapi';
+import Client, { Plugin } from '@fnndsc/chrisstoreapi';
 
 import LoadingPlugin from './components/LoadingPlugin/LoadingPlugin';
 import PluginBody from './components/PluginBody/PluginBody';
@@ -15,15 +15,14 @@ import HttpApiCallError from '../../errors/HttpApiCallError';
 
 import './Plugin.css';
 
-export class Plugin extends Component {
+export class PluginView extends Component {
   constructor(props) {
     super(props);
 
-    const { pluginData, isFavorite } = props;
     this.state = {
-      pluginData,
+      pluginData: undefined,
+      star: undefined,
       loading: true,
-      star: isFavorite || undefined,
       errors: [],
     };
 
@@ -33,21 +32,35 @@ export class Plugin extends Component {
   }
 
   async componentDidMount() {
-    const pluginData = await this.fetchPlugin();
-    this.fetchPluginVersions(pluginData.name)
+    try {
+      const plugin = await this.fetchPlugin();
+      const versions = await this.fetchPluginVersions(plugin.data.name);
 
-    this.setState({ pluginData, loading: false });
-    if (this.isLoggedIn()) {
-      this.fetchIsPluginStarred(pluginData);
+      let star;
+      if (this.isLoggedIn())
+        star = await this.fetchIsPluginStarred(plugin.data);
+
+      this.setState({ 
+        loading: false,
+        pluginData: {
+          ...plugin.data,
+          url: plugin.url,
+          versions
+        },
+        star,
+      });
+    } catch (error) {
+      this.setState((prev) => ({ 
+        loading: false, 
+        errors: [ ...prev.errors, error ] 
+      }));
     }
   }
 
   showNotifications = (error) => {
-    let { errors } = this.state;
-    errors = [ ...errors, error.message ]
-    this.setState({
-      errors
-    })
+    this.setState((prev) => ({
+      errors: [ ...prev.errors, error ] 
+    }));
   }
 
   // eslint-disable-next-line react/destructuring-assignment
@@ -119,14 +132,7 @@ export class Plugin extends Component {
   async fetchPlugin() {
     // eslint-disable-next-line react/destructuring-assignment
     const { pluginId } = this.props.match.params;
-
-    try {
-      const plugin = await this.client.getPlugin(parseInt(pluginId, 10));
-      return { ...plugin.data, url: plugin.url };
-    } catch (e) {
-      this.showNotifications(new HttpApiCallError(e));
-      return e
-    }
+    return this.client.getPlugin(parseInt(pluginId, 10));
   }
 
   /**
@@ -136,32 +142,19 @@ export class Plugin extends Component {
    * @returns Promise => void
    */
   async fetchPluginVersions(name) {
-    try {
-      const versions = await this.client.getPlugins({ limit: 10e6, name_exact: name });
-      const firstplg = await this.client.getPlugin(parseInt(versions.data[0].id, 10));
-      return this.setState((prevState) => ({ 
-        pluginData: { 
-          ...prevState.pluginData, 
-          versions: [
-            { ...versions.data[0], url: firstplg.url },
-            ...versions.data.slice(1)
-          ],
-        } 
-      }));
-    } catch (e) {
-      this.showNotifications(new HttpApiCallError(e));
-      return e
-    }
+    const versions = await this.client.getPlugins({ limit: 10e6, name_exact: name });
+    const firstplg = await this.client.getPlugin(parseInt(versions.data[0].id, 10));
+    return [
+      { ...versions.data[0], url: firstplg.url },
+      ...versions.data.slice(1)
+    ]
   }
 
   async fetchIsPluginStarred({ name }) {
-    try {
-      const response = await this.client.getPluginStars({ plugin_name: name });
-      if (response.data.length > 0)
-        this.setState({ star: response.data[0] });
-    } catch(error) {
-      this.showNotifications(new HttpApiCallError(error));
-    }
+    const response = await this.client.getPluginStars({ plugin_name: name });
+    if (response.data.length > 0)
+      return response.data[0];
+    return undefined;
   }
 
   render() {
@@ -282,4 +275,4 @@ Plugin.defaultProps = {
   }
 };
 
-export default ChrisStore.withStore(Plugin);
+export default ChrisStore.withStore(PluginView);

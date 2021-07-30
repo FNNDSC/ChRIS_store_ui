@@ -19,7 +19,7 @@ export const Notification = ({ position, variant, message, onClose, closeable, t
 
 Notification.propTypes = {
   position: PropTypes.string.isRequired,
-  message: PropTypes.string.isRequired,
+  message: PropTypes.string,
   variant: PropTypes.string,
   closeable: PropTypes.bool,
   onClose: PropTypes.func,

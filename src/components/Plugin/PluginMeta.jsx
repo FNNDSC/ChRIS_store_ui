@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Badge, Grid, GridItem, Split, SplitItem, Button } from '@patternfly/react-core';
 import { StarIcon } from '@patternfly/react-icons';
 import PropTypes from 'prop-types';
-import Client from '@fnndsc/chrisstoreapi';
+import Client, { PluginMeta } from '@fnndsc/chrisstoreapi';
 
 import LoadingPlugin from './components/LoadingPlugin/LoadingPlugin';
 import PluginBody from './components/PluginBody/PluginBody';
@@ -15,7 +15,7 @@ import HttpApiCallError from '../../errors/HttpApiCallError';
 
 import './Plugin.css';
 
-export class PluginMeta extends Component {
+export class PluginMetaView extends Component {
   constructor(props) {
     super(props);
 
@@ -32,21 +32,34 @@ export class PluginMeta extends Component {
   }
 
   async componentDidMount() {
-    const pluginMeta = await this.fetchPluginMeta();
-    this.fetchPluginVersions(pluginMeta.name)
+    try {
+      const pluginMeta = await this.fetchPluginMeta();
+      const versions = await this.fetchPluginVersions(pluginMeta);
 
-    this.setState({ pluginData: pluginMeta, loading: false });
-    if (this.isLoggedIn()) {
-      this.fetchIsPluginStarred(pluginMeta);
+      let star;
+      if (this.isLoggedIn())
+        star = await this.fetchIsPluginStarred(pluginMeta.data);
+
+      this.setState({ 
+        loading: false,
+        star,
+        pluginData: {
+          ...pluginMeta.data,
+          versions
+        }
+      });
+    } catch (error) {
+      this.setState((prev) => ({ 
+        loading: false, 
+        errors: [ ...prev.errors, error ] 
+      }));
     }
   }
-
+  
   showNotifications = (error) => {
-    let { errors } = this.state;
-    errors = [ ...errors, error.message ]
-    this.setState({
-      errors
-    })
+    this.setState((prev) => ({
+      errors: [ ...prev.errors, error ] 
+    }));
   }
 
   // eslint-disable-next-line react/destructuring-assignment
@@ -104,49 +117,26 @@ export class PluginMeta extends Component {
   async fetchPluginMeta() {
     // eslint-disable-next-line react/destructuring-assignment
     const { pluginName } = this.props.match.params;
-
-    try {
-      const plugin = await this.client.getPluginMetas({ name_exact: pluginName });
-      return plugin.data[0];
-    } catch (e) {
-      this.showNotifications(new HttpApiCallError(e));
-      return e
-    }
+    const metas = await this.client.getPluginMetas({ name_exact: pluginName, limit: 1 });
+    return metas.getItems().shift();
   }
 
   /**
-   * Fetch all versions of a plugin by name.
-   * 
-   * @param {string} name Plugin name
-   * @returns Promise => void
+   * Fetch all versions of a plugin.
+   * @param {PluginMeta} pluginMeta 
+   * @returns {Promise<Plugin[]>} Versions of this plugin.
    */
-  async fetchPluginVersions(name) {
-    try {
-      const versions = await this.client.getPlugins({ limit: 10e6, name_exact: name });
-      const firstplg = await this.client.getPlugin(parseInt(versions.data[0].id, 10));
-      return this.setState((prevState) => ({ 
-        pluginData: { 
-          ...prevState.pluginData, 
-          versions: [
-            { ...versions.data[0], url: firstplg.url },
-            ...versions.data.slice(1)
-          ],
-        } 
-      }));
-    } catch (e) {
-      this.showNotifications(new HttpApiCallError(e));
-      return e
-    }
+  // eslint-disable-next-line class-methods-use-this
+  async fetchPluginVersions(pluginMeta) {
+    const versions = (await pluginMeta.getPlugins()).getItems();
+    return versions.map(({ data, url }) => ({ ...data, url }));
   }
 
   async fetchIsPluginStarred({ name }) {
-    try {
-      const response = await this.client.getPluginStars({ plugin_name: name });
-      if (response.data.length > 0)
-        this.setState({ star: response.data[0] });
-    } catch(error) {
-      this.showNotifications(new HttpApiCallError(error));
-    }
+    const response = await this.client.getPluginStars({ plugin_name: name });
+    if (response.data.length > 0)
+      return response.data[0];
+    return undefined;
   }
 
   render() {
@@ -226,10 +216,11 @@ export class PluginMeta extends Component {
     return (
       <>
         {
-          errors.map((message, index) => (
+          errors.map((error, index) => (
             <ErrorNotification
-              key={`notif-${message}`}
-              title={message}
+              key={`notif-${error.message}`}
+              title="Error"
+              message={error.message}
               position='top-right'
               variant='danger'
               closeable
@@ -267,4 +258,4 @@ PluginMeta.defaultProps = {
   }
 };
 
-export default ChrisStore.withStore(PluginMeta);
+export default ChrisStore.withStore(PluginMetaView);
