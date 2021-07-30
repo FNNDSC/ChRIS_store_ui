@@ -19,8 +19,6 @@ export class Plugin extends Component {
   constructor(props) {
     super(props);
 
-    this.mounted = false;
-
     const { pluginData, isFavorite } = props;
     this.state = {
       pluginData,

@@ -19,8 +19,6 @@ export class PluginMeta extends Component {
   constructor(props) {
     super(props);
 
-    this.mounted = false;
-
     this.state = {
       pluginData: undefined,
       star: undefined,

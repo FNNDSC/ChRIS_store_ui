@@ -21,7 +21,6 @@ export class SignIn extends Component {
   constructor(props) {
     super(props);
 
-    this.mounted = false;
     this.state = {
       username: '',
       password: '',
@@ -40,7 +39,6 @@ export class SignIn extends Component {
     // already logged in, we will log them out.
     // TODO SECURITY idk if safe from CSRF
     // TODO SECURITY send goodbye to backend to invalidate authToken
-    this.mounted = true;
     const { store } = this.props;
     if (store.get('isLoggedIn')) {
       store.set('authToken')('');
@@ -60,19 +58,15 @@ export class SignIn extends Component {
       const token = await StoreClient.getAuthToken(authURL, username, password);
       store.set('userName')(username);
       store.set('authToken')(token);
-      if (this.mounted) {
-        this.setState({ loading: false });
-        if (location.state && location.state.from) {
-          history.replace(location.state.from);
-        } else {
-          history.push('/dashboard');
-        }
-      }
+      this.setState({ loading: false });
+
+      if (location.state && location.state.from)
+        history.replace(location.state.from);
+      else
+        history.push('/dashboard');
     } catch (error) {
       this.showError('Invalid username or password');
-      if (this.mounted) {
-        this.setState({ loading: false });
-      }
+      this.setState({ loading: false });
     }
     event.persist();
   }
