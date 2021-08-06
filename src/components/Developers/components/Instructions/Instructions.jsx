@@ -8,7 +8,7 @@ const Instructions = () => (
       <h1 className="instructions-header">
         Get Started - 4 Simple Steps
         {' '}
-        <a className="instructions-source" href="http://bit.ly/2KghHdY">[source]</a>
+        <a className="instructions-source" href="https://github.com/FNNDSC/cookiecutter-chrisapp/wiki/Quickstart">[source]</a>
       </h1>
       <div className="instructions-steps">
         <div className="instructions-step">
@@ -44,7 +44,7 @@ const Instructions = () => (
               <ul>
                 <li>
                   <a
-                    href="http://bit.ly/2Iih52m"
+                    href="https://github.com/FNNDSC/cookiecutter-chrisapp/wiki/Quickstart#1-prerequisites"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -53,7 +53,7 @@ const Instructions = () => (
                 </li>
                 <li>
                   <a
-                    href="http://bit.ly/2KghHdY"
+                    href="https://github.com/FNNDSC/cookiecutter-chrisapp/wiki/Quickstart"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -133,7 +133,7 @@ const Instructions = () => (
             <h3>
               Create a new automated build and repository on your
               {' '}
-              <a href="https://dockr.ly/2K2pnRF">Docker Hub</a>
+              <a href="https://hub.docker.com/">Docker Hub</a>
               {' '}
               account.
             </h3>
@@ -151,7 +151,7 @@ const Instructions = () => (
             <h3>
               For more information on Automated Builds, visit the
               {' '}
-              <a href="https://dockr.ly/2tmNDDz">Docker build documentation</a>
+              <a href="https://docs.docker.com/docker-hub/builds/">Docker build documentation</a>
               .
             </h3>
             <h3>
@@ -169,7 +169,7 @@ const Instructions = () => (
             <h3>
               Look at this
               {' '}
-              <a href="http://bit.ly/2yzbRzF">
+              <a href="https://github.com/FNNDSC/pl-simplefsapp">
                 simple
                 <strong>fs</strong>
                 {' '}
@@ -178,7 +178,7 @@ const Instructions = () => (
               {' '}
               or this
               {' '}
-              <a href="http://bit.ly/2KbHosS">
+              <a href="https://github.com/FNNDSC/pl-simpledsapp">
                 simple
                 <strong>ds</strong>
                 {' '}
@@ -199,12 +199,11 @@ const Instructions = () => (
               Once you
               &apos;
               ve developed and properly tested your plugin app
-              consult the
+              consult the wiki to learn
               {' '}
-              <a href="http://bit.ly/2ltTJ0w">wiki</a>
-              {' '}
-              to learn how to register it to
-              ChRIS.
+              <a href="https://github.com/FNNDSC/cookiecutter-chrisapp/wiki/Register-a-new-plugin-app-with-the-ChRIS-store-API">
+                how to register it to ChRIS.
+              </a>
             </h3>
           </div>
         </div>

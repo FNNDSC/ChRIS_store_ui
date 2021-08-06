@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Badge, Grid, GridItem, Split, SplitItem, Button } from '@patternfly/react-core';
 import { StarIcon } from '@patternfly/react-icons';
 import PropTypes from 'prop-types';
-import Client, { Plugin } from '@fnndsc/chrisstoreapi';
+import Client, { PluginMeta } from '@fnndsc/chrisstoreapi';
 
 import LoadingPlugin from './components/LoadingPlugin/LoadingPlugin';
 import PluginBody from './components/PluginBody/PluginBody';
@@ -16,9 +16,13 @@ import HttpApiCallError from '../../errors/HttpApiCallError';
 import './Plugin.css';
 
 /**
- * View a plugin by plugin ID.
+ * View a plugin meta by plugin name.
+ * 
+ * @todo 
+ * Make this view visually different
+ * from the plugin view by ID.
  */
-export class PluginView extends Component {
+export class PluginMetaView extends Component {
   constructor(props) {
     super(props);
 
@@ -35,29 +39,28 @@ export class PluginView extends Component {
   }
 
   /**
-   * Fetch a plugin by ID, from URL params.
-   * Then fetch other plugins which have the same name as versions.
+   * Fetch a plugin meta by name, from URL params.
+   * Then fetch all versions of that plugin.
    * Set stars if user is logged in.
    */
   async componentDidMount() {
     // eslint-disable-next-line react/destructuring-assignment
-    const { pluginId } = this.props.match.params;
+    const { pluginName } = this.props.match.params;
     try {
-      const plugin = await this.fetchPlugin(pluginId);
-      const versions = await this.fetchPluginVersions(plugin.data.name);
+      const pluginMeta = await this.fetchPluginMeta(pluginName);
+      const versions = await this.fetchPluginVersions(pluginMeta);
 
       let star;
       if (this.isLoggedIn())
-        star = await this.fetchIsPluginStarred(plugin.data);
+        star = await this.fetchIsPluginStarred(pluginMeta.data);
 
       this.setState({ 
         loading: false,
-        pluginData: {
-          ...plugin.data,
-          url: plugin.url,
-          versions
-        },
         star,
+        pluginData: {
+          ...pluginMeta.data,
+          versions
+        }
       });
     } catch (error) {
       this.setState((prev) => ({ 
@@ -66,7 +69,7 @@ export class PluginView extends Component {
       }));
     }
   }
-
+  
   showNotifications = (error) => {
     this.setState((prev) => ({
       errors: [ ...prev.errors, error ] 
@@ -125,42 +128,25 @@ export class PluginView extends Component {
     }
   }
 
-  renderStar = () => {
-    let name;
-    let className;
-
-    if (this.isLoggedIn()) {
-      className = this.isFavorite() ? 'plugin-star-favorite' : 'plugin-star';
-      name = this.isFavorite() ? 'star' : 'star-o';
-    } else {
-      className = 'plugin-star-disabled';
-      name = 'star-o';
-    }
-    return <StarIcon name={name} className={className} onClick={this.onStarClicked} />;
+  /**
+   * Fetch a plugin meta by plugin name.
+   * @param {string} pluginName 
+   * @returns {Promise<PluginMeta>} PluginMeta
+   */
+  async fetchPluginMeta(pluginName) {
+    const metas = await this.client.getPluginMetas({ name_exact: pluginName, limit: 1 });
+    return metas.getItems().shift();
   }
 
   /**
-   * Fetch a plugin by ID
-   * @param {string} pluginId 
-   * @returns {Promise} Plugin
+   * Fetch all versions of a plugin.
+   * @param {PluginMeta} pluginMeta 
+   * @returns {Promise<any[]>} Versions of the plugin
    */
-  async fetchPlugin(pluginId) {
-    // eslint-disable-next-line react/destructuring-assignment
-    return this.client.getPlugin(parseInt(pluginId, 10));
-  }
-
-  /**
-   * Fetch all versions of a plugin by name.
-   * @param {string} name Plugin name
-   * @returns Promise => void
-   */
-  async fetchPluginVersions(name) {
-    const versions = await this.client.getPlugins({ limit: 10e6, name_exact: name });
-    const firstplg = await this.client.getPlugin(parseInt(versions.data[0].id, 10));
-    return [
-      { ...versions.data[0], url: firstplg.url },
-      ...versions.data.slice(1)
-    ]
+  // eslint-disable-next-line class-methods-use-this
+  async fetchPluginVersions(pluginMeta) {
+    const versions = (await pluginMeta.getPlugins()).getItems();
+    return versions.map(({ data, url }) => ({ ...data, url }));
   }
 
   async fetchIsPluginStarred({ name }) {
@@ -247,10 +233,11 @@ export class PluginView extends Component {
     return (
       <>
         {
-          errors.map((message, index) => (
+          errors.map((error, index) => (
             <ErrorNotification
-              key={`notif-${message}`}
-              title={message}
+              key={`notif-${error.message}`}
+              title="Error"
+              message={error.message}
               position='top-right'
               variant='danger'
               closeable
@@ -270,7 +257,7 @@ export class PluginView extends Component {
   }
 }
 
-Plugin.propTypes = {
+PluginMeta.propTypes = {
   store: PropTypes.objectOf(PropTypes.object),
   match: PropTypes.shape({
     params: PropTypes.shape({
@@ -279,7 +266,7 @@ Plugin.propTypes = {
   })
 };
 
-Plugin.defaultProps = {
+PluginMeta.defaultProps = {
   store: new Map(),
   match: {
     params: {
@@ -288,4 +275,4 @@ Plugin.defaultProps = {
   }
 };
 
-export default ChrisStore.withStore(PluginView);
+export default ChrisStore.withStore(PluginMetaView);
