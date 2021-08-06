@@ -15,6 +15,13 @@ import HttpApiCallError from '../../errors/HttpApiCallError';
 
 import './Plugin.css';
 
+/**
+ * View a plugin meta by plugin name.
+ * 
+ * @todo 
+ * Make this view visually different
+ * from the plugin view by ID.
+ */
 export class PluginMetaView extends Component {
   constructor(props) {
     super(props);
@@ -31,9 +38,16 @@ export class PluginMetaView extends Component {
     this.client = new Client(storeURL, auth);
   }
 
+  /**
+   * Fetch a plugin meta by name, from URL params.
+   * Then fetch all versions of that plugin.
+   * Set stars if user is logged in.
+   */
   async componentDidMount() {
+    // eslint-disable-next-line react/destructuring-assignment
+    const { pluginName } = this.props.match.params;
     try {
-      const pluginMeta = await this.fetchPluginMeta();
+      const pluginMeta = await this.fetchPluginMeta(pluginName);
       const versions = await this.fetchPluginVersions(pluginMeta);
 
       let star;
@@ -76,7 +90,7 @@ export class PluginMetaView extends Component {
         this.favPlugin();
     }
     else
-      this.showNotifications(new Error('You need to be logged in!'))
+      this.showNotifications(new Error('Login required to favorite this plugin.'))
   }
 
   favPlugin = async () => {
@@ -114,9 +128,12 @@ export class PluginMetaView extends Component {
     }
   }
 
-  async fetchPluginMeta() {
-    // eslint-disable-next-line react/destructuring-assignment
-    const { pluginName } = this.props.match.params;
+  /**
+   * Fetch a plugin meta by plugin name.
+   * @param {string} pluginName 
+   * @returns {Promise<PluginMeta>} PluginMeta
+   */
+  async fetchPluginMeta(pluginName) {
     const metas = await this.client.getPluginMetas({ name_exact: pluginName, limit: 1 });
     return metas.getItems().shift();
   }
@@ -124,7 +141,7 @@ export class PluginMetaView extends Component {
   /**
    * Fetch all versions of a plugin.
    * @param {PluginMeta} pluginMeta 
-   * @returns {Promise<Plugin[]>} Versions of this plugin.
+   * @returns {Promise<any[]>} Versions of the plugin
    */
   // eslint-disable-next-line class-methods-use-this
   async fetchPluginVersions(pluginMeta) {

@@ -15,6 +15,9 @@ import HttpApiCallError from '../../errors/HttpApiCallError';
 
 import './Plugin.css';
 
+/**
+ * View a plugin by plugin ID.
+ */
 export class PluginView extends Component {
   constructor(props) {
     super(props);
@@ -31,9 +34,16 @@ export class PluginView extends Component {
     this.client = new Client(storeURL, auth);
   }
 
+  /**
+   * Fetch a plugin by ID, from URL params.
+   * Then fetch other plugins which have the same name as versions.
+   * Set stars if user is logged in.
+   */
   async componentDidMount() {
+    // eslint-disable-next-line react/destructuring-assignment
+    const { pluginId } = this.props.match.params;
     try {
-      const plugin = await this.fetchPlugin();
+      const plugin = await this.fetchPlugin(pluginId);
       const versions = await this.fetchPluginVersions(plugin.data.name);
 
       let star;
@@ -77,7 +87,7 @@ export class PluginView extends Component {
         this.favPlugin();
     }
     else
-      this.showNotifications(new Error('You need to be logged in!'))
+      this.showNotifications(new Error('Login required to favorite this plugin.'))
   }
 
   favPlugin = async () => {
@@ -129,15 +139,18 @@ export class PluginView extends Component {
     return <StarIcon name={name} className={className} onClick={this.onStarClicked} />;
   }
 
-  async fetchPlugin() {
+  /**
+   * Fetch a plugin by ID
+   * @param {string} pluginId 
+   * @returns {Promise} Plugin
+   */
+  async fetchPlugin(pluginId) {
     // eslint-disable-next-line react/destructuring-assignment
-    const { pluginId } = this.props.match.params;
     return this.client.getPlugin(parseInt(pluginId, 10));
   }
 
   /**
    * Fetch all versions of a plugin by name.
-   * 
    * @param {string} name Plugin name
    * @returns Promise => void
    */

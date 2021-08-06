@@ -29,11 +29,9 @@ import './Plugins.css';
 const CATEGORIES = ['FreeSurfer', 'MRI', 'Segmentation'];
 
 /**
- * A page showing a list of ChRIS plugins, according to the search
- * specified in the URI's query string.
- * 
- * When the user opens /plugins, all plugin metas are fetched, with pagination.
- * so that we already have the data to immediately populate each plugin body.
+ * A page showing a list of ChRIS plugins.
+ * If search is specified in the URI's query string, plugins which
+ * match the query in the name, title or category are fetched.
  */
 export class Plugins extends Component {
   constructor(props) {
@@ -60,7 +58,10 @@ export class Plugins extends Component {
   }
 
   /**
-   * Search for plugin data from the backend.
+   * Fetch list of plugin metas, if search is specified then
+   * use query to filter results.
+   * Fetch all plugins to build a list of categories. This can be
+   * disabled to just have a list of pre-set hardcoded categories.
    */
   async componentDidMount() {
     await this.refreshPluginList();
@@ -300,7 +301,7 @@ export class Plugins extends Component {
       }
     }
     else {
-      this.showNotifications(new Error('You need to be logged in!'));
+      this.showNotifications(new Error('Login required to favorite this plugin.'));
     }
   }
 
