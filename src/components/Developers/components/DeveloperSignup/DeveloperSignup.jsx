@@ -20,6 +20,7 @@ export class DeveloperSignup extends Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.showHidePassword = this.showHidePassword.bind(this);
     this.state = {
       loading: false,
       error: {
@@ -30,7 +31,12 @@ export class DeveloperSignup extends Component {
       email: String(),
       password: String(),
       passwordConfirm: String(),
+      passwordHidden: true,
     };
+  }
+
+  showHidePassword(){
+    this.setState({ passwordHidden: !this.state.passwordHidden });
   }
 
   handleChange(value, name) {
@@ -199,7 +205,7 @@ export class DeveloperSignup extends Component {
           fieldId="password"
           validationState={error.controls.includes('password') ? 'error' : 'default'}
           placeholder="Enter a password"
-          inputType="password"
+          inputType={this.state.passwordHidden?"password":"text"}
           id="password"
           fieldName="password"
           value={password}
@@ -207,6 +213,10 @@ export class DeveloperSignup extends Component {
           disableControls={disableControls}
           error={error}
         />
+        <div className='password-display'>
+          <input type="checkbox" onClick={this.showHidePassword}/>
+          <span> Show Password </span>
+        </div>
         <FormInput
           formLabel="Password Confirmation"
           fieldId="password-confirm"

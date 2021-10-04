@@ -26,12 +26,14 @@ export class SignIn extends Component {
       password: '',
       loading: false,
       error: null,
+      passwordHidden: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.showError = this.showError.bind(this);
     this.hideError = this.hideError.bind(this);
+    this.showHidePassword = this.showHidePassword.bind(this);
   }
 
   componentDidMount() {
@@ -47,6 +49,10 @@ export class SignIn extends Component {
 
   handleChange(value, name) {
     this.setState({ [name]: value });
+  }
+
+  showHidePassword(){
+    this.setState({ passwordHidden: !this.state.passwordHidden });
   }
 
   async handleSubmit(event) {
@@ -132,12 +138,16 @@ export class SignIn extends Component {
                   placeholder="Password"
                   fieldName="password"
                   value={password}
-                  inputType="password"
+                  inputType={this.state.passwordHidden?"password":"text"}
                   id="password"
                   onChange={(val) => this.handleChange(val, 'password')}
                   autoComplete="current-password"
                   className="signin-password-form-group"
                 />
+                <div className='password-display'>
+                  <input type="checkbox" onClick={this.showHidePassword}/>
+                  <span> Show Password </span>
+                </div>
                 <Button
                   className="signin-login-btn"
                   variant="primary"
@@ -146,6 +156,7 @@ export class SignIn extends Component {
                 >
                   Log In
                 </Button>
+                
                 <p className="login-pf-signup">
                   Need an account?
                   <Link to="/quickstart" href="/quickstart">
