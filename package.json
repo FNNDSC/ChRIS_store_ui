@@ -53,6 +53,9 @@
     "table-resolver": "^4.1.1",
     "undux": "^5.0.0-beta.18"
   },
+  "resolutions": {
+    "react-scripts/postcss-preset-env/postcss-custom-properties": "^10.0.0"
+  },
   "browserslist": {
     "production": [
       ">0.2%",
