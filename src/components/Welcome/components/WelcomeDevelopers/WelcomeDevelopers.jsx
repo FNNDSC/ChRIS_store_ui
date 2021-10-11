@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, GridItem } from '@patternfly/react-core';
+import { Grid, GridItem, TextInput } from '@patternfly/react-core';
 
 import "./WelcomeDevelopers.css";
 import Button from '../../../Button';
@@ -50,9 +50,16 @@ const WelcomeDevelopers = () => (
         </GridItem>
 
         <GridItem lg={6} lgOffset={3} xs={12}>
-          <Button toRoute='/quickstart'>
+        <Grid hasGutter id="call-to-action">
+          <GridItem lg={8}>
+          <TextInput type="email" aria-label="Email Address" id="email-address" placeholder="Email Address"/>
+          </GridItem>
+          <GridItem lg={4}>
+          <Button variant="primary" toRoute='/quickstart'>
             Sign Up
           </Button>
+          </GridItem>
+          </Grid>
           <p style={{ fontSize: 'small', margin: '1em auto' }}>
             By siging-up you agree to the terms and privacy policy.
           </p>
