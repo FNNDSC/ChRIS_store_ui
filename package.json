@@ -22,7 +22,7 @@
   "dependencies": {
     "@babel/eslint-parser": "^7.14.7",
     "@babel/preset-react": "^7.14.5",
-    "@fnndsc/chrisstoreapi": "^2.0.2",
+    "@fnndsc/chrisstoreapi": "^3.0.1",
     "@patternfly/patternfly": "^4.59.1",
     "@patternfly/react-core": "^4.75.2",
     "@patternfly/react-icons": "^4.7.16",
