@@ -67,7 +67,7 @@ const WelcomeDevelopers = () => {
                 />
               </GridItem>
               <GridItem lg={4}>
-                <Button variant="primary" toRoute={`/quickstart?${email}`}>
+                <Button variant="primary" toRoute={`/quickstart?email=${email}`}>
                   Sign Up
                 </Button>
               </GridItem>
