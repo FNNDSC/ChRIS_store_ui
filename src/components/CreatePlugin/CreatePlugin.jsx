@@ -374,8 +374,7 @@ class CreatePlugin extends Component {
                     >
                       <Link
                         className="createplugin-success-message-link"
-                        to={`/plugin/${pluginId}`}
-                        href={`/plugin/${pluginId}`}
+                        to={`/p/${pluginId}`}
                       >
                         Click Here to view.
                       </Link>
