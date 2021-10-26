@@ -23,7 +23,7 @@ import { sanitize } from 'dompurify';
 import './PluginBody.css';
 import ErrorNotification from '../../../Notification';
 import HttpApiCallError from '../../../../errors/HttpApiCallError';
-import { GithubAPIRepoError, GithubAPIProfileError, GithubAPIReadmeError } from '../../../../errors/GithubError';
+import { GithubAPIRepoError, GithubAPIReadmeError } from '../../../../errors/GithubError';
 import { removeEmail } from '../../../../utils/common';
 
 const PluginBody = ({ pluginData }) => {
@@ -40,16 +40,13 @@ const PluginBody = ({ pluginData }) => {
   }, []);
 
   const fetchReadme = useCallback(async (repo) => {
-    const profile = await fetch(`https://api.github.com/repos/${repo}/community/profile`);
-    if (!profile.ok) throw new GithubAPIProfileError(repo, profile);
-
-    const url = await fetch((await profile.json()).files.readme.url);
-    if (!url.ok) throw new GithubAPIReadmeError(repo, url);
+    const ghreadme = await fetch(`https://api.github.com/repos/${repo}/readme`);
+    if (!ghreadme.ok) throw new GithubAPIReadmeError(repo, ghreadme);
 
     // Has to be done since key is snake_case in data coming from Github
     // eslint-disable-next-line camelcase
-    const { download_url } = (await url.json());
-    const file = await (await fetch(download_url)).text();
+    const { download_url, content } = await ghreadme.json();
+    const file = Buffer.from(content, "base64").toString("utf8");
     const type = download_url.split('.').reverse().shift();
 
     return { file, type };
