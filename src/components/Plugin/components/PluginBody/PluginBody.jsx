@@ -203,8 +203,8 @@ const PluginBody = ({ pluginData }) => {
                 <div className="plugin-body-detail-section">
                   <h4>Contributors</h4>
                   {pluginData.collaborators.map((collaborator) => (
-                    <a key={collaborator} href={`#${collaborator}`}>
-                      <p><UserAltIcon /> {collaborator}</p>
+                    <a key={collaborator.id} href={`#${collaborator.username}`}>
+                      <p><UserAltIcon /> {collaborator.username}</p>
                     </a>
                   ))}
                   <br />
