@@ -159,7 +159,7 @@ export class PluginMetaView extends Component {
   // eslint-disable-next-line class-methods-use-this
   async fetchPluginCollaborators(pluginMeta) {
     const collaborators = (await pluginMeta.getCollaborators()).getItems();
-    return collaborators.map((collaborator, index) => collaborators[index].data.username);
+    return collaborators.map((collaborator, index) => collaborators[index].data);
   }
 
 
