@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Client, { PluginMetaList } from '@fnndsc/chrisstoreapi';
-import { 
-  Dropdown, 
-  DropdownItem, 
-  DropdownToggle, 
-  Button, 
-  Grid, 
-  GridItem, 
-  Split, 
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownToggle,
+  Button,
+  Grid,
+  GridItem,
+  Split,
   SplitItem
 } from "@patternfly/react-core";
 import { CaretDownIcon } from '@patternfly/react-icons';
@@ -110,10 +110,10 @@ export class Plugins extends Component {
     this.setState({ loading: true, selectedCategory: category });
     this.refreshPluginList({ category })
   }
-  
+
   handleToggleSort = () => {
     this.setState((prevState) => ({
-      isSortOpen: !prevState.isSortOpen 
+      isSortOpen: !prevState.isSortOpen
     }))
   }
 
@@ -160,7 +160,7 @@ export class Plugins extends Component {
     let plugins;
     try {
       plugins = await this.client.getPluginMetas(searchParams);
-    } catch(error) {
+    } catch (error) {
       this.showNotifications(new HttpApiCallError(error));
       return;
     }
@@ -174,7 +174,7 @@ export class Plugins extends Component {
     };
 
     if (this.isLoggedIn()) {
-      try{
+      try {
         const stars = await this.client.getPluginStars();
         const starsByPlugin = {};
         stars.data.forEach((star) => {
@@ -182,7 +182,7 @@ export class Plugins extends Component {
           starsByPlugin[pluginId] = star;
         });
         nextState.starsByPlugin = starsByPlugin;
-      } catch(error) {
+      } catch (error) {
         this.showNotifications(new HttpApiCallError(error));
       }
     }
@@ -204,7 +204,7 @@ export class Plugins extends Component {
         offset: 0,
         name_title_category: null,
       });
-    } catch(error) {
+    } catch (error) {
       this.showNotifications(new HttpApiCallError(error));
       return;
     }
@@ -215,7 +215,7 @@ export class Plugins extends Component {
     for (const { category } of catplugins.data)
       if (category)
         categories.set(
-          category, 
+          category,
           categories.has(category) ?
             categories.get(category) + 1 : 1);
 
@@ -313,7 +313,7 @@ export class Plugins extends Component {
     const categoryEntries = Array.from(categories.entries(), ([name, count]) => ({
       name, length: count
     }));
-    
+
     const pluginList = new Map()
     // eslint-disable-next-line no-restricted-syntax
     for (const plugin of plugins.data) {
@@ -325,26 +325,26 @@ export class Plugins extends Component {
     const PluginListBody = () => {
       if (!loading)
         return [...pluginList.values()]
-        .map((plugin) => (
-          <GridItem lg={6} xs={12} key={plugin.name}>
-            <PluginItem
-              { ...plugin }
-              isLoggedIn={this.isLoggedIn()}
-              isFavorite={this.isFavorite(plugin)}
-              onStarClicked={() => this.togglePluginFavorited(plugin)}
-            />
-          </GridItem>
-        ));
+          .map((plugin) => (
+            <GridItem lg={6} xs={12} key={plugin.name}>
+              <PluginItem
+                {...plugin}
+                isLoggedIn={this.isLoggedIn()}
+                isFavorite={this.isFavorite(plugin)}
+                onStarClicked={() => this.togglePluginFavorited(plugin)}
+              />
+            </GridItem>
+          ));
       return new Array(6).fill().map((e, i) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <LoadingPluginItem key={i} />
-        ));
+        // eslint-disable-next-line react/no-array-index-key
+        <LoadingPluginItem key={i} />
+      ));
     }
 
     const PaginationControls = () => (
       <div style={{ marginLeft: '1em' }}>
-        <Button style={{ marginLeft: '1em' }} 
-          variant="secondary" 
+        <Button style={{ marginLeft: '1em' }}
+          variant="secondary"
           isDisabled={!plugins.hasPreviousPage}
           onClick={() => {
             this.setState({ loading: true });
@@ -352,10 +352,10 @@ export class Plugins extends Component {
               offset: paginationOffset - paginationLimit
             })
           }}>
-            Previous
+          Previous
         </Button>
 
-        <Button style={{ marginLeft: '1em' }} 
+        <Button style={{ marginLeft: '1em' }}
           isDisabled={!plugins.hasNextPage}
           onClick={() => {
             this.setState({ loading: true });
@@ -363,20 +363,28 @@ export class Plugins extends Component {
               offset: paginationOffset + paginationLimit
             })
           }}>
-            Next
+          Next
         </Button>
       </div>
     )
 
+    let pluginsCount;
+
+    if (plugins.totalCount > 0) {
+      pluginsCount = plugins.totalCount;
+    } else {
+      pluginsCount = 0;
+    }
+
     return (
       <article>
-        { error && (
+        {error && (
           <ErrorNotification
             title={error}
             position='top-right'
             variant='danger'
             closeable
-            onClose={()=>this.setState({ error: null })}
+            onClose={() => this.setState({ error: null })}
           />
         )}
 
@@ -391,7 +399,7 @@ export class Plugins extends Component {
                 </h3>
               </div>
             </GridItem>
-            
+
             <GridItem lg={9} xs={12}>
               <Grid hasGutter className="plugins-list">
                 <GridItem xs={12}>
@@ -409,33 +417,33 @@ export class Plugins extends Component {
                             />
                           </LoadingContainer>
                         ) : (
-                          <span style={{ color: 'gray', fontSize: '1.5em', margin: '1em 0'}}>
+                          <span style={{ color: 'gray', fontSize: '1.5em', margin: '1em 0' }}>
                             <p style={{ fontSize: '1.25em', margin: '0', color: 'black', fontWeight: '600' }}>
-                              {plugins.totalCount} plugins found
+                                {pluginsCount} plugins found
                             </p>
                             Showing {paginationOffset + 1} to {' '}
-                              { 
-                                // eslint-disable-next-line no-nested-ternary
-                                (paginationOffset + paginationLimit > plugins.totalCount) ? 
-                                  plugins.totalCount
+                            {
+                              // eslint-disable-next-line no-nested-ternary
+                              (paginationOffset + paginationLimit > plugins.totalCount) ?
+                                plugins.totalCount
+                                :
+                                (paginationOffset > 0) ?
+                                  paginationOffset
                                   :
-                                  (paginationOffset > 0) ?
-                                    paginationOffset
-                                    :
-                                    paginationLimit
-                              }
+                                  paginationLimit
+                            }
                           </span>
                         )
                       }
                     </SplitItem>
-                    <SplitItem isFilled/>
+                    <SplitItem isFilled />
                     <SplitItem>
                       <Dropdown
                         onSelect={this.handleSortingSelect}
                         isOpen={isSortOpen}
                         toggle={
-                          <DropdownToggle id="toggle-id" 
-                            onToggle={this.handleToggleSort} 
+                          <DropdownToggle id="toggle-id"
+                            onToggle={this.handleToggleSort}
                             toggleIndicator={CaretDownIcon}>
                             Sort by
                           </DropdownToggle>
@@ -454,7 +462,7 @@ export class Plugins extends Component {
                 <PluginListBody />
 
                 <Split>
-                  <SplitItem isFilled/>
+                  <SplitItem isFilled />
                   <SplitItem>
                     <PaginationControls />
                   </SplitItem>
@@ -463,7 +471,7 @@ export class Plugins extends Component {
             </GridItem>
 
             <GridItem lg={3} xs={12}>
-              <PluginsCategories 
+              <PluginsCategories
                 categories={categoryEntries}
                 onSelect={this.handleCategorySelect}
                 selected={selectedCategory}
