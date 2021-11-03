@@ -368,13 +368,8 @@ export class Plugins extends Component {
       </div>
     )
 
-    let pluginsCount;
-
-    if (plugins.totalCount > 0) {
-      pluginsCount = plugins.totalCount;
-    } else {
-      pluginsCount = 0;
-    }
+    const pluginsCount=plugins.totalCount > 0 ? plugins.totalCount : 0;
+    
 
     return (
       <article>
