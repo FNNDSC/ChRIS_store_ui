@@ -1,6 +1,6 @@
 #developer-cta {
   /* color */
-  padding: 6em 2em;
+  padding: 3em;
   max-height: 100vh;
   background: #393f44;
   background: var(--pf-black-800);
@@ -10,7 +10,6 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  padding: 6em 3em;
 }
 
 @media (max-width: 425px) {
