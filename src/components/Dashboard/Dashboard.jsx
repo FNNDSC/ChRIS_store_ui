@@ -108,7 +108,7 @@ class Dashboard extends Component {
         {error && (
           <ErrorNotification
             title={error}
-            position="top-right"
+            position="topRight"
             variant="danger"
             closeable
             onClose={() => this.setState({ error: null })}
