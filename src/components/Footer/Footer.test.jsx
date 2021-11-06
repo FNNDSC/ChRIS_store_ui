@@ -16,67 +16,67 @@ describe('Footer', () => {
     expect(wrapper.find('div.footer')).toHaveLength(1);
   });
 
-  it('should render a footer-row div inside the footer div', () => {
+  it('should render a footerRow div inside the footer div', () => {
     expect(wrapper
       .find('div.footer')
-      .find('div.footer-row'))
+      .find('div.footerRow'))
       .toHaveLength(1);
   });
 
-  it('should render a footer-logo div inside row div', () => {
+  it('should render a footerLogo div inside row div', () => {
     expect(wrapper
       .find('div.footer')
-      .find('div.footer-logo'))
+      .find('div.footerLogo'))
       .toHaveLength(1);
   });
 
-  it('should render an img element inside footer-img div', () => {
+  it('should render an img element inside footerLogo div', () => {
     expect(wrapper
-      .find('div.footer-logo')
+      .find('div.footerLogo')
       .find('img'))
       .toHaveLength(1);
   });
 
   it('should render img logo with alt text "ChRIS Plugin Store"', () => {
     expect(wrapper
-      .find('div.footer-logo')
+      .find('div.footerLogo')
       .find('img')
       .prop('alt'))
       .toEqual('ChRIS Plugin Store');
   });
 
-  it('should render a footer-body div inside row div', () => {
+  it('should render a footerBody div inside row div', () => {
     expect(wrapper
       .find('div.footer')
-      .find('div.footer-body'))
+      .find('div.footerBody'))
       .toHaveLength(1);
   });
 
-  it('should render a footer-desc div inside footer-body div', () => {
+  it('should render a footerDesc div inside footerBody div', () => {
     expect(wrapper
-      .find('div.footer-body')
-      .find('div.footer-desc'))
+      .find('div.footerBody')
+      .find('div.footerDesc'))
       .toHaveLength(1);
   });
 
-  it('should render a footer-links div inside footer-body div', () => {
+  it('should render a footerLinks div inside footerBody div', () => {
     expect(wrapper
-      .find('div.footer-body')
-      .find('div.footer-links'))
+      .find('div.footerBody')
+      .find('div.footerLinks'))
       .toHaveLength(1);
   });
 
-  it('should render 5 footer-link divs inside footer-links div', () => {
+  it('should render 5 footerLink divs inside footerLinks div', () => {
     expect(wrapper
-      .find('div.footer-links')
-      .find('div.footer-link'))
+      .find('div.footerLinks')
+      .find('div.footerLink'))
       .toHaveLength(5);
   });
 
-  it('should render footer-copyright inside footer div', () => {
+  it('should render footerCopyright inside footer div', () => {
     expect(wrapper
       .find('.footer')
-      .find('div.footer-copyright'))
+      .find('div.footerCopyright'))
       .toHaveLength(1);
   });
 });

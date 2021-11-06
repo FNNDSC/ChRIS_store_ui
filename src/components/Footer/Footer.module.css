@@ -18,14 +18,14 @@
   font-size: 1.4em;
 }
 
-.footer-row {
+.footerRow {
   /* display */
   width: 100%;
   max-width: 1200px;
   margin: 0 auto !important;
 }
 
-.footer-header {
+.footerHeader {
   /* display */
   padding: 0.4em 1em;
 
@@ -35,11 +35,11 @@
   white-space: pre-line;
 }
 
-.footer-header > strong {
+.footerHeader > strong {
   font-size: 1.2em;
 }
 
-.footer-logo {
+.footerLogo {
   /* display */
   padding-bottom: 2em;
 
@@ -48,23 +48,23 @@
   flex-shrink: 0;
 }
 
-.footer-logo > img {
+.footerLogo > img {
   /* display */
   width: 95%;
   max-width: 358.8px; /* img initial width (598px) * (3/5) */
   height: auto;
 }
 
-.footer-body {
+.footerBody {
   /* flex */
   flex: 2;
 }
 
-.footer-desc {
+.footerDesc {
   font-weight: 300;
 }
 
-.footer-links {
+.footerLinks {
   /* display */
   margin-top: 2em;
 
@@ -72,7 +72,7 @@
   text-align: center;
 }
 
-.footer-link {
+.footerLink {
   /* display */
   padding-top: 0.3em;
 
@@ -80,16 +80,16 @@
   font-weight: 600;
 }
 
-.footer-link > a {
+.footerLink > a {
   color: #fafafa;
 }
 
-.footer-link > a:hover {
+.footerLink > a:hover {
   text-decoration: none;
   color: #39a5dc;
 }
 
-.footer-copyright {
+.footerCopyright {
   /* position */
   position: absolute;
   bottom: 2em;
@@ -106,7 +106,7 @@
 /* ============================== */
 
 @media (min-width: 480px) {
-  .footer-header {
+  .footerHeader {
     /* display */
     padding: 0.35em 0.8em;
 
@@ -115,12 +115,12 @@
     line-height: 1.3;
   }
 
-  .footer-body {
+  .footerBody {
     /* display */
     padding-right: 3em;
   }
 
-  .footer-links {
+  .footerLinks {
     /* display */
     display: flex;
     height: 8em;
@@ -134,27 +134,27 @@
 }
 
 @media (min-width: 590px) {
-  .footer-links {
+  .footerLinks {
     height: 7em;
   }
 }
 
 @media (min-width: 768px) {
-  .footer-row {
+  .footerRow {
     display: flex;
   }
 
-  .footer-logo {
+  .footerLogo {
     min-width: 330px;
   }
 
-  .footer-links {
+  .footerLinks {
     height: 8em;
   }
 }
 
 @media (min-width: 935px) {
-  .footer-links {
+  .footerLinks {
     height: 7em;
   }
 }
