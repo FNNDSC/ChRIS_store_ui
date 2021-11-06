@@ -15,28 +15,28 @@
     margin: 0;
 }
 
-.top-right {
+.topRight {
     top: 100px;
     right: 12px;
     transition: transform .3s ease-in-out;
     animation: notification-in-down .3s;
 }
 
-.bottom-right {
+.bottomRight {
     bottom: 12px;
     right: 12px;
     transition: transform .3s ease-in-out;
     animation: notification-in-up .3s;
 }
 
-.top-left {
+.topLeft {
     top: 12px;
     left: 12px;
     transition: transform .3s ease-in;
     animation: notification-in-down .3s;
 }
 
-.bottom-left {
+.bottomLeft {
     bottom: 12px;
     left: 12px;
     transition: transform .3s ease-in;
@@ -44,7 +44,7 @@
 }
 
 @media (min-width: 768px) {
-    .top-right {
+    .topRight {
         top: 115px;
     }
 }

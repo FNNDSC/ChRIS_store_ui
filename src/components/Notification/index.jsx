@@ -1,15 +1,16 @@
 import React from 'react';
 import { Alert, AlertActionCloseButton } from '@patternfly/react-core';
 import PropTypes from 'prop-types';
-import './Notifications.css';
+import styles from './Notifications.module.css';
 
 export const Notification = ({ position, variant, message, onClose, closeable, title, timeout }) => (
-  <div className={`notification ${position}`}>
+  <div className={`${styles.notification} ${styles}.${position}`}>
     <Alert
       variant={variant}
       title={title || null}
       actionClose={closeable && <AlertActionCloseButton onClose={onClose} />}
-      timeout={timeout || 4000}
+      timeout
+      ={timeout || 4000}
       onTimeout={onClose}
     >
       {message}
