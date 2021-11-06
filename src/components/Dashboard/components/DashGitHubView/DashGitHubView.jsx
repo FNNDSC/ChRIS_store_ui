@@ -5,7 +5,7 @@ import {
   List, Card, CardTitle, CardBody,
 } from '@patternfly/react-core';
 
-import './DashGitHubView.css';
+import styles from './DashGitHubView.module.css';
 import BrainyPointer from '../../../../assets/img/brainy-pointer.png';
 
 const DashGitHubEmptyState = () => (
@@ -31,10 +31,10 @@ class DashGitHubView extends Component {
         <CardTitle>
           Revisions
         </CardTitle>
-        <CardBody className="github-card-body">
+        <CardBody className={styles.githubCardBody}>
           { showEmptyState
             ? <DashGitHubEmptyState />
-            : <List className="github-description" />}
+            : <List className={styles.githubDescription} />}
         </CardBody>
       </Card>
     );
