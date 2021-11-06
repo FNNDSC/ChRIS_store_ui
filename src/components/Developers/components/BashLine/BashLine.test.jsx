@@ -21,6 +21,6 @@ describe('mounted BashLine', () => {
 
   it('renders the value of command', () => {
     wrapper.setProps({ command: 'command' });
-    expect(wrapper.find('.bash-line-command').text()).toEqual('$ command');
+    expect(wrapper.find('.bashLineCommand').text()).toEqual('$ command');
   });
 });

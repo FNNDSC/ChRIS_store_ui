@@ -2,12 +2,12 @@ import React from 'react';
 import { Button, clipboardCopyFunc, Tooltip } from '@patternfly/react-core';
 import { CopyIcon } from '@patternfly/react-icons';
 import PropTypes from 'prop-types';
-import './BashLine.css';
+import styles from './BashLine.module.css';
 
 function BashLine({ command }) {
   return (
-    <div className="bash-line-container">
-      <div className="bash-line-command">
+    <div className={styles.bashLineContainer}>
+      <div className={styles.bashLineCommand}>
         {`$ ${command}`}
       </div>
       <Tooltip content="Copy">

@@ -1,4 +1,4 @@
-.bash-line-container {
+.bashLineContainer {
   /* display */
   display: flex;
 
@@ -6,7 +6,7 @@
   position: relative;
 }
 
-.bash-line-command {
+.bashLineCommand {
   /* color */
   background: #ededed;
   background: var(--pf-black-200);
