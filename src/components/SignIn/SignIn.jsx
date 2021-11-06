@@ -147,7 +147,7 @@ export class SignIn extends Component {
                   Log In
                 </Button>
                 <p className="login-pf-signup">
-                  Need an account?
+                  Need an account? {' '}
                   <Link to="/quickstart" href="/quickstart">
                     Signup
                   </Link>
