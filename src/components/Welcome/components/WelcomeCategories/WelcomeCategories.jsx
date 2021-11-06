@@ -1,14 +1,14 @@
 import React from 'react';
 import sampleCategories from './sampleCategories';
-import './welcomeCategories.css';
+import styles from './welcomeCategories.module.css';
 import Category from '../WelcomeCategory/WelcomeCategory';
 
 const WelcomeCategories = () => {
   const categories = sampleCategories ;
 
   return (
-    <div className="welcome-categories">
-      <div className="welcome-categories-header">
+    <div className={styles.welcomeCategories}>
+      <div className={styles.welcomeCategoriesHeader}>
         <span className="tag">TOOLS</span><br/>
         <h1>Browse our Catalog of <br/> Tools ready to Deploy to ChRIS</h1>
         <p>
@@ -16,7 +16,7 @@ const WelcomeCategories = () => {
           <br/> software with an ecosystem following common standards.
         </p>
       </div>
-      <div className="welcome-categories-container">
+      <div className={styles.welcomeCategoriesContainer }>
         {categories.map((category) => (
           <Category category={category} key={category.name} />
         ))}

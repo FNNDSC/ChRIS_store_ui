@@ -12,13 +12,13 @@ describe('WelcomeCategories', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render welcome-categories div', () => {
-    expect(wrapper.find('div.welcome-categories')).toHaveLength(1);
+  it('should render welcomeCategories div', () => {
+    expect(wrapper.find('div.welcomeCategories')).toHaveLength(1);
   });
 
-  it('should render welcome-categories-header div inside welcome-categories', () => {
+  it('should render welcomeCategoriesHeader div inside welcomeCategories', () => {
     expect(wrapper
-      .find('div.welcome-categories')
-      .find('div.welcome-categories-header')).toHaveLength(1);
+      .find('div.welcomeCategories')
+      .find('div.welcomeCategoriesHeader')).toHaveLength(1);
   });
 });

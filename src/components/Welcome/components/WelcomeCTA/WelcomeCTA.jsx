@@ -1,5 +1,5 @@
 import React from 'react';
-import './WelcomeCTA.css';
+import styles from'./WelcomeCTA.module.css';
 import WelcomeFeature from '../WelcomeFeature/WelcomeFeature';
 
 /* plugin images */
@@ -21,9 +21,9 @@ const WelcomeCTA = () => {
 
   return (
     <>
-      <div className="welcome-cta">
+      <div className={styles.welcomeCta}>
         <article>
-          <div id="welcome-cta-header">
+          <div id={styles.welcomeCtaHeader}>
             <h1>ChRIS Store</h1>
             <p>
               Accessible medical imaging using the latest research innovations, backed by
@@ -33,11 +33,11 @@ const WelcomeCTA = () => {
         </article>
 
         <article>
-          <div className="welcome-cta-featured">
+          <div className={styles.welcomeCtaFeatured}>
             {/* <div style={{ opacity: 0.75, color: 'white', textAlign: 'center' }}>
             <h2>Apps available in the ChRIS Store</h2>
           </div> */}
-            <div className="row welcome-cta-featured-container">
+            <div className={`row ${styles.welcomeCtaFeaturedContainer}`}>
               {features.map((feature) => (
                 <WelcomeFeature key={feature.name} {...feature} />
               ))}

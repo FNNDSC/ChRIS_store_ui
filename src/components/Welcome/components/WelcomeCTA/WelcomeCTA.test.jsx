@@ -12,32 +12,32 @@ describe('WelcomeCTA', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render welcome-cat-img div', () => {
-    expect(wrapper.find('div.welcome-cta-img')).toHaveLength(1);
+  it('should render welcomeCtaImg div', () => {
+    expect(wrapper.find('div.welcomeCtaImg')).toHaveLength(1);
   });
 
-  it('should render welcome-cta-header with row class', () => {
-    expect(wrapper.find('div.welcome-cta-header').hasClass('row')).toEqual(true);
+  it('should render welcomeCtaHeader with row class', () => {
+    expect(wrapper.find('div.welcomeCtaHeader').hasClass('row')).toEqual(true);
   });
 
-  it('should render welcome-cta-featured div', () => {
-    expect(wrapper.find('div.welcome-cta-featured')).toHaveLength(1);
+  it('should render welcomeCtaFeatured div', () => {
+    expect(wrapper.find('div.welcomeCtaFeatured')).toHaveLength(1);
   });
 
-  it('should render welcome-cta-featured-container div', () => {
-    expect(wrapper.find('div.welcome-cta-featured')).toHaveLength(1);
+  it('should render welcomeCtaFeaturedContainer div', () => {
+    expect(wrapper.find('div.welcomeCtaFeatured')).toHaveLength(1);
   });
 
   it('featured container should have row class', () => {
     expect(wrapper
-      .find('div.welcome-cta-featured-container')
+      .find('div.welcomeCtaFeaturedContainer')
       .hasClass('row'))
       .toEqual(true);
   });
 
   it('should render 5 welcome features in the featured container', () => {
     expect(wrapper
-      .find('div.welcome-cta-featured-container')
+      .find('div.welcomeCtaFeaturedContainer')
       .find('WelcomeFeature'))
       .toHaveLength(5);
   });
@@ -60,10 +60,10 @@ describe('WelcomeCTA', () => {
       .toHaveLength(1);
   });
 
-  it('should render welcome-user-cta-header div', () => {
+  it('should render welcome-user-ctaHeader div', () => {
     expect(wrapper
       .find('div.welcome-user-cta')
-      .find('div.welcome-user-cta-header'))
+      .find('div.welcome-user-ctaHeader'))
       .toHaveLength(1);
   });
 

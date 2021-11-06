@@ -1,4 +1,4 @@
-.welcome-categories {
+.welcomeCategories {
   /* color */
   background: #393f44;
   background: var(--pf-black-800);
@@ -14,7 +14,7 @@
   padding: 1em;
 }
 
-.welcome-categories-header {
+.welcomeCategoriesHeader {
   /* color */
   color: white;
 
@@ -26,21 +26,21 @@
   text-align: center;
   text-shadow: 0 0 1em #030303;;
   text-shadow: 0 0 1em var(--pf-black);
-} .welcome-categories-header .tag {
+} .welcomeCategoriesHeader .tag {
   font-weight: 800;
   opacity: 0.6;
-} .welcome-categories-header h1 {
+} .welcomeCategoriesHeader h1 {
   font-size: 3em;
   line-height: 1.3;
   margin: 0.25em 0;
   color: var(--pf-blue-300);
-} .welcome-categories-header p {
+} .welcomeCategoriesHeader p {
   font-size: 1.5em;
 }
 
 
 
-.welcome-categories-container {
+.welcomeCategoriesContainer {
   /* display */
   /* filter: invert(); */
   max-width: 110em;
@@ -53,12 +53,12 @@
 /* ============================== */
 
 @media (min-width: 768px)  {
-  .welcome-categories {
+  .welcomeCategories {
     /* display */
     padding: 3em;
   }
 
-  .welcome-categories-container {
+  .welcomeCategoriesContainer {
     /* display */
     display: flex;
 
