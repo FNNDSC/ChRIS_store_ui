@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@patternfly/react-core';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import './button.css';
+import styles from './Button.module.css';
 
 const ButtonComponent = ({ variant, onClick, loading, toRoute, children, type }) => {
   const history = useHistory();
@@ -20,7 +20,7 @@ const ButtonComponent = ({ variant, onClick, loading, toRoute, children, type })
               }
             : onClick
         }
-        className="other-button"
+        className={styles.otherButton}
         type={type}
       >
         {children}
