@@ -18,7 +18,7 @@ import {
 import { FileIcon, UploadIcon, ExclamationTriangleIcon } from '@patternfly/react-icons';
 
 import Button from '../Button';
-import './CreatePlugin.css';
+import styles from './CreatePlugin.module.css';
 
 class CreatePlugin extends Component {
   constructor() {
@@ -322,8 +322,8 @@ class CreatePlugin extends Component {
     );
 
     return (
-      <article className="createplugin">
-        <Grid hasGutter className="createplugin-form-container">
+      <article className={styles.createplugin}>
+        <Grid hasGutter className={styles.createpluginFormContainer}>
           <GridItem lg={6} xs={12}>
             <Grid hasGutter>
               <GridItem xs={12}>
@@ -390,7 +390,7 @@ class CreatePlugin extends Component {
                   </CardHeader>
 
                   <CardBody>
-                    <Form id="createplugin-form">
+                    <Form id="createplugin-form" className={styles.createpluginFormContainer}>
                       { PluginFormDataGroups }
 
                       <FormGroup label="Representation File" id="createplugin-upload">
@@ -403,7 +403,7 @@ class CreatePlugin extends Component {
                           </span>
                           <FileUpload
                             id="createplugin-upload-fileupload"
-                            className="fileupload"
+                            className={styles.fileupload}
                             type="file"
                             isRequired
                             accept=".json"
