@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import Client from '@fnndsc/chrisstoreapi';
 import ConnectedNavbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
-import './applayout.css';
+import styles from './AppLayout.module.css';
 import Search from '../Navbar/components/Search/Search';
 import { debounce } from '../../utils/common';
 import ChrisStore from '../../store/ChrisStore';
@@ -72,7 +72,7 @@ const AppLayout = ({ store, children }) => {
       header={<ConnectedNavbar searchComponent={searchComponent} />}
       mainContainerId="primary-app-container"
       skipToContent={PageSkipToContent}
-      additionalGroupedContent={<div className="searchbar">{searchComponent}</div>}
+      additionalGroupedContent={<div className={styles.searchbar}>{searchComponent}</div>}
     >
       {children}
       <Footer />
