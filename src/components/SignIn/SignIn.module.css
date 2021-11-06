@@ -10,39 +10,39 @@
   min-width: 320px;
 }
 
-.signin-error-container {
+.signinErrorContainer {
   padding-top: 1em;
 }
 
-.signin-error-container .signin-error {
+.signinErrorContainer .signinError {
   margin-bottom: 0;
 }
 
-.signin-logo-container {
+.signinLogoContainer {
   /* display */
   width: 80%;
   margin: 0 auto;
   padding: 1em 0 1em;
 }
 
-.signin-logo {
+.signinLogo {
   /* display */
   display: block;
   width: 100%;
 }
 
-.signin-container > .signin-card {
+.signinContainer > .signin-card {
   /* display */
   margin: 0;
   margin: 0 auto;
 }
 
-.signin-login-btn, .signin-signup-btn {
+.signinLoginBtn, .signinSignupBtn {
   /* display */
   margin-top: 1em !important;
 }
 
-.signin-login-btn {
+.signinLoginBtn {
   /* display */
   display: block;
   width: 100%;
@@ -54,7 +54,7 @@
 /* ============================== */
 
 @media (min-width: 500px) {
-  .signin-container {
+  .signinContainer {
     /* display */
     width: 500px;
     margin: 0 auto;

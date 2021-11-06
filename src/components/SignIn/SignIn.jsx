@@ -12,7 +12,7 @@ import {
 } from '@patternfly/react-core';
 
 import Button from '../Button';
-import './SignIn.css';
+import styles from './SignIn.module.css';
 import chrisLogo from '../../assets/img/chris_logo-white.png';
 import ChrisStore from '../../store/ChrisStore';
 import FormInput from '../FormInput';
@@ -85,13 +85,13 @@ export class SignIn extends Component {
     } = this.state;
 
     return (
-      <div className="signin login-pf-page">
-        <div className="signin-container">
+      <div className={`${styles.signin} login-pf-page`}>
+        <div className={styles.signinContainer}>
           {
             error && (
-              <div className="signin-error-container">
+              <div className={styles.signinErrorContainer}>
                 <Alert
-                  className="signin-error"
+                  className={styles.signinError}
                   variant="danger"
                   title={error}
                   actionClose={<AlertActionCloseButton onClose={this.hideError} />}
@@ -99,14 +99,14 @@ export class SignIn extends Component {
               </div>
             )
           }
-          <div className="signin-logo-container">
+          <div className={styles.signinLogoContainer}>
             <Link
-              className="signin-logo-link"
+              className={styles.signinLogoLink}
               href="/"
               to="/"
             >
               <img
-                className="signin-logo"
+                className="signinLogo"
                 src={chrisLogo}
                 alt=""
               />
@@ -139,7 +139,7 @@ export class SignIn extends Component {
                   className="signin-password-form-group"
                 />
                 <Button
-                  className="signin-login-btn"
+                  className="signinLoginBtn"
                   variant="primary"
                   loading={loading}
                   onClick={this.handleSubmit}

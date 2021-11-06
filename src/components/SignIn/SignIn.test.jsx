@@ -20,28 +20,28 @@ describe('SignIn', () => {
     expect(wrapper.find('div.signin.login-pf-page')).toHaveLength(1);
   });
 
-  it('should render signin-container div inside signin div', () => {
+  it('should render signinContainer div inside signin div', () => {
     expect(wrapper
       .find('div.signin')
-      .find('div.signin-container'))
+      .find('div.signinContainer'))
       .toHaveLength(1);
   });
 
-  it('should render signin-logo-container', () => {
-    expect(wrapper.find('div.signin-logo-container')).toHaveLength(1);
+  it('should render signinLogoContainer', () => {
+    expect(wrapper.find('div.signinLogoContainer')).toHaveLength(1);
   });
 
-  it('should render signin-logo-link inside signin-logo-container', () => {
+  it('should render signinLogoLink inside signinLogoContainer', () => {
     expect(wrapper
-      .find('div.signin-logo-container')
-      .find('Link.signin-logo-link'))
+      .find('div.signinLogoContainer')
+      .find('Link.signinLogoLink'))
       .toHaveLength(1);
   });
 
-  it('should render signin-logo img inside signin-logo-container', () => {
+  it('should render signinLogo img inside signinLogoContainer', () => {
     expect(wrapper
-      .find('div.signin-logo-container')
-      .find('img.signin-logo'))
+      .find('div.signinLogoContainer')
+      .find('img.signinLogo'))
       .toHaveLength(1);
   });
 
@@ -82,7 +82,7 @@ describe('SignIn', () => {
     });
   });
 
-  it('should render signin-login-btn Button component inside signin-form', () => {
+  it('should render signinLoginBtn Button component inside signin-form', () => {
     expect(wrapper
       .find('Form.signin-form')
       .find('Button'))
@@ -209,7 +209,7 @@ describe('SignIn', () => {
   });
 
   it('should render error Alert if credentials were not correct', () => {
-    const containerSelector = 'div.signin-error-container';
+    const containerSelector = 'div.signinErrorContainer';
     const alertSelector = 'Alert[type="error"]';
     expect(wrapper.find(containerSelector)).toHaveLength(0);
     expect(wrapper.find(alertSelector)).toHaveLength(0);
