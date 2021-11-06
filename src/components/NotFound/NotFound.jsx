@@ -1,9 +1,9 @@
 import React from 'react';
 import broken from '../../assets/img/not-found.svg';
-import './NotFound.css';
+import { notFound } from './NotFound.module.css';
 
 const NotFound = () => (
-  <div className="not-found">
+  <div className={notFound}>
     <img alt="404 - Page not found" src={broken} />
   </div>
 );

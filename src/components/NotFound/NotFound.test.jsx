@@ -12,9 +12,9 @@ describe('NotFound', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render not-found div', () => {
+  it('should render notFound div', () => {
     expect(wrapper
-      .find('div.not-found')
+      .find('div.notFound')
       .find('img'))
       .toHaveLength(1);
   });
