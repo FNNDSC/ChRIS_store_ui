@@ -114,7 +114,7 @@ const PluginBody = ({ pluginData }) => {
       { errors.map((message, index) => (
         <ErrorNotification
           title={message}
-          position="top-right"
+          position="topRight"
           variant="danger"
           closeable
           onClose={() => {

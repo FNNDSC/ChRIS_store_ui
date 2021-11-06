@@ -238,7 +238,7 @@ export class PluginMetaView extends Component {
               key={`notif-${error.message}`}
               title="Error"
               message={error.message}
-              position='top-right'
+              position='topRight'
               variant='danger'
               closeable
               onClose={() => {

@@ -251,7 +251,7 @@ export class PluginView extends Component {
             <ErrorNotification
               key={`notif-${message}`}
               title={message}
-              position='top-right'
+              position='topRight'
               variant='danger'
               closeable
               onClose={() => {
