@@ -8,7 +8,7 @@ import ConnectedDeveloperSignup from '../DeveloperSignup/DeveloperSignup';
 import ChrisStore from '../../../../store/ChrisStore';
 
 export const DeveloperCTA = ({ store }) => (
-  <Bullseye style={{ padding: '3em' }} id="developer-cta">
+  <Bullseye id="developer-cta">
     <Grid style={{ maxWidth: '1200px' }} hasGutter>
       <GridItem lg={6} xs={12}>
         <div id="developer-cta-header">
