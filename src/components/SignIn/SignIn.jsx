@@ -78,7 +78,12 @@ export class SignIn extends Component {
   hideError() {
     this.setState({ error: null });
   }
+<<<<<<< Updated upstream
 
+=======
+  
+  
+>>>>>>> Stashed changes
   render() {
     const {
       error, username, password, loading,
