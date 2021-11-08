@@ -178,7 +178,7 @@ class DashPluginCardView extends Component {
               <CardActions>
                 <Button variant="secondary">
                   <PlusCircleIcon type="pf" style={{ margin: '0 1em 0 0' }} />
-                  <span>Manage Collaborators</span>
+                  <Link to={`/manage/collaborators/${plugin.name}`}><span>Manage Collaborators</span></Link>
                 </Button>
               </CardActions>
 

@@ -11,6 +11,7 @@ import Developers from '../Developers/Developers';
 import CreatePlugin from '../CreatePlugin/CreatePlugin';
 import NotFound from '../NotFound/NotFound';
 import Dashboard from '../Dashboard/Dashboard';
+import DashCollaboratorView from '../Dashboard/components/DashCollaborator/DashCollaboratorView';
 import ProtectedRoute from './ProtectedRoute';
 
 const Router = () => (
@@ -22,6 +23,7 @@ const Router = () => (
       
       <ProtectedRoute path="/create" component={CreatePlugin} />
       <ProtectedRoute path="/dashboard" component={Dashboard} />
+      <ProtectedRoute path="/manage/collaborators/:pluginName" component={DashCollaboratorView} />
 
       <Route path="/quickstart" component={Developers} />
       <Route exact path="/" component={Welcome} />

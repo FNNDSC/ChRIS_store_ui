@@ -18,9 +18,10 @@ import {
   CardActions,
   Button,
 } from '@patternfly/react-core';
-
+import Client, { PluginMeta } from '@fnndsc/chrisstoreapi';
 import { PlusCircleIcon } from '@patternfly/react-icons';
 import BrainyTeammatesPointer from '../../../../assets/img/brainy_teammates-pointer.png';
+import ChrisStore from '../../../../store/ChrisStore';
 import './DashCollaboratorView.css';
 
 
@@ -66,7 +67,9 @@ class DashCollaboratorView extends Component {
       ],
       
     };
-
+    const storeURL = process.env.REACT_APP_STORE_URL;
+    const auth = { token: props.store.get('authToken') };
+    this.client = new Client(storeURL, auth);
     
 
   }
@@ -76,9 +79,11 @@ class DashCollaboratorView extends Component {
     const { pluginName } = this.props.match.params;
     try {
       const pluginMeta = await this.fetchPluginMeta(pluginName);
-       console.log(pluginMeta)
-      const collaborators = await this.fetchPluginCollaborators(pluginMeta);
-     console.log( collaborators)
+       alert(pluginMeta)
+      const collaboratorList = await this.fetchPluginCollaborators(pluginMeta);
+      alert(collaboratorList)
+     
+    
 
      
       if (this.isLoggedIn())
@@ -86,7 +91,10 @@ class DashCollaboratorView extends Component {
 
       this.setState({
         loading: false,
-       collaborators:[...collaborators],
+        pluginData: {
+          ...pluginMeta.data,
+          collaboratorList,},
+          collaborators:[...collaboratorList]
        
       });
     } catch (error) {
@@ -103,28 +111,39 @@ class DashCollaboratorView extends Component {
   * @returns {Promise<any[]>} Collaborators of the plugin
   */
   // eslint-disable-next-line class-methods-use-this
+   async fetchPluginMeta(pluginName) {
+    const metas = await this.client.getPluginMetas({ name_exact: pluginName, limit: 1 });
+    return metas.getItems().shift();
+  }
   async fetchPluginCollaborators(pluginMeta) {
     const collaborators = (await pluginMeta.getCollaborators()).getItems();
-    return collaborators.map((collaborator, index) => collaborators[index].data);
-  }
+   	return collaborators.map((collaborator, index) => collaborators[index].data.username)
   
+   ;
+  }
+   
 
   render() {
    
-    const { rows, columns,errors,collaborators } = this.state;
-    const showEmptyState = isEmpty(collaborators);
+    const { rows, columns,errors,pluginData,collaborators  } = this.state;
+    const showEmptyState = isEmpty(errors);
+    
 
     return (
    
   
       <Grid>
-       <div className="plugin-body-detail-section">
-                  <h4>Contributors</h4>
-                  {collaborators.map((collaborator) => (
+       <div>
+                 
+                 
+                 
+                  <h4>{collaborators.</h4>
+                  
+                  {collaborators.map((value,index) => (
                     <a key={collaborator.id} href={`#${collaborator.username}`}>
-                      <p> {collaborator.username}</p>
+                          <li> {value}</li>
                     </a>
-                  ))}<br />
+                  ))}
                 
                 </div>
         <GridItem sm={12}>
@@ -178,7 +197,13 @@ class DashCollaboratorView extends Component {
                   <span>Add Collaborator</span>
                 </Button>
               </CardActions>
-
+<h4>{collaborators}</h4>
+                  
+                  {collaborators.map((collaborator,index) => (
+                    <a key={collaborator.id} href={`#${collaborator.username}`}>
+                          <li> {collaborator.username}</li>
+                    </a>
+                  ))}
             </CardFooter>
             )}
           </Card>
@@ -191,4 +216,22 @@ class DashCollaboratorView extends Component {
 
 
 
-export default DashCollaboratorView;
+DashCollaboratorView.propTypes = {
+  store: PropTypes.objectOf(PropTypes.object),
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      plugin: PropTypes.string,
+    })
+  })
+};
+
+DashCollaboratorView.defaultProps = {
+  store: new Map(),
+  match: {
+    params: {
+      plugin: undefined,
+    }
+  }
+};
+
+export default ChrisStore.withStore(DashCollaboratorView);
