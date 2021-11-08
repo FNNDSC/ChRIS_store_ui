@@ -18,7 +18,7 @@ import {
   CardActions,
   Button,
 } from '@patternfly/react-core';
-import Client, { PluginMeta } from '@fnndsc/chrisstoreapi';
+import Client from '@fnndsc/chrisstoreapi';
 import { PlusCircleIcon } from '@patternfly/react-icons';
 import BrainyTeammatesPointer from '../../../../assets/img/brainy_teammates-pointer.png';
 import ChrisStore from '../../../../store/ChrisStore';
@@ -71,7 +71,6 @@ class DashCollaboratorView extends Component {
     const auth = { token: props.store.get('authToken') };
     this.client = new Client(storeURL, auth);
     
-
   }
 
   async componentDidMount() {
@@ -80,21 +79,15 @@ class DashCollaboratorView extends Component {
     try {
       const pluginMeta = await this.fetchPluginMeta(pluginName);
        alert(pluginMeta)
-      const collaboratorList = await this.fetchPluginCollaborators(pluginMeta);
-      alert(collaboratorList)
+      let collaboratorList = await this.fetchPluginCollaborators(pluginMeta);
+      console.log(collaboratorList)
      
     
-
-     
-      if (this.isLoggedIn())
        
 
       this.setState({
         loading: false,
-        pluginData: {
-          ...pluginMeta.data,
-          collaboratorList,},
-          collaborators:[...collaboratorList]
+          collaborators:collaboratorList
        
       });
     } catch (error) {
@@ -115,7 +108,7 @@ class DashCollaboratorView extends Component {
     const metas = await this.client.getPluginMetas({ name_exact: pluginName, limit: 1 });
     return metas.getItems().shift();
   }
-  async fetchPluginCollaborators(pluginMeta) {
+  async fetchPluginCollaborators(pluginMeta) {nl
     const collaborators = (await pluginMeta.getCollaborators()).getItems();
    	return collaborators.map((collaborator, index) => collaborators[index].data.username)
   
@@ -125,7 +118,13 @@ class DashCollaboratorView extends Component {
 
   render() {
    
-    const { rows, columns,errors,pluginData,collaborators  } = this.state;
+    const { rows, columns,errors,collaborators  } = this.state;
+    rows = collaborators.map((collaborator) => {
+      const row = [];
+      const { columns } = this.state;
+      row.push(...columns.map(({ property }) => collaborator[property])); 
+      return row;
+ });
     const showEmptyState = isEmpty(errors);
     
 
@@ -133,22 +132,15 @@ class DashCollaboratorView extends Component {
    
   
       <Grid>
-       <div>
-                 
-                 
-                 
-                  <h4>{collaborators.</h4>
-                  
-                  {collaborators.map((value,index) => (
-                    <a key={collaborator.id} href={`#${collaborator.username}`}>
-                          <li> {value}</li>
-                    </a>
-                  ))}
-                
-                </div>
+     
         <GridItem sm={12}>
           <Card>
             <CardTitle>Collaborators</CardTitle>
+            {collaborators.map((collaborator) => (
+                    <li key={collaborator.id} >
+                           {collaborator}</li>
+                    
+                  ))}
             <CardBody>
               {showEmptyState ? (
                 <DashTeamEmptyState />
@@ -187,7 +179,7 @@ class DashCollaboratorView extends Component {
                 </>
               )}
             </CardBody>
-            {!showEmptyState && (
+            
             <CardFooter
               className="card-footer"
             >
@@ -197,15 +189,11 @@ class DashCollaboratorView extends Component {
                   <span>Add Collaborator</span>
                 </Button>
               </CardActions>
-<h4>{collaborators}</h4>
+<h4>{collaborators[0]}</h4>
                   
-                  {collaborators.map((collaborator,index) => (
-                    <a key={collaborator.id} href={`#${collaborator.username}`}>
-                          <li> {collaborator.username}</li>
-                    </a>
-                  ))}
+                  
             </CardFooter>
-            )}
+            
           </Card>
         </GridItem>
       </Grid>
