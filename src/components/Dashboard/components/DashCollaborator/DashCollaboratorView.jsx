@@ -27,7 +27,6 @@ class DashCollaboratorView extends Component {
     const storeURL = process.env.REACT_APP_STORE_URL;
     const auth = { token: props.store.get('authToken') };
     this.client = new Client(storeURL, auth);
-
   }
 
   async componentDidMount() {
@@ -35,12 +34,17 @@ class DashCollaboratorView extends Component {
     const { pluginName } = this.props.match.params;
     try {
       const pluginMeta = await this.fetchPluginMeta(pluginName);
-      const collaboratorList = await this.fetchPluginCollaborators(pluginMeta);
-
+       alert(pluginMeta)
+      let collaboratorList = await this.fetchPluginCollaborators(pluginMeta);
+      console.log(collaboratorList)
+     
+    
+       
 
       this.setState({
-        collaborators: [...collaboratorList]
-
+        loading: false,
+          collaborators:collaboratorList
+       
       });
     } catch (error) {
       this.setState((prev) => ({
