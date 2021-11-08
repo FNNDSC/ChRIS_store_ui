@@ -150,5 +150,4 @@ DashCollaboratorView.defaultProps = {
 };
 
 
-
 export default ChrisStore.withStore(DashCollaboratorView);

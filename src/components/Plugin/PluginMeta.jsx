@@ -50,7 +50,6 @@ export class PluginMetaView extends Component {
       const pluginMeta = await this.fetchPluginMeta(pluginName);
       const versions = await this.fetchPluginVersions(pluginMeta);
       const collaborators = await this.fetchPluginCollaborators(pluginMeta);
-
       let star;
       if (this.isLoggedIn())
         star = await this.fetchIsPluginStarred(pluginMeta.data);
