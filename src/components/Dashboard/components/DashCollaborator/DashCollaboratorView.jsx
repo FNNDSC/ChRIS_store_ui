@@ -36,7 +36,8 @@ class DashCollaboratorView extends Component {
       const pluginMeta = await this.fetchPluginMeta(pluginName);
        alert(pluginMeta)
       const collaboratorList = await this.fetchPluginCollaborators(pluginMeta);
-    	console.log(collaboratorList[0].role)
+      
+    	
      
       
      
