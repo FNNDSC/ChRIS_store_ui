@@ -72,7 +72,8 @@ class DashCollaboratorView extends Component {
       const pluginMeta = await this.fetchPluginMeta(pluginName);
        alert(pluginMeta)
       const collaboratorList = await this.fetchPluginCollaborators(pluginMeta);
-    	console.log(collaboratorList[0].role)
+      
+    	
      
       
      
@@ -104,8 +105,12 @@ class DashCollaboratorView extends Component {
     return metas.getItems().shift();
   }
   async fetchPluginCollaborators(pluginMeta) {
-    const collaborators = (await pluginMeta.getCollaborators()).getItems();
-   	 return collaborators.map((collaborator, index) => collaborators[index].data)
+    const collabitems = (await pluginMeta.getCollaborators()).getItems();
+    const collablist=collabitems.map((collaborator, index) => collabitems[index].data)
+    const collaboratorlist=collablist.map((collaborator, index) => collabitems[index])
+    const collaborators=Array.from(collaboratorlist.values())
+    console.log(collaborators)
+    return collaborators
   
    ;
   }
@@ -114,13 +119,7 @@ class DashCollaboratorView extends Component {
   render() {
    
     const { rows, columns,errors,collaborators } = this.state;
-    console.log(collaborators)
-    var list= new Object(collaborators[0],)
-    console.log(list.username)
-    const collaboratorlist=collaborators.map((collaborator, index) => collaborators[index])
-    console.log(collaboratorlist)
-    const collablist=Array.from(collaboratorlist.values())
-   
+    
     
    
     const showEmptyState = isEmpty(errors);
@@ -134,9 +133,9 @@ class DashCollaboratorView extends Component {
         <GridItem sm={12}>
           <Card>
             <CardTitle>Collaborators</CardTitle>
-            { collablist.map((collaborator) => (
+            { collaborators.map((collaborator) => (
                     <li key={collaborator.id}>
-                      {collaborator.username}{collaborator.role}
+                      {collaborator.data.username}{collaborator.role}
                     </li>
                   ))}
             
