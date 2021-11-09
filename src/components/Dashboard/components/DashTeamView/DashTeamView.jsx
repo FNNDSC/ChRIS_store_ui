@@ -42,33 +42,23 @@ class DashTeamView extends Component {
       rows: [],
       columns: [
         {
-          title: 'Name',
-          property: 'name',
+          title: 'Username',
+          property: 'username',
           transforms: [sortable, headerCol()],
         },
         {
-          title: 'Position Title',
-          property: 'title',
+          title: 'Role',
+          property: 'role',
           transforms: [sortable],
-        },
-        {
-          title: 'Date Joined',
-          property: 'date_joined',
-          transforms: [
-            info({
-              tooltip: 'More information about teammates',
-            }),
-            sortable,
-          ],
         },
       ],
       sortBy: {},
     };
 
-    this.state.rows = props.plugins.map((plugin) => {
+    this.state.rows = props.collaborators.map((collaborator,index) => {
       const row = [];
       const { columns } = this.state;
-      row.push(...columns.map(({ property }) => plugin[property])); 
+      row.push(...columns.map(({property  }) => collaborator[property])); 
       return row;
     });
 
@@ -90,9 +80,9 @@ class DashTeamView extends Component {
   }
 
   render() {
-    const { plugins } = this.props;
+    const { collaborators } = this.props;
     const { rows, columns, sortBy } = this.state;
-    const showEmptyState = isEmpty(plugins);
+    const showEmptyState = isEmpty(collaborators);
 
     return (
       <Grid>

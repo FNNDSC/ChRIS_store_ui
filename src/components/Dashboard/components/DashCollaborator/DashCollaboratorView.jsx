@@ -22,6 +22,7 @@ import Client from '@fnndsc/chrisstoreapi';
 import { PlusCircleIcon } from '@patternfly/react-icons';
 import BrainyTeammatesPointer from '../../../../assets/img/brainy_teammates-pointer.png';
 import ChrisStore from '../../../../store/ChrisStore';
+import DashTeamView from "../DashTeamView/DashTeamView";
 import './DashCollaboratorView.css';
 
 
@@ -46,24 +47,15 @@ class DashCollaboratorView extends Component {
       columns: [
         {
           title: 'Name',
-          property: 'name',
+          property: 'username',
           
         },
         {
           title: 'Role',
-          property: 'title',
+          property: 'Role'
           
         },
-        {
-          title: 'Date Joined',
-          property: 'date_joined',
-          transforms: [
-            info({
-              tooltip: 'More information about teammates',
-            }),
-           
-          ],
-        },
+        
       ],
       
     };
@@ -79,15 +71,18 @@ class DashCollaboratorView extends Component {
     try {
       const pluginMeta = await this.fetchPluginMeta(pluginName);
        alert(pluginMeta)
-      let collaboratorList = await this.fetchPluginCollaborators(pluginMeta);
-      console.log(collaboratorList)
+      const collaboratorList = await this.fetchPluginCollaborators(pluginMeta);
+    	console.log(collaboratorList[0].role)
+     
+      
+     
      
     
        
 
       this.setState({
         loading: false,
-          collaborators:collaboratorList
+          collaborators:[...collaboratorList]
        
       });
     } catch (error) {
@@ -108,39 +103,45 @@ class DashCollaboratorView extends Component {
     const metas = await this.client.getPluginMetas({ name_exact: pluginName, limit: 1 });
     return metas.getItems().shift();
   }
-  async fetchPluginCollaborators(pluginMeta) {nl
+  async fetchPluginCollaborators(pluginMeta) {
     const collaborators = (await pluginMeta.getCollaborators()).getItems();
-   	return collaborators.map((collaborator, index) => collaborators[index].data.username)
+   	 return collaborators.map((collaborator, index) => collaborators[index].data)
   
    ;
   }
-   
+ 
 
   render() {
    
-    const { rows, columns,errors,collaborators  } = this.state;
-    rows = collaborators.map((collaborator) => {
-      const row = [];
-      const { columns } = this.state;
-      row.push(...columns.map(({ property }) => collaborator[property])); 
-      return row;
- });
+    const { rows, columns,errors,collaborators } = this.state;
+    console.log(collaborators)
+    var list= new Object(collaborators[0],)
+    console.log(list.username)
+    const collaboratorlist=collaborators.map((collaborator, index) => collaborators[index])
+    console.log(collaboratorlist)
+    const collablist=Array.from(collaboratorlist.values())
+   
+    
+   
     const showEmptyState = isEmpty(errors);
     
 
     return (
    
   
-      <Grid>
+     
      
         <GridItem sm={12}>
           <Card>
             <CardTitle>Collaborators</CardTitle>
-            {collaborators.map((collaborator) => (
-                    <li key={collaborator.id} >
-                           {collaborator}</li>
-                    
+            { collablist.map((collaborator) => (
+                    <li key={collaborator.id}>
+                      {collaborator.username}{collaborator.role}
+                    </li>
                   ))}
+            
+                   <DashTeamView collaborators={collaborators} />
+                  
             <CardBody>
               {showEmptyState ? (
                 <DashTeamEmptyState />
@@ -189,14 +190,14 @@ class DashCollaboratorView extends Component {
                   <span>Add Collaborator</span>
                 </Button>
               </CardActions>
-<h4>{collaborators[0]}</h4>
+<h4></h4>
                   
                   
             </CardFooter>
             
           </Card>
         </GridItem>
-      </Grid>
+      
     );
   }
 }

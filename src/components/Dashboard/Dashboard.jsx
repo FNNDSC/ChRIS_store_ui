@@ -149,7 +149,7 @@ class Dashboard extends Component {
                     </GridItem>
 
                     <GridItem xs={12}>
-                      <DashTeamView plugins={pluginList} />
+                    
                     </GridItem>
                   </Grid>
                 </GridItem>
