@@ -13,6 +13,7 @@ import {
 import Client from '@fnndsc/chrisstoreapi';
 import { PlusCircleIcon } from '@patternfly/react-icons';
 import ChrisStore from '../../../../store/ChrisStore';
+import DashTeamView from "../DashTeamView/DashTeamView";
 import './DashCollaboratorView.css';
 import UserTable from './DashTeamView';
 
@@ -22,7 +23,6 @@ class DashCollaboratorView extends Component {
     this.state = {
       collaborators: [],
       errors: [],
-
     };
     const storeURL = process.env.REACT_APP_STORE_URL;
     const auth = { token: props.store.get('authToken') };
@@ -35,15 +35,18 @@ class DashCollaboratorView extends Component {
     try {
       const pluginMeta = await this.fetchPluginMeta(pluginName);
        alert(pluginMeta)
-      let collaboratorList = await this.fetchPluginCollaborators(pluginMeta);
-      console.log(collaboratorList)
+      const collaboratorList = await this.fetchPluginCollaborators(pluginMeta);
+    	console.log(collaboratorList[0].role)
+     
+      
+     
      
     
        
 
       this.setState({
         loading: false,
-          collaborators:collaboratorList
+          collaborators:[...collaboratorList]
        
       });
     } catch (error) {

@@ -54,10 +54,10 @@ class DashTeamView extends Component {
       sortBy: {},
     };
 
-    this.state.rows = props.collaborators.map((collaborator,index) => {
+    this.state.rows = props.collaborators.map((collaborator, index) => {
       const row = [];
       const { columns } = this.state;
-      row.push(...columns.map(({property  }) => collaborator.data[property])); 
+      row.push(...columns.map(({ property }) => collaborator.data[property]));
       return row;
     });
 
@@ -81,7 +81,7 @@ class DashTeamView extends Component {
   render() {
     const { collaborators } = this.props;
     const { rows, columns, sortBy } = this.state;
-    const showEmptyState = isEmpty(collaborators);
+   
 
     return (
       <Grid>
@@ -89,9 +89,7 @@ class DashTeamView extends Component {
           <Card>
             <CardTitle>Teammates</CardTitle>
             <CardBody>
-              {showEmptyState ? (
-                <DashTeamEmptyState />
-              ) : (
+             
                 <>
                   <Table
                     aria-label="Sortable Table"
@@ -126,21 +124,21 @@ class DashTeamView extends Component {
                     <TableBody />
                   </Table>
                 </>
-              )}
+              
             </CardBody>
-            {!showEmptyState && (
-            <CardFooter
-              className="card-footer"
-            >
-              <CardActions>
-                <Button variant="secondary">
-                  <PlusCircleIcon type="pf" style={{ margin: '0 1em 0 0' }} />
-                  <span>Add Teammate</span>
-                </Button>
-              </CardActions>
+           
+              <CardFooter
+                className="card-footer"
+              >
+                <CardActions>
+                  <Button variant="secondary">
+                    <PlusCircleIcon type="pf" style={{ margin: '0 1em 0 0' }} />
+                    <span>Add Teammate</span>
+                  </Button>
+                </CardActions>
 
-            </CardFooter>
-            )}
+              </CardFooter>
+            
           </Card>
         </GridItem>
       </Grid>
