@@ -13,7 +13,6 @@ import {
 import Client from '@fnndsc/chrisstoreapi';
 import { PlusCircleIcon } from '@patternfly/react-icons';
 import ChrisStore from '../../../../store/ChrisStore';
-import DashTeamView from "../DashTeamView/DashTeamView";
 import './DashCollaboratorView.css';
 import UserTable from './DashTeamView';
 
@@ -34,19 +33,10 @@ class DashCollaboratorView extends Component {
     const { pluginName } = this.props.match.params;
     try {
       const pluginMeta = await this.fetchPluginMeta(pluginName);
-       alert(pluginMeta)
       const collaboratorList = await this.fetchPluginCollaborators(pluginMeta);
       
     	
-     
-      
-     
-     
-    
-       
-
-      this.setState({
-        loading: false,
+    this.setState({
           collaborators:[...collaboratorList]
        
       });
@@ -135,6 +125,7 @@ class DashCollaboratorView extends Component {
 
               </CardFooter>
 
+ 
 
             </Card>
 

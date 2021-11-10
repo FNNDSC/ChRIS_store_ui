@@ -57,7 +57,11 @@ class DashTeamView extends Component {
     this.state.rows = props.collaborators.map((collaborator, index) => {
       const row = [];
       const { columns } = this.state;
+<<<<<<< HEAD
       row.push(...columns.map(({ property }) => collaborator.data[property]));
+=======
+      row.push(...columns.map(({property  }) => collaborator.data[property])); 
+>>>>>>> owner
       return row;
     });
 
