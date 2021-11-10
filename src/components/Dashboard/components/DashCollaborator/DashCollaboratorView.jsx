@@ -97,7 +97,7 @@ class DashCollaboratorView extends Component {
       In this area, you will be able to add and manage teammates to help you
       with each plugin.
     </p>
-    <img style={{ marginLeft: '2em' }} src={BrainyTeammatesPointer} alt="Click Add Plugin" />
+    <img style={{ marginLeft: '2em' }} src={BrainyTeammatesPointer} alt="Click Add Collborators" />
   </div>
           <Card>
             <CardTitle>Collaborators</CardTitle>

@@ -18,12 +18,13 @@ const UserTable = props => (
     </tr>
   </thead>
 
-  <tbody role="rowgroup">
+  <tbody>
    {props.collaborators.length > 0 ? (
         props. collaborators.map( collaborator => (
           <tr key={ collaborator.id}>
+          
             <td>{collaborator.data.username}</td>
-            <td>{collaborator.data.role}</td>
+            <td>{collaborator.data.role='o'? 'Owner' : 'Maintainer'}</td>
             
           </tr>
         ))
