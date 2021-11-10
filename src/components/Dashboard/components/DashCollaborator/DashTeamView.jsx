@@ -8,10 +8,10 @@ const UserTable = props => (
  
  <table
   class="pf-c-table pf-m-grid-md"
-  role="grid"
+  
 >
   <thead>
-    <tr role="row">
+    <tr>
       <th>Usename</th>
         <th>Role</th>
         <th>Actions</th>
@@ -24,7 +24,7 @@ const UserTable = props => (
           <tr key={ collaborator.id}>
           
             <td>{collaborator.data.username}</td>
-            <td>{collaborator.data.role='o'? 'Owner' : 'Maintainer'}</td>
+            <td>{collaborator.data.role==='O'? 'Owner' :'Maintainer'}</td>
             
           </tr>
         ))

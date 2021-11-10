@@ -91,14 +91,15 @@ class DashCollaboratorView extends Component {
     
     return (
     <Grid>
-   <GridItem sm={12}>
-   <div className="card-body-content-parent">
-    <p>
-      In this area, you will be able to add and manage teammates to help you
+     <div >
+    <h4>
+      In this area, you will be able to add and manage collaborators to help you
       with each plugin.
-    </p>
+    </h4>
     <img style={{ marginLeft: '2em' }} src={BrainyTeammatesPointer} alt="Click Add Collborators" />
   </div>
+   <GridItem sm={12}>
+  
           <Card>
             <CardTitle>Collaborators</CardTitle>
             
