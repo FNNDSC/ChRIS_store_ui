@@ -1,13 +1,9 @@
+/* eslint-disable react/jsx-no-undef */
+/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 
 import isEmpty from 'lodash/isEmpty';
-import PropTypes from 'prop-types';
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  info,
-} from '@patternfly/react-table';
+import PropTypes from 'prop-types'
 import {
   CardTitle,
   CardBody,
@@ -19,44 +15,18 @@ import {
   Button,
 } from '@patternfly/react-core';
 import Client from '@fnndsc/chrisstoreapi';
-import { PlusCircleIcon } from '@patternfly/react-icons';
 import BrainyTeammatesPointer from '../../../../assets/img/brainy_teammates-pointer.png';
+import { PlusCircleIcon } from '@patternfly/react-icons';
 import ChrisStore from '../../../../store/ChrisStore';
-import DashTeamView from "../DashTeamView/DashTeamView";
 import './DashCollaboratorView.css';
-
-
-const DashTeamEmptyState = () => (
-  <div className="card-body-content-parent">
-    <p>
-      In this area, you will be able to add and manage coll to help you
-      with each plugin.
-    </p>
-    <img style={{ marginLeft: '2em' }} src={BrainyTeammatesPointer} alt="Click Add Plugin" />
-  </div>
-);
+import UserTable from './DashTeamView';
 
 class DashCollaboratorView extends Component {
   constructor(props) {
     super(props);
     this.state = {
       collaborators: [],
-      pluginData: undefined,
       errors: [],
-      rows: [],
-      columns: [
-        {
-          title: 'Name',
-          property: 'username',
-          
-        },
-        {
-          title: 'Role',
-          property: 'Role'
-          
-        },
-        
-      ],
       
     };
     const storeURL = process.env.REACT_APP_STORE_URL;
@@ -70,19 +40,10 @@ class DashCollaboratorView extends Component {
     const { pluginName } = this.props.match.params;
     try {
       const pluginMeta = await this.fetchPluginMeta(pluginName);
-       alert(pluginMeta)
       const collaboratorList = await this.fetchPluginCollaborators(pluginMeta);
       
     	
-     
-      
-     
-     
-    
-       
-
-      this.setState({
-        loading: false,
+    this.setState({
           collaborators:[...collaboratorList]
        
       });
@@ -93,7 +54,14 @@ class DashCollaboratorView extends Component {
       }));
     }
   }
-  
+
+  showNotifications = (error) => {
+    this.setState((prev) => ({
+      errors: [...prev.errors, error]
+    }));
+  }
+ // eslint-disable-next-line react/destructuring-assignment
+
 /**
   * Fetch all versions of a plugin.
   * @param {PluginMeta} pluginMeta
@@ -101,101 +69,54 @@ class DashCollaboratorView extends Component {
   */
   // eslint-disable-next-line class-methods-use-this
    async fetchPluginMeta(pluginName) {
+   
     const metas = await this.client.getPluginMetas({ name_exact: pluginName, limit: 1 });
     return metas.getItems().shift();
+    
   }
+
+// eslint-disable-next-line class-methods-use-this
   async fetchPluginCollaborators(pluginMeta) {
     const collabitems = (await pluginMeta.getCollaborators()).getItems();
-    const collablist=collabitems.map((collaborator, index) => collabitems[index].data)
-    const collaboratorlist=collablist.map((collaborator, index) => collabitems[index])
-    const collaborators=Array.from(collaboratorlist.values())
-    console.log(collaborators)
-    return collaborators
-  
+    const collablist= await collabitems.map((collaborator, index) => collabitems[index].data)
+    const collaboratorlist=await collablist.map((collaborator, index) => collabitems[index])
+    return Array.from(collaboratorlist.values())
+
    ;
   }
  
-
   render() {
    
-    const { rows, columns,errors,collaborators } = this.state;
+    const {collaborators } = this.state;
     
-    
-   
-    const showEmptyState = isEmpty(errors);
-    
-
     return (
-   
-  
-     
-     
-        <GridItem sm={12}>
+    <Grid>
+   <GridItem sm={12}>
+   <div className="card-body-content-parent">
+    <p>
+      In this area, you will be able to add and manage teammates to help you
+      with each plugin.
+    </p>
+    <img style={{ marginLeft: '2em' }} src={BrainyTeammatesPointer} alt="Click Add Plugin" />
+  </div>
           <Card>
             <CardTitle>Collaborators</CardTitle>
-            { collaborators.map((collaborator) => (
-                    <li key={collaborator.id}>
-                      {collaborator.data.username}{collaborator.role}
-                    </li>
-                  ))}
             
-                   <DashTeamView collaborators={collaborators} />
+            
+                  
                   
             <CardBody>
-              {showEmptyState ? (
-                <DashTeamEmptyState />
-              ) : (
-                <>
-                  <Table
-                    aria-label="Sortable Table"
-                    cells={columns}
-                    rows={rows}
-                    actions={([
-                      {
-                        title: <a href="https://www.patternfly.org">Link action</a>,
-                      },
-                      {
-                        title: 'Some action',
-                        // eslint-disable-next-line no-unused-vars
-                        onClick: (event, rowId, rowData, extra) => {
-                          // console.log('clicked on Some action, on row: ', rowId);
-                        },
-                      },
-                      {
-                        title: 'Third action',
-                        // eslint-disable-next-line no-unused-vars
-                        onClick: (event, rowId, rowData, extra) => {
-                          // console.log('clicked on Third action, on row: ', rowId);
-                        },
-                      },
-                    ])}
-                    areActionsDisabled={false}
-                    dropdownPosition="left"
-                    dropdownDirection="bottom"
-                  >
-                    <TableHeader />
-                    <TableBody />
-                  </Table>
-                </>
-              )}
+            <UserTable collaborators={collaborators} />
             </CardBody>
             
-            <CardFooter
-              className="card-footer"
-            >
-              <CardActions>
-                <Button variant="secondary">
-                  <PlusCircleIcon type="pf" style={{ margin: '0 1em 0 0' }} />
-                  <span>Add Collaborator</span>
-                </Button>
-              </CardActions>
-<h4></h4>
-                  
-                  
-            </CardFooter>
+          
             
           </Card>
+          
+          
         </GridItem>
+		
+      </Grid>
       
     );
   }
@@ -203,23 +124,7 @@ class DashCollaboratorView extends Component {
 
 
 
+ 
 
-DashCollaboratorView.propTypes = {
-  store: PropTypes.objectOf(PropTypes.object),
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      plugin: PropTypes.string,
-    })
-  })
-};
-
-DashCollaboratorView.defaultProps = {
-  store: new Map(),
-  match: {
-    params: {
-      plugin: undefined,
-    }
-  }
-};
 
 export default ChrisStore.withStore(DashCollaboratorView);
