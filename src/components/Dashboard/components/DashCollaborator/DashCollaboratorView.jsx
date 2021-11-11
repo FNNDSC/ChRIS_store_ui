@@ -1,21 +1,16 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
-
-import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types'
 import {
-  CardTitle,
   CardBody,
   Card,
-  CardFooter,
   Grid,
   GridItem,
-  CardActions,
+  CardFooter,
   Button,
-} from '@patternfly/react-core';
+ } from '@patternfly/react-core';
 import Client from '@fnndsc/chrisstoreapi';
-import BrainyTeammatesPointer from '../../../../assets/img/brainy_teammates-pointer.png';
 import { PlusCircleIcon } from '@patternfly/react-icons';
 import ChrisStore from '../../../../store/ChrisStore';
 import './DashCollaboratorView.css';
@@ -87,29 +82,50 @@ class DashCollaboratorView extends Component {
  
   render() {
    
-    const {collaborators } = this.state;
+    const {collaborators ,errors} = this.state;
+    
     
     return (
+    <>
+     {
+      errors.map((error, index) => (
+        <ErrorNotification
+        key={`notif-${error.message}`}
+        title="Error"
+        message={error.message}
+        position='top-right'
+        variant='danger'
+        closeable
+        onClose={() => {
+                errors.splice(index)
+                this.setState({ errors })
+              }}
+            />
+          ))
+        }
     <Grid>
-     <div >
-    <h4>
-      In this area, you will be able to add and manage collaborators to help you
-      with each plugin.
-    </h4>
-    <img style={{ marginLeft: '2em' }} src={BrainyTeammatesPointer} alt="Click Add Collborators" />
-  </div>
    <GridItem sm={12}>
   
           <Card>
-            <CardTitle>Collaborators</CardTitle>
+          <CardBody>
+            <h3>Collaborators</h3>
+            <div>
+             <Button variant="primary" className="card-view-add-collaborator">
+                  <PlusCircleIcon type="pf" style={{ margin: '0 1em 0 0' }} />
+                  <span>Add Collaborator</span>
+                </Button>
+            <h4> Use this area, to add and manage collaborators to help you
+             with this plugin.</h4>
             
-            
-                  
-                  
-            <CardBody>
+              </div> 
+             
+               
+              
             <UserTable collaborators={collaborators} />
             </CardBody>
-            
+            <CardFooter className="card-footer">
+              
+            </CardFooter>
           
             
           </Card>
@@ -118,14 +134,21 @@ class DashCollaboratorView extends Component {
         </GridItem>
 		
       </Grid>
+      </>
       
     );
   }
 }
-
-
-
+DashCollaboratorView.propTypes = {
+  // eslint-disable-next-line react/no-unused-prop-types
+  collaborators: PropTypes.arrayOf(PropTypes.object),
  
+};
+
+DashCollaboratorView.defaultProps = {
+  collaborators: []
+};
+
 
 
 export default ChrisStore.withStore(DashCollaboratorView);

@@ -9,3 +9,103 @@
 .pf-c-card__title {
     font-size: larger;
 }
+
+.card-body-empty {
+    padding: 10px !important;
+    background: linear-gradient(
+        #72767b,
+        #72767b 225px,
+        #393f44 225px,
+        #393f44 325px);
+    min-height: 375px;
+    color: white;
+}
+
+.card-body-header-text {
+    text-align: center;
+    font-weight: bold;
+}
+
+.card-body-subhead {
+    text-align: center;
+}
+
+.card-body-content-parent {
+    display: flex;
+}
+
+.card-body-content-child-right {
+    padding: 10px 30px 0 60px;
+    font-size: 1.2em;
+}
+
+.card-view-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 10px;
+}
+
+.card-view-add-plugin {
+    text-align: center;
+    padding: 33px !important;
+}
+.card-view-add-collaborator {
+    text-align: center;
+    float:right;
+}
+
+
+
+.card-view-title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px !important;
+}
+.card-view-grid{
+    margin: 0 auto;
+}
+.card-view-kebob .dropdown-menu {
+    margin-right: 5px;
+    min-width: 100px;
+}
+
+.card-view-plugin-tag {
+    /* color */
+    color: #8b8d8f;
+    color: var(--pf-black-500);
+
+    /* display */
+    display: inline-block;
+    margin: 0 0.5em;
+    padding: 0 0.5em;
+
+    /* border */
+    border-color: #8b8d8f;
+    border: 1px solid var(--pf-black-500);
+    border-radius: 4px;
+
+    /* font */
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.card-view-app-type {
+    font-size: 14px;
+}
+
+.card-info-points {
+    margin: 0.5em 0;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: gray;
+}
+
+.pf-c-card__title {
+    font-size: larger;
+}
+.pf-c-dropdown__toggle {
+    padding-right: 0 !important;
+}

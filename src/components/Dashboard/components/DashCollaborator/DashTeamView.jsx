@@ -7,7 +7,7 @@ const UserTable = props => (
  <GridItem sm={12}>
  
  <table
-  class="pf-c-table pf-m-grid-md"
+  className="pf-c-table pf-m-grid-md"
   
 >
   <thead>
@@ -20,7 +20,8 @@ const UserTable = props => (
 
   <tbody>
    {props.collaborators.length > 0 ? (
-        props. collaborators.map( collaborator => (
+        // eslint-disable-next-line react/destructuring-assignment
+        props.collaborators.map( collaborator => (
           <tr key={ collaborator.id}>
           
             <td>{collaborator.data.username}</td>
