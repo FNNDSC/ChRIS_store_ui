@@ -6,8 +6,7 @@ import {
   Card, 
   CardHeader, 
   CardTitle, 
-  CardBody,
-  CardFooter, 
+  CardBody, 
   CardActions,
   DropdownItem, 
   Dropdown, 
@@ -17,7 +16,6 @@ import {
   Form, 
   Modal 
 } from "@patternfly/react-core";
-import { PlusCircleIcon } from '@patternfly/react-icons';
 import Button from "../../../Button";
 import "./DashPluginCardView.css";
 import BrainImg from "../../../../assets/img/empty-brain-xs.png";
@@ -174,17 +172,6 @@ class DashPluginCardView extends Component {
               
               <div className="card-view-app-type">{applicationType}</div>
             </CardBody>
-              <CardFooter
-              className="card-footer"
-            >
-              <CardActions>
-                <Button variant="secondary">
-                  <PlusCircleIcon type="pf" style={{ margin: '0 1em 0 0' }} />
-                  <Link to={`/manage/collaborators/${plugin.name}`}><span>Manage Collaborators</span></Link>
-                </Button>
-              </CardActions>
-
-            </CardFooter>
           </Card>
         </GridItem>
       );
