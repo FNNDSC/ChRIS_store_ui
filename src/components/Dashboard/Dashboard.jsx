@@ -7,7 +7,6 @@ import "./Dashboard.css";
 
 import Button from "../Button";
 import DashPluginCardView from "./components/DashPluginCardView/DashPluginCardView";
-import DashTeamView from "./components/DashTeamView/DashTeamView";
 import DashGitHubView from "./components/DashGitHubView/DashGitHubView";
 import ChrisStore from "../../store/ChrisStore";
 import ErrorNotification from "../Notification";
@@ -149,7 +148,7 @@ class Dashboard extends Component {
                     </GridItem>
 
                     <GridItem xs={12}>
-                      <DashTeamView plugins={pluginList} />
+                    
                     </GridItem>
                   </Grid>
                 </GridItem>
