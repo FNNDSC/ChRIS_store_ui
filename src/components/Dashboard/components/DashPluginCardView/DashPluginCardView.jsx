@@ -157,8 +157,8 @@ class DashPluginCardView extends Component {
                     <DropdownItem key={`edit-${plugin.id}`} id={`edit-${plugin.name}`}>Edit</DropdownItem>,
                     <DropdownItem key={`delete-${plugin.id}`} id={`delete-${plugin.name}`}>Delete</DropdownItem>,
                    <DropdownItem key={`/manage/collaborators/${plugin.name}`} component={<Link to={`/manage/collaborators/${plugin.name}`}>Manage Collaborators</Link>} />
-                    
-                    
+
+
                   ]}
                 />
               </CardActions>
