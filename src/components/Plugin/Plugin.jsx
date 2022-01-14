@@ -50,7 +50,7 @@ export class PluginView extends Component {
       if (this.isLoggedIn())
         star = await this.fetchIsPluginStarred(plugin.data);
 
-      this.setState({ 
+      this.setState({
         loading: false,
         pluginData: {
           ...plugin.data,
@@ -60,16 +60,16 @@ export class PluginView extends Component {
         star,
       });
     } catch (error) {
-      this.setState((prev) => ({ 
-        loading: false, 
-        errors: [ ...prev.errors, error ] 
+      this.setState((prev) => ({
+        loading: false,
+        errors: [...prev.errors, error]
       }));
     }
   }
 
   showNotifications = (error) => {
     this.setState((prev) => ({
-      errors: [ ...prev.errors, error ] 
+      errors: [...prev.errors, error]
     }));
   }
 
@@ -81,9 +81,9 @@ export class PluginView extends Component {
 
   onStarClicked = () => {
     if (this.isLoggedIn()) {
-      if (this.isFavorite()) 
+      if (this.isFavorite())
         this.unfavPlugin();
-      else 
+      else
         this.favPlugin();
     }
     else
@@ -174,7 +174,7 @@ export class PluginView extends Component {
     const { loading, pluginData: plugin, errors } = this.state;
 
     if (!loading && !plugin)
-      return <NotFound/>
+      return <NotFound />
 
     let container;
     if (plugin) {
@@ -202,11 +202,11 @@ export class PluginView extends Component {
                       <SplitItem isFilled />
                       <SplitItem>
                         {
-                          !this.isFavorite() ? 
+                          !this.isFavorite() ?
                             <Button onClick={this.onStarClicked}>
                               Favorite <Badge isRead><StarIcon /> {plugin.stars}</Badge>
                             </Button>
-                          : 
+                            :
                             <Button variant="secondary" onClick={this.onStarClicked}>
                               Unfavorite <Badge><StarIcon /> {plugin.stars}</Badge>
                             </Button>
@@ -218,10 +218,10 @@ export class PluginView extends Component {
                   <GridItem>
                     <p>{plugin.description}</p>
                     <p style={{ color: "gray" }}>
-                      { 
+                      {
                         RelativeDate.isValid(plugin.modification_date) ?
                           `Updated ${new RelativeDate(plugin.modification_date).format()}`
-                        : 
+                          :
                           `Created ${new RelativeDate(plugin.creation_date).format()}`
                       }
                     </p>

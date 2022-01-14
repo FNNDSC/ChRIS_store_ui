@@ -78,7 +78,6 @@ export class SignIn extends Component {
   hideError() {
     this.setState({ error: null });
   }
-
   render() {
     const {
       error, username, password, loading,
@@ -147,7 +146,7 @@ export class SignIn extends Component {
                   Log In
                 </Button>
                 <p className="login-pf-signup">
-                  Need an account?
+                  Need an account? {' '}
                   <Link to="/quickstart" href="/quickstart">
                     Signup
                   </Link>

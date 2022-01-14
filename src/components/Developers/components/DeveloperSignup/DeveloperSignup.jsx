@@ -3,10 +3,7 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { validate } from 'email-validator';
-import {
-  Form,
-  Spinner,
-} from '@patternfly/react-core';
+import { Form, Spinner } from '@patternfly/react-core';
 
 import './DeveloperSignup.css';
 import StoreClient from '@fnndsc/chrisstoreapi';
@@ -20,6 +17,8 @@ export class DeveloperSignup extends Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    const queryParams = new URLSearchParams(window.location.search);
+    const emailVal = queryParams.get('email');
     this.state = {
       loading: false,
       error: {
@@ -27,7 +26,7 @@ export class DeveloperSignup extends Component {
         controls: [],
       },
       username: String(),
-      email: String(),
+      email: emailVal,
       password: String(),
       passwordConfirm: String(),
     };
@@ -87,13 +86,16 @@ export class DeveloperSignup extends Component {
       });
     }
 
-    this.setState({
-      loading: true,
-      error: {
-        message: '',
-        controls: '',
+    this.setState(
+      {
+        loading: true,
+        error: {
+          message: '',
+          controls: '',
+        },
       },
-    }, () => store.set('userName')(username));
+      () => store.set('userName')(username)
+    );
 
     return this.handleStoreLogin();
   }
@@ -141,12 +143,15 @@ export class DeveloperSignup extends Component {
       return Promise.reject(e);
     }
 
-    return this.setState({
-      toDashboard: true,
-    }, () => {
-      store.set('authToken')(authToken);
-      return authToken;
-    });
+    return this.setState(
+      {
+        toDashboard: true,
+      },
+      () => {
+        store.set('authToken')(authToken);
+        return authToken;
+      }
+    );
   }
 
   render() {
@@ -161,8 +166,7 @@ export class DeveloperSignup extends Component {
       passwordConfirm,
     } = this.state;
 
-    if (toDashboard)
-      return <Redirect to="/dashboard" />;
+    if (toDashboard) return <Redirect to="/dashboard" />;
 
     const disableControls = loading;
     return (
@@ -213,7 +217,7 @@ export class DeveloperSignup extends Component {
           validationState={error.controls.includes('confirmation') ? 'error' : 'default'}
           placeholder="Re-type your password"
           inputType="password"
-          id="password"
+          id="password-confirm"
           fieldName="passwordConfirm"
           value={passwordConfirm}
           onChange={(val) => this.handleChange(val, 'passwordConfirm')}
@@ -221,12 +225,10 @@ export class DeveloperSignup extends Component {
           error={error}
         />
         <div style={{ padding: '1em 0' }}>
-          {loading ? <Spinner size="md"/> : (
-            <Button 
-              variant="primary"
-              type="submit" 
-              loading={disableControls}
-            >
+          {loading ? (
+            <Spinner size="md" />
+          ) : (
+            <Button variant="primary" type="submit" loading={disableControls}>
               Create Account
             </Button>
           )}

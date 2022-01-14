@@ -75,12 +75,12 @@ const PluginBody = ({ pluginData }) => {
       }
     }
 
-    if (expectRepoName) 
+    if (expectRepoName)
       fetchRepo();
   }, [fetchReadme, fetchRepoData, pluginData.public_repo, showNotifications]);
 
   const InstallButton = () => {
-    if (pluginData.version) 
+    if (pluginData.version)
       return <ClipboardCopy isReadOnly>{ pluginData.url }</ClipboardCopy>
 
     if (pluginData.versions)
@@ -193,16 +193,30 @@ const PluginBody = ({ pluginData }) => {
                 </div>
 
                 <div className="plugin-body-detail-section">
-                  <h4>Contributors</h4>
+                  <h4>Author</h4>
                   { authors.map((author) => (
                     <a key={author} href={`#${author}`}>
                       <p><UserAltIcon /> {author}</p>
                     </a>
                   ))}
-                  <br />
-                  <a className="pf-m-link" href={`${pluginData.public_repo}/graphs/contributors`}>
-                    View all contributors
-                  </a>
+                </div>
+                <div className="plugin-body-detail-section">
+                  <h4>Collaborators</h4>
+                  {
+                    // FIXME this view is responsible for both /plugin/:pluginName routes
+                    // and /p/:pluginId routes. But pluginData is different depending
+                    // on whether we're looking at plugin meta or a specific plugin.
+                    pluginData.collaborators ?
+                      pluginData.collaborators.map((collaborator) => (
+                        <a key={collaborator.id} href={`#${collaborator.username}`}>
+                          <p><UserAltIcon /> {collaborator.username}</p>
+                        </a>
+                      ))
+                      :
+                      <a className="pf-m-link" href={`${pluginData.public_repo}/graphs/contributors`}>
+                        View contributors on Github
+                      </a>
+                  }
                 </div>
 
                 <div className="plugin-body-detail-section">

@@ -66,11 +66,11 @@ describe('Footer', () => {
       .toHaveLength(1);
   });
 
-  it('should render 5 footer-link divs inside footer-links div', () => {
+  it('should render 6 footer-link divs inside footer-links div', () => {
     expect(wrapper
       .find('div.footer-links')
       .find('div.footer-link'))
-      .toHaveLength(5);
+      .toHaveLength(6);
   });
 
   it('should render footer-copyright inside footer div', () => {
