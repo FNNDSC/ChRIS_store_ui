@@ -28,7 +28,6 @@
     "@patternfly/react-icons": "^4.7.16",
     "@patternfly/react-table": "^4.27.7",
     "classnames": "^2.2.6",
-    "concurrently": "^4.1.0",
     "core-js": "^2.5.7",
     "cross-env": "^5.2.0",
     "dompurify": "^2.2.7",
