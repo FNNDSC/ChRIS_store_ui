@@ -22,12 +22,12 @@ class DashCollaboratorView extends Component {
     this.state = {
       collaborators: [],
       errors: [],
-      
+
     };
     const storeURL = process.env.REACT_APP_STORE_URL;
     const auth = { token: props.store.get('authToken') };
     this.client = new Client(storeURL, auth);
-    
+
   }
 
   async componentDidMount() {
@@ -36,11 +36,11 @@ class DashCollaboratorView extends Component {
     try {
       const pluginMeta = await this.fetchPluginMeta(pluginName);
       const collaboratorList = await this.fetchPluginCollaborators(pluginMeta);
-      
-    	
+
+
     this.setState({
           collaborators:[...collaboratorList]
-       
+
       });
     } catch (error) {
       this.setState((prev) => ({
@@ -64,10 +64,10 @@ class DashCollaboratorView extends Component {
   */
   // eslint-disable-next-line class-methods-use-this
    async fetchPluginMeta(pluginName) {
-   
+
     const metas = await this.client.getPluginMetas({ name_exact: pluginName, limit: 1 });
     return metas.getItems().shift();
-    
+
   }
 
 // eslint-disable-next-line class-methods-use-this
@@ -79,12 +79,12 @@ class DashCollaboratorView extends Component {
 
    ;
   }
- 
+
   render() {
-   
+
     const {collaborators ,errors} = this.state;
-    
-    
+
+
     return (
     <>
      {
@@ -105,44 +105,45 @@ class DashCollaboratorView extends Component {
         }
     <Grid>
    <GridItem sm={12}>
-  
+
           <Card>
           <CardBody>
             <h3>Collaborators</h3>
             <div>
-             <Button variant="primary" className="card-view-add-collaborator">
+             {/* FIXME disabled button bc it does nothing */}
+             <Button variant="disabled" className="card-view-add-collaborator">
                   <PlusCircleIcon type="pf" style={{ margin: '0 1em 0 0' }} />
                   <span>Add Collaborator</span>
                 </Button>
             <h4> Use this area, to add and manage collaborators to help you
              with this plugin.</h4>
-            
-              </div> 
-             
-               
-              
+
+              </div>
+
+
+
             <UserTable collaborators={collaborators} />
             </CardBody>
             <CardFooter className="card-footer">
-              
+
             </CardFooter>
-          
-            
+
+
           </Card>
-          
-          
+
+
         </GridItem>
-		
+
       </Grid>
       </>
-      
+
     );
   }
 }
 DashCollaboratorView.propTypes = {
   // eslint-disable-next-line react/no-unused-prop-types
   collaborators: PropTypes.arrayOf(PropTypes.object),
- 
+
 };
 
 DashCollaboratorView.defaultProps = {
