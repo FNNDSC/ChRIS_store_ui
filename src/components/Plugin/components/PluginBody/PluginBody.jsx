@@ -193,10 +193,18 @@ const PluginBody = ({ pluginData }) => {
                 </div>
 
                 <div className="plugin-body-detail-section">
-                  <h4>Contributors</h4>
+                  <h4>Author</h4>
                   { authors.map((author) => (
                     <a key={author} href={`#${author}`}>
                       <p><UserAltIcon /> {author}</p>
+                    </a>
+                  ))}
+                </div>
+                <div className="plugin-body-detail-section">
+                  <h4>Contributors</h4>
+                  {pluginData.collaborators.map((collaborator) => (
+                    <a key={collaborator.id} href={`#${collaborator.username}`}>
+                      <p><UserAltIcon /> {collaborator.username}</p>
                     </a>
                   ))}
                   <br />

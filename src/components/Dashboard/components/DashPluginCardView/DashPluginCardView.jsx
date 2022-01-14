@@ -16,7 +16,6 @@ import {
   Form, 
   Modal 
 } from "@patternfly/react-core";
-
 import Button from "../../../Button";
 import "./DashPluginCardView.css";
 import BrainImg from "../../../../assets/img/empty-brain-xs.png";
@@ -156,12 +155,14 @@ class DashPluginCardView extends Component {
                   isPlain
                   dropdownItems={[
                     <DropdownItem key={`edit-${plugin.id}`} id={`edit-${plugin.name}`}>Edit</DropdownItem>,
-                    <DropdownItem key={`delete-${plugin.id}`} id={`delete-${plugin.name}`}>Delete</DropdownItem>
+                    <DropdownItem key={`delete-${plugin.id}`} id={`delete-${plugin.name}`}>Delete</DropdownItem>,
+                   <DropdownItem key={`/manage/collaborators/${plugin.name}`} component={<Link to={`/manage/collaborators/${plugin.name}`}>Manage Collaborators</Link>} />
+                    
+                    
                   ]}
                 />
               </CardActions>
             </CardHeader>
-
             <CardBody>
               <h3>{plugin.title}</h3>
               <div className="card-info-points">

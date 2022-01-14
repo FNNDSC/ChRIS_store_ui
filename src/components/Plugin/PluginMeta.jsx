@@ -49,30 +49,31 @@ export class PluginMetaView extends Component {
     try {
       const pluginMeta = await this.fetchPluginMeta(pluginName);
       const versions = await this.fetchPluginVersions(pluginMeta);
-
+      const collaborators = await this.fetchPluginCollaborators(pluginMeta);
       let star;
       if (this.isLoggedIn())
         star = await this.fetchIsPluginStarred(pluginMeta.data);
 
-      this.setState({ 
+      this.setState({
         loading: false,
         star,
         pluginData: {
           ...pluginMeta.data,
-          versions
+          versions,
+          collaborators,
         }
       });
     } catch (error) {
-      this.setState((prev) => ({ 
-        loading: false, 
-        errors: [ ...prev.errors, error ] 
+      this.setState((prev) => ({
+        loading: false,
+        errors: [...prev.errors, error]
       }));
     }
   }
-  
+
   showNotifications = (error) => {
     this.setState((prev) => ({
-      errors: [ ...prev.errors, error ] 
+      errors: [...prev.errors, error]
     }));
   }
 
@@ -84,9 +85,9 @@ export class PluginMetaView extends Component {
 
   onStarClicked = () => {
     if (this.isLoggedIn()) {
-      if (this.isFavorite()) 
+      if (this.isFavorite())
         this.unfavPlugin();
-      else 
+      else
         this.favPlugin();
     }
     else
@@ -149,6 +150,18 @@ export class PluginMetaView extends Component {
     return versions.map(({ data, url }) => ({ ...data, url }));
   }
 
+  /**
+  * Fetch all versions of a plugin.
+  * @param {PluginMeta} pluginMeta
+  * @returns {Promise<any[]>} Collaborators of the plugin
+  */
+  // eslint-disable-next-line class-methods-use-this
+  async fetchPluginCollaborators(pluginMeta) {
+    const collaborators = (await pluginMeta.getCollaborators()).getItems();
+    return collaborators.map((collaborator, index) => collaborators[index].data);
+  }
+
+
   async fetchIsPluginStarred({ name }) {
     const response = await this.client.getPluginStars({ plugin_name: name });
     if (response.data.length > 0)
@@ -160,7 +173,7 @@ export class PluginMetaView extends Component {
     const { loading, pluginData: plugin, errors } = this.state;
 
     if (!loading && !plugin)
-      return <NotFound/>
+      return <NotFound />
 
     let container;
     if (plugin) {
@@ -188,11 +201,11 @@ export class PluginMetaView extends Component {
                       <SplitItem isFilled />
                       <SplitItem>
                         {
-                          !this.isFavorite() ? 
+                          !this.isFavorite() ?
                             <Button onClick={this.onStarClicked}>
                               Favorite <Badge isRead><StarIcon /> {plugin.stars}</Badge>
                             </Button>
-                          : 
+                            :
                             <Button variant="secondary" onClick={this.onStarClicked}>
                               Unfavorite <Badge><StarIcon /> {plugin.stars}</Badge>
                             </Button>
@@ -204,10 +217,10 @@ export class PluginMetaView extends Component {
                   <GridItem>
                     <p>{plugin.description}</p>
                     <p style={{ color: "gray" }}>
-                      { 
+                      {
                         RelativeDate.isValid(plugin.modification_date) ?
                           `Updated ${new RelativeDate(plugin.modification_date).format()}`
-                        : 
+                          :
                           `Created ${new RelativeDate(plugin.creation_date).format()}`
                       }
                     </p>

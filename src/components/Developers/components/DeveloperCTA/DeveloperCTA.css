@@ -1,7 +1,7 @@
 #developer-cta {
   /* color */
-  padding: 6em 2em;
-
+  padding: 3em;
+  max-height: 100vh;
   background: #393f44;
   background: var(--pf-black-800);
   background: linear-gradient(135deg, #4d5258, #393f44);
@@ -10,7 +10,13 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  padding: 6em 3em;
+}
+
+@media (max-width: 425px) {
+  #developer-cta {
+    min-height: 55rem;
+    box-sizing: content-box;
+  }
 }
 
 #developer-cta-header {
