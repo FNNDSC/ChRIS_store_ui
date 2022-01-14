@@ -11768,7 +11768,7 @@ uncontrollable@^5.0.0:
   dependencies:
     invariant "^2.2.4"
 
-undux@^5.0.0-beta.18:
+undux@5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/undux/-/undux-5.2.0.tgz#dadc1c1320e6af6171dbbd79a600f979149612aa"
   integrity sha512-oL5vfOodRtuVG0GfQbD/d0t/sjlRwqLoffHbDnaUtARRKu7BV0UHOvbBjdC/B60OvjYztg1VUAOFz4TQHGYU7Q==
