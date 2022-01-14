@@ -5,10 +5,10 @@ import {Grid,GridItem,
 const UserTable = props => (
 <Grid>
  <GridItem sm={12}>
- 
+
  <table
   className="pf-c-table pf-m-grid-md"
-  
+
 >
   <thead>
     <tr>
@@ -22,16 +22,16 @@ const UserTable = props => (
    {props.collaborators.length > 0 ? (
         // eslint-disable-next-line react/destructuring-assignment
         props.collaborators.map( collaborator => (
-          <tr key={ collaborator.id}>
-          
+          <tr key={ collaborator.data.id}>
+
             <td>{collaborator.data.username}</td>
             <td>{collaborator.data.role==='O'? 'Owner' :'Maintainer'}</td>
-            
+
           </tr>
         ))
       ):
-    
- 
+
+
   (
         <tr>
           <td colSpan={3}>Add more collaborators</td>
