@@ -7,17 +7,17 @@
 #   This will not work on OpenShift where the container UID is random.
 #   For high-security platforms, do not use docker-entrypoint.sh.
 
-
-FROM node:14 as builder
+FROM node:14-alpine as base
+FROM base as builder
 
 WORKDIR /app
 COPY . .
 
 RUN yarn
-RUN yarn run build 
+RUN yarn run build
 
 
-FROM node:14-alpine
+FROM base
 
 RUN yarn global add sirv-cli
 
