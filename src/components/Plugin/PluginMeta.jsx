@@ -17,8 +17,8 @@ import './Plugin.css';
 
 /**
  * View a plugin meta by plugin name.
- * 
- * @todo 
+ *
+ * @todo
  * Make this view visually different
  * from the plugin view by ID.
  */
@@ -131,7 +131,7 @@ export class PluginMetaView extends Component {
 
   /**
    * Fetch a plugin meta by plugin name.
-   * @param {string} pluginName 
+   * @param {string} pluginName
    * @returns {Promise<PluginMeta>} PluginMeta
    */
   async fetchPluginMeta(pluginName) {
@@ -141,7 +141,7 @@ export class PluginMetaView extends Component {
 
   /**
    * Fetch all versions of a plugin.
-   * @param {PluginMeta} pluginMeta 
+   * @param {PluginMeta} pluginMeta
    * @returns {Promise<any[]>} Versions of the plugin
    */
   // eslint-disable-next-line class-methods-use-this

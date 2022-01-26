@@ -17,7 +17,7 @@ import {
 } from '@patternfly/react-core';
 import { DownloadIcon, UserAltIcon } from '@patternfly/react-icons';
 import PropTypes from 'prop-types';
-import marked from 'marked';
+import { marked } from 'marked';
 import { sanitize } from 'dompurify';
 
 import './PluginBody.css';
@@ -69,7 +69,12 @@ const PluginBody = ({ pluginData }) => {
         setRepoData(data);
 
         const { file, type } = await fetchReadme(expectRepoName);
-        if (type === 'md' || type === 'rst') { setReadmeHTML(marked(file)); } else setReadmeHTML(file);
+        if (type === 'md' || type === 'rst') {
+          setReadmeHTML(marked.parse(file));
+        }
+        else {
+          setReadmeHTML(file);
+        }
       } catch (error) {
         showNotifications(new HttpApiCallError(error));
       }
