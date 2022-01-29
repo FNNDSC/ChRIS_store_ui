@@ -20,9 +20,14 @@ const navLinks = [
     to: '/plugins',
   },
   {
+    label: 'Pipelines',
+    to: '/pipelines',
+  },
+  {
     label: 'Submit your Plugin',
     to: '/quickstart',
   },
+  
   {
     label: 'Dashboard',
     to: '/dashboard',

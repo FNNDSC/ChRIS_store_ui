@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from "react";
 import {
   Pagination,
@@ -21,15 +22,14 @@ import {
 import { ImTree } from "react-icons/im";
 import { GrCloudComputer } from "react-icons/gr";
 import { FaCode } from "react-icons/fa";
+import PluginTree from "./PluginTree";
 
-interface PageState {
-  perPage: number;
-  page: number;
-  search: string;
-  itemCount: number;
-}
+ 
+ 
+ 
 
-const DisplayPage = ({
+
+export const DisplayPage = ({
   resources,
   selectedResource,
   pageState,
@@ -37,18 +37,11 @@ const DisplayPage = ({
   onSetPage,
   setSelectedResource,
   title,
-}: {
-  resources?: any[];
-  pageState: PageState;
-  onPerPageSelect: (_event: any, perPage: number) => void;
-  handleFilterChange: (value: string) => void;
-  onSetPage: (_event: any, page: number) => void;
-  selectedResource: any;
-  setSelectedResource: (resource: any) => void;
-  title: string;
 }) => {
   const { perPage, page, itemCount } = pageState;
   const [isExpanded, setIsExpanded] = React.useState(false);
+  const [pluginPipings, setPluginPipings] = React.useState([]);
+  
   const iconStyle = {
     fill:
       title === "Plugins"
@@ -61,6 +54,7 @@ const DisplayPage = ({
     height: "1.25em",
     width: "1.25em",
   };
+
   const drawerContent = (
     <Grid hasGutter={true}>
       <Title
@@ -76,7 +70,7 @@ const DisplayPage = ({
         resources.length > 0 &&
         resources.map((resource) => {
           return (
-            <GridItem lg={2} md={4} sm={2} key={resource.data.id}>
+            <GridItem lg={2} md={6} sm={2} key={resource.data.id}>
               <Card
                 isSelectable
                 isSelected={
@@ -87,9 +81,18 @@ const DisplayPage = ({
                   setSelectedResource(resource);
                   setIsExpanded(true);
                 }}
-                onKeyDown={(event: any) => {
+                onKeyDown={async(event) => {
                   if ([13, 32].includes(event.keyCode)) {
                     setSelectedResource(resource);
+                    // Check if the resource is a pipeline by either the title prop or is showPipelineButton is true.
+                    // if it is a pipeline resource, set pluginPipings here.
+
+                    if(title==='Pipelines'){
+                    const pluginPipings= await resource.getPluginPipings();
+                    console.log(pluginPipings)
+                    setPluginPipings(pluginPipings)                
+                     }
+
                     setIsExpanded(true);
                   }
                 }}
@@ -116,6 +119,9 @@ const DisplayPage = ({
                   <p className="pluginList__description">
                     {resource.data.description}
                   </p>
+                  <p className="pluginList__plugin_tree">
+                    {resource.data.plugin_tree}
+                  </p>
                 </CardBody>
               </Card>
             </GridItem>
@@ -136,16 +142,17 @@ const DisplayPage = ({
         </DrawerActions>
         {selectedResource && (
           <>
-            <Title headingLevel="h2">{selectedResource.data.name}</Title>
+            <Title headingLevel="h2"></Title>
             <p className="pluginList__authors">
-              {selectedResource.data.authors}
+            
             </p>
             <Divider
               style={{
                 paddingTop: "2em",
               }}
             />
-            <p>{selectedResource.data.description}</p>
+            <PluginTree  selectedResource={selectedResource} pluginPipings={pluginPipings} /> 
+             
           </>
         )}
       </DrawerHead>
@@ -170,4 +177,11 @@ const DisplayPage = ({
   );
 };
 
-export default DisplayPage;
+
+
+
+
+
+
+
+
