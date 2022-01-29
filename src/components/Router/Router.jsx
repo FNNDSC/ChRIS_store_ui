@@ -13,6 +13,8 @@ import NotFound from '../NotFound/NotFound';
 import Dashboard from '../Dashboard/Dashboard';
 import DashCollaboratorView from '../Dashboard/components/DashCollaborator/DashCollaboratorView';
 import PipelineCatalog from '../Pipelines/PipelineCatalog';
+import CreatePipeline from '../Pipelines/CreatePipeline';
+import UploadJson from '../Pipelines/UploadJson';
 import ProtectedRoute from './ProtectedRoute';
 
 const Router = () => (
@@ -24,6 +26,8 @@ const Router = () => (
        <Route path="/pipelines" component={PipelineCatalog} />
       
       <ProtectedRoute path="/create" component={CreatePlugin} />
+       <ProtectedRoute path="/createpipeline" component={CreatePipeline} />
+        <Route path="/uploadpipeline" component={UploadJson} />
       <ProtectedRoute path="/dashboard" component={Dashboard} />
       <ProtectedRoute path="/manage/collaborators/:pluginName" component={DashCollaboratorView} />
 
