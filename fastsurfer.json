@@ -1,0 +1,54 @@
+{
+    "name": "fastsurfer_dev",
+    "authors": "gideonpinto123@gmail.com",
+    "description": "test",
+    "category": "mri",
+    "locked": false,
+    "plugin_tree": [
+        {
+            "plugin_name": "pl-simpledsapp",
+            "plugin_version": "2.0.2",
+            "previous_index": null
+        },
+        {
+            "plugin_name": "pl-simpledsapp",
+            "plugin_version": "2.0.2",
+            "previous_index": 0
+        },
+        {
+            "plugin_name": "pl-simpledsapp",
+            "plugin_version": "2.0.2",
+            "previous_index": 0
+        },
+        {
+            "plugin_name": "pl-simpledsapp",
+            "plugin_version": "2.0.2",
+            "previous_index": 2
+        },
+        {
+            "plugin_name": "pl-simpledsapp",
+            "plugin_version": "2.0.2",
+            "previous_index": 2
+        },
+        {
+            "plugin_name": "pl-simpledsapp",
+            "plugin_version": "2.0.2",
+            "previous_index": 4
+        },
+        {
+            "plugin_name": "pl-simpledsapp",
+            "plugin_version": "2.0.2",
+            "previous_index": 5
+        },
+        {
+            "plugin_name": "pl-simpledsapp",
+            "plugin_version": "2.0.2",
+            "previous_index": 6
+        },
+        {
+            "plugin_name": "pl-simpledsapp",
+            "plugin_version": "2.0.2",
+            "previous_index": 5
+        }
+    ]
+}

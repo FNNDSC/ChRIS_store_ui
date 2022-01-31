@@ -1,10 +1,11 @@
 import React, {useState,useEffect } from "react";
 import Client from  '@fnndsc/chrisstoreapi';
-import {DisplayPage} from './DisplayPage.jsx';
+import DisplayPage from './DisplayPage';
 import  UploadJson from "./UploadJson";
 
 const PipelineCatalog = () => {
   const [pipelines, setPipelines] = useState([]);
+  const [fetch, setFetch] = useState(false);
   const [pageState, setPageState] = useState({
     page: 1,
     perPage: 5,
@@ -64,6 +65,16 @@ const PipelineCatalog = () => {
 
     fetchPipelines(perPage, page, search);
   }, [perPage, page, search]);
+  const handleFetch = () => {
+    setFetch(true);
+  };
+  const handleSearch = (search) => {
+    console.log("Search", search);
+    setPageState({
+      ...pageState,
+      search,
+    });
+  };
   return (
     <>
       <DisplayPage
@@ -75,7 +86,7 @@ const PipelineCatalog = () => {
         selectedResource={selectedPipeline}
         setSelectedResource={(pipeline) => {
           setSelectedPipeline(pipeline);
-          
+        
 
 
          
@@ -89,6 +100,9 @@ const PipelineCatalog = () => {
 
         }}
         title="Pipelines"
+        fetch={handleFetch}
+        handlePipelineSearch={handleSearch}
+        search={pageState.search}
       />
       <UploadJson pipelines={pipelines}/>
     </>

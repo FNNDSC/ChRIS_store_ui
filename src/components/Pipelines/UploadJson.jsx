@@ -1,11 +1,11 @@
 import React,{useEffect,useRef}  from "react";
 import { AiOutlineUpload } from "react-icons/ai";
-import { Button } from "@patternfly/react-core";
+import { Button, Alert, } from "@patternfly/react-core";
 import Client from '@fnndsc/chrisstoreapi';
 
 
 
-const UploadJson = ({pipelines}) => {
+const UploadJson = () => {
   const fileOpen = useRef(null);
   const [fileName, setFileName] = React.useState("");
   const [pipelist, setPipelines] = React.useState([]);
@@ -44,7 +44,7 @@ const UploadJson = ({pipelines}) => {
       try {
         if (reader.result) {
           const result = JSON.parse(reader.result);
-	  console.log(result);
+	        console.log(result);
           result.plugin_tree = JSON.stringify(result.plugin_tree);
           setFileName(result.name); 
           console.log(result)
@@ -79,6 +79,7 @@ const UploadJson = ({pipelines}) => {
       } catch (error) {
         console.log("NOT a valid json file", error);
         setError(error)
+        setFileName("");
         
       }
     };

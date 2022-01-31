@@ -18,18 +18,22 @@ import {
   DrawerCloseButton,
   Title,
   Divider,
+  Button,
+  Alert,
+  TextInput,
 } from "@patternfly/react-core";
 import { ImTree } from "react-icons/im";
 import { GrCloudComputer } from "react-icons/gr";
 import { FaCode } from "react-icons/fa";
 import PluginTree from "./PluginTree";
+import UploadJson from "./UploadJson";
 
  
  
  
 
 
-export const DisplayPage = ({
+ const DisplayPage = ({
   resources,
   selectedResource,
   pageState,
@@ -37,6 +41,10 @@ export const DisplayPage = ({
   onSetPage,
   setSelectedResource,
   title,
+   showPipelineButton,
+   fetch,
+   handlePipelineSearch,
+   search,
 }) => {
   const { perPage, page, itemCount } = pageState;
   const [isExpanded, setIsExpanded] = React.useState(false);
@@ -66,6 +74,32 @@ export const DisplayPage = ({
       >
         {title}
       </Title>
+      <div
+        style={{
+          display: "flex",
+        }}
+      >
+
+          <UploadJson  />
+         <TextInput
+           style={{
+             margin: "0.5em 0.5em 0 0",
+           }}
+           value={search}
+           type="text"
+           placeholder="Search"
+           iconVariant="search"
+           aria-label="search"
+           onChange={(value) => {
+          
+               handlePipelineSearch && handlePipelineSearch(value);
+             }
+             
+           }
+         />
+       </div>
+    
+      
       {resources &&
         resources.length > 0 &&
         resources.map((resource) => {
@@ -142,15 +176,16 @@ export const DisplayPage = ({
         </DrawerActions>
         {selectedResource && (
           <>
-            <Title headingLevel="h2"></Title>
+            <Title headingLevel="h2">{selectedResource.data.name}</Title>
             <p className="pluginList__authors">
-            
+              {selectedResource.data.authors}
             </p>
             <Divider
               style={{
                 paddingTop: "2em",
               }}
             />
+            <p>{selectedResource.data.description}</p>
             <PluginTree  selectedResource={selectedResource} pluginPipings={pluginPipings} /> 
              
           </>
@@ -177,7 +212,7 @@ export const DisplayPage = ({
   );
 };
 
-
+export default DisplayPage;
 
 
 
