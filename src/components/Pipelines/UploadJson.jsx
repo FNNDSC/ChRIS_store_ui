@@ -11,6 +11,7 @@ const UploadJson = () => {
   const [pipelist, setPipelines] = React.useState([]);
   const [pipelineInstance,setPipelineInstance] =React.useState("")
   const [error, setError] = React.useState(null);
+  const [warningMessage, setWarningMessage] = React.useState("");
   const [isSucessful,setSucessful] = React.useState(false)
   
   const storeURL = process.env.REACT_APP_STORE_URL;
@@ -66,6 +67,8 @@ const UploadJson = () => {
           console.log("invalid treelist", error);
           setSucessful(false);
           setError(error);
+          setFileName("");
+        
            
           
          }
@@ -93,7 +96,8 @@ const UploadJson = () => {
     readFile(file);
   };
   useEffect(() => {
-}, [initialPipelines]); // Only re-run the effect if count changes
+  console.log('created new pipeline')
+}, [pipelineInstance]); // Only re-run the effect if count changes
 
 // useEffect(() => {
 //     setTimeout(async () => {
@@ -130,13 +134,8 @@ const UploadJson = () => {
               
              
             {error !== null &&
-                <div className="alert alert-danger alert-dismissable">
-            <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-              <span className="pficon pficon-close" />
-            </button>
-            <span className="pficon pficon-error-circle-o" />
-              {error.message} 
-          </div>
+              <Alert variant="danger" isInline title={error.message}/>
+              
                  
               }</>
       )}

@@ -59,12 +59,20 @@ import UploadJson from "./UploadJson";
         : title === "Compute Environments "
         ? "red"
         : "",
-    height: "1.25em",
+    height: "1.5em",
     width: "1.25em",
+    marginRight: "0.5em",
+    marginTop: "0.25em",
   };
 
   const drawerContent = (
     <Grid hasGutter={true}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
       <Title
         style={{
           marginLeft: "1em",
@@ -84,6 +92,7 @@ import UploadJson from "./UploadJson";
          <TextInput
            style={{
              margin: "0.5em 0.5em 0 0",
+
            }}
            value={search}
            type="text"
@@ -98,7 +107,7 @@ import UploadJson from "./UploadJson";
            }
          />
        </div>
-    
+      </div>
       
       {resources &&
         resources.length > 0 &&
@@ -154,7 +163,7 @@ import UploadJson from "./UploadJson";
                     {resource.data.description}
                   </p>
                   <p className="pluginList__plugin_tree">
-                    {resource.data.plugin_tree}
+                   
                   </p>
                 </CardBody>
               </Card>
