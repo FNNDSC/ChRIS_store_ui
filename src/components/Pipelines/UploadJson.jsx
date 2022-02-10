@@ -117,7 +117,7 @@ const UploadJson = () => {
     { isSucessful ? (
           <div style={{ color: "blue", fontWeight:900 }}>
             <h2>Pipeline sucessfully uploaded!</h2>
-          <a href={fileDownloadUrl}>Download</a>
+          <a href={fileDownloadUrl} target="_blank" rel="noreferrer" download>Download</a>
           </div>
         ) : (
       <><div
