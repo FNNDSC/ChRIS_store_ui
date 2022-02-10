@@ -10,9 +10,10 @@ const UploadJson = () => {
   const [fileName, setFileName] = React.useState("");
   const [pipelist, setPipelines] = React.useState([]);
   const [pipelineInstance,setPipelineInstance] =React.useState("")
+  const [fileDownloadUrl, setfileDownloadUrl] = React.useState(null)
   const [error, setError] = React.useState(null);
   const [warningMessage, setWarningMessage] = React.useState("");
-  const [isSucessful,setSucessful] = React.useState(false)
+  const [isSucessful,setSucessful] = React.useState(false);
   
   const storeURL = process.env.REACT_APP_STORE_URL;
   const token = window.sessionStorage.getItem('AUTH_TOKEN');
@@ -61,7 +62,10 @@ const UploadJson = () => {
           setPipelineInstance(newPipeline); 
           setPipelines([...pipelist,newPipeline]);
           console.log(pipelist)
+          const fileUrl = URL.createObjectURL(file);  
+          setfileDownloadUrl(fileUrl);
           setSucessful(true);
+
         
           } catch (error) {
           console.log("invalid treelist", error);
@@ -113,6 +117,7 @@ const UploadJson = () => {
     { isSucessful ? (
           <div style={{ color: "blue", fontWeight:900 }}>
             <h2>Pipeline sucessfully uploaded!</h2>
+          <a href={fileDownloadUrl}>Download</a>
           </div>
         ) : (
       <><div
