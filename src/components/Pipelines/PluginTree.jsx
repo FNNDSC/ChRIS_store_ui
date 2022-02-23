@@ -71,8 +71,7 @@ const PluginTree = ({selectedResource, pluginPipings }) => {
 };
 
    
- const data = typeof(orgChart);
- console.log(orgChart);
+ 
     return (
         // `<Tree />` will fill width/height of its container; in this case `#treeWrapper`.
         <div  style={{ width: '50em', height: '20em' }}>

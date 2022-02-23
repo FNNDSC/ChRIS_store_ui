@@ -4,6 +4,7 @@ import DisplayPage from './DisplayPage';
 import  UploadJson from "./UploadJson";
 import ChrisStore from '../../store/ChrisStore';
 
+
 const PipelineCatalog = (props) => {
   const [pipelines, setPipelines] = useState([]);
   const [fetch, setFetch] = useState(false);
@@ -54,9 +55,9 @@ const PipelineCatalog = (props) => {
       };
       const client = new Client(storeURL);
       const pipelinesList = await client.getPipelines(params);
-      const plugins = pipelinesList.getItems();
-      if (plugins) {
-        setPipelines(plugins);
+      const pipeList = pipelinesList.getItems();
+      if (pipeList) {
+        setPipelines(pipeList);
         setPageState((pageState) => {
           return {
             ...pageState,
@@ -71,6 +72,29 @@ const PipelineCatalog = (props) => {
   const handleFetch = () => {
     setFetch(true);
   };
+  const handleDelete = async(selectedResource) => {
+    let response;
+    // const client = new Client(storeURL,auth);
+    // const pipeline = await client.getPipeline(selectedResource.data.id);
+    // console.log(pipeline)
+    // const deletedPipeline = pipeline.delete( );
+    //  console.log(deletedPipeline)
+    //  return deletedPipeline
+    const client = new Client(storeURL, auth);
+    // eslint-disable-next-line prefer-const
+    response = await client.getPipeline(selectedResource.data.id);
+    console.log(response.delete())
+    response = await response.delete();
+    console.log(response)
+    return  response;
+      
+    
+   
+   
+    
+
+  };
+
   const handleSearch = (search) => {
     console.log("Search", search);
     setPageState({
@@ -78,6 +102,7 @@ const PipelineCatalog = (props) => {
       search,
     });
   };
+  
   return (
     <>
       <DisplayPage
@@ -87,27 +112,21 @@ const PipelineCatalog = (props) => {
         resources={pipelines}
         handleFilterChange={handleFilterChange}
         selectedResource={selectedPipeline}
+        // deletePipeline={deletePipeline}
         setSelectedResource={(pipeline) => {
           setSelectedPipeline(pipeline);
+       
         
 
 
+         }}
          
-          
-         
-          
-          
-          
-
-
-
-        }}
         title="Pipelines"
         fetch={handleFetch}
         handlePipelineSearch={handleSearch}
         search={pageState.search}
+        handleDelete={handleDelete}
       />
-      <UploadJson pipelines={pipelines}  fetch={handleFetch}/>
     </>
     
   );
