@@ -343,7 +343,7 @@ const DisplayPage = ({
               }}
             />   
             <p>{selectedResource.data.description}</p>
-            {/* <PluginTree selectedResource={selectedResource} pluginPipings={pluginPipings} /> */}
+             <PluginTree selectedResource={selectedResource} pluginPipings={pluginPipings} /> }
             <a href={fileURls[selectedResource.data.id]} target="_blank" rel="noreferrer" download>Download</a>
 
           </>
