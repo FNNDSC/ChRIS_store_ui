@@ -5,13 +5,14 @@ import  getPluginTree  from './PipelineTree';
 // Note how deeper levels are defined recursively via the `children` property.
  
 
-const PluginTree = ({selectedResource, pluginPipings }) => {
+const PluginTree = ({selectedResource }) => {
     const [treeData, setTreeData] = useState({
 
 		name: "",
 		children:[],
 
 	  });
+   const [error, setError] = React.useState(null);
 	  
    
     const treedata = async() => { 

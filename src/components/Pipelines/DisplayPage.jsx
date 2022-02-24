@@ -58,6 +58,7 @@ const DisplayPage = ({
   const [error, setError] = React.useState(null);
   // const [warningMessage, setWarningMessage] = React.useState("");
   // const [isSucessful, setSucessful] = React.useState(false);
+  const [deleteError, setDeleteError] = React.useState("");
   const [isExpanded, setIsExpanded] = React.useState(false);
   const [pluginPipings, setPluginPipings] = React.useState([]);
 
@@ -109,20 +110,10 @@ const DisplayPage = ({
             // setSucessful(true);
             // setPipelineInstance(newPipeline);
             // setPipelines([...pipelist, newPipeline]);
-            const pipelinefileUrl = URL.createObjectURL(file);
-            setpipelineDownloadUrl(pipelinefileUrl);
-            // setSucessful(true);
-            // eslint-disable-next-line dot-notation,
-            const testPipeline = { ...newPipeline.data, fileUrl: pipelinefileUrl };
-            
-            
+            fetch && fetch();
+           
             // setfileURls()
-            const map1 = resources.map((resource, index) => resources[index].data);
-            console.log(map1)
-            console.log(resources);
-            const newResourceData = [...map1, testPipeline];
-            console.log(newResourceData);
-            setfileURls(newResourceData);
+           
 
 
 
@@ -269,7 +260,7 @@ const DisplayPage = ({
                     }
 
                     setIsExpanded(true);
-                    console.log(fileURls)
+                    
                   }
                 }}
                 className="pluginList"
@@ -305,7 +296,10 @@ const DisplayPage = ({
         })}
     </Grid>
   );
-
+const handleUpdate = (id) => {
+    fetch && fetch(id);
+  };
+          
   const panelContent = (
     <DrawerPanelContent>
       <DrawerHead>
@@ -323,27 +317,26 @@ const DisplayPage = ({
               {selectedResource.data.authors}
             </p>
             <Button
-              style={{
-                width: "45%",
-              }}
-              onClick={async () => {
-                
-                console.log(fileURls);
-                handleDelete(selectedResource);
-                setIsExpanded(false);
-                fetch && fetch();
-
-              }}
-            >
-              Delete a Pipeline
-            </Button>
+                style={{
+                  width: "45%",
+                }}
+                onClick={async () => {
+                    handleDelete(selectedResource);
+                    setIsExpanded(false);
+                  } 
+                  
+                }
+              >
+                Delete a Pipeline
+              </Button>
+            )}
             <Divider
               style={{
                 paddingTop: "2em",
               }}
             />   
             <p>{selectedResource.data.description}</p>
-             <PluginTree selectedResource={selectedResource} pluginPipings={pluginPipings} /> }
+             <PluginTree selectedResource={selectedResource}  /> }
             <a href={fileURls[selectedResource.data.id]} target="_blank" rel="noreferrer" download>Download</a>
 
           </>

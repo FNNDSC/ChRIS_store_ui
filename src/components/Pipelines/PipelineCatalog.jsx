@@ -8,6 +8,7 @@ import ChrisStore from '../../store/ChrisStore';
 const PipelineCatalog = (props) => {
   const [pipelines, setPipelines] = useState([]);
   const [fetch, setFetch] = useState(false);
+  const [filteredId, setFilteredId] = React.useState();
   const [pageState, setPageState] = useState({
     page: 1,
     perPage: 5,
@@ -53,11 +54,17 @@ const PipelineCatalog = (props) => {
         offset: offset,
         name: search,
       };
-      const client = new Client(storeURL);
+      const client = new Client(storeURL,auth);
       const pipelinesList = await client.getPipelines(params);
-      const pipeList = pipelinesList.getItems();
-      if (pipeList) {
-        setPipelines(pipeList);
+      let pipelines;
+      pipelines=pipelinesList.getItems();
+      if (filteredId && pipelines) {
+       pipelines = pipelines.filter(
+          (pipeline) => pipeline.data.id !== filteredId
+        );
+      }
+      if (pipelines) {
+        setPipelines(pipelines);
         setPageState((pageState) => {
           return {
             ...pageState,
@@ -68,9 +75,10 @@ const PipelineCatalog = (props) => {
     }
 
     fetchPipelines(perPage, page, search);
-  }, [perPage, page, search]);
-  const handleFetch = () => {
-    setFetch(true);
+  }, [perPage, page, search,fetch, filteredId]);
+  const handleFetch = (id) => {
+    id && setFilteredId(id);
+    setFetch(!fetch);
   };
   const handleDelete = async(selectedResource) => {
     let response;
@@ -81,12 +89,25 @@ const PipelineCatalog = (props) => {
     //  console.log(deletedPipeline)
     //  return deletedPipeline
     const client = new Client(storeURL, auth);
+    const offset = perPage * (page - 1);
+    const params = {
+        limit: perPage,
+        offset: offset,
+        name: search,
+      };
+   
+    const pipelinesList = await client.getPipelines(params);
     // eslint-disable-next-line prefer-const
     response = await client.getPipeline(selectedResource.data.id);
-    console.log(response.delete())
+    
     response = await response.delete();
-    console.log(response)
-    return  response;
+    let pipelines;
+      pipelines=pipelinesList.getItems();
+    setPipelines(pipelines.filter((pipeline) => pipeline.data.id!==selectedResource.data.id))
+    setFetch(!fetch);
+    
+    
+    
       
     
    
