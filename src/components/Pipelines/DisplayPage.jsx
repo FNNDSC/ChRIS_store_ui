@@ -28,7 +28,7 @@ import { AiOutlineUpload } from "react-icons/ai";
 import { FaCode } from "react-icons/fa";
 import Client from '@fnndsc/chrisstoreapi';
 import PluginTree from "./PluginTree";
-import UploadJson from "./UploadJson";
+
 
 
 
@@ -316,19 +316,7 @@ const handleUpdate = (id) => {
             <p className="pluginList__authors">
               {selectedResource.data.authors}
             </p>
-            <Button
-                style={{
-                  width: "45%",
-                }}
-                onClick={async () => {
-                    handleDelete(selectedResource);
-                    setIsExpanded(false);
-                  } 
-                  
-                }
-              >
-                Delete a Pipeline
-              </Button>
+            
             )}
             <Divider
               style={{
@@ -337,7 +325,20 @@ const handleUpdate = (id) => {
             />   
             <p>{selectedResource.data.description}</p>
              <PluginTree selectedResource={selectedResource}  /> }
-            <a href={fileURls[selectedResource.data.id]} target="_blank" rel="noreferrer" download>Download</a>
+            {/* <a href={fileURls[selectedResource.data.id]} target="_blank" rel="noreferrer" download>Download</a> */}
+            <Button
+              style={{
+                width: "45%",
+              }}
+              onClick={async () => {
+                handleDelete(selectedResource);
+                setIsExpanded(false);
+              }
+
+              }
+            >
+              Delete a Pipeline
+            </Button>
 
           </>
 
