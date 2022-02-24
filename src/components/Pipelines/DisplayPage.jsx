@@ -183,16 +183,17 @@ const DisplayPage = ({
         >
 
           <>
-            {error !== null &&
-              <Alert variant="danger" isInline title={error.message} />
-
-
-            }
+           
             <div
               style={{
                 margin: "0.35em 0",
               }}
             >
+              {error &&
+                <Alert variant="danger" isInline title={error.message} />
+
+
+              }
               <span style={{ marginRight: "0.5rem", fontWeight: 700 }}>
                 {fileName}
               </span>
