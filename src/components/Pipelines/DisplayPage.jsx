@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import React,{ useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   Pagination,
   Card,
@@ -28,6 +28,7 @@ import { AiOutlineUpload } from "react-icons/ai";
 import { FaCode } from "react-icons/fa";
 import Client from '@fnndsc/chrisstoreapi';
 import PluginTree from "./PluginTree";
+import Downloadjson from "./Downloadjson";
 
 
 
@@ -51,10 +52,9 @@ const DisplayPage = ({
 }) => {
   const { perPage, page, itemCount } = pageState;
   const map1 = resources.map((resource, index) => resources[index].data);
+  console.log(resources);
   const fileOpen = useRef(null);
   const [fileName, setFileName] = React.useState("");
-  const [fileURls, setfileURls] = React.useState(map1);
-  const [pipelineDownloadUrl, setpipelineDownloadUrl] = React.useState(null);
   const [error, setError] = React.useState(null);
   // const [warningMessage, setWarningMessage] = React.useState("");
   // const [isSucessful, setSucessful] = React.useState(false);
@@ -62,11 +62,11 @@ const DisplayPage = ({
   const [isExpanded, setIsExpanded] = React.useState(false);
   const [pluginPipings, setPluginPipings] = React.useState([]);
 
-  console.log(fileURls);
-  
 
 
-  
+
+
+
 
   const iconStyle = {
     fill:
@@ -87,9 +87,7 @@ const DisplayPage = ({
       fileOpen.current.click();
     }
   };
-  const downloadJsonFile = () => {
-    console.log(fileURls);
-    }
+
 
 
   const readFile = (file) => {
@@ -106,19 +104,24 @@ const DisplayPage = ({
             const token = window.sessionStorage.getItem('AUTH_TOKEN');
             const client = new Client(storeURL, { token });
 
-            const newPipeline = await client.createPipeline(result);
-            // setSucessful(true);
-            // setPipelineInstance(newPipeline);
-            // setPipelines([...pipelist, newPipeline]);
+
+            await client.createPipeline(result);
+
             fetch && fetch();
-           
+
             // setfileURls()
-           
+
 
 
 
           } catch (error) {
-            console.log("invalid treelist", error);
+
+
+
+
+
+
+
             setError(error);
 
 
@@ -136,7 +139,6 @@ const DisplayPage = ({
 
         }
       } catch (error) {
-        console.log("NOT a valid json file", error);
         setError(error)
         setFileName("");
 
@@ -146,19 +148,19 @@ const DisplayPage = ({
       reader.readAsText(file);
     }
   };
-    
- 
-  
+
+
+
 
   const handleUpload = (event) => {
     const file = event.target.files && event.target.files[0];
     setError("");
     readFile(file);
   };
-  
-  
-  
-  
+
+
+
+
   const drawerContent = (
     <Grid hasGutter={true}>
       <div
@@ -183,7 +185,7 @@ const DisplayPage = ({
         >
 
           <>
-           
+
             <div
               style={{
                 margin: "0.35em 0",
@@ -244,9 +246,8 @@ const DisplayPage = ({
                 onClick={() => {
                   setSelectedResource(resource);
                   setIsExpanded(true);
-                  console.log(fileURls)
                 }}
-              
+
                 onKeyDown={async (event) => {
                   if ([13, 32].includes(event.keyCode)) {
                     setSelectedResource(resource);
@@ -261,7 +262,7 @@ const DisplayPage = ({
                     }
 
                     setIsExpanded(true);
-                    
+
                   }
                 }}
                 className="pluginList"
@@ -287,9 +288,6 @@ const DisplayPage = ({
                   <p className="pluginList__description">
                     {resource.data.description}
                   </p>
-                  <p className="pluginList__plugin_tree">
-
-                  </p>
                 </CardBody>
               </Card>
             </GridItem>
@@ -297,10 +295,7 @@ const DisplayPage = ({
         })}
     </Grid>
   );
-const handleUpdate = (id) => {
-    fetch && fetch(id);
-  };
-          
+
   const panelContent = (
     <DrawerPanelContent>
       <DrawerHead>
@@ -323,10 +318,15 @@ const handleUpdate = (id) => {
               style={{
                 paddingTop: "2em",
               }}
-            />   
+            />
             <p>{selectedResource.data.description}</p>
-             <PluginTree selectedResource={selectedResource}  /> }
+            <PluginTree selectedResource={selectedResource} /> 
             {/* <a href={fileURls[selectedResource.data.id]} target="_blank" rel="noreferrer" download>Download</a> */}
+
+            <Downloadjson selectedResource={selectedResource} />
+            
+
+
             <Button
               style={{
                 width: "45%",
@@ -340,6 +340,9 @@ const handleUpdate = (id) => {
             >
               Delete a Pipeline
             </Button>
+
+
+
 
           </>
 

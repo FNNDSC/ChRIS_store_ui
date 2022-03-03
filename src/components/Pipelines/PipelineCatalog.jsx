@@ -1,7 +1,6 @@
 import React, {useState,useEffect } from "react";
 import Client from  '@fnndsc/chrisstoreapi';
 import DisplayPage from './DisplayPage';
-import  UploadJson from "./UploadJson";
 import ChrisStore from '../../store/ChrisStore';
 
 
@@ -117,7 +116,6 @@ const PipelineCatalog = (props) => {
   };
 
   const handleSearch = (search) => {
-    console.log("Search", search);
     setPageState({
       ...pageState,
       search,

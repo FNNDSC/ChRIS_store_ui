@@ -15,26 +15,40 @@ const PluginTree = ({selectedResource }) => {
    const [error, setError] = React.useState(null);
 	  
    
-    const treedata = async() => { 
+    const treedata = async() => {
+          console.log(selectedResource);
             try {
                 const res = await selectedResource.getPluginPipings();
+                console.log(res);
                 const tree = getPluginTree(res.data);
-                 setTreeData({
-			  name:tree[0].name,
-			  children:tree[0].children,
-			});
+                const tredata=res.data
+    
+                const pipelinedata = { ...selectedResource.data, plugin_tree: [...tredata]}
+
+               
+                console.log(pipelinedata);
                 
+              const pluginjson = JSON.stringify(pipelinedata,null, 2);
+              console.log(pluginjson);
+                setTreeData({
+                  name:tree[0].name,
+                  children:tree[0].children,
+                });
+                
+              return treeData; 
                 
                
-            } catch (err) {
-                console.log(err);
-               return err;
+            } catch (error) {
+                setError(error);
             }
         }
+   
+   
    useEffect(() => {
-    // Runs once, after mounting
     treedata();
-  }, []);
+    // Runs once, after mounting
+     
+   }, []);
     
    
        
