@@ -19,17 +19,12 @@ const PluginTree = ({selectedResource }) => {
           console.log(selectedResource);
             try {
                 const res = await selectedResource.getPluginPipings();
-                console.log(res);
-                const tree = getPluginTree(res.data);
-                const tredata=res.data
-    
-                const pipelinedata = { ...selectedResource.data, plugin_tree: [...tredata]}
-
-               
-                console.log(pipelinedata);
                 
-              const pluginjson = JSON.stringify(pipelinedata,null, 2);
-              console.log(pluginjson);
+                const tree = getPluginTree(res.data);
+    
+              
+                
+              
                 setTreeData({
                   name:tree[0].name,
                   children:tree[0].children,

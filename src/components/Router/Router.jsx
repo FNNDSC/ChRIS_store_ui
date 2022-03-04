@@ -26,8 +26,6 @@ const Router = () => (
        <Route path="/pipelines" component={PipelineCatalog} />
       
       <ProtectedRoute path="/create" component={CreatePlugin} />
-       <ProtectedRoute path="/createpipeline" component={CreatePipeline} />
-        <Route path="/uploadpipeline" component={UploadJson} />
       <ProtectedRoute path="/dashboard" component={Dashboard} />
       <ProtectedRoute path="/manage/collaborators/:pluginName" component={DashCollaboratorView} />
 

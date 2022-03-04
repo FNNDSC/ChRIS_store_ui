@@ -51,8 +51,6 @@ const DisplayPage = ({
   handleDelete
 }) => {
   const { perPage, page, itemCount } = pageState;
-  const map1 = resources.map((resource, index) => resources[index].data);
-  console.log(resources);
   const fileOpen = useRef(null);
   const [fileName, setFileName] = React.useState("");
   const [error, setError] = React.useState(null);
@@ -257,7 +255,7 @@ const DisplayPage = ({
 
                     if (title === 'Pipelines') {
                       const Pipings = await resource.getPluginPipings();
-                      console.log(Pipings)
+                  
                       setPluginPipings(pluginPipings)
                     }
 
