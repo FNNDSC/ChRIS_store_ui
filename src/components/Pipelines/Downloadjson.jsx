@@ -7,20 +7,24 @@ const Downloadjson = ({ selectedResource }) => {
    const Jsonfile =  async() => {
      const res = (await selectedResource.getPluginPipings()).data;
      const pipelinedata = { ...selectedResource.data, plugin_tree: [...res] };
+     let filename=""
+     filename=pipelinedata.name
+     filename=filename.replaceAll('.', '');
+     setFileName(filename); 
      const pipelineJson = JSON.stringify(pipelinedata, null, 2);
-     const defaultFileType = "json";
      const blob = new Blob([pipelineJson],{
        type:"application/json"
      });             
      const fileDownloadUrl = URL.createObjectURL(blob); 
-     console.log(fileDownloadUrl);
-     setfileDownloadUrl(fileDownloadUrl); // Step 5
+
+     setfileDownloadUrl(fileDownloadUrl);
+     // Step 5
       //  () => {
       //    this.dofileDownload.click();                   // Step 6
       //    URL.revokeObjectURL(fileDownloadUrl);          // Step 7
       //    setState({ fileDownloadUrl: "" })
       //  })
-     console.log(pipelineJson);
+     
     
 
       
@@ -28,28 +32,16 @@ const Downloadjson = ({ selectedResource }) => {
       
   }
    
-  
-    // const tredata=res.data;
-   
-    // let tredata = [];
-    // console.log(res);
-    // tredata = res.
-    
-    
-
-  // const pipelinedata = { ...selectedResource.data, plugin_tree: [...tredata] }
-  //    console.log(pipelinedata);
-  //    const pluginjson = JSON.stringify(pipelinedata, null, 2);
-  //    console.log(pluginjson);
   useEffect(() => {
     Jsonfile();
+      //  })
     // Runs once, after mounting
 
-  }, []);
+  }, [fileName, fileDownloadUrl]);
 
     
   return (
-    <a href={fileDownloadUrl} target="_blank" rel="noreferrer" download>Download</a>
+      <a href={fileDownloadUrl}  target="_blank" rel="noreferrer" download={fileName}>Download</a>
   )
 }
 
