@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import React from "react";
+import React, { useRef } from "react";
 import {
   Pagination,
   Card,
@@ -18,18 +18,25 @@ import {
   DrawerCloseButton,
   Title,
   Divider,
+  Button,
+  Alert,
+  TextInput,
 } from "@patternfly/react-core";
 import { ImTree } from "react-icons/im";
 import { GrCloudComputer } from "react-icons/gr";
+import { AiOutlineUpload } from "react-icons/ai";
 import { FaCode } from "react-icons/fa";
+import Client from '@fnndsc/chrisstoreapi';
 import PluginTree from "./PluginTree";
-
- 
- 
- 
+import Downloadjson from "./Downloadjson";
 
 
-export const DisplayPage = ({
+
+
+
+
+
+const DisplayPage = ({
   resources,
   selectedResource,
   pageState,
@@ -37,35 +44,190 @@ export const DisplayPage = ({
   onSetPage,
   setSelectedResource,
   title,
+  showPipelineButton,
+  fetch,
+  handlePipelineSearch,
+  search,
+  handleDelete
 }) => {
   const { perPage, page, itemCount } = pageState;
+  const fileOpen = useRef(null);
+  const [fileName, setFileName] = React.useState("");
+  const [error, setError] = React.useState(null);
+  // const [warningMessage, setWarningMessage] = React.useState("");
+  // const [isSucessful, setSucessful] = React.useState(false);
+  const [deleteError, setDeleteError] = React.useState("");
   const [isExpanded, setIsExpanded] = React.useState(false);
   const [pluginPipings, setPluginPipings] = React.useState([]);
-  
+
+
+
+
+
+
+
   const iconStyle = {
     fill:
       title === "Plugins"
         ? "#0066CC"
         : title === "Pipelines"
-        ? "#1F0066"
-        : title === "Compute Environments "
-        ? "red"
-        : "",
-    height: "1.25em",
+          ? "#1F0066"
+          : title === "Compute Environments "
+            ? "red"
+            : "",
+    height: "1.5em",
     width: "1.25em",
+    marginRight: "0.5em",
+    marginTop: "0.25em",
   };
+  const showOpenFile = () => {
+    if (fileOpen.current) {
+      fileOpen.current.click();
+    }
+  };
+
+
+
+  const readFile = (file) => {
+    const reader = new FileReader();
+
+    reader.onloadend = async () => {
+      try {
+        if (reader.result) {
+          const result = JSON.parse(reader.result);
+          result.plugin_tree = JSON.stringify(result.plugin_tree);
+          setFileName(result.name);
+          try {
+            const storeURL = process.env.REACT_APP_STORE_URL;
+            const token = window.sessionStorage.getItem('AUTH_TOKEN');
+            const client = new Client(storeURL, { token });
+
+
+            await client.createPipeline(result);
+
+            fetch && fetch();
+
+            // setfileURls()
+
+
+
+
+          } catch (error) {
+
+
+
+
+
+
+
+            setError(error);
+
+
+
+
+
+
+
+          }
+
+
+
+
+
+
+        }
+      } catch (error) {
+        setError(error)
+        setFileName("");
+
+      }
+    };
+    if (file) {
+      reader.readAsText(file);
+    }
+  };
+
+
+
+
+  const handleUpload = (event) => {
+    const file = event.target.files && event.target.files[0];
+    setError("");
+    readFile(file);
+  };
+
+
+
 
   const drawerContent = (
     <Grid hasGutter={true}>
-      <Title
+      <div
         style={{
-          marginLeft: "1em",
-          marginTop: "0.5em",
+          display: "flex",
+          justifyContent: "space-between",
         }}
-        headingLevel="h2"
       >
-        {title}
-      </Title>
+        <Title
+          style={{
+            marginLeft: "1em",
+            marginTop: "0.5em",
+          }}
+          headingLevel="h2"
+        >
+          {title}
+        </Title>
+        <div
+          style={{
+            display: "flex",
+          }}
+        >
+
+          <>
+
+            <div
+              style={{
+                margin: "0.35em 0",
+              }}
+            >
+              {error &&
+                <Alert variant="danger" isInline title={error.message} />
+
+
+              }
+              <span style={{ marginRight: "0.5rem", fontWeight: 700 }}>
+                {fileName}
+              </span>
+              <Button onClick={showOpenFile} icon={<AiOutlineUpload />}>
+                Upload a JSON spec{" "}
+              </Button>
+            </div><input
+              ref={fileOpen}
+              style={{ display: "none" }}
+              type="file"
+              onChange={handleUpload} />
+
+
+          </>
+          <TextInput
+            style={{
+              margin: "0.5em 0.5em 0 0",
+
+            }}
+            value={search}
+            type="text"
+            placeholder="Search"
+            iconVariant="search"
+            aria-label="search"
+            onChange={(value) => {
+
+              handlePipelineSearch && handlePipelineSearch(value);
+            }
+
+            }
+          />
+        </div>
+      </div>
+
       {resources &&
         resources.length > 0 &&
         resources.map((resource) => {
@@ -77,23 +239,28 @@ export const DisplayPage = ({
                   selectedResource &&
                   selectedResource.data.id === resource.data.id
                 }
+
+
                 onClick={() => {
                   setSelectedResource(resource);
                   setIsExpanded(true);
                 }}
-                onKeyDown={async(event) => {
+
+                onKeyDown={async (event) => {
                   if ([13, 32].includes(event.keyCode)) {
                     setSelectedResource(resource);
+
                     // Check if the resource is a pipeline by either the title prop or is showPipelineButton is true.
                     // if it is a pipeline resource, set pluginPipings here.
 
-                    if(title==='Pipelines'){
-                    const pluginPipings= await resource.getPluginPipings();
-                    console.log(pluginPipings)
-                    setPluginPipings(pluginPipings)                
-                     }
+                    if (title === 'Pipelines') {
+                      const Pipings = await resource.getPluginPipings();
+                  
+                      setPluginPipings(pluginPipings)
+                    }
 
                     setIsExpanded(true);
+
                   }
                 }}
                 className="pluginList"
@@ -119,9 +286,6 @@ export const DisplayPage = ({
                   <p className="pluginList__description">
                     {resource.data.description}
                   </p>
-                  <p className="pluginList__plugin_tree">
-                    {resource.data.plugin_tree}
-                  </p>
                 </CardBody>
               </Card>
             </GridItem>
@@ -142,18 +306,44 @@ export const DisplayPage = ({
         </DrawerActions>
         {selectedResource && (
           <>
-            <Title headingLevel="h2"></Title>
+            <Title headingLevel="h2">{selectedResource.data.name}</Title>
             <p className="pluginList__authors">
-            
+              {selectedResource.data.authors}
             </p>
+            
+            )}
             <Divider
               style={{
                 paddingTop: "2em",
               }}
             />
-            <PluginTree  selectedResource={selectedResource} pluginPipings={pluginPipings} /> 
-             
+            <p>{selectedResource.data.description}</p>
+            <PluginTree selectedResource={selectedResource} /> 
+            {/* <a href={fileURls[selectedResource.data.id]} target="_blank" rel="noreferrer" download>Download</a> */}
+
+            <Downloadjson selectedResource={selectedResource} />
+            
+
+
+            <Button
+              style={{
+                width: "45%",
+              }}
+              onClick={async () => {
+                handleDelete(selectedResource);
+                setIsExpanded(false);
+              }
+
+              }
+            >
+              Delete a Pipeline
+            </Button>
+
+
+
+
           </>
+
         )}
       </DrawerHead>
     </DrawerPanelContent>
@@ -177,7 +367,7 @@ export const DisplayPage = ({
   );
 };
 
-
+export default DisplayPage;
 
 
 

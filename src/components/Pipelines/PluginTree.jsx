@@ -5,78 +5,55 @@ import  getPluginTree  from './PipelineTree';
 // Note how deeper levels are defined recursively via the `children` property.
  
 
-const PluginTree = ({selectedResource, pluginPipings }) => {
+const PluginTree = ({selectedResource }) => {
     const [treeData, setTreeData] = useState({
 
 		name: "",
 		children:[],
 
 	  });
+   const [error, setError] = React.useState(null);
+	  
    
-    const treedata = async() => { 
+    const treedata = async() => {
+          console.log(selectedResource);
             try {
                 const res = await selectedResource.getPluginPipings();
-                console.log(res)
+                
                 const tree = getPluginTree(res.data);
-                const treetype = typeof(tree); 
-                console.log(treetype);
-                console.log(tree);
-                 setTreeData({
-			  name:tree[0].name,
-			  children:tree[0].children,
-			});
-                 console.log(treeData);
+    
+              
+                
+              
+                setTreeData({
+                  name:tree[0].name,
+                  children:tree[0].children,
+                });
+                
+              return treeData; 
                 
                
-            } catch (err) {
-                console.log(err);
+            } catch (error) {
+                setError(error);
             }
         }
+   
+   
+   useEffect(() => {
     treedata();
+    // Runs once, after mounting
+     
+   }, []);
+    
+   
        
-  const orgChart = {
-  name: 'CEO',
-  children: [
-    {
-      name: 'Manager',
-      attributes: {
-        department: 'Production',
-      },
-      children: [
-        {
-          name: 'Foreman',
-          attributes: {
-            department: 'Fabrication',
-          },
-          children: [
-            {
-              name: 'Worker',
-            },
-          ],
-        },
-        {
-          name: 'Foreman',
-          attributes: {
-            department: 'Assembly',
-          },
-          children: [
-            {
-              name: 'Worker',
-            },
-          ],
-        },
-      ],
-    },
-  ],
-};
 
    
- const data = typeof(orgChart);
- console.log(orgChart);
+ 
     return (
         // `<Tree />` will fill width/height of its container; in this case `#treeWrapper`.
-        <div id="treeWrapper" style={{ width: '50em', height: '20em' }}>
-            <Tree data={treeData} orientation="vertical"/>
+        <div  style={{ width: '50em', height: '20em' }}>
+            <Tree data={treeData} orientation="vertical" />
         </div>
     );
 };

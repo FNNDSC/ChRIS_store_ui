@@ -141,7 +141,6 @@ class DashCollaboratorView extends Component {
 DashCollaboratorView.propTypes = {
   // eslint-disable-next-line react/no-unused-prop-types
   collaborators: PropTypes.arrayOf(PropTypes.object),
-
 };
 
 DashCollaboratorView.defaultProps = {

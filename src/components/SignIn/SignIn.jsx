@@ -78,7 +78,6 @@ export class SignIn extends Component {
   hideError() {
     this.setState({ error: null });
   }
-  
   render() {
     const {
       error, username, password, loading,
