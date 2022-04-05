@@ -7,6 +7,7 @@ describe('<FormInput />', () => {
     it('renders formInput', () => {
         const Wrapper = shallow(<FormInput />)
         expect(Wrapper)
+        
     });
 });
 
