@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { SignIn } from './SignIn';
 
 // define mock for @fnndsc/chrisstoreapi module
 jest.mock('@fnndsc/chrisstoreapi', () => require.requireActual('../__mocks__/chrisstoreapi').default);
@@ -286,4 +285,6 @@ describe('SignIn', () => {
     instance.hideError();
     expect(wrapper.state('error')).toBeNull();
   });
+
+
 });

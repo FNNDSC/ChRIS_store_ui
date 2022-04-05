@@ -26,12 +26,15 @@ export class SignIn extends Component {
       password: '',
       loading: false,
       error: null,
+      passwordType: "password"
     };
+
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.showError = this.showError.bind(this);
     this.hideError = this.hideError.bind(this);
+    this.togglePasswordType = this.togglePasswordType.bind(this);
   }
 
   componentDidMount() {
@@ -78,6 +81,24 @@ export class SignIn extends Component {
   hideError() {
     this.setState({ error: null });
   }
+
+  togglePasswordType() {
+    if (this.state.passwordType === 'password') {
+      this.setState({ passwordType: "text" });
+    } else {
+      this.setState({ passwordType: "password" });
+    }
+
+    console.log('done')
+  }
+
+
+
+  
+
+
+
+
   render() {
     const {
       error, username, password, loading,
@@ -131,7 +152,9 @@ export class SignIn extends Component {
                   placeholder="Password"
                   fieldName="password"
                   value={password}
-                  inputType="password"
+                  inputType={this.state.passwordType}
+                  onMouseEnter={this.togglePasswordType}
+                  onMouseLeave={this.togglePasswordType}
                   id="password"
                   onChange={(val) => this.handleChange(val, 'password')}
                   autoComplete="current-password"

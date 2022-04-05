@@ -19,6 +19,8 @@ const FormInput = (props) => {
     placeholder,
     className,
     defaultValue,
+    onMouseEnter,
+    onMouseLeave
   } = props;
   return (
     <FormGroup
@@ -50,6 +52,9 @@ const FormInput = (props) => {
           isDisabled={disableControls}
           placeholder={placeholder}
           defaultValue={defaultValue}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+        
         />
       )
     }
