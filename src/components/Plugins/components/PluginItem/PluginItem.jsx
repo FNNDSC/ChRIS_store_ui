@@ -52,7 +52,7 @@ const PluginItem = ({
               {
                 RelativeDate.isValid(modification_date) ?
                   `Updated ${new RelativeDate(modification_date).format()}`
-                : 
+                :
                   `Created ${new RelativeDate(creation_date).format()}`
               }
             </p>
@@ -63,7 +63,7 @@ const PluginItem = ({
   );
 };
 
-Plugin.propTypes = {
+PluginItem.propTypes = {
   title: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
@@ -74,7 +74,7 @@ Plugin.propTypes = {
   onStarClicked: PropTypes.func.isRequired,
 };
 
-Plugin.defaultProps = {
+PluginItem.defaultProps = {
   isLoggedIn: false,
   isFavorite: false,
 };
