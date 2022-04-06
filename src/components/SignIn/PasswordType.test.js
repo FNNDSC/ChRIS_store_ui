@@ -9,6 +9,18 @@ describe('<FormInput />', () => {
         expect(Wrapper)
         
     });
-});
 
+    it('ensures formInput has property of inputType with property passwordType', () => {
+        const wrapper = shallow(<FormInput passwordType="password"/>);
+        expect(wrapper);
+    });
+
+   it('confirms the state changes on mouseEnter', () => {
+       const wrapper  = shallow(<FormInput passwordType="password" />)
+
+       wrapper.simulate('onMouseEnter')
+       expect(wrapper.state('inputType')).toEqual('text');
+   });
+
+});
 
