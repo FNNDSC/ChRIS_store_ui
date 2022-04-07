@@ -65,6 +65,10 @@ $ docker run --rm -it -v $(pwd):/home/localuser -p 3000:3000 -u $(id -u):$(id -g
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+Login credentials: 
+username: .....
+password:....
+
 #### Precommit
 
 Before each commit, a precommit script is run automatically to ensure all tests pass and all JavaScript code follows the [Airbnb style guide][airbnb-style].
