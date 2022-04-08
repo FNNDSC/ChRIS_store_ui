@@ -35,6 +35,7 @@ export class SignIn extends Component {
     this.showError = this.showError.bind(this);
     this.hideError = this.hideError.bind(this);
     this.togglePasswordType = this.togglePasswordType.bind(this);
+    this.togglePasswordType2 = this.togglePasswordType2.bind(this);
   }
 
   componentDidMount() {
@@ -83,13 +84,13 @@ export class SignIn extends Component {
   }
 
   togglePasswordType() {
-    if (this.state.passwordType === 'password') {
       this.setState({ passwordType: "text" });
-    } else {
-      this.setState({ passwordType: "password" });
-    }
+ 
+  }
 
-    console.log('done')
+    togglePasswordType2() {
+      this.setState({ passwordType: "text" });
+
   }
 
 
@@ -154,7 +155,7 @@ export class SignIn extends Component {
                   value={password}
                   inputType={this.state.passwordType}
                   onMouseEnter={this.togglePasswordType}
-                  onMouseLeave={this.togglePasswordType}
+                  onMouseLeave={this.togglePasswordType2}
                   id="password"
                   onChange={(val) => this.handleChange(val, 'password')}
                   autoComplete="current-password"
