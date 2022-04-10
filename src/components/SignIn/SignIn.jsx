@@ -89,7 +89,7 @@ export class SignIn extends Component {
   }
 
     togglePasswordType2() {
-      this.setState({ passwordType: "text" });
+      this.setState({ passwordType: "password" });
 
   }
 
