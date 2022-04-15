@@ -25,8 +25,7 @@ export class SignIn extends Component {
       username: '',
       password: '',
       loading: false,
-      error: null,
-      passwordType: "password"
+      error: null
     };
 
 
@@ -34,8 +33,6 @@ export class SignIn extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.showError = this.showError.bind(this);
     this.hideError = this.hideError.bind(this);
-    this.togglePasswordType = this.togglePasswordType.bind(this);
-    this.togglePasswordType2 = this.togglePasswordType2.bind(this);
   }
 
   componentDidMount() {
@@ -81,16 +78,6 @@ export class SignIn extends Component {
 
   hideError() {
     this.setState({ error: null });
-  }
-
-  togglePasswordType() {
-      this.setState({ passwordType: "text" });
- 
-  }
-
-    togglePasswordType2() {
-      this.setState({ passwordType: "password" });
-
   }
 
 
@@ -153,9 +140,7 @@ export class SignIn extends Component {
                   placeholder="Password"
                   fieldName="password"
                   value={password}
-                  inputType={this.state.passwordType}
-                  onMouseEnter={this.togglePasswordType}
-                  onMouseLeave={this.togglePasswordType2}
+                  inputType="password"
                   id="password"
                   onChange={(val) => this.handleChange(val, 'password')}
                   autoComplete="current-password"

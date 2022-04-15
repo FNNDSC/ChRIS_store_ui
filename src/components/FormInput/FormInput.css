@@ -1,0 +1,21 @@
+.toggle-password-btn {
+    border: 0;
+
+    background: #e7f1fa;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    border-bottom: 1px solid #8a8d90;
+    margin-left: 0;
+}
+ 
+.input-container {
+    display: flex;
+}
+
+.show__password {
+    width: 20px;
+    
+}

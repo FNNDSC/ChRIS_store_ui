@@ -1,5 +1,8 @@
 import { FormGroup, FormHelperText, TextInput } from '@patternfly/react-core';
-import React from 'react';
+import React, { useState } from 'react';
+
+import './FormInput.css';
+import showPassword from '../../assets/img/show_password.png';
 
 const FormInput = (props) => {
   const {
@@ -19,9 +22,18 @@ const FormInput = (props) => {
     placeholder,
     className,
     defaultValue,
-    onMouseEnter,
-    onMouseLeave
   } = props;
+  const [realInputType, setRealInputType] = useState(inputType);
+
+  const togglePasswordToText = () => {
+    setRealInputType(realInputType === "password" ? "text" : "password")
+  }
+
+  const togglePassword = () => {
+    setRealInputType(realInputType === "text" ? "password" : "password")
+  }
+
+
   return (
     <FormGroup
       label={formLabel}
@@ -39,25 +51,33 @@ const FormInput = (props) => {
       helperTextInvalid={error && error.controls.includes(fieldName) ? error.message : null}
     >
       {
-      children || (
-        <TextInput
-          validated={validationState}
-          type={inputType}
-          id={id}
-          name={fieldName}
-          autoComplete="off"
-          value={value}
-          autoFocus={autoFocus}
-          onChange={onChange}
-          isDisabled={disableControls}
-          placeholder={placeholder}
-          defaultValue={defaultValue}
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
-        
-        />
-      )
-    }
+        children || (
+          <div className="input-container">
+            <TextInput
+              validated={validationState}
+              type={realInputType}
+              id={id}
+              name={fieldName}
+              autoComplete="off"
+              value={value}
+              autoFocus={autoFocus}
+              onChange={onChange}
+              isDisabled={disableControls}
+              placeholder={placeholder}
+              defaultValue={defaultValue}
+            />
+            {inputType === "password" ? (
+              <button 
+              type="button" 
+              className="toggle-password-btn" 
+              onMouseEnter={togglePasswordToText}
+              onMouseLeave={togglePassword}>
+                <img src={showPassword} className="show__password" alt="hide-password" />
+              </button>
+            ) : null}
+          </div>
+        )
+      }
 
     </FormGroup>
   );
