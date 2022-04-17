@@ -60,7 +60,7 @@ Open a new terminal and type:
 ```bash
 $ git clone https://github.com/FNNDSC/ChRIS_store_ui.git
 $ cd ChRIS_store_ui
-$ docker run --rm -it -v $(pwd):/home/localuser -p 3000:3000 -u $(id -u):$(id -g) --name chris_store_ui fnndsc/chris_store_ui:dev
+$ docker run --rm -it -v "$(pwd):/home/localuser" -p 3000:3000 -u $(id -u):$(id -g) --name chris_store_ui fnndsc/chris_store_ui:dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
