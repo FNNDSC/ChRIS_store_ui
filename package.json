@@ -42,7 +42,7 @@
     "lint-staged": "^7.2.0",
     "lodash": "^4.17.21",
     "marked": "^4.0.10",
-    "moment": "^2.22.2",
+    "moment": "^2.29.2",
     "prop-types": "^15.6.2",
     "react": "^17.0.2",
     "react-bootstrap": "^0.32.1",
