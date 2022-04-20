@@ -120,7 +120,7 @@ a {
 }
 
 .pf-c-card:hover {
-  background-color: #d3d3d3;
+  --pf-c-card--BoxShadow:  5px 7px 7px rgb(82, 82, 79);
 }
 
 /* ============================== */
