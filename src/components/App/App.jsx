@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ConnectedSignIn from '../SignIn/SignIn';
 import Router from '../Router/Router';
 import ChrisStore from '../../store/ChrisStore';
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import './App.css';
 
 // import the patternfly CSS globally
@@ -18,14 +19,16 @@ import '../../../node_modules/@patternfly/patternfly/patternfly-no-reset.css';
 
 const App = () => (
   <ChrisStore.Container>
-    <div className="App">
-      <BrowserRouter>
-        <Switch>
-          <Route path="/signin" component={ConnectedSignIn} />
-          <Route path="/" component={Router} />
-        </Switch>
-      </BrowserRouter>
-    </div>
+    <ErrorBoundary>
+      <div className="App">
+        <BrowserRouter>
+          <Switch>
+            <Route path="/signin" component={ConnectedSignIn} />
+            <Route path="/" component={Router} />
+          </Switch>
+        </BrowserRouter>
+      </div>
+    </ErrorBoundary>
   </ChrisStore.Container>
 );
 
