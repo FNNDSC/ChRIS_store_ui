@@ -60,10 +60,8 @@ export class SignIn extends Component {
       store.set('authToken')(token);
       this.setState({ loading: false });
 
-      if (location.state && location.state.from)
-        history.replace(location.state.from);
-      else
-        history.push('/dashboard');
+      if (location.state && location.state.from) history.replace(location.state.from);
+      else history.push('/dashboard');
     } catch (error) {
       this.showError('Invalid username or password');
       this.setState({ loading: false });
@@ -78,37 +76,26 @@ export class SignIn extends Component {
   hideError() {
     this.setState({ error: null });
   }
+  
   render() {
-    const {
-      error, username, password, loading,
-    } = this.state;
+    const { error, username, password, loading } = this.state;
 
     return (
       <div className="signin login-pf-page">
         <div className="signin-container">
-          {
-            error && (
-              <div className="signin-error-container">
-                <Alert
-                  className="signin-error"
-                  variant="danger"
-                  title={error}
-                  actionClose={<AlertActionCloseButton onClose={this.hideError} />}
-                />
-              </div>
-            )
-          }
-          <div className="signin-logo-container">
-            <Link
-              className="signin-logo-link"
-              href="/"
-              to="/"
-            >
-              <img
-                className="signin-logo"
-                src={chrisLogo}
-                alt=""
+          {error && (
+            <div className="signin-error-container">
+              <Alert
+                className="signin-error"
+                variant="danger"
+                title={error}
+                actionClose={<AlertActionCloseButton onClose={this.hideError} />}
               />
+            </div>
+          )}
+          <div className="signin-logo-container">
+            <Link className="signin-logo-link" href="/" to="/">
+              <img className="signin-logo" src={chrisLogo} alt="" />
             </Link>
           </div>
           <Card className="signin-card">
@@ -146,21 +133,18 @@ export class SignIn extends Component {
                   Log In
                 </Button>
                 <p className="login-pf-signup">
-                  Need an account? {' '}
+                  Need an account?{' '}
                   <Link to="/quickstart" href="/quickstart">
                     Signup
                   </Link>
-                   <div className="footer-copyright" style={{color:"white"}}>
-      © 2018 - {new Date().getFullYear()} Boston Children&apos;s Hospital, Red
-      Hat, Massachusetts Open Cloud, Boston University. All rights reserved.
-    </div>
                 </p>
-                
               </Form>
-              
             </CardBody>
           </Card>
-         
+          <div className="footer-copyrights" style={{ color: 'white' }}>
+            © 2018 - {new Date().getFullYear()} Boston Children&apos;s Hospital, Red Hat,
+            Massachusetts Open Cloud, Boston University. All rights reserved.
+          </div>
         </div>
       </div>
     );

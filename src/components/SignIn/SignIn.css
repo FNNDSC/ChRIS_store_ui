@@ -60,3 +60,15 @@
     margin: 0 auto;
   }
 }
+
+.footer-copyrights {
+  /* position */
+  position: absolute;
+  bottom: 2em;
+  left: 0;
+  right: 0;
+
+  /* font */
+  text-align: center;
+  font-size: 0.8em;
+}
