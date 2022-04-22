@@ -17,6 +17,7 @@
 #title-actions-container {
     display: flex;
     flex-direction: row-reverse;
+    margin-top: 1em;
 } #title-actions-container > div {
     margin-left: 1em;
 }
