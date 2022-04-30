@@ -369,7 +369,7 @@ export class Plugins extends Component {
     )
 
     const pluginsCount=plugins.totalCount > 0 ? plugins.totalCount : 0;
-    
+    const pluginsLast = Math.min(paginationOffset + paginationLimit, pluginsCount);
 
     return (
       <article>
@@ -411,22 +411,18 @@ export class Plugins extends Component {
                               bottom="1.5em"
                             />
                           </LoadingContainer>
-                        ) : (
+                        ) : ( pluginsCount===0 ?
+                            <span style={{ color: 'gray', fontSize: '1.5em', margin: '1em 0' }}>
+                            <p style={{ fontSize: '1.25em', margin: '0', color: 'black', fontWeight: '600' }}>
+                                No plugins found
+                            </p>
+                          </span>
+                            :
                           <span style={{ color: 'gray', fontSize: '1.5em', margin: '1em 0' }}>
                             <p style={{ fontSize: '1.25em', margin: '0', color: 'black', fontWeight: '600' }}>
                                 {pluginsCount} plugins found
                             </p>
-                            Showing {paginationOffset + 1} to {' '}
-                            {
-                              // eslint-disable-next-line no-nested-ternary
-                              (paginationOffset + paginationLimit > plugins.totalCount) ?
-                                plugins.totalCount
-                                :
-                                (paginationOffset > 0) ?
-                                  paginationOffset
-                                  :
-                                  paginationLimit
-                            }
+                            Showing {paginationOffset + 1} to {pluginsLast}
                           </span>
                         )
                       }
