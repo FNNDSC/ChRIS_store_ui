@@ -1,6 +1,10 @@
 const fs = require("fs");
 const path = require("path");
 
+/**
+ * List of blacklisted classes representing classNames not to convert
+ *
+ */
 const blackListedClasses = [
     "row",
     "cards-pf",
