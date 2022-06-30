@@ -12,11 +12,11 @@ import civetLogo from '../../../../assets/img/plugins/civet_90.png';
 const WelcomeCTA = () => {
   // Object to make fetching from build/external easier later
   const features = [
-    { name: 'Fastsurfer', url: 'https://chrisstore.co/plugin/44', img: freesurferLogo },
-    { name: 'Civet', url: 'https://chrisstore.co/plugin/2', img: civetLogo },
-    { name: 'Infant FreeSurfer', url: 'https://chrisstore.co/plugin/78', img: infantLogo },
-    { name: 'IRTK Reconstruction', url: 'https://chrisstore.co/plugin/85', img: biomediaLogo },
-    { name: 'N4 Bias Field Correction', url: 'https://chrisstore.co/plugin/77', img: antLogo },
+    { name: 'Fastsurfer', url: 'https://chrisstore.co/plugin/pl-fastsurfer_inference_gpu', img: freesurferLogo },
+    { name: 'Civet', url: 'https://chrisstore.co/plugin/pl-civet', img: civetLogo },
+    { name: 'Infant FreeSurfer', url: 'https://chrisstore.co/plugin/pl-infantfs-UNLICENSED', img: infantLogo },
+    { name: 'IRTK Reconstruction', url: 'https://chrisstore.co/plugin/pl-irtk-reconstruction', img: biomediaLogo },
+    { name: 'ANTs N4 Correction', url: 'https://chrisstore.co/plugin/pl-ANTs_N4BiasFieldCorrection', img: antLogo },
   ];
 
   return (
