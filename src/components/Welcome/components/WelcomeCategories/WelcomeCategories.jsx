@@ -12,8 +12,8 @@ const WelcomeCategories = () => {
         <span className="tag">TOOLS</span><br/>
         <h1>Browse our Catalog of <br/> Tools ready to Deploy to ChRIS</h1>
         <p>
-          ChRIS is an democratizing the development and usage of image processing
-          <br/> software with an ecosystem following common standards.
+          ChRIS is democratizing the development and usage of image processing
+          <br/> software with an ecosystem following easy standards.
         </p>
       </div>
       <div className="welcome-categories-container">
