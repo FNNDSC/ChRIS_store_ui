@@ -9,7 +9,7 @@ import {
   GridItem,
   CardFooter,
   Button,
- } from '@patternfly/react-core';
+} from '@patternfly/react-core';
 import Client from '@fnndsc/chrisstoreapi';
 import { PlusCircleIcon } from '@patternfly/react-icons';
 import ChrisStore from '../../../../store/ChrisStore';
@@ -22,12 +22,10 @@ class DashCollaboratorView extends Component {
     this.state = {
       collaborators: [],
       errors: [],
-
     };
     const storeURL = process.env.REACT_APP_STORE_URL;
     const auth = { token: props.store.get('authToken') };
     this.client = new Client(storeURL, auth);
-
   }
 
   async componentDidMount() {
@@ -36,11 +34,11 @@ class DashCollaboratorView extends Component {
     try {
       const pluginMeta = await this.fetchPluginMeta(pluginName);
       const collaboratorList = await this.fetchPluginCollaborators(pluginMeta);
-
-
+      
+    	
     this.setState({
           collaborators:[...collaboratorList]
-
+       
       });
     } catch (error) {
       this.setState((prev) => ({
@@ -55,86 +53,86 @@ class DashCollaboratorView extends Component {
       errors: [...prev.errors, error]
     }));
   }
- // eslint-disable-next-line react/destructuring-assignment
+  // eslint-disable-next-line react/destructuring-assignment
 
-/**
-  * Fetch all versions of a plugin.
-  * @param {PluginMeta} pluginMeta
-  * @returns {Promise<any[]>} Collaborators of the plugin
-  */
+  /**
+    * Fetch all versions of a plugin.
+    * @param {PluginMeta} pluginMeta
+    * @returns {Promise<any[]>} Collaborators of the plugin
+    */
   // eslint-disable-next-line class-methods-use-this
-   async fetchPluginMeta(pluginName) {
+  async fetchPluginMeta(pluginName) {
 
     const metas = await this.client.getPluginMetas({ name_exact: pluginName, limit: 1 });
     return metas.getItems().shift();
 
   }
 
-// eslint-disable-next-line class-methods-use-this
+  // eslint-disable-next-line class-methods-use-this
   async fetchPluginCollaborators(pluginMeta) {
     const collabitems = (await pluginMeta.getCollaborators()).getItems();
-    const collablist= await collabitems.map((collaborator, index) => collabitems[index].data)
-    const collaboratorlist=await collablist.map((collaborator, index) => collabitems[index])
+    const collablist = await collabitems.map((collaborator, index) => collabitems[index].data)
+    const collaboratorlist = await collablist.map((collaborator, index) => collabitems[index])
     return Array.from(collaboratorlist.values())
 
-   ;
+      ;
   }
 
   render() {
 
-    const {collaborators ,errors} = this.state;
+    const { collaborators, errors } = this.state;
 
 
     return (
-    <>
-     {
-      errors.map((error, index) => (
-        <ErrorNotification
-        key={`notif-${error.message}`}
-        title="Error"
-        message={error.message}
-        position='top-right'
-        variant='danger'
-        closeable
-        onClose={() => {
+      <>
+        {
+          errors.map((error, index) => (
+            <ErrorNotification
+              key={`notif-${error.message}`}
+              title="Error"
+              message={error.message}
+              position='top-right'
+              variant='danger'
+              closeable
+              onClose={() => {
                 errors.splice(index)
                 this.setState({ errors })
               }}
             />
           ))
         }
-    <Grid>
-   <GridItem sm={12}>
+        <Grid>
+          <GridItem sm={12}>
 
-          <Card>
-          <CardBody>
-            <h3>Collaborators</h3>
-            <div>
-             {/* FIXME disabled button bc it does nothing */}
-             <Button variant="disabled" className="card-view-add-collaborator">
-                  <PlusCircleIcon type="pf" style={{ margin: '0 1em 0 0' }} />
-                  <span>Add Collaborator</span>
-                </Button>
-            <h4> Use this area, to add and manage collaborators to help you
-             with this plugin.</h4>
+            <Card>
+              <CardBody>
+                <h3>Collaborators</h3>
+                <div>
+                  <Button variant="primary" className="card-view-add-collaborator">
+                    <PlusCircleIcon type="pf" style={{ margin: '0 1em 0 0' }} />
+                    <span>Add Collaborator</span>
+                  </Button>
+                  <h4> Use this area, to add and manage collaborators to help you
+                    with this plugin.</h4>
 
-              </div>
-
+                </div>
 
 
-            <UserTable collaborators={collaborators} />
-            </CardBody>
-            <CardFooter className="card-footer">
 
-            </CardFooter>
+                <UserTable collaborators={collaborators} />
+              </CardBody>
+              <CardFooter className="card-footer">
+
+              </CardFooter>
+
+ 
+
+            </Card>
 
 
-          </Card>
+          </GridItem>
 
-
-        </GridItem>
-
-      </Grid>
+        </Grid>
       </>
 
     );
@@ -143,13 +141,11 @@ class DashCollaboratorView extends Component {
 DashCollaboratorView.propTypes = {
   // eslint-disable-next-line react/no-unused-prop-types
   collaborators: PropTypes.arrayOf(PropTypes.object),
-
 };
 
 DashCollaboratorView.defaultProps = {
   collaborators: []
 };
-
 
 
 export default ChrisStore.withStore(DashCollaboratorView);

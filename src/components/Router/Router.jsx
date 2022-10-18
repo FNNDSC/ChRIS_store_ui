@@ -12,6 +12,7 @@ import CreatePlugin from '../CreatePlugin/CreatePlugin';
 import NotFound from '../NotFound/NotFound';
 import Dashboard from '../Dashboard/Dashboard';
 import DashCollaboratorView from '../Dashboard/components/DashCollaborator/DashCollaboratorView';
+import PipelineCatalog from '../Pipelines/PipelineCatalog';
 import ProtectedRoute from './ProtectedRoute';
 
 const Router = () => (
@@ -20,6 +21,7 @@ const Router = () => (
       <Route path="/plugin/:pluginName" component={PluginMetaDetail} />
       <Route path="/p/:pluginId" component={PluginDetail} />
       <Route path="/plugins" component={PluginsList} />
+       <Route path="/pipelines" component={PipelineCatalog} />
       
       <ProtectedRoute path="/create" component={CreatePlugin} />
       <ProtectedRoute path="/dashboard" component={Dashboard} />
