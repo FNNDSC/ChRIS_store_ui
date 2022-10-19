@@ -46,7 +46,7 @@ const PluginItem = ({
               to={`/author/${authors}`}
               className="plugin-item-author"
             >
-              { authors.join(', ') }
+              { authors.length > 1 ?? authors.join(', ') }
             </Link>
             <p style={{ color: 'gray', fontWeight: '600', fontSize: 'small' }}>
               {
