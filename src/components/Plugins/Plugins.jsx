@@ -9,7 +9,7 @@ import {
   Grid,
   GridItem,
   Split,
-  SplitItem
+  SplitItem,
 } from "@patternfly/react-core";
 import { CaretDownIcon } from '@patternfly/react-icons';
 
@@ -25,6 +25,7 @@ import ErrorNotification from '../Notification';
 import { removeEmail } from '../../utils/common';
 
 import './Plugins.css';
+
 
 const CATEGORIES = ['FreeSurfer', 'MRI', 'Segmentation'];
 
@@ -49,12 +50,14 @@ export class Plugins extends Component {
       isSortOpen: false,
       error: null,
       plugins: new PluginMetaList(),
+      sortedPlugins: null,
       paginationLimit: 0,
       paginationOffset: 0,
       categories,
       selectedCategory: null,
       starsByPlugin: {},
     };
+
   }
 
   /**
@@ -78,6 +81,40 @@ export class Plugins extends Component {
       await this.refreshPluginList();
     }
   }
+
+  /**
+   * Sort plugins by name, creation date or authors.
+   * 
+   */
+handleSortPlugins = (sortType)=> {
+  this.setState({sortedPlugins: null})
+  const { plugins} = this.state;
+
+      const sortedPluginsList = [...plugins.data].sort((a,b) => a[sortType].localeCompare(b[sortType]))
+    this.setState({
+      sortedPlugins: sortedPluginsList
+    })
+}
+
+
+// eslint-disable-next-line react/sort-comp
+// async tester(){
+//     // eslint-disable-next-line no-unused-vars
+//     let test;
+//       try {
+//         test = await this.client.getPlugins({
+//           limit: 1e6,
+//           offset: 0,
+//           name_title_category: null,
+//         });
+//       } catch (error) {
+//         // this.showNotifications(new HttpApiCallError(error));
+//         console.log(error)
+        
+//       }
+//       return  test
+//     }
+
 
   /**
    * Add a star next to the plugin visually.
@@ -117,13 +154,6 @@ export class Plugins extends Component {
     }))
   }
 
-  // eslint-disable-next-line no-unused-vars
-  handleSortingSelect = (sort) => {
-    /**
-     * @todo sort plugins
-     */
-    this.handleToggleSort()
-  }
 
   /**
    * 1. Fetch the list of plugins based on the url path OR search query.
@@ -305,21 +335,36 @@ export class Plugins extends Component {
     }
   }
 
-  render() {
+ render() {
     // convert map into the data structure expected by <PluginsCategories />
-    const { categories, plugins, loading, error } = this.state;
+    const { categories, plugins, sortedPlugins, loading, error } = this.state;
     const { paginationOffset, paginationLimit, isSortOpen, selectedCategory } = this.state;
 
     const categoryEntries = Array.from(categories.entries(), ([name, count]) => ({
       name, length: count
     }));
 
+    const dropdownItems = [
+      <DropdownItem id="name" key="name" onClick={() => this.handleSortPlugins('name')}>Name</DropdownItem>,
+      <DropdownItem id="creation_date" key="creation_date" onClick={() => this.handleSortPlugins('creation_date')}>Date created</DropdownItem>,
+      <DropdownItem id="authors" key="authors" onClick={() => this.handleSortPlugins('authors')}>Author</DropdownItem>
+    ]
+
     const pluginList = new Map()
-    // eslint-disable-next-line no-restricted-syntax
+  
+    if (!sortedPlugins){
+      // eslint-disable-next-line no-restricted-syntax
     for (const plugin of plugins.data) {
       plugin.authors = removeEmail(plugin.authors.split(','))
       pluginList.set(plugin.name, plugin)
     }
+  } else {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const plugin of sortedPlugins) {
+      pluginList.set(plugin.name, plugin)
+    }
+  }
+
 
     // Render the pluginList if the plugins have been fetched
     const PluginListBody = () => {
@@ -370,7 +415,6 @@ export class Plugins extends Component {
 
     const pluginsCount=plugins.totalCount > 0 ? plugins.totalCount : 0;
     
-
     return (
       <article>
         {error && (
@@ -434,18 +478,16 @@ export class Plugins extends Component {
                     <SplitItem isFilled />
                     <SplitItem>
                       <Dropdown
-                        onSelect={this.handleSortingSelect}
+                        onSelect={this.handleToggleSort}
                         isOpen={isSortOpen}
                         toggle={
-                          <DropdownToggle id="toggle-id"
+                          <DropdownToggle id="dropdown-toggle"
                             onToggle={this.handleToggleSort}
                             toggleIndicator={CaretDownIcon}>
-                            Sort by
+                            Sort by:
                           </DropdownToggle>
                         }
-                        dropdownItems={[
-                          <DropdownItem key="name">Name</DropdownItem>
-                        ]}
+                        dropdownItems={dropdownItems}
                       />
                     </SplitItem>
                     <SplitItem>
@@ -453,9 +495,7 @@ export class Plugins extends Component {
                     </SplitItem>
                   </Split>
                 </GridItem>
-
                 <PluginListBody />
-
                 <Split>
                   <SplitItem isFilled />
                   <SplitItem>
