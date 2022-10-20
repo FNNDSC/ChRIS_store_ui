@@ -89,7 +89,6 @@ export class Plugins extends Component {
 handleSortPlugins = (sortType)=> {
   this.setState({sortedPlugins: null})
   const { plugins} = this.state;
-
       const sortedPluginsList = [...plugins.data].sort((a,b) => a[sortType].localeCompare(b[sortType]))
     this.setState({
       sortedPlugins: sortedPluginsList
@@ -144,8 +143,9 @@ handleSortPlugins = (sortType)=> {
    * @param name name of category
    */
   handleCategorySelect = (category) => {
-    this.setState({ loading: true, selectedCategory: category });
+    this.setState({ loading: true, selectedCategory: category === "Uncategorized" ? null || undefined : category});
     this.refreshPluginList({ category })
+    // }
   }
 
   handleToggleSort = () => {
@@ -161,10 +161,16 @@ handleSortPlugins = (sortType)=> {
    * 3. Call setState
    */
   async refreshPluginList(search = {}) {
+    Object.values(search).includes('Uncategorized')
+    
+      // this.setState({ loading: true, selectedCategory: '' });
+      // this.refreshPluginList({ category })
+    
+
     const params = new URLSearchParams(window.location.search)
     const query = params.get('q');
     const { match } = this.props;
-
+ 
     const searchParams = {
       limit: 20,
       offset: 0,
@@ -188,6 +194,7 @@ handleSortPlugins = (sortType)=> {
       searchParams.name_title_category = query;
 
     let plugins;
+
     try {
       plugins = await this.client.getPluginMetas(searchParams);
     } catch (error) {
@@ -243,11 +250,17 @@ handleSortPlugins = (sortType)=> {
     // count the frequency of catplugins which belong to categories
     // eslint-disable-next-line no-restricted-syntax
     for (const { category } of catplugins.data)
-      if (category)
+      if (category) {
         categories.set(
           category,
           categories.has(category) ?
             categories.get(category) + 1 : 1);
+        } else {
+          categories.set(
+            "Uncategorized",
+            categories.has(category) ?
+              categories.get(category) + 1 : 1);
+        }
 
     this.setState({ categories });
   }
