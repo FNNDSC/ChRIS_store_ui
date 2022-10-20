@@ -10,12 +10,10 @@
   min-width: 320px;
 }
 
-.signin-error-container {
-  padding-top: 1em;
-}
-
-.signin-error-container .signin-error {
-  margin-bottom: 0;
+.signin-error-message {
+  padding: 0 0 2rem 2rem;
+  color: red;
+  font-weight: 600;
 }
 
 .signin-logo-container {
