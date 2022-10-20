@@ -17,7 +17,7 @@ const PluginsCategories = ({ categories, selected, onSelect }) => (
             onClick={() => onSelect(name)}
             onKeyPress={() => {}}
           >
-            <div className="plugins-category-name">{name}</div>
+            <div className="plugins-category-name">{name.charAt(0).toUpperCase()}{name.substring(1)}</div>
             <div className="plugins-category-length">{length}</div>
           </div>
         ))
