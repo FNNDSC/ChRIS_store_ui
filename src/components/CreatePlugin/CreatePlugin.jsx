@@ -411,7 +411,7 @@ const CreatePlugin = () => {
                       </div>
                     </FormGroup>
 
-                    <Button id="createplugin-create-btn" variant="primary" onClick={handleSubmit()}>
+                    <Button id="createplugin-create-btn" variant="primary" onClick={() =>handleSubmit}>
                       Create
                     </Button>
                   </Form>
