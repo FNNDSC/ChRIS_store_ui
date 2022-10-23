@@ -143,7 +143,7 @@ handleSortPlugins = (sortType)=> {
    * @param name name of category
    */
   handleCategorySelect = (category) => {
-    this.setState({ loading: true, selectedCategory: category === "Uncategorized" ? null || undefined : category});
+    this.setState({ loading: true, selectedCategory: category });
     this.refreshPluginList({ category })
     // }
   }
@@ -161,12 +161,6 @@ handleSortPlugins = (sortType)=> {
    * 3. Call setState
    */
   async refreshPluginList(search = {}) {
-    Object.values(search).includes('Uncategorized')
-    
-      // this.setState({ loading: true, selectedCategory: '' });
-      // this.refreshPluginList({ category })
-    
-
     const params = new URLSearchParams(window.location.search)
     const query = params.get('q');
     const { match } = this.props;
@@ -250,18 +244,12 @@ handleSortPlugins = (sortType)=> {
     // count the frequency of catplugins which belong to categories
     // eslint-disable-next-line no-restricted-syntax
     for (const { category } of catplugins.data)
-      if (category) {
+      if (category) 
         categories.set(
           category,
           categories.has(category) ?
             categories.get(category) + 1 : 1);
-        } else {
-          categories.set(
-            "Uncategorized",
-            categories.has(category) ?
-              categories.get(category) + 1 : 1);
-        }
-
+        
     this.setState({ categories });
   }
 
