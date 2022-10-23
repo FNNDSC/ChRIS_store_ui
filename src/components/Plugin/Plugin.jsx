@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Badge, Grid, GridItem, Split, SplitItem, Button } from '@patternfly/react-core';
 import { StarIcon } from '@patternfly/react-icons';
 import PropTypes from 'prop-types';
@@ -18,161 +18,153 @@ import './Plugin.css';
 /**
  * View a plugin by plugin ID.
  */
-export class PluginView extends Component {
-  constructor(props) {
-    super(props);
+const PluginView = (props) => {
+const [state, setState] = useState({
+  pluginData: undefined,
+  star: undefined,
+  loading: true,
+  errors: [],
+})
 
-    this.state = {
-      pluginData: undefined,
-      star: undefined,
-      loading: true,
-      errors: [],
-    };
+    const { match, store } = props
+    const { loading, pluginData: plugin, errors, star } = state;
 
     const storeURL = process.env.REACT_APP_STORE_URL;
-    const auth = { token: props.store.get('authToken') };
-    this.client = new Client(storeURL, auth);
-  }
+    const auth = { token: store.get('authToken') };
+    const client = new Client(storeURL, auth);
 
-  /**
-   * Fetch a plugin by ID, from URL params.
-   * Then fetch other plugins which have the same name as versions.
-   * Set stars if user is logged in.
-   */
-  async componentDidMount() {
-    // eslint-disable-next-line react/destructuring-assignment
-    const { pluginId } = this.props.match.params;
-    try {
-      const plugin = await this.fetchPlugin(pluginId);
-      const versions = await this.fetchPluginVersions(plugin.data.name);
-
-      let star;
-      if (this.isLoggedIn())
-        star = await this.fetchIsPluginStarred(plugin.data);
-
-      this.setState({
-        loading: false,
-        pluginData: {
-          ...plugin.data,
-          url: plugin.url,
-          versions
-        },
-        star,
-      });
-    } catch (error) {
-      this.setState((prev) => ({
-        loading: false,
-        errors: [...prev.errors, error]
-      }));
-    }
-  }
-
-  showNotifications = (error) => {
-    this.setState((prev) => ({
+const showNotifications = (error) => {
+    setState((prev) => ({
       errors: [...prev.errors, error]
     }));
   }
 
-  // eslint-disable-next-line react/destructuring-assignment
-  isFavorite = () => this.state.star !== undefined;
+const isFavorite = () => star !== undefined;
 
-  // eslint-disable-next-line react/destructuring-assignment
-  isLoggedIn = () => this.props.store ? this.props.store.get('isLoggedIn') : false;
+const isLoggedIn = () => store ? store.get('isLoggedIn') : false;
 
-  onStarClicked = () => {
-    if (this.isLoggedIn()) {
-      if (this.isFavorite())
-        this.unfavPlugin();
-      else
-        this.favPlugin();
-    }
-    else
-      this.showNotifications(new Error('Login required to favorite this plugin.'))
-  }
-
-  favPlugin = async () => {
-    const { pluginData } = this.state;
-
+const favPlugin = async () => {
+    const { pluginData } = state;
     // Early state change for instant visual feedback
     pluginData.stars += 1;
-    this.setState({ star: {}, pluginData });
+    setState({ star: {}, pluginData });
 
     try {
-      const star = await this.client.createPluginStar({ plugin_name: pluginData.name });
-      this.setState({ star: star.data });
+      const createdStar = await client.createPluginStar({ plugin_name: pluginData.name });
+      setState({ star: createdStar.data });
     } catch (error) {
-      this.showNotifications(new HttpApiCallError(error));
+      showNotifications(new HttpApiCallError(error));
       pluginData.stars -= 1;
-      this.setState({ star: undefined, pluginData });
+      setState({ star: undefined, pluginData });
     }
   }
 
-  unfavPlugin = async () => {
-    const { pluginData, star: previousStarState } = this.state;
+const unfavPlugin = async () => {
+    const { pluginData, star: previousStarState } = state;
 
     // Early state change for instant visual feedback
     pluginData.stars -= 1;
-    this.setState({ star: undefined, pluginData });
+    setState({ star: undefined, pluginData });
 
     try {
       await (
-        await this.client.getPluginStar(previousStarState.id)
+        await client.getPluginStar(previousStarState.id)
       ).delete();
     } catch (error) {
       pluginData.stars += 1;
-      this.setState({ star: previousStarState, pluginData });
-      this.showNotifications(new HttpApiCallError(error));
+      setState({ star: previousStarState, pluginData });
+      showNotifications(new HttpApiCallError(error));
     }
   }
 
-  renderStar = () => {
-    let name;
-    let className;
-
-    if (this.isLoggedIn()) {
-      className = this.isFavorite() ? 'plugin-star-favorite' : 'plugin-star';
-      name = this.isFavorite() ? 'star' : 'star-o';
-    } else {
-      className = 'plugin-star-disabled';
-      name = 'star-o';
+  const onStarClicked = () => {
+    if (isLoggedIn()) {
+      if (isFavorite())
+        unfavPlugin();
+      else
+        favPlugin();
     }
-    return <StarIcon name={name} className={className} onClick={this.onStarClicked} />;
+    else
+      showNotifications(new Error('Login required to favorite this plugin.'))
   }
+
+// const renderStar = () => {
+//     let name;
+//     let className;
+
+//     if (isLoggedIn()) {
+//       className = isFavorite() ? 'plugin-star-favorite' : 'plugin-star';
+//       name = isFavorite() ? 'star' : 'star-o';
+//     } else {
+//       className = 'plugin-star-disabled';
+//       name = 'star-o';
+//     }
+//     return <StarIcon name={name} className={className} onClick={() => onStarClicked()} />;
+//   }
 
   /**
    * Fetch a plugin by ID
    * @param {string} pluginId 
    * @returns {Promise} Plugin
    */
-  async fetchPlugin(pluginId) {
-    // eslint-disable-next-line react/destructuring-assignment
-    return this.client.getPlugin(parseInt(pluginId, 10));
-  }
+const fetchPlugin = async (pluginId) => client.getPlugin(parseInt(pluginId, 10));
 
   /**
    * Fetch all versions of a plugin by name.
    * @param {string} name Plugin name
    * @returns Promise => void
    */
-  async fetchPluginVersions(name) {
-    const versions = await this.client.getPlugins({ limit: 10e6, name_exact: name });
-    const firstplg = await this.client.getPlugin(parseInt(versions.data[0].id, 10));
+const fetchPluginVersions = async (name) => {
+    const versions = await client.getPlugins({ limit: 10e6, name_exact: name });
+    const firstplg = await client.getPlugin(parseInt(versions.data[0].id, 10));
     return [
       { ...versions.data[0], url: firstplg.url },
       ...versions.data.slice(1)
     ]
   }
 
-  async fetchIsPluginStarred({ name }) {
-    const response = await this.client.getPluginStars({ plugin_name: name });
+const fetchIsPluginStarred = async ({ name }) => {
+    const response = await client.getPluginStars({ plugin_name: name });
     if (response.data.length > 0)
       return response.data[0];
     return undefined;
   }
 
-  render() {
-    const { loading, pluginData: plugin, errors } = this.state;
+      /**
+   * Fetch a plugin by ID, from URL params.
+   * Then fetch other plugins which have the same name as versions.
+   * Set stars if user is logged in.
+   */
+useEffect(() => {
+  const { pluginId } = match.params;
+  const fetchData = async() => {
+  try {
+    const fetchedPlugin = await fetchPlugin(pluginId);
+    const versions = await fetchPluginVersions(fetchedPlugin.data.name);
 
+    // eslint-disable-next-line no-shadow
+    let star;
+    if (isLoggedIn())
+      star = await fetchIsPluginStarred(plugin.data);
+
+    setState({
+      loading: false,
+      pluginData: {
+        ...plugin.data,
+        url: plugin.url,
+        versions
+      },
+      star,
+    });
+  } catch (error) {
+    setState((prev) => ({
+      loading: false,
+      errors: [...prev.errors, error]
+    }));
+  }
+}
+fetchData()
+})
     if (!loading && !plugin)
       return <NotFound />
 
@@ -202,12 +194,12 @@ export class PluginView extends Component {
                       <SplitItem isFilled />
                       <SplitItem>
                         {
-                          !this.isFavorite() ?
-                            <Button onClick={this.onStarClicked}>
+                          !isFavorite() ?
+                            <Button onClick={() => onStarClicked()}>
                               Favorite <Badge isRead><StarIcon /> {plugin.stars}</Badge>
                             </Button>
                             :
-                            <Button variant="secondary" onClick={this.onStarClicked}>
+                            <Button variant="secondary" onClick={() => onStarClicked()}>
                               Unfavorite <Badge><StarIcon /> {plugin.stars}</Badge>
                             </Button>
                         }
@@ -256,7 +248,7 @@ export class PluginView extends Component {
               closeable
               onClose={() => {
                 errors.splice(index)
-                this.setState({ errors })
+                setState({ errors })
               }}
             />
           ))
@@ -268,7 +260,7 @@ export class PluginView extends Component {
 
     );
   }
-}
+
 
 Plugin.propTypes = {
   store: PropTypes.objectOf(PropTypes.object),
