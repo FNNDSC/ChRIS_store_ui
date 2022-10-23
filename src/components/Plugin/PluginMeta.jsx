@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Badge, Grid, GridItem, Split, SplitItem, Button } from '@patternfly/react-core';
 import { StarIcon } from '@patternfly/react-icons';
 import PropTypes from 'prop-types';
@@ -22,111 +22,74 @@ import './Plugin.css';
  * Make this view visually different
  * from the plugin view by ID.
  */
-export class PluginMetaView extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
+const PluginMetaView = (props) => {
+    const [state, setState] = useState({
       pluginData: undefined,
       star: undefined,
       loading: true,
       errors: [],
-    };
+    });
+
+    const { match, store } = props
+    const { star, pluginData, loading, pluginData: plugin, errors } = state
 
     const storeURL = process.env.REACT_APP_STORE_URL;
-    const auth = { token: props.store.get('authToken') };
-    this.client = new Client(storeURL, auth);
-  }
+    const auth = { token: store.get('authToken') };
+    const client = new Client(storeURL, auth);
 
-  /**
-   * Fetch a plugin meta by name, from URL params.
-   * Then fetch all versions of that plugin.
-   * Set stars if user is logged in.
-   */
-  async componentDidMount() {
-    // eslint-disable-next-line react/destructuring-assignment
-    const { pluginName } = this.props.match.params;
-    try {
-      const pluginMeta = await this.fetchPluginMeta(pluginName);
-      const versions = await this.fetchPluginVersions(pluginMeta);
-      const collaborators = await this.fetchPluginCollaborators(pluginMeta);
-      let star;
-      if (this.isLoggedIn())
-        star = await this.fetchIsPluginStarred(pluginMeta.data);
-
-      this.setState({
-        loading: false,
-        star,
-        pluginData: {
-          ...pluginMeta.data,
-          versions,
-          collaborators,
-        }
-      });
-    } catch (error) {
-      this.setState((prev) => ({
-        loading: false,
-        errors: [...prev.errors, error]
-      }));
-    }
-  }
-
-  showNotifications = (error) => {
-    this.setState((prev) => ({
+const showNotifications = (error) => {
+    setState((prev) => ({
       errors: [...prev.errors, error]
     }));
   }
 
-  // eslint-disable-next-line react/destructuring-assignment
-  isFavorite = () => this.state.star !== undefined;
+const isFavorite = () => star !== undefined;
 
-  // eslint-disable-next-line react/destructuring-assignment
-  isLoggedIn = () => this.props.store ? this.props.store.get('isLoggedIn') : false;
+const isLoggedIn = () => store ? store.get('isLoggedIn') : false;
 
-  onStarClicked = () => {
-    if (this.isLoggedIn()) {
-      if (this.isFavorite())
-        this.unfavPlugin();
-      else
-        this.favPlugin();
-    }
-    else
-      this.showNotifications(new Error('Login required to favorite this plugin.'))
-  }
 
-  favPlugin = async () => {
-    const { pluginData } = this.state;
-
+const favPlugin = async () => {
     // Early state change for instant visual feedback
     pluginData.stars += 1;
-    this.setState({ star: {}, pluginData });
+    setState({ star: {}, pluginData });
 
     try {
-      const star = await this.client.createPluginStar({ plugin_name: pluginData.name });
-      this.setState({ star: star.data });
+      const createStar = await client.createPluginStar({ plugin_name: pluginData.name });
+      setState({ star: createStar.data });
     } catch (error) {
-      this.showNotifications(new HttpApiCallError(error));
+      showNotifications(new HttpApiCallError(error));
       pluginData.stars -= 1;
-      this.setState({ star: undefined, pluginData });
+      setState({ star: undefined, pluginData });
     }
   }
 
-  unfavPlugin = async () => {
-    const { pluginData, star: previousStarState } = this.state;
+const unfavPlugin = async () => {
+    const { star: previousStarState } = state;
 
     // Early state change for instant visual feedback
     pluginData.stars -= 1;
-    this.setState({ star: undefined, pluginData });
+    setState({ star: undefined, pluginData });
 
     try {
       await (
-        await this.client.getPluginStar(previousStarState.id)
+        await client.getPluginStar(previousStarState.id)
       ).delete();
     } catch (error) {
       pluginData.stars += 1;
-      this.setState({ star: previousStarState, pluginData });
-      this.showNotifications(new HttpApiCallError(error));
+      setState({ star: previousStarState, pluginData });
+      showNotifications(new HttpApiCallError(error));
     }
+  }
+
+  const onStarClicked = () => {
+    if (isLoggedIn()) {
+      if (isFavorite())
+        unfavPlugin();
+      else
+        favPlugin();
+    }
+    else
+      showNotifications(new Error('Login required to favorite this plugin.'))
   }
 
   /**
@@ -134,8 +97,8 @@ export class PluginMetaView extends Component {
    * @param {string} pluginName
    * @returns {Promise<PluginMeta>} PluginMeta
    */
-  async fetchPluginMeta(pluginName) {
-    const metas = await this.client.getPluginMetas({ name_exact: pluginName, limit: 1 });
+const fetchPluginMeta = async (pluginName) => {
+    const metas = await client.getPluginMetas({ name_exact: pluginName, limit: 1 });
     return metas.getItems().shift();
   }
 
@@ -144,8 +107,7 @@ export class PluginMetaView extends Component {
    * @param {PluginMeta} pluginMeta
    * @returns {Promise<any[]>} Versions of the plugin
    */
-  // eslint-disable-next-line class-methods-use-this
-  async fetchPluginVersions(pluginMeta) {
+  const fetchPluginVersions = async (pluginMeta) => {
     const versions = (await pluginMeta.getPlugins()).getItems();
     return versions.map(({ data, url }) => ({ ...data, url }));
   }
@@ -155,22 +117,53 @@ export class PluginMetaView extends Component {
   * @param {PluginMeta} pluginMeta
   * @returns {Promise<any[]>} Collaborators of the plugin
   */
-  // eslint-disable-next-line class-methods-use-this
-  async fetchPluginCollaborators(pluginMeta) {
+  const fetchPluginCollaborators = async (pluginMeta) => {
     const collaborators = (await pluginMeta.getCollaborators()).getItems();
     return collaborators.map((collaborator, index) => collaborators[index].data);
   }
 
 
-  async fetchIsPluginStarred({ name }) {
-    const response = await this.client.getPluginStars({ plugin_name: name });
+const fetchIsPluginStarred = async({ name }) => {
+    const response = await client.getPluginStars({ plugin_name: name });
     if (response.data.length > 0)
       return response.data[0];
     return undefined;
   }
 
-  render() {
-    const { loading, pluginData: plugin, errors } = this.state;
+    /**
+   * Fetch a plugin meta by name, from URL params.
+   * Then fetch all versions of that plugin.
+   * Set stars if user is logged in.
+   */
+useEffect(() => {
+  const fetchData = async () => {
+  const { pluginName } = match.params;
+    try {
+      const pluginMeta = await fetchPluginMeta(pluginName);
+      const versions = await fetchPluginVersions(pluginMeta);
+      const collaborators = await fetchPluginCollaborators(pluginMeta);
+      let fetchedStar;
+      if (isLoggedIn())
+      fetchedStar = await fetchIsPluginStarred(pluginMeta.data);
+
+      setState({
+        loading: false,
+        star: fetchedStar,
+        pluginData: {
+          ...pluginMeta.data,
+          versions,
+          collaborators,
+        }
+      });
+    } catch (error) {
+      setState((prev) => ({
+        loading: false,
+        errors: [...prev.errors, error]
+      }));
+    }
+  }
+  fetchData()
+  })
 
     if (!loading && !plugin)
       return <NotFound />
@@ -201,12 +194,12 @@ export class PluginMetaView extends Component {
                       <SplitItem isFilled />
                       <SplitItem>
                         {
-                          !this.isFavorite() ?
-                            <Button onClick={this.onStarClicked}>
+                          !isFavorite() ?
+                            <Button onClick={() => onStarClicked()}>
                               Favorite <Badge isRead><StarIcon /> {plugin.stars}</Badge>
                             </Button>
                             :
-                            <Button variant="secondary" onClick={this.onStarClicked}>
+                            <Button variant="secondary" onClick={() => onStarClicked()}>
                               Unfavorite <Badge><StarIcon /> {plugin.stars}</Badge>
                             </Button>
                         }
@@ -256,7 +249,7 @@ export class PluginMetaView extends Component {
               closeable
               onClose={() => {
                 errors.splice(index)
-                this.setState({ errors })
+                setState({ errors })
               }}
             />
           ))
@@ -267,7 +260,6 @@ export class PluginMetaView extends Component {
       </>
 
     );
-  }
 }
 
 PluginMeta.propTypes = {
