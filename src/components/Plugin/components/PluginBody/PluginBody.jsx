@@ -118,6 +118,8 @@ const PluginBody = ({ pluginData }) => {
     <>
       { errors.map((message, index) => (
         <ErrorNotification
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
           title={message}
           position="top-right"
           variant="danger"
