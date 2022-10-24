@@ -238,7 +238,7 @@ useEffect(() => {
 
     return (
       <>
-        {
+        { errors &&
           errors.map((error, index) => (
             <ErrorNotification
               key={`notif-${error.message}`}
