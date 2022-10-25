@@ -148,9 +148,13 @@ handleSortPlugins = (sortType)=> {
    * @param name name of category
    */
   handleCategorySelect = (category) => {
-    this.setState({ loading: true, selectedCategory: category });
-    this.refreshPluginList({ category })
-    // }
+    if (category !== null)  {
+      this.refreshPluginList({ category })
+      this.setState({ loading: true, selectedCategory: category });
+    } else {
+      this.refreshPluginList()
+      this.setState({ loading: true, selectedCategory: null });
+    }
   }
 
   handleToggleSort = () => {
