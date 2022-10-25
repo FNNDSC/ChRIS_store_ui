@@ -89,7 +89,12 @@ export class Plugins extends Component {
 handleSortPlugins = (sortType)=> {
   this.setState({sortedPlugins: null})
   const { plugins} = this.state;
-      const sortedPluginsList = [...plugins.data].sort((a,b) => a[sortType].localeCompare(b[sortType]))
+
+    const sortedPluginsList = [...plugins.data].sort((a,b) => {
+      if (typeof a[sortType] !== 'number') return a[sortType].localeCompare(b[sortType]) 
+      return b[sortType] - a[sortType]
+    })
+  
     this.setState({
       sortedPlugins: sortedPluginsList
     })
@@ -348,7 +353,8 @@ handleSortPlugins = (sortType)=> {
     const dropdownItems = [
       <DropdownItem id="name" key="name" onClick={() => this.handleSortPlugins('name')}>Name</DropdownItem>,
       <DropdownItem id="creation_date" key="creation_date" onClick={() => this.handleSortPlugins('creation_date')}>Date created</DropdownItem>,
-      <DropdownItem id="authors" key="authors" onClick={() => this.handleSortPlugins('authors')}>Author</DropdownItem>
+      <DropdownItem id="authors" key="authors" onClick={() => this.handleSortPlugins('authors')}>Author</DropdownItem>,
+      <DropdownItem id="stars" key="stars" onClick={() => this.handleSortPlugins('stars')}>Most Liked</DropdownItem>
     ]
 
     const pluginList = new Map()
