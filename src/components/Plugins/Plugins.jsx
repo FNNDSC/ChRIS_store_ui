@@ -164,7 +164,7 @@ export class Plugins extends Component {
       this.showNotifications(new HttpApiCallError(error));
       return;
     }
-
+  
     // plugin list and category list are available always, even if not logged in
     const nextState = {
       loading: false,
@@ -360,7 +360,8 @@ export class Plugins extends Component {
           onClick={() => {
             this.setState({ loading: true });
             this.refreshPluginList({
-              offset: paginationOffset + paginationLimit
+              // offset: paginationOffset + paginationLimit
+              offset: 45
             })
           }}>
           Next
@@ -416,11 +417,11 @@ export class Plugins extends Component {
                             <p style={{ fontSize: '1.25em', margin: '0', color: 'black', fontWeight: '600' }}>
                                 {pluginsCount} plugins found
                             </p>
-                            Showing {paginationOffset + 1} to {' '}
+                            Showing {plugins.totalCount === -1 ? 0 : paginationOffset + 1} to {' '}
                             {
                               // eslint-disable-next-line no-nested-ternary
                               (paginationOffset + paginationLimit > plugins.totalCount) ?
-                                plugins.totalCount
+                                plugins.totalCount === -1 ? 0 : plugins.totalCount
                                 :
                                 (paginationOffset > 0) ?
                                   paginationOffset
