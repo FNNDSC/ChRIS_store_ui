@@ -9,7 +9,11 @@ import {
   CardTitle,
   Card,
   CardBody,
+  TextInput,
+  InputGroup,
 } from '@patternfly/react-core';
+import EyeSlashIcon from '@patternfly/react-icons/dist/esm/icons/eye-slash-icon';
+import EyeIcon from '@patternfly/react-icons/dist/esm/icons/eye-icon';
 
 import Button from '../Button';
 import './SignIn.css';
@@ -26,12 +30,14 @@ export class SignIn extends Component {
       password: '',
       loading: false,
       error: null,
+      hidePassword: true
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.showError = this.showError.bind(this);
     this.hideError = this.hideError.bind(this);
+    this.togglePassword = this.togglePassword.bind(this)
   }
 
   componentDidMount() {
@@ -78,9 +84,14 @@ export class SignIn extends Component {
   hideError() {
     this.setState({ error: null });
   }
+
+  togglePassword() {
+    this.setState(prevState => ({ hidePassword: !prevState.hidePassword }))
+  }
+
   render() {
     const {
-      error, username, password, loading,
+      error, username, password, loading, hidePassword
     } = this.state;
 
     return (
@@ -127,16 +138,22 @@ export class SignIn extends Component {
                   autoComplete="username"
                   className="signin-username-form-group"
                 />
-                <FormInput
+                <InputGroup>
+                <TextInput
+                  type={hidePassword ? "password" : "text"}
                   placeholder="Password"
-                  fieldName="password"
                   value={password}
-                  inputType="password"
                   id="password"
                   onChange={(val) => this.handleChange(val, 'password')}
                   autoComplete="current-password"
                   className="signin-password-form-group"
                 />
+                <Button 
+                  variant="control"
+                  onClick={this.togglePassword}>
+                  {hidePassword ? <EyeIcon /> : <EyeSlashIcon />}
+                  </Button>
+                </InputGroup>
                 <Button
                   className="signin-login-btn"
                   variant="primary"
