@@ -25,7 +25,7 @@
     "@fnndsc/chrisstoreapi": "^3.0.1",
     "@patternfly/patternfly": "^4.59.1",
     "@patternfly/react-core": "^4.75.2",
-    "@patternfly/react-icons": "^4.7.16",
+    "@patternfly/react-icons": "^4.92.6",
     "@patternfly/react-table": "^4.27.7",
     "classnames": "^2.2.6",
     "core-js": "^2.5.7",
