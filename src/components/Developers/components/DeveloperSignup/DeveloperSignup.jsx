@@ -37,6 +37,7 @@ export class DeveloperSignup extends Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault()
     event.persist();
     const { username, email, password, passwordConfirm } = this.state;
     const { store } = this.props;
