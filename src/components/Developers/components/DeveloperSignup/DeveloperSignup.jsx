@@ -33,12 +33,22 @@ export class DeveloperSignup extends Component {
       email: emailVal,
       password: String(),
       passwordConfirm: String(),
-      hidePassword: true
+      hidePassword: true,
+      disableSubmit: true
     };
   }
 
   handleChange(value, name) {
+    const {password, passwordConfirm, email, username} = this.state
     this.setState({ [name]: value });
+
+    if (password.length >= 8 && passwordConfirm && email && username) {
+      this.setState({disableSubmit: false})
+    }
+
+    if ((password.length < 8) || (passwordConfirm.length <= 8) || (email.length <= 1) || (username.length <= 1)) {
+      this.setState({disableSubmit: true})
+    }
   }
 
   handleSubmit(event) {
@@ -135,7 +145,7 @@ export class DeveloperSignup extends Component {
               controls: ['username'],
             },
           });
-        } else {
+        } else if (_.has(e, 'response.data.email')){
           this.setState({
             loading: false,
             error: {
@@ -184,7 +194,8 @@ export class DeveloperSignup extends Component {
       email,
       password,
       passwordConfirm,
-      hidePassword
+      hidePassword,
+      disableSubmit
     } = this.state;
 
     if (toDashboard) return <Redirect to="/dashboard" />;
@@ -274,7 +285,8 @@ export class DeveloperSignup extends Component {
           {loading ? (
             <Spinner size="md" />
           ) : (
-            <Button variant="primary" type="submit" loading={disableControls}>
+            <Button variant="primary" type="submit" loading={disableControls} isDisabled={disableSubmit}
+            >
               Create Account
             </Button>
           )}
