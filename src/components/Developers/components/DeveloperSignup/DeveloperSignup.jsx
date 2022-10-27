@@ -3,7 +3,9 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { validate } from 'email-validator';
-import { Form, Spinner } from '@patternfly/react-core';
+import { Form, InputGroup, Spinner, TextInput } from '@patternfly/react-core';
+import EyeSlashIcon from '@patternfly/react-icons/dist/esm/icons/eye-slash-icon';
+import EyeIcon from '@patternfly/react-icons/dist/esm/icons/eye-icon';
 
 import './DeveloperSignup.css';
 import StoreClient from '@fnndsc/chrisstoreapi';
@@ -17,6 +19,8 @@ export class DeveloperSignup extends Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.togglePassword = this.togglePassword.bind(this)
+
     const queryParams = new URLSearchParams(window.location.search);
     const emailVal = queryParams.get('email');
     this.state = {
@@ -29,6 +33,7 @@ export class DeveloperSignup extends Component {
       email: emailVal,
       password: String(),
       passwordConfirm: String(),
+      hidePassword: true
     };
   }
 
@@ -73,7 +78,16 @@ export class DeveloperSignup extends Component {
       return this.setState({
         error: {
           message: 'Confirmation is required',
-          controls: ['confirmation'],
+          controls: ['passwordConfirm'],
+        },
+      });
+    }
+
+    if (password.length < 8) {
+      return this.setState({
+        error: {
+          message: 'Password requires at least 8 characters',
+          controls: ['password'],
         },
       });
     }
@@ -82,7 +96,7 @@ export class DeveloperSignup extends Component {
       return this.setState({
         error: {
           message: 'Password and confirmation do not match',
-          controls: ['password', 'confirmation'],
+          controls: ['passwordConfirm'],
         },
       });
     }
@@ -155,6 +169,11 @@ export class DeveloperSignup extends Component {
     );
   }
 
+  togglePassword() {
+    this.setState(prevState => ({ hidePassword: !prevState.hidePassword }))
+  }
+
+
   render() {
     const {
       error,
@@ -165,6 +184,7 @@ export class DeveloperSignup extends Component {
       email,
       password,
       passwordConfirm,
+      hidePassword
     } = this.state;
 
     if (toDashboard) return <Redirect to="/dashboard" />;
@@ -199,32 +219,57 @@ export class DeveloperSignup extends Component {
           disableControls={disableControls}
           error={error}
         />
+       <FormInput
+            formLabel="Password"
+            fieldId="password"
+            fieldName="password"
+            validationState={error.controls.includes('password') ? 'error' : 'default'}
+            disableControls={disableControls}
+            error={error}
+            >
+          <InputGroup>
+            <TextInput
+              placeholder="Enter an 8 character password"
+              type={hidePassword ? "password" : "text"}
+              id="password"
+              inputType="password"
+              value={password}
+              onChange={(val) => this.handleChange(val, 'password')}
+              validated={error.controls.includes('password') ? 'error' : 'default'}
+            />
+            <Button 
+              variant="control"
+              onClick={this.togglePassword}>
+              {hidePassword ? <EyeIcon /> : <EyeSlashIcon />}
+            </Button>
+          </InputGroup>
+        </FormInput>
+
         <FormInput
-          formLabel="Password"
-          fieldId="password"
-          validationState={error.controls.includes('password') ? 'error' : 'default'}
-          placeholder="Enter a password"
-          inputType="password"
-          id="password"
-          fieldName="password"
-          value={password}
-          onChange={(val) => this.handleChange(val, 'password')}
-          disableControls={disableControls}
-          error={error}
-        />
-        <FormInput
-          formLabel="Password Confirmation"
-          fieldId="password-confirm"
-          validationState={error.controls.includes('confirmation') ? 'error' : 'default'}
-          placeholder="Re-type your password"
-          inputType="password"
-          id="password-confirm"
+          formLabel="Confirm Password"
+          fieldId="passwordConfirm"
           fieldName="passwordConfirm"
-          value={passwordConfirm}
-          onChange={(val) => this.handleChange(val, 'passwordConfirm')}
+          validationState={error.controls.includes('passwordConfirm') ? 'error' : 'default'}
           disableControls={disableControls}
           error={error}
-        />
+          >
+          <InputGroup>
+            <TextInput
+              placeholder="Re-type your password"
+              type={hidePassword ? "password" : "text"}
+              id="passwordConfirm"
+              value={passwordConfirm}
+              onChange={(val) => this.handleChange(val, 'passwordConfirm')}
+              validated={error.controls.includes('passwordConfirm') ? 'error' : 'default'}
+              />
+            <Button 
+              variant="control"
+              onClick={this.togglePassword}>
+              {hidePassword ? <EyeIcon /> : <EyeSlashIcon />}
+            </Button>
+          </InputGroup>
+        </FormInput>
+
         <div style={{ padding: '1em 0' }}>
           {loading ? (
             <Spinner size="md" />
