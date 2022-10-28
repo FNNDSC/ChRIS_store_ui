@@ -360,8 +360,7 @@ export class Plugins extends Component {
           onClick={() => {
             this.setState({ loading: true });
             this.refreshPluginList({
-              // offset: paginationOffset + paginationLimit
-              offset: 45
+              offset: paginationOffset + paginationLimit
             })
           }}>
           Next
@@ -418,16 +417,7 @@ export class Plugins extends Component {
                                 {pluginsCount} plugins found
                             </p>
                             Showing {plugins.totalCount === -1 ? 0 : paginationOffset + 1} to {' '}
-                            {
-                              // eslint-disable-next-line no-nested-ternary
-                              (paginationOffset + paginationLimit > plugins.totalCount) ?
-                                plugins.totalCount === -1 ? 0 : plugins.totalCount
-                                :
-                                (paginationOffset > 0) ?
-                                  paginationOffset
-                                  :
-                                  paginationLimit
-                            }
+                            {paginationLimit + paginationOffset >= pluginsCount ? pluginsCount : paginationLimit + paginationOffset}
                           </span>
                         )
                       }
