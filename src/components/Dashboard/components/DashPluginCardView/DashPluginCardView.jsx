@@ -150,15 +150,30 @@ class DashPluginCardView extends Component {
                 <Dropdown
                   className="card-view-kebob"
                   onSelect={(event) => this.onSelect(event, plugin)}
-                  toggle={<KebabToggle onToggle={(value) => this.toggleEditMenu(value, index)} id={`kebab-${plugin.id}`}/>}
+                  toggle={
+                    <KebabToggle
+                      onToggle={(value) => this.toggleEditMenu(value, index)}
+                      id={`kebab-${plugin.id}`}
+                    />
+                  }
                   isOpen={isOpen[index]}
+                  position={window.innerWidth <= 720 ? 'right' : 'left'}
                   isPlain
                   dropdownItems={[
-                    <DropdownItem key={`edit-${plugin.id}`} id={`edit-${plugin.name}`}>Edit</DropdownItem>,
-                    <DropdownItem key={`delete-${plugin.id}`} id={`delete-${plugin.name}`}>Delete</DropdownItem>,
-                   <DropdownItem key={`/manage/collaborators/${plugin.name}`} component={<Link to={`/manage/collaborators/${plugin.name}`}>Manage Collaborators</Link>} />
-                    
-                    
+                    <DropdownItem key={`edit-${plugin.id}`} id={`edit-${plugin.name}`}>
+                      Edit
+                    </DropdownItem>,
+                    <DropdownItem key={`delete-${plugin.id}`} id={`delete-${plugin.name}`}>
+                      Delete
+                    </DropdownItem>,
+                    <DropdownItem
+                      key={`/manage/collaborators/${plugin.name}`}
+                      component={
+                        <Link to={`/manage/collaborators/${plugin.name}`}>
+                          Manage Collaborators
+                        </Link>
+                      }
+                    />,
                   ]}
                 />
               </CardActions>
@@ -169,7 +184,7 @@ class DashPluginCardView extends Component {
                 <p>{creationDate.isValid() && `Created ${creationDate.format()}`}</p>
                 <p>{`${plugin.license} license`}</p>
               </div>
-              
+
               <div className="card-view-app-type">{applicationType}</div>
             </CardBody>
           </Card>
