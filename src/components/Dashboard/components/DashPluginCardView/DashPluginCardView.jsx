@@ -1,27 +1,27 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import isEmpty from "lodash/isEmpty";
-import { 
-  Card, 
-  CardHeader, 
-  CardTitle, 
-  CardBody, 
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import isEmpty from 'lodash/isEmpty';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardBody,
   CardActions,
-  DropdownItem, 
-  Dropdown, 
+  DropdownItem,
+  Dropdown,
   KebabToggle,
-  Grid, 
-  GridItem, 
-  Form, 
-  Modal 
-} from "@patternfly/react-core";
-import Button from "../../../Button";
-import "./DashPluginCardView.css";
-import BrainImg from "../../../../assets/img/empty-brain-xs.png";
-import PluginPointer from "../../../../assets/img/brainy_welcome-pointer.png";
-import RelativeDate from "../../../RelativeDate/RelativeDate";
-import FormInput from "../../../FormInput";
+  Grid,
+  GridItem,
+  Form,
+  Modal,
+} from '@patternfly/react-core';
+import Button from '../../../Button';
+import './DashPluginCardView.css';
+import BrainImg from '../../../../assets/img/empty-brain-xs.png';
+import PluginPointer from '../../../../assets/img/brainy_welcome-pointer.png';
+import RelativeDate from '../../../RelativeDate/RelativeDate';
+import FormInput from '../../../FormInput';
 
 const DashGitHubEmptyState = () => (
   <Card>
@@ -33,8 +33,8 @@ const DashGitHubEmptyState = () => (
         </div>
         <div className="card-body-content-child-right">
           <p>
-            Create a new listing for your plugin in the ChRIS store by
-            clicking &#34;Add Plugin&#34; below.
+            Create a new listing for your plugin in the ChRIS store by clicking &#34;Add Plugin&#34;
+            below.
           </p>
           <Button variant="primary" toRoute="/create">
             Add Plugin
@@ -45,97 +45,86 @@ const DashGitHubEmptyState = () => (
   </Card>
 );
 
-const DashApplicationType = type => {
-  if (type === "ds") {
+const DashApplicationType = (type) => {
+  if (type === 'ds') {
     return (
       <>
-        <span className="fa fa-database" /> {" "}
-        <span style={{ fontWeight: 'bold' }}>Data System</span>
+        <span className="fa fa-database" /> <span style={{ fontWeight: 'bold' }}>Data System</span>
       </>
     );
   }
   return (
     <>
-      <span className="fa fa-file" /> {" "}
-      <span style={{ fontWeight: 'bold' }}>File System</span>
+      <span className="fa fa-file" /> <span style={{ fontWeight: 'bold' }}>File System</span>
     </>
   );
 };
 
-class DashPluginCardView extends Component {
-  constructor(props) {
-    super(props);
+const DashPluginCardView = (props) => {
 
-    this.state = {
+ const [state, setState] = useState({
       showDeleteConfirmation: false,
       showEditConfirmation: false,
       pluginToDelete: null,
       pluginToEdit: null,
       publicRepo: "",
       isOpen: [],
-    };
-  }
-  
-  editPlugin = () => {
-    const { onEdit } = this.props;
-    const { pluginToEdit, publicRepo } = this.state;
+  });
+
+  const editPlugin = () => {
+    const { onEdit } = props;
+    const { pluginToEdit, publicRepo } = state;
     onEdit(pluginToEdit.id, publicRepo);
-    this.setState({ showEditConfirmation: false });
+    setState({ showEditConfirmation: false });
   }
-  
-  deletePlugin = () => {
-    const { onDelete } = this.props;
-    const { pluginToDelete } = this.state;
+
+    const deletePlugin = () => {
+    const { onDelete } = props;
+    const { pluginToDelete } = state;
     onDelete(pluginToDelete.id);
-    this.setState({ showDeleteConfirmation: false });
+    setState({ showDeleteConfirmation: false });
   }
   
-  showDeleteModal = (plugin) => {
-    this.setState({
+
+  const showDeleteModal = (plugin) => {
+    setState({
       showDeleteConfirmation: true,
       pluginToDelete: plugin
     });
   }
 
-  showEditModal = (plugin) => {
-    this.setState({
+   const showEditModal = (plugin) => {
+    setState({
       showEditConfirmation: true,
       pluginToEdit: plugin
     });
   }
-  
-  handlePublicRepo = (value) => {
-    this.setState({ publicRepo: value });
+
+   const handlePublicRepo = (value) => {
+    setState({ publicRepo: value });
   }
 
-  toggleEditMenu = (value, cardidx) => {
-    const { plugins } = this.props;
+ const toggleEditMenu = (value, cardidx) => {
+    const { plugins } = props;
     const isOpen = new Array(plugins.length);
     isOpen[cardidx] = value;
-    this.setState({ isOpen });
-  }
-  
-  onSelect = (event, plugin) => {
-    const actionType = event.target.innerText;
-    if (actionType.includes('Edit')) {
-      this.showEditModal(plugin);
-    } else if (actionType.includes('Delete')) {
-      this.showDeleteModal(plugin);
-    }
+    setState({ isOpen });
   }
 
-  render() {
-    const { plugins } = this.props;
-    const {
-      pluginToDelete,
-      pluginToEdit,
-      showDeleteConfirmation,
-      showEditConfirmation,
-      isOpen,
-    } = this.state;
-    
+  const onSelect = (event, plugin) => {
+    const actionType = event.target.innerText;
+    if (actionType.includes('Edit')) {
+      showEditModal(plugin);
+    } else if (actionType.includes('Delete')) {
+      showDeleteModal(plugin);
+    }
+  }
+    const { plugins } = props;
+    const { pluginToDelete, pluginToEdit, showDeleteConfirmation, showEditConfirmation, isOpen } =
+      state;
+
     const showEmptyState = isEmpty(plugins);
-      
+
     const pluginCardBody = plugins.map((plugin, index) => {
       const creationDate = new RelativeDate(plugin.creation_date);
       const applicationType = DashApplicationType(plugin.type);
@@ -149,16 +138,30 @@ class DashPluginCardView extends Component {
               <CardActions>
                 <Dropdown
                   className="card-view-kebob"
-                  onSelect={(event) => this.onSelect(event, plugin)}
-                  toggle={<KebabToggle onToggle={(value) => this.toggleEditMenu(value, index)} id={`kebab-${plugin.id}`}/>}
+                  onSelect={(event) => onSelect(event, plugin)}
+                  toggle={
+                    <KebabToggle
+                      onToggle={(value) => toggleEditMenu(value, index)}
+                      id={`kebab-${plugin.id}`}
+                    />
+                  }
                   isOpen={isOpen[index]}
                   isPlain
                   dropdownItems={[
-                    <DropdownItem key={`edit-${plugin.id}`} id={`edit-${plugin.name}`}>Edit</DropdownItem>,
-                    <DropdownItem key={`delete-${plugin.id}`} id={`delete-${plugin.name}`}>Delete</DropdownItem>,
-                   <DropdownItem key={`/manage/collaborators/${plugin.name}`} component={<Link to={`/manage/collaborators/${plugin.name}`}>Manage Collaborators</Link>} />
-                    
-                    
+                    <DropdownItem key={`edit-${plugin.id}`} id={`edit-${plugin.name}`}>
+                      Edit
+                    </DropdownItem>,
+                    <DropdownItem key={`delete-${plugin.id}`} id={`delete-${plugin.name}`}>
+                      Delete
+                    </DropdownItem>,
+                    <DropdownItem
+                      key={`/manage/collaborators/${plugin.name}`}
+                      component={
+                        <Link to={`/manage/collaborators/${plugin.name}`}>
+                          Manage Collaborators
+                        </Link>
+                      }
+                    />,
                   ]}
                 />
               </CardActions>
@@ -169,13 +172,13 @@ class DashPluginCardView extends Component {
                 <p>{creationDate.isValid() && `Created ${creationDate.format()}`}</p>
                 <p>{`${plugin.license} license`}</p>
               </div>
-              
+
               <div className="card-view-app-type">{applicationType}</div>
             </CardBody>
           </Card>
         </GridItem>
       );
-    })
+    });
 
     const secondaryEditContent = pluginToEdit ? (
       <Grid sm={12} md={12} x12={12} lg={12} className="edit-grid">
@@ -185,7 +188,7 @@ class DashPluginCardView extends Component {
               formLabel="Public Repo"
               inputType="text"
               defaultValue={pluginToEdit.public_repo}
-              onChange={(value) => this.handlePublicRepo(value)}
+              onChange={(value) => handlePublicRepo(value)}
               fieldName="publicRepo"
               helperText="Enter the public repo URL for your plugin"
             />
@@ -195,20 +198,19 @@ class DashPluginCardView extends Component {
     ) : null;
 
     const closeEditModal = () => {
-      this.setState({ showEditConfirmation: false, pluginToEdit: null })
-    }
+      setState({ showEditConfirmation: false, pluginToEdit: null });
+    };
 
     const secondaryDeleteContent = (
       <p>
-        Plugin <b>{pluginToDelete ? pluginToDelete.name : null}</b> will be
-        permanently deleted
+        Plugin <b>{pluginToDelete ? pluginToDelete.name : null}</b> will be permanently deleted
       </p>
     );
 
     const closeDeleteModal = () => {
-      this.setState({ showDeleteConfirmation: false, pluginToDelete: null })
-    }
-    
+      setState({ showDeleteConfirmation: false, pluginToDelete: null });
+    };
+
     const addNewPlugin = (
       <GridItem sm={12} key="addNewPlugin">
         <Card>
@@ -226,7 +228,7 @@ class DashPluginCardView extends Component {
         </Card>
       </GridItem>
     );
-    
+
     return showEmptyState ? (
       <DashGitHubEmptyState />
     ) : (
@@ -237,35 +239,37 @@ class DashPluginCardView extends Component {
             {addNewPlugin}
           </Grid>
 
-          <Modal title="Edit Plugin Details"
+          <Modal
+            title="Edit Plugin Details"
             aria-label="edit-confirmation-dialog"
             isOpen={showEditConfirmation}
             onClose={closeEditModal}
             description=""
             actions={[
-              <Button key="confirm" variant="primary" onClick={this.editPlugin}>
+              <Button key="confirm" variant="primary" onClick={editPlugin}>
                 Confirm
               </Button>,
               <Button key="cancel" variant="link" onClick={closeEditModal}>
                 Cancel
-              </Button>
+              </Button>,
             ]}
           >
             {secondaryEditContent}
           </Modal>
 
-          <Modal title="Delete Plugin"
+          <Modal
+            title="Delete Plugin"
             aria-label="delete-confirmation-dialog"
             isOpen={showDeleteConfirmation}
             onClose={closeDeleteModal}
             description=""
             actions={[
-              <Button key="confirm" variant="primary" onClick={this.deletePlugin}>
+              <Button key="confirm" variant="primary" onClick={deletePlugin}>
                 Delete
               </Button>,
               <Button key="cancel" variant="link" onClick={closeDeleteModal}>
                 Cancel
-              </Button>
+              </Button>,
             ]}
           >
             {secondaryDeleteContent}
@@ -274,16 +278,16 @@ class DashPluginCardView extends Component {
       </>
     );
   }
-}
+
 
 DashPluginCardView.propTypes = {
   plugins: PropTypes.arrayOf(PropTypes.object),
   onDelete: PropTypes.func.isRequired,
-  onEdit: PropTypes.func.isRequired
+  onEdit: PropTypes.func.isRequired,
 };
 
 DashPluginCardView.defaultProps = {
-  plugins: []
+  plugins: [],
 };
 
 export default DashPluginCardView;
