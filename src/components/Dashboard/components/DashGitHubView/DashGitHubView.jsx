@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
-import {
-  List, Card, CardTitle, CardBody,
-} from '@patternfly/react-core';
+import { List, Card, CardTitle, CardBody } from '@patternfly/react-core';
 
 import './DashGitHubView.css';
 import BrainyPointer from '../../../../assets/img/brainy-pointer.png';
@@ -15,31 +13,21 @@ const DashGitHubEmptyState = () => (
   </div>
 );
 
-class DashGitHubView extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
+const DashGitHubView = (props) => {
+  const [state, setState] = useState('');
 
-  render() {
-    const { plugins } = this.props;
-    const showEmptyState = isEmpty(plugins);
+  const { plugins } = props;
+  const showEmptyState = isEmpty(plugins);
 
-    return (
-      <Card>
-        <CardTitle>
-          Revisions
-        </CardTitle>
-        <CardBody className="github-card-body">
-          { showEmptyState
-            ? <DashGitHubEmptyState />
-            : <List className="github-description" />}
-        </CardBody>
-      </Card>
-    );
-  }
-}
+  return (
+    <Card>
+      <CardTitle>Revisions</CardTitle>
+      <CardBody className="github-card-body">
+        {showEmptyState ? <DashGitHubEmptyState /> : <List className="github-description" />}
+      </CardBody>
+    </Card>
+  );
+};
 
 DashGitHubView.propTypes = {
   plugins: PropTypes.arrayOf(PropTypes.object),
