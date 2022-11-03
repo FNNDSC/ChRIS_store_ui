@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Table,
@@ -7,7 +7,6 @@ import {
   sortable,
   SortByDirection,
   headerCol,
-  info,
 } from '@patternfly/react-table';
 import {
   CardTitle,
@@ -23,64 +22,62 @@ import {
 import { PlusCircleIcon } from '@patternfly/react-icons';
 import BrainyTeammatesPointer from '../../../../assets/img/brainy_teammates-pointer.png';
 import './DashTeamView.css';
+import isEmpty from 'lodash/isEmpty';
 
 const DashTeamEmptyState = () => (
   <div className="card-body-content-parent">
-    <p>
-      In this area, you will be able to add and manage teammates to help you
-      with each plugin.
-    </p>
+    <p>In this area, you will be able to add and manage teammates to help you with each plugin.</p>
     <img style={{ marginLeft: '2em' }} src={BrainyTeammatesPointer} alt="Click Add Plugin" />
   </div>
 );
 
-class DashTeamView extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      rows: [],
-      columns: [
-        {
-          title: 'Username',
-          property: 'username',
-          transforms: [sortable, headerCol()],
-        },
-        {
-          title: 'Role',
-          property: 'role',
-          transforms: [sortable],
-        },
-      ],
-      sortBy: {},
-    };
+const DashTeamView = (props) => {
+ 
+     const [state, setState] = useState({
+    rows: [],
+    columns: [
+      {
+        title: 'Username',
+        property: 'username',
+        transforms: [sortable, headerCol()],
+      },
+      {
+        title: 'Role',
+        property: 'role',
+        transforms: [sortable],
+      },
+    ],
+    sortBy: {},
+  });
 
-    this.state.rows = props.collaborators.map((collaborator,index) => {
+     state.rows = collaborators.map((collaborator) => {
       const row = [];
-      const { columns } = this.state;
-      row.push(...columns.map(({property  }) => collaborator.data[property])); 
+      const { columns } = state;
+      row.push(...columns.map(({ property }) => collaborator.data[property]));
       return row;
     });
 
-    this.onSort = this.onSort.bind(this);
-  }
 
-  onSort(_event, index, direction) {
-    this.setState((prevState) => {
+
+ const onSort = (_event, index, direction) => {
+    setState((prevState) => {
+       const sortedRows = prevState.rows.sort((a, b) =>
       // eslint-disable-next-line no-nested-ternary
-      const sortedRows = prevState.rows.sort((a, b) => (a[index] < b[index] ? -1 : a[index] > b[index] ? 1 : 0));
+        a[index] < b[index] ? -1 : a[index] > b[index] ? 1 : 0
+      );
       return {
         sortBy: {
           index,
           direction,
         },
         rows: direction === SortByDirection.asc ? sortedRows : sortedRows.reverse(),
-      }
+      };
     });
   }
 
-  render() {
-    const { collaborators } = this.props;
-    const { rows, columns, sortBy } = this.state;
+
+    const { collaborators } = props;
+    const { rows, columns, sortBy } = state;
     const showEmptyState = isEmpty(collaborators);
 
     return (
@@ -96,7 +93,7 @@ class DashTeamView extends Component {
                   <Table
                     aria-label="Sortable Table"
                     sortBy={sortBy}
-                    onSort={this.onSort}
+                    onSort={onSort}
                     cells={columns}
                     rows={rows}
                     actions={([
@@ -129,17 +126,14 @@ class DashTeamView extends Component {
               )}
             </CardBody>
             {!showEmptyState && (
-            <CardFooter
-              className="card-footer"
-            >
-              <CardActions>
-                <Button variant="secondary">
-                  <PlusCircleIcon type="pf" style={{ margin: '0 1em 0 0' }} />
-                  <span>Add Teammate</span>
-                </Button>
-              </CardActions>
-
-            </CardFooter>
+              <CardFooter className="card-footer">
+                <CardActions>
+                  <Button variant="secondary">
+                    <PlusCircleIcon type="pf" style={{ margin: '0 1em 0 0' }} />
+                    <span>Add Teammate</span>
+                  </Button>
+                </CardActions>
+              </CardFooter>
             )}
           </Card>
         </GridItem>
