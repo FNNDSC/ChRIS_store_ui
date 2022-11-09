@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import './button.css';
 
-const ButtonComponent = ({ variant, onClick, loading, toRoute, children, type }) => {
+const ButtonComponent = ({ variant, onClick, loading, toRoute, children, type, isDisabled }) => {
   const history = useHistory();
 
   return (
     <div>
       <Button
         isLoading={loading}
+        isDisabled={isDisabled}
         variant={variant}
         onClick={
           toRoute
