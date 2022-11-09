@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
@@ -12,14 +12,11 @@ import ChrisStore from '../../../../store/ChrisStore';
 import FormInput from '../../../FormInput';
 import isTouchDevice from './isTouchDevice';
 
-export class DeveloperSignup extends Component {
-  constructor(props) {
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+const DeveloperSignup = (props) => {
     const queryParams = new URLSearchParams(window.location.search);
     const emailVal = queryParams.get('email');
-    this.state = {
+
+    const [state, setState] = useState({
       loading: false,
       error: {
         message: String(),
@@ -29,80 +26,16 @@ export class DeveloperSignup extends Component {
       email: emailVal,
       password: String(),
       passwordConfirm: String(),
-    };
+    });
+  
+    const { username, email, password, passwordConfirm, error, loading, toDashboard,  } = state;
+    const { store } = props;
+
+const handleChange = (value, name) => {
+   setState({ [name]: value });
   }
 
-  handleChange(value, name) {
-    this.setState({ [name]: value });
-  }
-
-  handleSubmit(event) {
-    event.persist();
-    const { username, email, password, passwordConfirm } = this.state;
-    const { store } = this.props;
-
-    if (!username) {
-      return this.setState({
-        error: {
-          message: 'Username is required',
-          controls: ['username'],
-        },
-      });
-    }
-
-    if (!email || !validate(email)) {
-      return this.setState({
-        error: {
-          message: 'A valid Email is required',
-          controls: ['email'],
-        },
-      });
-    }
-
-    if (!password) {
-      return this.setState({
-        error: {
-          message: 'Password is required',
-          controls: ['password'],
-        },
-      });
-    }
-
-    if (!passwordConfirm) {
-      return this.setState({
-        error: {
-          message: 'Confirmation is required',
-          controls: ['confirmation'],
-        },
-      });
-    }
-
-    if (password !== passwordConfirm) {
-      return this.setState({
-        error: {
-          message: 'Password and confirmation do not match',
-          controls: ['password', 'confirmation'],
-        },
-      });
-    }
-
-    this.setState(
-      {
-        loading: true,
-        error: {
-          message: '',
-          controls: '',
-        },
-      },
-      () => store.set('userName')(username)
-    );
-
-    return this.handleStoreLogin();
-  }
-
-  async handleStoreLogin() {
-    const { username, email, password } = this.state;
-    const { store } = this.props;
+  const handleStoreLogin = async () => {
     const storeURL = process.env.REACT_APP_STORE_URL;
     const usersURL = `${storeURL}users/`;
     const authURL = `${storeURL}auth-token/`;
@@ -113,7 +46,7 @@ export class DeveloperSignup extends Component {
     } catch (e) {
       if (_.has(e, 'response')) {
         if (_.has(e, 'response.data.username')) {
-          this.setState({
+            setState({
             loading: false,
             error: {
               message: 'This username is already registered.',
@@ -121,7 +54,7 @@ export class DeveloperSignup extends Component {
             },
           });
         } else {
-          this.setState({
+          setState({
             loading: false,
             error: {
               message: 'This email is already registered.',
@@ -130,7 +63,7 @@ export class DeveloperSignup extends Component {
           });
         }
       } else {
-        this.setState({
+        setState({
           loading: false,
         });
       }
@@ -143,7 +76,7 @@ export class DeveloperSignup extends Component {
       return Promise.reject(e);
     }
 
-    return this.setState(
+    return setState(
       {
         toDashboard: true,
       },
@@ -154,23 +87,73 @@ export class DeveloperSignup extends Component {
     );
   }
 
-  render() {
-    const {
-      error,
-      loading,
-      toDashboard,
+const handleSubmit = (event) => {
+    event.persist();
 
-      username,
-      email,
-      password,
-      passwordConfirm,
-    } = this.state;
+    if (!username) {
+      return setState({
+        error: {
+          message: 'Username is required',
+          controls: ['username'],
+        },
+      });
+    }
+
+    if (!email || !validate(email)) {
+      return setState({
+        error: {
+          message: 'A valid Email is required',
+          controls: ['email'],
+        },
+      });
+    }
+
+    if (!password) {
+      return setState({
+        error: {
+          message: 'Password is required',
+          controls: ['password'],
+        },
+      });
+    }
+
+    if (!passwordConfirm) {
+      return setState({
+        error: {
+          message: 'Confirmation is required',
+          controls: ['confirmation'],
+        },
+      });
+    }
+
+    if (password !== passwordConfirm) {
+      return setState({
+        error: {
+          message: 'Password and confirmation do not match',
+          controls: ['password', 'confirmation'],
+        },
+      });
+    }
+
+     setState(
+      {
+        loading: true,
+        error: {
+          message: '',
+          controls: '',
+        },
+      },
+      () => store.set('userName')(username)
+    );
+
+    return handleStoreLogin();
+  }
 
     if (toDashboard) return <Redirect to="/dashboard" />;
 
     const disableControls = loading;
     return (
-      <Form noValidate id="developer-signup-form" onSubmit={this.handleSubmit}>
+      <Form noValidate id="developer-signup-form" onSubmit={handleSubmit}>
         <FormInput
           formLabel="Username"
           fieldId="username"
@@ -181,7 +164,7 @@ export class DeveloperSignup extends Component {
           fieldName="username"
           value={username}
           autofocus={!isTouchDevice}
-          onChange={(val) => this.handleChange(val, 'username')}
+          onChange={(val) => handleChange(val, 'username')}
           disableControls={disableControls}
           error={error}
         />
@@ -194,7 +177,7 @@ export class DeveloperSignup extends Component {
           id="email"
           fieldName="email"
           value={email}
-          onChange={(val) => this.handleChange(val, 'email')}
+          onChange={(val) => handleChange(val, 'email')}
           disableControls={disableControls}
           error={error}
         />
@@ -207,7 +190,7 @@ export class DeveloperSignup extends Component {
           id="password"
           fieldName="password"
           value={password}
-          onChange={(val) => this.handleChange(val, 'password')}
+          onChange={(val) => handleChange(val, 'password')}
           disableControls={disableControls}
           error={error}
         />
@@ -220,7 +203,7 @@ export class DeveloperSignup extends Component {
           id="password-confirm"
           fieldName="passwordConfirm"
           value={passwordConfirm}
-          onChange={(val) => this.handleChange(val, 'passwordConfirm')}
+          onChange={(val) => handleChange(val, 'passwordConfirm')}
           disableControls={disableControls}
           error={error}
         />
@@ -237,7 +220,7 @@ export class DeveloperSignup extends Component {
       </Form>
     );
   }
-}
+
 
 export default ChrisStore.withStore(DeveloperSignup);
 
