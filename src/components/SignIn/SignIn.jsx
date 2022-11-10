@@ -10,7 +10,8 @@ import {
   Card,
   CardBody,
 } from '@patternfly/react-core';
-
+import PasswordValue from '../PasswordValue';
+import {EyeIcon, EyeSlashIcon} from '@patternfly/react-icons';
 import Button from '../Button';
 import './SignIn.css';
 import chrisLogo from '../../assets/img/chris_logo-white.png';
@@ -26,12 +27,14 @@ export class SignIn extends Component {
       password: '',
       loading: false,
       error: null,
+      hidden: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.showError = this.showError.bind(this);
     this.hideError = this.hideError.bind(this);
+    this.toggleShow = this.toggleShow.bind(this);
   }
 
   componentDidMount() {
@@ -47,6 +50,10 @@ export class SignIn extends Component {
 
   handleChange(value, name) {
     this.setState({ [name]: value });
+  }
+
+  toggleShow() {
+    this.setState({ hidden: !this.state.hidden });
   }
 
   async handleSubmit(event) {
@@ -127,15 +134,17 @@ export class SignIn extends Component {
                   autoComplete="username"
                   className="signin-username-form-group"
                 />
-                <FormInput
+                <PasswordValue
                   placeholder="Password"
                   fieldName="password"
                   value={password}
-                  inputType="password"
+                  inputType={this.state.hidden ? "password" : "text"}
                   id="password"
                   onChange={(val) => this.handleChange(val, 'password')}
                   autoComplete="current-password"
                   className="signin-password-form-group"
+                  toggleShow={this.toggleShow}
+                  hidden={this.state.hidden ? <EyeIcon /> : <EyeSlashIcon />}
                 />
                 <Button
                   className="signin-login-btn"
