@@ -7,7 +7,6 @@ import {
   GridItem,
   Form,
   FormGroup,
-  TextInput,
   FileUpload,
   Alert,
   Card,
@@ -17,6 +16,7 @@ import {
 } from '@patternfly/react-core';
 import { FileIcon, UploadIcon, ExclamationTriangleIcon } from '@patternfly/react-icons';
 
+import FormInput from '../FormInput';
 import Button from '../Button';
 import './CreatePlugin.css';
 
@@ -25,15 +25,18 @@ class CreatePlugin extends Component {
     super();
 
     this.state = {
-      dragOver: false,
-      isNameValidated: 'default',
       name: String(),
-      image: String(),
-      repo: String(),
+      dock_image: String(),
+      public_repo: String(),
       pluginRepresentation: Object(),
       fileError: false,
+      error: {
+        message: String(),
+        controls: [],
+      },
       formError: null,
       success: false,
+      isDisabled: true
     };
 
     this.storeURL = process.env.REACT_APP_STORE_URL;
@@ -42,76 +45,98 @@ class CreatePlugin extends Component {
       {
         id: 'name',
         label: 'Plugin Name',
-        help: 'Choose a unique name',
-        validated: 'isNameValidated',
-        validation: async (value) => {
-          if (value.length < 5) return 'warning';
-
-          try {
-            const result = await this.Client().getPluginMetas({
-              name_title_category: value,
-            });
-            if (result.data.length === 0) return 'success';
-            return 'error';
-          } catch (error) {
-            return 'warning';
-          }
-        },
+        placeholder: 'Choose a unique name',
       },
       {
-        id: 'image',
+        id: 'dock_image',
         label: 'Docker Image',
-        help: 'DockerHub URL of the image to be used',
+        placeholder: 'DockerHub URL of the image to be used',
       },
       {
-        id: 'repo',
+        id: 'public_repo',
         label: 'Repository',
-        help: 'Public URL to your source code',
+        placeholder: 'Public URL to your source code',
       },
     ];
 
     [
       'setFileError', 'handleError', 'hideError', 'handleChange',
-      'handleFile', 'readFile', 'handleSubmit',
+      'handleFile', 'readFile', 'handleSubmit', 'validatePluginName'
     ].forEach((method) => {
       this[method] = this[method].bind(this);
     });
   }
 
+  // eslint-disable-next-line consistent-return
   handleError(message) {
     let errorObj;
     try {
       errorObj = JSON.parse(message);
       if (Object.prototype.hasOwnProperty.call(errorObj, 'non_field_errors')) {
-        this.setState({
+        return this.setState({
           formError: errorObj.non_field_errors,
         });
-      } else if (Object.prototype.hasOwnProperty.call(errorObj, 'public_repo')) {
-        this.setState({
-          formError: errorObj.public_repo,
-        });
-      } else {
+      } 
+      
+      if (Object.prototype.hasOwnProperty.call(errorObj, 'public_repo')) {
+        return this.setState({
+          error: {
+            message: errorObj.public_repo,
+            controls: ['public_repo']
+          }
+        })
+      } 
+      if (Object.prototype.hasOwnProperty.call(errorObj, 'dock_image')) {
+        return this.setState({
+          error: {
+            message: errorObj.dock_image,
+            controls: ['dock_image']
+          }
+        })
+      } 
+
+      if (Object.prototype.hasOwnProperty.call(errorObj, 'descriptor_file')) {
+        return this.setState({ formError: errorObj.descriptor_file });
+      } 
+
         this.setState({ formError: message });
-      }
+      
     } catch (e) {
-      this.setState({ formError: message });
+      return this.setState({ formError: message });
     }
   }
 
-  handleChange(value, { target }, check) {
-    const nextState = { [target.name]: value };
-    this.setState(nextState);
-
-    if (check) {
-      check.validation(value).then((status) => {
-        this.setState({
-          [check.validated]: status,
-        });
+  
+  // eslint-disable-next-line react/sort-comp
+async validatePluginName(value) {
+    try {
+      const result = await this.Client().getPluginMetas({
+        name_title_category: value,
       });
+      if (result.data.length === 0) return 'success';
+      return 'error';
+    } catch (error) {
+      return 'warning';
+    }
+}
+
+
+ handleChange(value, name) {
+    // eslint-disable-next-line camelcase
+    const {dock_image, public_repo} = this.state
+
+    this.setState({ [name]: value });
+
+    if ((name.length < 5) || (dock_image.length <= 1) || (public_repo.length <= 1)) {
+      this.setState({isDisabled: true})
+    } else {
+      this.setState({isDisabled: false})
     }
   }
 
+  // eslint-disable-next-line consistent-return
   handleFile(value, filename) {
+
     if (value && value.type === 'application/json') {
       this.setState({ fileName: filename });
       this.readFile(value)
@@ -126,35 +151,58 @@ class CreatePlugin extends Component {
     }
   }
 
-  async handleSubmit() {
+  async handleSubmit(event) {
+    event.preventDefault()
+    event.persist()
     const {
       name: pluginName,
-      image: pluginImage,
-      repo: pluginRepo,
+      dock_image: pluginImage,
+      public_repo: pluginRepo,
       pluginRepresentation,
-    } = this.state;
+    } = this.state;    
 
-    // Array to store the errors
-    const errors = [];
-    let missingRepresentationString = '';
     const inputImage = pluginImage.trim();
+
+    if (pluginName.length < 5) {
+      this.setState({ error: { message: "Name needs at least 5 characters", controls: ['name']}});
+    }
+
+    if (pluginName) {
+      // validate if name already exists
+      await this.validatePluginName(pluginName).then((status) => {
+        if (status === 'error') {
+          this.setState({ error: { message: "Name is already in use", controls: ['name']}});
+        }
+        if (status === "warning") {
+          this.setState({ error: { message: "", controls: ['name']}});
+        }
+      })
+    }
     if (inputImage) {
       if (inputImage.endsWith(':latest')) {
-        this.handleError(
+        return this.setState({
+          error: {
+            message:
           <span>
             The
             <code>:latest</code>
             tag is discouraged.
           </span>,
-        );
-      } else if (!inputImage.includes(':')) {
+          controls: ['dock_image']
+          }
+        });
+      }
+
+      if (!inputImage.includes(':')) {
         /**
          * @todo
          * We can provide specific feedback based on the plugin's JSON description,
          * if it is uploaded.
          */
         const tag = inputImage.split(':')[0];
-        this.handleError(
+        return this.setState({
+        error: {
+          message: 
           <div>
             <p>
               Please tag your Docker image by version.
@@ -174,49 +222,14 @@ class CreatePlugin extends Component {
               </CodeBlockCode>
             </CodeBlock>
           </div>,
-        );
+          controls: ['dock_image']
+        }
+          })
       }
     }
 
-    if (!(
-      pluginName.trim() && pluginImage.trim() &&
-      pluginRepo.trim() && pluginRepresentation &&
-      Object.keys(pluginRepresentation).length > 0
-    )) {
-      // Checks for individual field completion
-      if (!pluginName.trim()) {
-        errors.push('Plugin Name');
-      }
-      if (!pluginImage.trim()) {
-        errors.push('Docker Image');
-      }
-      if (!pluginRepo.trim()) {
-        errors.push('Public Repo');
-      }
-      if (!Object.keys(pluginRepresentation).length > 0) {
-        missingRepresentationString = 'upload the plugin representation and ';
-      }
-
-      // If all the fields are empty in submission
-      if (errors.length === 3 && missingRepresentationString !== '') {
-        return this.handleError('All fields are required.');
-      // If one fields is empty
-      } if (errors.length === 1) {
-        return this.handleError(`Please ${missingRepresentationString}enter
-          the ${errors[0]}`);
-      // If two fields are empty
-      } if (errors.length === 2) {
-        return this.handleError(`Please ${missingRepresentationString}enter
-          the ${errors[0]} and ${errors[1]}`);
-      // If more than Plugin Representation or two fields are empty or
-      }
-      // If only the Plugin Representation is missing
-      if (errors.length === 0) {
-        return this.handleError('Please upload the plugin representation');
-      }
-      const lastError = errors.pop();
-      return this.handleError(`Please ${missingRepresentationString}enter
-          the ${errors.join(', ')}, and ${lastError}`);
+    if(!Object.keys(pluginRepresentation).length) {
+      return this.handleError('Please upload the plugin representation')
     }
 
     const fileData = JSON.stringify(pluginRepresentation);
@@ -232,14 +245,16 @@ class CreatePlugin extends Component {
     const client = this.Client();
 
     let newPlugin;
+
     try {
+      if (!this.formError) {
       const resp = await client.createPlugin(pluginData, fileObj);
       newPlugin = resp.data;
+      }
     } catch ({ message }) {
       return this.handleError(message);
     }
 
-    this.hideError();
     this.setState({ success: true, newPlugin });
     return newPlugin;
   }
@@ -293,7 +308,7 @@ class CreatePlugin extends Component {
 
   render() {
     const {
-      fileName, fileError, formError, success, newPlugin,
+      fileName, fileError, formError, success, newPlugin, error, isDisabled
     } = this.state;
 
     let pluginId;
@@ -303,18 +318,21 @@ class CreatePlugin extends Component {
 
     // generate formGroups based on data
     const PluginFormDataGroups = this.formGroupsData.map(
-      ({ id, label, help, validated, validation  }) => (
-        <FormGroup label={label} key={id} type="text">
-          <TextInput id={id} name={id}
-            autoComplete="off"
-            // eslint-disable-next-line react/destructuring-assignment
-            validated={validated ? this.state[validated] : undefined}
-            // eslint-disable-next-line react/destructuring-assignment
-            value={this.state[id]}
-            onChange={!validated ? this.handleChange : (
-              (...args) => this.handleChange(...args, { validated, validation })
-            )}
-            placeholder={help}
+
+      ({ id, label, placeholder }) => (
+      
+        <FormGroup label={label} key={id}>
+
+          <FormInput 
+            fieldId={id} 
+            name={id}
+            validationState={error.controls.includes(id) ? 'error' : 'default'}
+            placeholder={placeholder}
+            inputType="text"
+            id={id}
+            fieldName={id}
+            onChange={(val) => this.handleChange(val, id)}
+            error={error}
             isRequired
           />
         </FormGroup>
@@ -357,7 +375,7 @@ class CreatePlugin extends Component {
                       className="createplugin-message"
                       variant="danger"
                       title={formError}
-                      timeout={5000}
+                      // timeout={5000}
                     />
                   </GridItem>
                 ) : null
@@ -393,23 +411,24 @@ class CreatePlugin extends Component {
                     <Form id="createplugin-form">
                       { PluginFormDataGroups }
 
-                      <FormGroup label="Representation File" id="createplugin-upload">
+                      <FormGroup label="Representation File" id="createplugin-upload " isRequired>
                         <div id="createplugin-upload-file">
                           <span id="createplugin-upload-icon">
                             { // eslint-disable-next-line no-nested-ternary
                               fileError ? <ExclamationTriangleIcon /> : (
                               !fileName ? <UploadIcon /> : <FileIcon />
                             )}
+                            
                           </span>
                           <FileUpload
                             id="createplugin-upload-fileupload"
                             className="fileupload"
                             type="file"
-                            isRequired
                             accept=".json"
                             browseButtonText="Select File"
                             filename={fileName}
-                            onChange={this.handleFile}
+                            onChange={((val) => this.handleFile(val, val.name))}
+                            isRequired
                           />
                         </div>
                       </FormGroup>
@@ -417,6 +436,8 @@ class CreatePlugin extends Component {
                       <Button
                         id="createplugin-create-btn"
                         variant="primary"
+                        type="submit"
+                        isDisabled={isDisabled}
                         onClick={this.handleSubmit}
                       >
                         Create
