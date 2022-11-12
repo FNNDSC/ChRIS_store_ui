@@ -53,7 +53,7 @@
   fill: rgb(201, 25, 11)
 }
 
-.file-error {
+.error-message {
   display: block;
   color: rgb(201, 25, 11);
   padding-top: 0.25em

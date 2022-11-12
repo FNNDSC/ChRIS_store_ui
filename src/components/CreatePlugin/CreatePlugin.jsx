@@ -181,9 +181,6 @@ async handleSubmit(event) {
         if (status === 'error') {
         return this.setState({ error: { message: "Name is already in use", controls: ['name']}});
         }
-        if (status === "warning") {
-          return this.setState({ error: { message: "", controls: ['name']}});
-        }
       })
     }
 
@@ -192,10 +189,10 @@ async handleSubmit(event) {
         return this.setState({
           error: {
             message:
-          <span>
-            The
+          <span className='error-message'>
+            The 
             <code>:latest</code>
-            tag is discouraged.
+              tag is discouraged.
           </span>,
           controls: ['dock_image']
           }
@@ -213,13 +210,13 @@ async handleSubmit(event) {
         error: {
           message: 
           <div>
-            <p>
+            <p className='error-message'>
               Please tag your Docker image by version.
               <br />
               Example:
             </p>
             <CodeBlock>
-              <CodeBlockCode>
+              <CodeBlockCode className='error-message'>
                 docker tag
                 {tag}
                 {tag}
@@ -439,7 +436,7 @@ async handleSubmit(event) {
                             isRequired
                           />
                           </div>
-                          <p className={error.controls.includes('file') ? 'file-error' : `no-file-error`}><ExclamationTriangleIcon className='create-plugin-error-triangle'/> {error.message}</p>
+                          <p className={error.controls.includes('file') ? 'error-message' : `no-file-error`}><ExclamationTriangleIcon className='create-plugin-error-triangle'/> {error.message}</p>
                         </div>
                       </FormGroup>
 
