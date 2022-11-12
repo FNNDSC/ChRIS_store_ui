@@ -2,7 +2,6 @@
   display: flex;
   margin: 2em auto;
   margin-bottom: 8em;
-
   flex-direction: column;
 }
 
@@ -15,11 +14,20 @@
   margin: auto;
 }
 
+.createplugin-message {
+  color: rgb(201, 25, 11)
+}
+
 /* ============ INPUT =========== */
 
 #createplugin-upload {
   height: 100%;
   margin: 0;
+}
+
+#createplugin-upload-file-container {
+  display: flex;
+  flex-direction: column;
 }
 
 #createplugin-upload-file {
@@ -32,11 +40,25 @@
 } #createplugin-upload-file .fileupload input {
   height: 3em;
   background-color: lightgray !important;
-  border: none;
+  border: none
 }
 #createplugin-upload-icon {
   background-color: lightgray !important;
   padding: 0.25em 0.5em;
   padding-right: 0;
   font-size: 1.5em;
+}
+
+.create-plugin-error-triangle {
+  fill: rgb(201, 25, 11)
+}
+
+.error-message {
+  display: block;
+  color: rgb(201, 25, 11);
+  padding-top: 0.25em
+}
+
+.no-file-error {
+ display: none;
 }
