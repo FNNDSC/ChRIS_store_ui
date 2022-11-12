@@ -29,6 +29,7 @@ class CreatePlugin extends Component {
       dock_image: String(),
       public_repo: String(),
       pluginRepresentation: Object(),
+      isNameValidated: 'default',
       fileName: '',
       formError: null,
       fileUploadError: false,
@@ -47,6 +48,22 @@ class CreatePlugin extends Component {
         id: 'name',
         label: 'Plugin Name',
         placeholder: 'Choose a unique name',
+        validated: 'isNameValidated',
+        validation: async (value) => {
+          if (value.length < 5) return 'warning';
+
+          try {
+            const result = await this.Client().getPluginMetas({
+              name_title_category: value,
+            });
+            if (result.data.length === 0) return 'success';
+            return 'error' && 
+            this.setState({ error: { message: "Name is already in use", controls: ['name']}});
+
+          } catch (error) {
+            return 'warning';
+          }
+        },
       },
       {
         id: 'dock_image',
@@ -83,7 +100,7 @@ class CreatePlugin extends Component {
       if (Object.prototype.hasOwnProperty.call(errorObj, 'public_repo')) {
         return this.setState({
           error: {
-            message: errorObj.public_repo,
+            message: errorObj.public_repo.toString(),
             controls: ['public_repo']
           }
         })
@@ -112,28 +129,20 @@ class CreatePlugin extends Component {
     }
   }
 
-  
-  // eslint-disable-next-line react/sort-comp
-async validatePluginName(value) {
-    try {
-      const result = await this.Client().getPluginMetas({
-        name_title_category: value,
-      });
-      if (result.data.length === 0) return 'success';
-      return 'error';
-    } catch (error) {
-      return 'warning';
-    }
-}
-
-
-handleChange(value, name) {
+  handleChange(value, {target}, check) {
     // eslint-disable-next-line camelcase
-    const {dock_image, public_repo} = this.state
+    const {name, dock_image, public_repo} = this.state
+    const nextState = { [target.name]: value };
+    this.setState(nextState);
 
-    this.setState({ [name]: value });
-
-    if (name.length < 5 || dock_image.length <= 1 || public_repo.length <= 1) {
+    if (check) {
+      check.validation(value).then((status) => {
+        this.setState({
+          [check.validated]: status,
+        });
+      });
+    }
+    if ((name.length < 5) || (dock_image.length <= 1) || (public_repo.length <= 1)) {
       this.setState({isDisabled: true})
     } else {
       this.setState({isDisabled: false})
@@ -161,6 +170,7 @@ async handleSubmit(event) {
     event.preventDefault()
     event.persist()
     this.resetError()
+
     const {
       name: pluginName,
       dock_image: pluginImage,
@@ -169,20 +179,6 @@ async handleSubmit(event) {
     } = this.state;    
 
     const inputImage = pluginImage.trim();
-
-    if (pluginName.length < 5) {
-    return this.setState({ error: { message: "Name needs at least 5 characters", controls: ['name']}});
-    }
-
-    if (pluginName) {
-      // validate if name already exists in database
-      // eslint-disable-next-line consistent-return
-      await this.validatePluginName(pluginName).then((status) => {
-        if (status === 'error') {
-        return this.setState({ error: { message: "Name is already in use", controls: ['name']}});
-        }
-      })
-    }
 
     if (inputImage) {
       if (inputImage.endsWith(':latest')) {
@@ -325,20 +321,21 @@ async handleSubmit(event) {
     // generate formGroups based on data
     const PluginFormDataGroups = this.formGroupsData.map(
 
-      ({ id, label, placeholder }) => (
-      
+      ({ id, label, placeholder, validated, validation }) => (
         <FormGroup label={label} key={id}>
-
           <FormInput 
             fieldId={id} 
             name={id}
-            validationState={error.controls.includes(id) ? 'error' : 'default'}
             placeholder={placeholder}
             inputType="text"
             id={id}
             fieldName={id}
-            onChange={(val) => this.handleChange(val, id)}
             error={error}
+            // eslint-disable-next-line no-nested-ternary, react/destructuring-assignment
+            validationState={validated ? this.state[validated] : error.controls.includes(id) ? 'error' : 'default'}
+            onChange={!validated ? this.handleChange : (
+              (...args) => this.handleChange(...args, { validated, validation })
+            )}
             isRequired
           />
         </FormGroup>
@@ -436,7 +433,7 @@ async handleSubmit(event) {
                             isRequired
                           />
                           </div>
-                          <p className={error.controls.includes('file') ? 'error-message' : `no-file-error`}><ExclamationTriangleIcon className='create-plugin-error-triangle'/> {error.message}</p>
+                          <div className={error.controls.includes('file') ? 'error-message' : `no-file-error`}><ExclamationTriangleIcon className='create-plugin-error-triangle'/> {error.message}</div>
                         </div>
                       </FormGroup>
 
@@ -462,3 +459,4 @@ async handleSubmit(event) {
 }
 
 export default CreatePlugin;
+
