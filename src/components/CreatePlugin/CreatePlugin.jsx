@@ -133,7 +133,7 @@ handleChange(value, name) {
 
     this.setState({ [name]: value });
 
-    if ((name.length < 5) || (dock_image.length <= 1) || (public_repo.length <= 1)) {
+    if (name.length < 5 || dock_image.length <= 1 || public_repo.length <= 1) {
       this.setState({isDisabled: true})
     } else {
       this.setState({isDisabled: false})
@@ -418,6 +418,7 @@ async handleSubmit(event) {
                       { PluginFormDataGroups }
 
                       <FormGroup label="Representation File" id="createplugin-upload " isRequired>
+                        <div id="createplugin-upload-file-container">
                         <div id="createplugin-upload-file">
                           <span id="createplugin-upload-icon">
                             { // eslint-disable-next-line no-nested-ternary
@@ -426,6 +427,7 @@ async handleSubmit(event) {
                             )}
 
                           </span>
+                          
                           <FileUpload
                             id="createplugin-upload-fileupload"
                             className="fileupload"
@@ -436,8 +438,9 @@ async handleSubmit(event) {
                             onChange={((val) => this.handleFile(val, val.name))}
                             isRequired
                           />
+                          </div>
+                          <p className={error.controls.includes('file') ? 'file-error' : `no-file-error`}><ExclamationTriangleIcon className='create-plugin-error-triangle'/> {error.message}</p>
                         </div>
-                        <p className={error.controls.includes('file') ? 'file-error' : `no-file-error`}><ExclamationTriangleIcon className='create-plugin-error-triangle'/> {error.message}</p>
                       </FormGroup>
 
                       <Button

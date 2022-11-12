@@ -25,6 +25,11 @@
   margin: 0;
 }
 
+#createplugin-upload-file-container {
+  display: flex;
+  flex-direction: column;
+}
+
 #createplugin-upload-file {
   display: flex;
   flex-direction: row;
