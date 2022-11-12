@@ -29,12 +29,13 @@ class CreatePlugin extends Component {
       dock_image: String(),
       public_repo: String(),
       pluginRepresentation: Object(),
-      fileError: false,
+      fileName: '',
+      formError: null,
+      fileUploadError: false,
       error: {
         message: String(),
         controls: [],
       },
-      formError: null,
       success: false,
       isDisabled: true
     };
@@ -60,11 +61,12 @@ class CreatePlugin extends Component {
     ];
 
     [
-      'setFileError', 'handleError', 'hideError', 'handleChange',
-      'handleFile', 'readFile', 'handleSubmit', 'validatePluginName'
+      'setFileError', 'handleError', 'resetError', 'handleChange',
+      'handleFile', 'readFile', 'handleSubmit',
     ].forEach((method) => {
       this[method] = this[method].bind(this);
     });
+
   }
 
   // eslint-disable-next-line consistent-return
@@ -96,7 +98,11 @@ class CreatePlugin extends Component {
       } 
 
       if (Object.prototype.hasOwnProperty.call(errorObj, 'descriptor_file')) {
-        return this.setState({ formError: errorObj.descriptor_file });
+        return this.setState({
+          error: {
+            message: errorObj.descriptor_file,
+            controls: ['file']
+          } });
       } 
 
         this.setState({ formError: message });
@@ -121,7 +127,7 @@ async validatePluginName(value) {
 }
 
 
- handleChange(value, name) {
+handleChange(value, name) {
     // eslint-disable-next-line camelcase
     const {dock_image, public_repo} = this.state
 
@@ -134,8 +140,8 @@ async validatePluginName(value) {
     }
   }
 
-  // eslint-disable-next-line consistent-return
-  handleFile(value, filename) {
+// eslint-disable-next-line consistent-return
+handleFile(value, filename) {
 
     if (value && value.type === 'application/json') {
       this.setState({ fileName: filename });
@@ -151,9 +157,10 @@ async validatePluginName(value) {
     }
   }
 
-  async handleSubmit(event) {
+async handleSubmit(event) {
     event.preventDefault()
     event.persist()
+    this.resetError()
     const {
       name: pluginName,
       dock_image: pluginImage,
@@ -164,20 +171,22 @@ async validatePluginName(value) {
     const inputImage = pluginImage.trim();
 
     if (pluginName.length < 5) {
-      this.setState({ error: { message: "Name needs at least 5 characters", controls: ['name']}});
+    return this.setState({ error: { message: "Name needs at least 5 characters", controls: ['name']}});
     }
 
     if (pluginName) {
-      // validate if name already exists
+      // validate if name already exists in database
+      // eslint-disable-next-line consistent-return
       await this.validatePluginName(pluginName).then((status) => {
         if (status === 'error') {
-          this.setState({ error: { message: "Name is already in use", controls: ['name']}});
+        return this.setState({ error: { message: "Name is already in use", controls: ['name']}});
         }
         if (status === "warning") {
-          this.setState({ error: { message: "", controls: ['name']}});
+          return this.setState({ error: { message: "", controls: ['name']}});
         }
       })
     }
+
     if (inputImage) {
       if (inputImage.endsWith(':latest')) {
         return this.setState({
@@ -227,9 +236,9 @@ async validatePluginName(value) {
           })
       }
     }
-
+   
     if(!Object.keys(pluginRepresentation).length) {
-      return this.handleError('Please upload the plugin representation')
+      return this.setState({fileUploadError: true, error: { message: 'Please upload the plugin representation', controls: ['file']}})
     }
 
     const fileData = JSON.stringify(pluginRepresentation);
@@ -245,7 +254,7 @@ async validatePluginName(value) {
     const client = this.Client();
 
     let newPlugin;
-
+ 
     try {
       if (!this.formError) {
       const resp = await client.createPlugin(pluginData, fileObj);
@@ -263,9 +272,9 @@ async validatePluginName(value) {
     this.setState((prevState) => {
       const nextState = {};
       if (typeof state !== 'undefined') {
-        nextState.fileError = state;
+        nextState.fileUploadError = state;
       } else {
-        nextState.fileError = !prevState.fileError;
+        nextState.fileUploadError = !prevState.fileError;
       }
       return nextState;
     });
@@ -286,7 +295,7 @@ async validatePluginName(value) {
             reject(invalidRepresentation);
           }
 
-          this.setState({ pluginRepresentation, fileError: false }, resolve);
+          this.setState({ pluginRepresentation, fileUploadError: false }, resolve);
         };
 
         reader.onerror = () => reject(invalidRepresentation);
@@ -302,13 +311,13 @@ async validatePluginName(value) {
     return new Client(this.storeURL, { token });
   }
 
-  hideError() {
-    this.setState({ formError: null });
+  resetError() {
+    this.setState({ formError: null,  fileUploadError: false, error: {message: '', controls: []}});
   }
 
   render() {
     const {
-      fileName, fileError, formError, success, newPlugin, error, isDisabled
+      fileName, fileUploadError, formError, success, newPlugin, error, isDisabled,
     } = this.state;
 
     let pluginId;
@@ -371,12 +380,9 @@ async validatePluginName(value) {
               {
                 formError ? (
                   <GridItem xs={12}>
-                    <Alert
-                      className="createplugin-message"
-                      variant="danger"
-                      title={formError}
-                      // timeout={5000}
-                    />
+                    <div className="createplugin-message">
+                    <ExclamationTriangleIcon className='create-plugin-error-triangle'/> {formError}
+                    </div>
                   </GridItem>
                 ) : null
               }
@@ -415,10 +421,10 @@ async validatePluginName(value) {
                         <div id="createplugin-upload-file">
                           <span id="createplugin-upload-icon">
                             { // eslint-disable-next-line no-nested-ternary
-                              fileError ? <ExclamationTriangleIcon /> : (
+                              fileUploadError ? <ExclamationTriangleIcon className='create-plugin-error-triangle'/> : (
                               !fileName ? <UploadIcon /> : <FileIcon />
                             )}
-                            
+
                           </span>
                           <FileUpload
                             id="createplugin-upload-fileupload"
@@ -431,6 +437,7 @@ async validatePluginName(value) {
                             isRequired
                           />
                         </div>
+                        <p className={error.controls.includes('file') ? 'file-error' : `no-file-error`}><ExclamationTriangleIcon className='create-plugin-error-triangle'/> {error.message}</p>
                       </FormGroup>
 
                       <Button
