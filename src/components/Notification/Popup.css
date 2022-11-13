@@ -1,0 +1,160 @@
+.modal_wrapper {
+  z-index: 2999;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.338);
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.modal_container {
+  position: fixed;
+  z-index: 3000;
+  transition: .3s ease;
+  display: flex;
+  justify-content: space-between;
+  height: max-content;
+  border-radius:12px;
+  box-shadow: 0 0 10px rgb(85, 84, 84);
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  width: 35vw;
+  height: auto;
+  backdrop-filter: blur(5px);
+
+}
+      
+.modal_close_icon {
+  color: white;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.5rem
+}
+
+.modal_status_icon{
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.5rem
+}
+
+.modal_bar {
+  align-self: flex-end;
+  border-radius: 10px 10px 0 0 ;
+}
+
+.modal_content {
+  display: flex;
+  width: inherit;
+  border-radius: 0 0 10px 10px;
+  padding: 1rem 0.75rem;
+  background-color: white;
+}
+
+.modal_message {
+  font-size: 20px;
+  line-height: 2em;
+  padding-left: 0.5rem;
+}
+
+.modal_bar_content {
+  width: 35vw;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal_close_button {
+  background: transparent;
+  border: none;
+  align-self: flex-end;
+}
+
+.top-right {
+  top: 100px;
+  right: 12px;
+  transition: transform .3s ease-in-out;
+  animation: notification-in-down .3s;
+}
+    
+.bottom-right {
+  bottom: 12px;
+  right: 12px;
+  transition: transform .3s ease-in-out;
+  animation: notification-in-up .3s;
+}
+    
+.top-left {
+  top: 100px;
+  left: 12px;
+  transition: transform .3s ease-in;
+  animation: notification-in-down .3s;
+}
+    
+.bottom-left {
+  bottom: 12px;
+  left: 12px;
+  transition: transform .3s ease-in;
+  animation: notification-in-up .3s;
+}
+
+.center {
+  left: 35%;
+  top: 35%;
+  transition: transform .3s ease-in;
+  animation: notification-in-up .3s;
+}
+
+.danger {
+  background-color: rgb(201, 25, 11);
+}
+
+.danger_content {
+  color: rgb(201, 25, 11)
+}
+
+.warning {
+  background-color: rgba(255, 98, 0);
+}
+
+.warning_content {
+  color: rgb(237, 114, 37);
+}
+
+
+.success {
+  background-color: rgba(27, 235, 12);
+}
+
+.success_content {
+  color: rgb(47, 193, 37);
+}
+
+@media (min-width: 768px) {
+  .top-right {
+      top: 115px;
+  }
+}
+@keyframes notification-in-down {
+  from {
+      transform: translateY(-100%);
+      opacity: 0;
+  }
+
+  to {
+      transform: translateY(0);
+      opacity: 0.9;
+  }
+}
+
+@keyframes notification-in-up {
+  from {
+      transform: translateY(-100%);
+  }
+
+  to {
+      transform: translateY(0);
+  }
+}

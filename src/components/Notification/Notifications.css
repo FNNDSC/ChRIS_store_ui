@@ -30,7 +30,7 @@
 }
 
 .top-left {
-    top: 12px;
+    top: 100px;
     left: 12px;
     transition: transform .3s ease-in;
     animation: notification-in-down .3s;
