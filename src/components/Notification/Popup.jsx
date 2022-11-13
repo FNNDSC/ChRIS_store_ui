@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import PropTypes from 'prop-types';
-import "./popup.css";
+import "./Popup.css";
 import { CheckCircleIcon, ExclamationCircleIcon, ExclamationTriangleIcon, TimesIcon } from "@patternfly/react-icons";
 
 const Popup = ({position, variant, title, closeable, timeout}) => {
