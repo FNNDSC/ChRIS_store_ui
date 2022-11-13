@@ -21,10 +21,11 @@ import { marked } from 'marked';
 import { sanitize } from 'dompurify';
 
 import './PluginBody.css';
-import ErrorNotification from '../../../Notification';
+// import ErrorNotification from '../../../Notification';
 import HttpApiCallError from '../../../../errors/HttpApiCallError';
 import { GithubAPIRepoError, GithubAPIReadmeError } from '../../../../errors/GithubError';
 import { removeEmail } from '../../../../utils/common';
+import Popup from '../../../Notification/Popup';
 
 const PluginBody = ({ pluginData }) => {
   const [activeTab, setActiveTab] = useState(1);
@@ -117,7 +118,8 @@ const PluginBody = ({ pluginData }) => {
   return (
     <>
       { errors.map((message, index) => (
-        <ErrorNotification
+        <Popup
+          key='index'
           title={message}
           position="top-right"
           variant="danger"
