@@ -6,22 +6,20 @@ import { CheckCircleIcon, ExclamationCircleIcon, ExclamationTriangleIcon, TimesI
 const Popup = ({position, variant, title, closeable, timeout}) => {
     const [alertVisible, setAlertVisible] = useState(true)
 
+    const handleClose = () =>  setAlertVisible(false)
 
-const ClosePopUp = () =>  setAlertVisible(false)
-
-
-const closeAlert = () => setAlertVisible(false)
-
-if (closeable) setTimeout(ClosePopUp, timeout ?? 7000)
+if (closeable) setTimeout(handleClose, timeout ?? 7000)
 
 return (
-    <div className={alertVisible ? 'modal_wrapper' : ''}>
+    // onClick event handler on the main div makes it possible to close the notification if a user clicks anywhere on the screen
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+    <div className={alertVisible ? 'modal_wrapper' : ''} onClick={() => handleClose()}>
     <div className={`modal_container ${position}`}>
         {alertVisible && ( 
         <div className='modal'>
             <div className={`modal_bar ${variant}`}>
                 <div className="modal_bar_content">
-                <button className='modal_close_button' type='button' onClick={() => closeAlert()}>
+                <button className='modal_close_button' type='button' onClick={() => handleClose()}>
                 <TimesIcon className="modal_close_icon" />
                 </button>
                 </div>
